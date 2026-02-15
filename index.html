@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Talas_master | Смета</title>
-    <!-- Подключение Tailwind CSS через CDN (стили) -->
+    <title>Talas_master | Прайс и Переговоры</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
-        /* Индустриальная цветовая палитра */
         body { 
             background-color: #000000; 
             color: #ffffff; 
@@ -18,202 +17,270 @@
         .gold-bg { background-color: #FBBF24; }
         .gold-border { border-color: #FBBF24; }
         
-        /* Стили элементов управления */
-        input { 
-            background: #111; 
-            border: 1px solid #333; 
+        input, textarea { 
+            background: #0f0f0f; 
+            border: 1px solid #222; 
             color: white; 
-            padding: 12px; 
+            padding: 8px; 
             border-radius: 8px; 
             width: 100%;
-            font-size: 16px; /* Предотвращает авто-зум на iPhone */
+            font-size: 14px;
         }
-        input:focus { border-color: #FBBF24; outline: none; }
-        input:disabled { opacity: 0.5; border-style: dashed; cursor: not-allowed; }
+        
+        .master-only { display: none !important; }
+        body.is-master .master-only { display: flex !important; }
+        body.is-master .master-only-block { display: block !important; }
+        
+        input:disabled, textarea:readonly { 
+            opacity: 0.9; 
+            border-color: transparent;
+            background: transparent;
+        }
 
         .card { 
             background: #0a0a0a; 
-            border: 1px solid #222; 
+            border: 1px solid #1a1a1a; 
             border-radius: 12px; 
-            padding: 16px; 
-            margin-bottom: 12px; 
-            position: relative; 
-            transition: all 0.2s;
+            padding: 12px; 
+            margin-bottom: 8px; 
+            position: relative;
         }
 
-        /* Настройки для печати PDF */
-        @media print {
-            @page { margin: 1cm; }
-            body { background: white !important; color: black !important; padding: 0 !important; }
-            .no-print { display: none !important; }
-            .card { 
-                border: none !important; 
-                border-bottom: 1px solid #eee !important; 
-                background: white !important; 
-                display: block !important;
-                margin: 0 !important;
-                padding: 10px 0 !important;
-            }
-            input { 
-                color: black !important; 
-                border: none !important; 
-                background: none !important; 
-                padding: 0 !important; 
-                font-weight: normal !important;
-                font-size: 11pt !important;
-            }
-            .gold-text { color: black !important; }
-            .print-only { display: block !important; }
-            .row-total { font-weight: bold !important; font-size: 12pt !important; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+            gap: 10px;
         }
-        .print-only { display: none; }
+
+        #previewModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        /* ПЕЧАТНЫЙ СТИЛЬ */
+        .pdf-page {
+            background: white;
+            color: black;
+            width: 210mm;
+            min-height: 297mm;
+            margin: 0 auto;
+            padding: 15mm;
+            box-sizing: border-box;
+        }
+
+        .compact-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .compact-table th {
+            border-bottom: 2px solid black;
+            padding: 8px;
+            font-size: 9px;
+            text-transform: uppercase;
+            text-align: left;
+        }
+        .compact-table td {
+            border-bottom: 1px solid #eee;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+        .client-price-col { background-color: #fffbeb; font-weight: bold; }
+
+        @media print {
+            .no-print { display: none !important; }
+            #previewModal { display: block !important; position: static; background: white; }
+            .pdf-page { margin: 0; width: 100%; padding: 5mm; }
+        }
     </style>
 </head>
-<body class="pb-36">
+<body class="pb-32">
 
-    <!-- Интерфейс приложения -->
-    <header class="p-6 border-b gold-border sticky top-0 bg-black z-50 flex justify-between items-center no-print shadow-lg">
-        <div onclick="unlockMode()">
-            <h1 id="mainTitle" class="text-2xl font-black gold-text select-none cursor-pointer tracking-tighter">TALAS_MASTER</h1>
-            <p class="text-[8px] uppercase tracking-[0.2em] opacity-60">Professional Service</p>
+    <header class="p-4 border-b gold-border sticky top-0 bg-black/95 backdrop-blur-md z-50 flex justify-between items-center no-print">
+        <div id="secretTrigger" class="flex items-center gap-2 cursor-pointer select-none">
+            <div class="w-8 h-8 gold-bg flex items-center justify-center rounded text-black font-black text-xs">TM</div>
+            <h1 class="text-md font-black gold-text tracking-tighter uppercase">Talas_master</h1>
         </div>
-        <div class="text-right text-xs">
-            <p class="font-bold">+996 755 000 228</p>
-            <p id="date" class="text-gray-500 text-[10px]"></p>
+        <div class="text-right">
+            <p class="text-[10px] font-bold">+996 755 000 228</p>
+            <p id="date" class="text-[8px] text-zinc-500 uppercase"></p>
         </div>
     </header>
 
-    <main class="p-4" id="app">
-        <!-- Шапка для PDF -->
-        <div class="print-only text-center border-b-2 border-black pb-4 mb-6">
-            <h1 class="text-4xl font-black tracking-tighter">TALAS_MASTER</h1>
-            <p class="text-sm uppercase tracking-widest mt-1">Индустриальные решения • Электрика</p>
-            <div class="flex justify-between mt-6 text-[10px] font-bold border-t border-black pt-2 uppercase">
-                <span>Дата: <span id="printDate"></span></span>
-                <span>Тел: +996 755 000 228</span>
-            </div>
-            <h2 class="text-xl font-bold mt-4 uppercase border-y border-black py-2">Смета на выполнение работ</h2>
+    <main class="p-3 no-print">
+        <div class="mb-4 bg-zinc-900/50 p-3 rounded-xl border border-zinc-800">
+            <p class="text-[10px] text-yellow-500 font-bold uppercase tracking-wider text-center">
+                Введите «Цену Заказчика», чтобы сравнить её с прайсом
+            </p>
         </div>
 
-        <div id="list">
-            <!-- Сюда будут добавляться услуги -->
+        <div id="list" class="grid-container">
+            <!-- Услуги -->
         </div>
 
-        <button onclick="addItem()" class="no-print w-full border-2 border-dashed border-gray-800 py-6 rounded-xl text-gray-500 font-bold mt-4 uppercase text-[10px] tracking-widest active:bg-gray-900 transition-colors">
-            + Добавить новую услугу в список
+        <button id="addBtn" onclick="addItem()" class="master-only-block hidden w-full border border-dashed border-zinc-800 py-4 rounded-xl text-zinc-600 font-bold mt-4 uppercase text-[9px]">
+            + Добавить услугу
         </button>
-
-        <!-- Подвал для PDF -->
-        <div class="print-only mt-10">
-            <div class="flex justify-between items-end">
-                <div>
-                    <p class="text-[10px] uppercase font-bold text-gray-500">Итого к оплате:</p>
-                    <p class="text-4xl font-black"><span id="totalPrint">0</span> СОМ</p>
-                </div>
-                <div class="space-y-8">
-                    <div class="border-b border-black w-48 pb-1 text-[10px] uppercase">Исполнитель: ____________</div>
-                    <div class="border-b border-black w-48 pb-1 text-[10px] uppercase">Заказчик: ____________</div>
-                </div>
-            </div>
-            <p class="text-[8px] text-center mt-20 text-gray-400 italic">Сгенерировано мастером Talas_master. Качество гарантировано.</p>
-        </div>
     </main>
 
-    <!-- Нижняя панель итогов -->
-    <footer class="fixed bottom-0 left-0 right-0 bg-[#050505] border-t-2 gold-border p-5 no-print flex justify-between items-center shadow-[0_-10px_30px_rgba(0,0,0,0.8)] z-50">
-        <div>
-            <p class="text-[9px] text-gray-400 uppercase tracking-widest">Общий итог (Мастер)</p>
-            <div class="flex items-baseline gap-1">
-                <span id="total" class="text-3xl font-black gold-text">0</span> 
-                <span class="gold-text text-[10px] font-bold">СОМ</span>
-            </div>
-        </div>
-        <button onclick="window.print()" class="gold-bg text-black px-8 py-4 rounded-xl font-black text-xs uppercase shadow-xl active:scale-95 transition-transform tracking-tighter">
-            Сформировать PDF
+    <footer class="fixed bottom-0 left-0 right-0 bg-black/90 backdrop-blur-lg border-t gold-border p-4 flex justify-center z-50 no-print">
+        <button onclick="showPreview()" class="gold-bg text-black px-12 py-4 rounded-xl font-black text-xs uppercase shadow-xl shadow-yellow-500/20 active:scale-95 transition-all">
+            Предпросмотр и Печать
         </button>
     </footer>
+
+    <!-- ОКНО ПРЕДПРОСМОТРА -->
+    <div id="previewModal">
+        <div class="p-4 flex justify-between items-center sticky top-0 bg-black z-[1001] no-print border-b border-zinc-900">
+            <button onclick="closePreview()" class="text-white bg-zinc-900 px-4 py-2 rounded-lg font-bold uppercase text-[9px]">Назад</button>
+            <div class="flex gap-2">
+                <button onclick="window.print()" class="bg-white text-black px-4 py-2 rounded-lg font-bold uppercase text-[9px]">Печать 🖨️</button>
+                <button onclick="downloadPDF()" class="gold-bg text-black px-6 py-2 rounded-lg font-black uppercase text-[9px]">Скачать PDF</button>
+            </div>
+        </div>
+        
+        <div id="pdfContent" class="pdf-page">
+            <div class="flex justify-between items-start border-b-4 border-black pb-4 mb-6">
+                <div>
+                    <h1 class="text-3xl font-black italic tracking-tighter leading-none mb-1">TALAS_MASTER</h1>
+                    <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-zinc-400">Прейскурант и Предложение по цене</p>
+                </div>
+                <div class="text-right text-[9px] font-black border-l-2 border-black pl-4">
+                    <p>ТАЛАС, КЫРГЫЗСТАН</p>
+                    <p>+996 755 000 228</p>
+                    <p id="pdfDate"></p>
+                </div>
+            </div>
+
+            <table class="compact-table">
+                <thead>
+                    <tr>
+                        <th class="w-8 text-center">№</th>
+                        <th>Наименование работ</th>
+                        <th class="text-right w-24">Цена Прайс</th>
+                        <th class="text-right w-24 bg-zinc-100 italic">Предложено</th>
+                    </tr>
+                </thead>
+                <tbody id="pdfTableBody">
+                    <!-- JS -->
+                </tbody>
+            </table>
+
+            <div class="mt-8 flex justify-between items-end">
+                <div class="text-[8px] text-zinc-400 uppercase leading-relaxed">
+                    * Предложенная цена рассматривается индивидуально.<br>
+                    * На все работы предоставляется гарантия качества.<br>
+                    * Выезд и замеры — бесплатно при заказе.
+                </div>
+                <div class="text-right">
+                    <div class="w-40 border-b border-black mb-1"></div>
+                    <p class="text-[9px] font-black uppercase">Мастер / Заказчик</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         let isMaster = false;
         let clicks = 0;
         let lastClick = 0;
-
-        // Установка текущей даты
         const curDate = new Date().toLocaleDateString('ru-RU');
+
         document.getElementById('date').innerText = curDate;
-        document.getElementById('printDate').innerText = curDate;
+        document.getElementById('pdfDate').innerText = curDate;
 
-        // Секретная разблокировка (5 кликов по лого)
-        function unlockMode() {
+        const initialData = [
+            { name: "Монтаж автомата", price: 350 },
+            { name: "Сборка электрощита", price: 3000 },
+            { name: "Установка розетки", price: 300 },
+            { name: "Штробление (бетон)", price: 400 },
+            { name: "Монтаж люстры", price: 800 }
+        ];
+
+        document.getElementById('secretTrigger').onclick = function() {
             const now = Date.now();
-            if (now - lastClick < 500) {
-                clicks++;
-            } else {
-                clicks = 1;
-            }
+            if (now - lastClick < 500) clicks++; else clicks = 1;
             lastClick = now;
-
             if (clicks >= 5) {
                 isMaster = !isMaster;
-                alert(isMaster ? "РЕЖИМ МАСТЕРА АКТИВИРОВАН 🔓\nТеперь вы можете изменять свои цены." : "РЕЖИМ МАСТЕРА ВЫКЛЮЧЕН 🔒");
+                document.body.classList.toggle('is-master', isMaster);
+                document.getElementById('addBtn').style.display = isMaster ? 'block' : 'none';
+                document.querySelectorAll('.item-name').forEach(i => i.readOnly = !isMaster);
                 document.querySelectorAll('.price-m').forEach(i => i.disabled = !isMaster);
                 clicks = 0;
             }
-        }
+        };
 
-        // Добавление новой строки
-        function addItem() {
+        function addItem(name = "", price = 0) {
             const list = document.getElementById('list');
             const div = document.createElement('div');
-            div.className = 'card';
+            div.className = 'card row-item';
             div.innerHTML = `
                 <div class="mb-3">
-                    <input type="text" placeholder="Наименование услуги..." class="font-bold print:text-lg">
+                    <textarea class="item-name font-bold bg-transparent border-none p-0 w-full resize-none text-white focus:outline-none leading-tight" rows="2" ${isMaster ? '' : 'readonly'}>${name}</textarea>
                 </div>
-                <div class="grid grid-cols-2 gap-3 mb-3">
+                <div class="grid grid-cols-2 gap-2">
                     <div>
-                        <span class="text-[8px] uppercase text-gray-500 block mb-1 no-print">Цена Мастера</span>
-                        <input type="number" class="price-m" value="0" ${isMaster ? '' : 'disabled'} oninput="calc()">
+                        <span class="text-[8px] text-zinc-600 block uppercase font-bold">Цена Прайс</span>
+                        <input type="number" class="price-m font-bold text-yellow-500 bg-zinc-900/50" value="${price}" ${isMaster ? '' : 'disabled'}>
                     </div>
                     <div>
-                        <span class="text-[8px] uppercase text-amber-500 font-bold block mb-1 no-print">Цена Заказчика</span>
-                        <input type="number" class="price-c border-amber-900/30" placeholder="Предложение..." oninput="calc()">
+                        <span class="text-[8px] text-amber-500 block uppercase font-black tracking-tighter">Цена Заказчика</span>
+                        <input type="number" class="price-client font-bold text-white bg-zinc-800 border-amber-900/50" placeholder="0">
                     </div>
                 </div>
-                <div class="flex justify-between items-end">
-                    <div class="w-1/3">
-                        <span class="text-[8px] uppercase text-gray-500 block mb-1 no-print">Кол-во</span>
-                        <input type="number" class="qty text-center font-bold gold-text" value="0" oninput="calc()">
-                    </div>
-                    <div class="text-right">
-                        <span class="text-[8px] uppercase text-gray-500 block no-print">Итого (Мастер):</span>
-                        <div class="row-total gold-text font-black text-xl leading-none">0</div>
-                    </div>
-                </div>
-                <button onclick="this.parentElement.remove(); calc()" class="no-print absolute top-2 right-2 text-gray-700 hover:text-red-500 p-2">✕</button>
+                <button onclick="this.parentElement.remove()" class="master-only absolute -top-1 -right-1 bg-red-600 rounded-full w-6 h-6 text-white text-[10px] flex items-center justify-center shadow-lg">✕</button>
             `;
             list.appendChild(div);
-            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
 
-        // Расчет сумм
-        function calc() {
-            let total = 0;
-            document.querySelectorAll('.card').forEach(card => {
-                const p = parseFloat(card.querySelector('.price-m').value) || 0;
-                const q = parseFloat(card.querySelector('.qty').value) || 0;
-                const row = p * q;
-                card.querySelector('.row-total').innerText = row.toLocaleString();
-                total += row;
+        function showPreview() {
+            const tableBody = document.getElementById('pdfTableBody');
+            tableBody.innerHTML = '';
+            let count = 1;
+
+            document.querySelectorAll('.row-item').forEach(card => {
+                const name = card.querySelector('.item-name').value || "---";
+                const priceMaster = card.querySelector('.price-m').value || 0;
+                const priceClient = card.querySelector('.price-client').value || "—";
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td class="text-center text-zinc-400 font-mono">${count++}</td>
+                    <td class="font-bold uppercase">${name}</td>
+                    <td class="text-right font-bold text-zinc-500">${priceMaster}</td>
+                    <td class="text-right font-black client-price-col">${priceClient}</td>
+                `;
+                tableBody.appendChild(tr);
             });
-            document.getElementById('total').innerText = total.toLocaleString();
-            document.getElementById('totalPrint').innerText = total.toLocaleString();
+
+            document.getElementById('previewModal').style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
-        // Создаем первую пустую строку при загрузке
-        addItem();
+        function closePreview() {
+            document.getElementById('previewModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('pdfContent');
+            html2pdf().set({
+                margin: 0,
+                filename: 'Talas_Master_Offer.pdf',
+                html2canvas: { scale: 3 },
+                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            }).from(element).save();
+        }
+
+        window.onload = () => initialData.forEach(d => addItem(d.name, d.price));
     </script>
 </body>
 </html>
 
-  

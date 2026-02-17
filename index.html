@@ -3,160 +3,389 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TM | Scanner Edition</title>
+    <title>TM | CRM System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js'></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;800&family=Inter:wght@400;600;900&display=swap" rel="stylesheet">
     <style>
-        body { background: #000; color: #fff; font-family: system-ui, -apple-system, sans-serif; overscroll-behavior: none; }
+        :root { --gold: #FBBF24; --dark: #050505; --panel: #121212; --border: #222; }
+        body { 
+            background-color: var(--dark); 
+            color: #fff; 
+            font-family: 'Inter', sans-serif; 
+            -webkit-tap-highlight-color: transparent;
+            background-image: radial-gradient(circle at top right, #1a1a1a 0%, #000 40%);
+        }
+        
+        /* Стилизация скроллбара */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+        /* Элементы интерфейса */
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.08);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
         .mobile-input {
-            background: #1a1a1a !important; border: 2px solid #333 !important; border-radius: 12px !important;
-            height: 55px !important; font-size: 17px !important; color: #fff !important; padding: 0 15px !important;
+            background: #0a0a0a !important; 
+            border: 1px solid #333 !important; 
+            border-radius: 12px !important;
+            height: 52px !important; 
+            font-size: 16px !important; 
+            color: #fff !important; 
+            padding: 0 14px !important;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
         }
-        .card { background: #0f0f0f; border: 1px solid #222; border-radius: 20px; padding: 18px; margin-bottom: 12px; }
-        .gold-btn {
-            background: #FBBF24; color: #000; height: 60px; border-radius: 16px;
-            font-weight: 900; font-size: 16px; width: 100%; display: flex; align-items: center; justify-content: center;
+        .mobile-input:focus { border-color: var(--gold) !important; box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2); }
+
+        /* Акцентные поля мастера */
+        body.is-master .price-val { border-color: #d97706 !important; background: #1a1000 !important; color: #fbbf24 !important; }
+
+        .card { 
+            background: #0f0f0f; 
+            border: 1px solid #222; 
+            border-radius: 20px; 
+            padding: 16px; 
+            margin-bottom: 12px; 
+            position: relative; 
+            animation: slideIn 0.3s ease-out;
         }
-        .scan-btn {
-            background: #ffffff; color: #000; height: 50px; border-radius: 12px;
-            font-weight: 800; font-size: 14px; width: 100%; margin-bottom: 15px;
-            display: flex; align-items: center; justify-content: center; gap: 8px;
+        @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .gold-btn { 
+            background: linear-gradient(135deg, #FBBF24 0%, #d97706 100%); 
+            color: #000; height: 60px; border-radius: 16px; 
+            font-weight: 900; width: 100%; text-transform: uppercase; 
+            letter-spacing: 1px;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
         }
-        .loading { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
+        .gold-btn:active { transform: scale(0.98); }
+
+        .unit-badge { 
+            background: #1a1a1a; padding: 8px 14px; border-radius: 10px; 
+            font-size: 11px; cursor: pointer; border: 1px solid #333; 
+            color: #888; font-weight: bold; transition: 0.2s;
+        }
+        .unit-badge.active { background: var(--gold); color: #000; border-color: var(--gold); }
+
         .master-only { display: none !important; }
         body.is-master .master-only { display: block !important; }
-        #previewModal { display: none; position: fixed; inset: 0; background: white; z-index: 9999; color: black; }
+
+        #previewModal { display: none; position: fixed; inset: 0; background: #fff; z-index: 9999; color: #000; }
+        .loader { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 10000; flex-direction: column; align-items: center; justify-content: center; }
     </style>
 </head>
-<body class="p-4 pb-32">
+<body class="p-4 pb-36">
 
-    <div id="loader" class="loading">
-        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-yellow-500 mb-4"></div>
-        <p class="text-yellow-500 font-bold uppercase tracking-widest text-sm">Читаю документ...</p>
+    <div id="loader" class="loader">
+        <div class="animate-spin rounded-full h-12 w-12 border-t-4 border-yellow-500 mb-6"></div>
+        <p class="text-yellow-500 font-black text-sm uppercase tracking-[0.2em] animate-pulse">Обработка...</p>
     </div>
 
-    <header class="flex justify-between items-center mb-6">
-        <div id="secretTrigger" class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-[#FBBF24] rounded-xl flex items-center justify-center text-black font-black text-xl">TM</div>
-            <h1 class="text-lg font-black tracking-tighter text-[#FBBF24]">TALAS MASTER</h1>
+    <header class="flex justify-between items-start mb-6 sticky top-0 z-50 py-2 bg-[#050505]/80 backdrop-blur-md">
+        <div id="secretTrigger" class="flex items-center gap-4 active:scale-95 transition-all cursor-pointer">
+            <div class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center text-black font-black text-2xl shadow-lg shadow-yellow-500/20">TM</div>
+            <div>
+                <h1 class="text-lg font-black tracking-tighter text-white leading-none">TALAS<span class="text-yellow-500">MASTER</span></h1>
+                <div class="flex items-center gap-2 mt-1">
+                    <div id="modeStatus" class="w-2 h-2 rounded-full bg-zinc-600"></div>
+                    <span class="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">System Ready</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="master-only">
+             <select id="currency" onchange="saveData()" class="bg-[#111] text-yellow-500 text-[10px] font-black border border-zinc-800 rounded-lg px-3 py-2 outline-none appearance-none">
+                <option value="сом">KGS</option>
+                <option value="$">USD</option>
+                <option value="₸">KZT</option>
+            </select>
         </div>
     </header>
 
-    <label class="scan-btn cursor-pointer">
-        <span>📸 ЗАГРУЗИТЬ ФОТО ПРАЙСА</span>
-        <input type="file" id="imageInput" accept="image/*" class="hidden" onchange="processImage(this)">
-    </label>
+    <section class="glass-panel p-4 rounded-2xl mb-6">
+        <h2 class="text-[10px] text-zinc-500 font-black uppercase mb-3 tracking-widest">Информация об объекте</h2>
+        <div class="space-y-3">
+            <input type="text" id="clientName" class="mobile-input w-full" placeholder="Имя заказчика" oninput="saveData()">
+            <input type="text" id="clientAddr" class="mobile-input w-full" placeholder="Адрес / Объект" oninput="saveData()">
+        </div>
+    </section>
 
-    <div id="list"></div>
+    <div class="master-only mb-6">
+        <label class="flex items-center justify-center gap-3 bg-zinc-900 border border-dashed border-zinc-700 text-zinc-400 hover:text-white hover:border-white p-5 rounded-2xl font-black text-xs cursor-pointer transition-all group">
+            <span class="text-xl group-hover:scale-110 transition-transform">📸</span> 
+            СКАНЕР СМЕТЫ (AI)
+            <input type="file" accept="image/*" class="hidden" onchange="processImage(this)">
+        </label>
+    </div>
 
-    <button onclick="addItem()" class="master-only w-full border-2 border-dashed border-[#FBBF24] text-[#FBBF24] p-4 rounded-xl font-bold mb-6">
-        + ДОБАВИТЬ ВРУЧНУЮ
+    <div class="master-only mb-4 overflow-x-auto pb-2">
+        <div class="flex gap-2">
+            <button onclick="addItem('Монтаж розетки', 300, 'шт')" class="bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg text-[10px] font-bold whitespace-nowrap hover:bg-zinc-700">🔌 Розетка</button>
+            <button onclick="addItem('Сборка щита', 3500, 'шт')" class="bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg text-[10px] font-bold whitespace-nowrap hover:bg-zinc-700">⚡ Щит</button>
+            <button onclick="addItem('Кабель 3х2.5', 60, 'м.п.')" class="bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg text-[10px] font-bold whitespace-nowrap hover:bg-zinc-700">➰ Кабель</button>
+            <button onclick="addItem('Штроба бетон', 450, 'м.п.')" class="bg-zinc-800 border border-zinc-700 px-4 py-2 rounded-lg text-[10px] font-bold whitespace-nowrap hover:bg-zinc-700">🔨 Штроба</button>
+        </div>
+    </div>
+
+    <div id="list" class="min-h-[200px]"></div>
+
+    <button onclick="addItem()" class="master-only w-full border-2 border-dashed border-zinc-800 text-zinc-600 p-4 rounded-2xl font-bold text-[10px] mb-8 uppercase hover:border-yellow-500 hover:text-yellow-500 transition-colors">
+        + Пустая строка
     </button>
 
     <div class="fixed bottom-6 left-4 right-4 z-[100]">
-        <button onclick="showPreview()" class="gold-btn shadow-2xl shadow-yellow-500/20">
-            ОФОРМИТЬ PDF
+        <div class="glass-panel p-2 rounded-2xl flex items-center justify-between pl-5 pr-2 mb-2">
+            <div class="text-xs text-zinc-400 font-bold uppercase">Итого:</div>
+            <div id="totalFloat" class="text-xl font-black text-white">0</div>
+        </div>
+        <button onclick="showPreview()" class="gold-btn shadow-2xl shadow-yellow-500/30">
+            Оформить Смету
         </button>
     </div>
 
-    <div id="previewModal" class="overflow-auto p-4">
-        <div class="flex gap-2 mb-6 no-print">
-            <button onclick="closePreview()" class="flex-1 bg-gray-200 p-4 rounded-xl font-bold">НАЗАД</button>
-            <button onclick="downloadPDF()" class="flex-1 bg-black text-white p-4 rounded-xl font-bold">СКАЧАТЬ</button>
+    <div id="previewModal" class="overflow-auto p-0">
+        <div class="fixed top-0 left-0 right-0 bg-white/90 backdrop-blur border-b p-4 flex gap-3 z-50">
+            <button onclick="closePreview()" class="px-6 py-3 bg-zinc-100 rounded-xl font-bold text-xs uppercase">Закрыть</button>
+            <button onclick="downloadPDF()" class="flex-1 bg-black text-white rounded-xl font-black text-xs uppercase shadow-xl">Скачать PDF</button>
         </div>
-        <div id="pdfContent" class="p-2">
-            <h1 style="font-size: 24px; font-weight: 900; border-bottom: 3px solid #000; padding-bottom: 5px;">TALAS_MASTER</h1>
-            <p style="font-size: 12px; margin-bottom: 20px;">ЭЛЕКТРОМОНТАЖ | +996 755 000 228</p>
-            <div id="pdfTable"></div>
+        
+        <div id="pdfContent" class="bg-white text-black p-10 mt-16 max-w-3xl mx-auto min-h-screen relative">
+            <div class="flex justify-between items-start border-b-4 border-black pb-6 mb-8">
+                <div>
+                    <h1 class="text-4xl font-black tracking-tighter mb-1">TALAS_MASTER</h1>
+                    <div class="bg-black text-white px-2 py-1 inline-block text-[10px] font-bold uppercase tracking-widest">Professional Electric</div>
+                </div>
+                <div class="text-right">
+                    <p class="text-xs font-bold text-zinc-500 uppercase mb-1">Счет № <span id="invoiceNum">001</span></p>
+                    <p class="text-[10px] text-zinc-400" id="invoiceDate">17.02.2026</p>
+                </div>
+            </div>
+
+            <div class="flex justify-between mb-10 text-xs">
+                <div>
+                    <p class="text-[10px] text-zinc-400 font-bold uppercase mb-1">Заказчик:</p>
+                    <p class="font-bold text-lg" id="pdfClientName">Частное лицо</p>
+                    <p class="text-zinc-600" id="pdfClientAddr">Таласская обл.</p>
+                </div>
+                <div class="text-right">
+                    <p class="text-[10px] text-zinc-400 font-bold uppercase mb-1">Исполнитель:</p>
+                    <p class="font-bold">TALAS_MASTER</p>
+                    <p>+996 755 000 228</p>
+                </div>
+            </div>
+
+            <table class="w-full text-left border-collapse mb-10">
+                <thead>
+                    <tr class="border-b-2 border-black">
+                        <th class="py-2 text-[10px] uppercase font-black w-10">№</th>
+                        <th class="py-2 text-[10px] uppercase font-black">Наименование работ</th>
+                        <th class="py-2 text-[10px] uppercase font-black text-right">Кол-во</th>
+                        <th class="py-2 text-[10px] uppercase font-black text-right">Цена</th>
+                        <th class="py-2 text-[10px] uppercase font-black text-right">Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="pdfTable" class="text-sm"></tbody>
+            </table>
+
+            <div class="flex justify-end mt-4">
+                <div class="text-right">
+                    <p class="text-[10px] uppercase font-bold text-zinc-400 mb-1">Итого к оплате:</p>
+                    <p class="text-3xl font-black tracking-tight" id="pdfTotalMain">0</p>
+                </div>
+            </div>
+
+            <div class="absolute bottom-10 left-10 right-10 flex justify-between items-end">
+                <div class="text-[9px] text-zinc-400 max-w-[200px]">
+                    * Гарантия на монтаж 12 месяцев.<br>
+                    * Материалы оплачиваются отдельно по чеку.
+                </div>
+                <div class="text-center">
+                    <div class="w-32 border-b border-black mb-1"></div>
+                    <p class="text-[8px] uppercase font-bold">Подпись мастера</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <script>
         let isMaster = false;
         let clicks = 0;
+        let clickTimer;
 
-        // Вход в режим мастера
+        // --- Инициализация и LocalStorage ---
+        function saveData() {
+            const data = {
+                client: document.getElementById('clientName').value,
+                addr: document.getElementById('clientAddr').value,
+                currency: document.getElementById('currency').value,
+                items: []
+            };
+            document.querySelectorAll('.row-item').forEach(card => {
+                data.items.push({
+                    name: card.querySelector('.item-name').value,
+                    price: card.querySelector('.price-val').value,
+                    count: card.querySelector('.count-val').value,
+                    unit: card.querySelector('.unit-badge.active').innerText
+                });
+            });
+            localStorage.setItem('tm_data_v1', JSON.stringify(data));
+            calculateTotal(); // Обновляем плавающую сумму
+        }
+
+        function loadData() {
+            const saved = JSON.parse(localStorage.getItem('tm_data_v1'));
+            if (saved) {
+                document.getElementById('clientName').value = saved.client || '';
+                document.getElementById('clientAddr').value = saved.addr || '';
+                document.getElementById('currency').value = saved.currency || 'сом';
+                if (saved.items && saved.items.length > 0) {
+                    saved.items.reverse().forEach(item => addItem(item.name, item.price, item.unit, item.count));
+                } else {
+                    addItem("Диагностика электропроводки", 500);
+                }
+            } else {
+                addItem("Диагностика электропроводки", 500);
+            }
+            calculateTotal();
+        }
+
+        // --- Логика Мастера ---
         document.getElementById('secretTrigger').onclick = () => {
+            clearTimeout(clickTimer);
             clicks++;
             if (clicks >= 5) {
                 isMaster = !isMaster;
                 document.body.classList.toggle('is-master', isMaster);
-                alert(isMaster ? "РЕЖИМ РЕДАКТИРОВАНИЯ" : "РЕЖИМ КЛИЕНТА");
+                
+                // Визуальная индикация
+                const status = document.getElementById('modeStatus');
+                status.style.backgroundColor = isMaster ? '#FBBF24' : '#52525b';
+                
+                // Переключение режима полей
+                document.querySelectorAll('.price-val, .item-name').forEach(el => {
+                    if (el.classList.contains('item-name')) el.readOnly = !isMaster;
+                    else el.disabled = !isMaster;
+                });
+                
+                // Вибрация (если поддерживается)
+                if(navigator.vibrate) navigator.vibrate([50, 50, 50]);
                 clicks = 0;
             }
+            clickTimer = setTimeout(() => clicks = 0, 1000);
         };
 
-        // ФУНКЦИЯ ОБРАБОТКИ ИЗОБРАЖЕНИЯ (OCR)
+        // --- Работа с элементами ---
+        function addItem(name = "", price = 0, unit = "шт", count = 1) {
+            const div = document.createElement('div');
+            div.className = 'card row-item';
+            div.innerHTML = `
+                <button onclick="removeItem(this)" class="master-only absolute -top-2 -right-2 bg-red-500 hover:bg-red-600 w-8 h-8 rounded-full text-white font-bold border-2 border-[#121212] z-10 shadow-lg transition-colors">✕</button>
+                
+                <input type="text" class="mobile-input w-full font-bold mb-3 item-name uppercase text-[13px] tracking-tight bg-transparent border-none focus:ring-0" 
+                       value="${name}" placeholder="НАИМЕНОВАНИЕ" ${isMaster ? '' : 'readonly'} oninput="saveData()">
+                
+                <div class="flex gap-2 mb-4 overflow-x-auto no-scrollbar">
+                    ${['шт', 'м.п.', 'м²', 'точка', 'компл'].map(u => 
+                        `<div class="unit-badge ${u === unit ? 'active' : ''}" onclick="toggleUnit(this)">${u}</div>`
+                    ).join('')}
+                </div>
+
+                <div class="grid grid-cols-3 gap-3">
+                    <div>
+                        <label class="text-[9px] text-zinc-500 font-bold block mb-1 ml-1 uppercase">Цена</label>
+                        <input type="number" class="mobile-input w-full price-val text-yellow-500 font-black text-lg" 
+                               value="${price}" ${isMaster ? '' : 'disabled'} oninput="calcRow(this)">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-zinc-500 font-bold block mb-1 ml-1 uppercase">Кол-во</label>
+                        <input type="number" class="mobile-input w-full count-val font-black text-lg bg-zinc-900" 
+                               value="${count}" oninput="calcRow(this)">
+                    </div>
+                    <div>
+                        <label class="text-[9px] text-zinc-500 font-bold block mb-1 ml-1 uppercase">Сумма</label>
+                        <div class="total-val h-[52px] flex items-center justify-center font-black text-white bg-[#1a1a1a] rounded-xl border border-zinc-800 text-sm">0</div>
+                    </div>
+                </div>
+            `;
+            document.getElementById('list').prepend(div);
+            calcRow(div.querySelector('input'));
+            saveData();
+        }
+
+        function removeItem(btn) {
+            if(confirm('Удалить позицию?')) {
+                btn.parentElement.remove();
+                saveData();
+            }
+        }
+
+        function toggleUnit(el) {
+            el.parentElement.querySelectorAll('.unit-badge').forEach(b => b.classList.remove('active'));
+            el.classList.add('active');
+            saveData();
+        }
+
+        function calcRow(input) {
+            const card = input.closest('.card');
+            const p = parseFloat(card.querySelector('.price-val').value) || 0;
+            const c = parseFloat(card.querySelector('.count-val').value) || 0;
+            const total = p * c;
+            card.querySelector('.total-val').innerText = total.toLocaleString();
+            saveData();
+        }
+
+        function calculateTotal() {
+            let total = 0;
+            const cur = document.getElementById('currency').value;
+            document.querySelectorAll('.row-item').forEach(card => {
+                const p = parseFloat(card.querySelector('.price-val').value) || 0;
+                const c = parseFloat(card.querySelector('.count-val').value) || 0;
+                total += p * c;
+            });
+            document.getElementById('totalFloat').innerText = `${total.toLocaleString()} ${cur}`;
+            return total;
+        }
+
+        // --- OCR / Сканер ---
         async function processImage(input) {
-            if (!input.files || !input.files[0]) return;
-            
+            if (!input.files?.[0]) return;
             const loader = document.getElementById('loader');
             loader.style.display = 'flex';
-
             try {
                 const result = await Tesseract.recognize(input.files[0], 'rus+eng');
-                const lines = result.data.text.split('\n');
-                
-                lines.forEach(line => {
-                    // Ищем строки, где есть текст и цифры (похоже на услугу)
-                    const priceMatch = line.match(/(\d[\d\s]{2,})/); // Ищем число от 100 и выше
-                    if (line.trim().length > 5 && priceMatch) {
-                        const name = line.replace(priceMatch[0], '').trim().replace(/[^\w\sа-яА-ЯёЁ]/gi, '');
+                result.data.lines.forEach(line => {
+                    const priceMatch = line.text.match(/(\d[\d\s]{2,})/);
+                    if (line.text.trim().length > 4 && priceMatch) {
+                        const name = line.text.replace(priceMatch[0], '').trim().replace(/[^\w\sа-яА-ЯёЁ]/gi, '');
                         const price = priceMatch[0].replace(/\s/g, '');
                         if (name.length > 2) addItem(name, price);
                     }
                 });
-            } catch (e) {
-                alert("Ошибка распознавания. Попробуйте более четкое фото.");
+                alert("Распознавание завершено!");
+            } catch(e) {
+                alert("Ошибка чтения. Попробуйте фото четче.");
             } finally {
                 loader.style.display = 'none';
-                input.value = ''; // Сброс инпута
+                input.value = '';
+                saveData();
             }
         }
 
-        function addItem(name = "", price = 0) {
-            const div = document.createElement('div');
-            div.className = 'card';
-            div.innerHTML = `
-                <input type="text" class="mobile-input w-full font-bold mb-3 item-name" value="${name}" placeholder="Услуга" ${isMaster ? '' : 'readonly'}>
-                <div class="flex gap-3">
-                    <div class="flex-1">
-                        <label class="text-[9px] text-gray-500 font-bold block ml-1">ПРАЙС</label>
-                        <input type="number" class="mobile-input w-full price-m text-yellow-500" value="${price}" ${isMaster ? '' : 'disabled'}>
-                    </div>
-                    <div class="flex-1">
-                        <label class="text-[9px] text-yellow-500 font-bold block ml-1">ИТОГО</label>
-                        <input type="number" class="mobile-input w-full price-client border-yellow-500/50" placeholder="0">
-                    </div>
-                </div>
-            `;
-            document.getElementById('list').prepend(div); // Добавляем наверх
-        }
-
+        // --- PDF Generation ---
         function showPreview() {
             const pdfTable = document.getElementById('pdfTable');
-            pdfTable.innerHTML = '';
-            let total = 0;
-            document.querySelectorAll('.card').forEach((card, i) => {
-                const name = card.querySelector('.item-name').value;
-                const pC = card.querySelector('.price-client').value || 0;
-                if (!name) return;
-                total += parseFloat(pC);
-                pdfTable.innerHTML += `<div style="padding: 8px 0; border-bottom: 1px solid #ddd; font-size: 14px;">
-                    <b>${i+1}. ${name.toUpperCase()}</b> <br> <span style="color: #666;">Стоимость: ${pC} сом</span>
-                </div>`;
-            });
-            pdfTable.innerHTML += `<div style="font-size: 22px; font-weight: 900; margin-top: 20px; text-align: right;">ИТОГО: ${total} сом</div>`;
-            document.getElementById('previewModal').style.display = 'block';
-        }
-
-        function closePreview() { document.getElementById('previewModal').style.display = 'none'; }
-        
-        function downloadPDF() {
-            const opt = { margin: 10, filename: 'TalasMaster_Check.pdf', html2canvas: { scale: 2 }, jsPDF: { unit: 'mm', format: 'a4' } };
-            html2pdf().from(document.getElementById('pdfContent')).set(opt).save();
-        }
-    </script>
-</body>
-</html>
+            const currency = document.getElementById('currency').value;
+            const clientName = document.getElementById('clientName').value || "Частное лицо";
+            const clientAddr = document.getElementById('clientAddr').value || "Не указан";
+            
+            // Заполнение шапки PDF
+            document.getElementById('pdfClientName').innerText = clientName;
+            document.getElementById('pdfClientAddr').innerText = clientAddr;
+            document.getElementById

@@ -1,296 +1,793 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TM | Talas Expert</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talas_master — Крупнейший сервисный центр в Таласе</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #FBBF24; --black: #000000; }
-        body { background: var(--black); color: #fff; font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --gold: #FBBF24;
+            --black: #000000;
+            --dark-gray: #0a0a0a;
+            --light-gray: #1a1a1a;
+            --white: #FFFFFF;
+        }
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: 'Montserrat', sans-serif;
+            overflow-x: hidden;
+        }
         
-        .glass-panel { background: rgba(20, 20, 20, 0.9); border: 1px solid #222; backdrop-filter: blur(10px); }
-        .mobile-input { background: #0a0a0a !important; border: 1px solid #333 !important; border-radius: 12px !important; height: 52px !important; color: #fff !important; padding: 0 14px !important; font-size: 16px !important; }
+        /* Стилизация скроллбара */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-        .master-only { display: none !important; }
-        body.is-master .master-only { display: block !important; }
-        body.is-master .price-val { border-color: var(--gold) !important; color: var(--gold) !important; background: #1a1500 !important; }
+        .gold-text { color: var(--gold); }
+        .gold-bg { background-color: var(--gold); }
+        .gold-border { border-color: var(--gold); }
+        
+        .nav-blur {
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(251, 191, 36, 0.1);
+        }
 
-        .card { background: #0c0c0c; border: 1px solid #1a1a1a; border-radius: 20px; padding: 16px; margin-bottom: 12px; position: relative; transition: 0.3s; }
-        .gold-btn { background: var(--gold); color: #000; height: 60px; border-radius: 16px; font-weight: 900; width: 100%; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-primary {
+            background-color: var(--gold);
+            color: var(--black);
+            font-weight: 800;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 0; height: 100%;
+            background-color: var(--white);
+            transition: all 0.3s ease;
+            z-index: -1;
+        }
+        .btn-primary:hover::before { width: 100%; }
         
-        .unit-badge { background: #1a1a1a; padding: 8px 14px; border-radius: 10px; font-size: 11px; cursor: pointer; border: 1px solid #333; color: #666; font-weight: 700; }
-        .unit-badge.active { background: var(--gold); color: #000; border-color: var(--gold); }
-        
-        #previewModal, #authModal { display: none; position: fixed; inset: 0; z-index: 9999; }
-        
-        /* Стилизация выпадающего списка */
-        datalist { background: #111; color: #fff; }
+        .btn-outline {
+            border: 2px solid var(--gold);
+            color: var(--gold);
+            font-weight: 800;
+            transition: all 0.3s ease;
+        }
+        .btn-outline:hover {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+
+        /* Карточки услуг с анимацией */
+        .service-card {
+            background: var(--light-gray);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+        .service-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 3px;
+            background: var(--gold);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.1);
+        }
+        .service-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* Аккордеон FAQ */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        /* Анимация появления */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Портфолио оверлей */
+        .portfolio-item .overlay {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .portfolio-item:hover .overlay {
+            opacity: 1;
+        }
     </style>
 </head>
-<body class="p-4 pb-40">
+<body class="antialiased">
 
-    <div id="authModal" class="bg-black/98 flex items-center justify-center p-6">
-        <div class="glass-panel w-full max-w-xs p-8 rounded-3xl text-center shadow-2xl shadow-yellow-500/10">
-            <div class="w-16 h-16 bg-yellow-500 rounded-2xl flex items-center justify-center text-black font-black text-3xl mx-auto mb-6">TM</div>
-            <h3 class="text-white font-black mb-6 uppercase tracking-widest text-xs">MASTER ACCESS</h3>
-            <input type="password" id="masterPass" class="mobile-input w-full text-center mb-4 tracking-[0.5em]" placeholder="••••••••">
-            <div class="flex gap-2">
-                <button onclick="closeAuth()" class="flex-1 bg-zinc-800 text-white p-3 rounded-xl font-bold text-[10px]">ОТМЕНА</button>
-                <button onclick="checkAuth()" class="flex-1 bg-yellow-500 text-black p-3 rounded-xl font-black text-[10px]">ВХОД</button>
+    <!-- Навигация -->
+    <nav class="fixed top-0 w-full z-50 nav-blur transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <a href="#" class="text-3xl font-black tracking-tighter uppercase flex items-center gap-2">
+                <i class="fas fa-hard-hat gold-text"></i>
+                <span>Talas<span class="gold-text">_master</span></span>
+            </a>
+            
+            <!-- Десктопное меню -->
+            <div class="hidden lg:flex space-x-6 font-bold uppercase text-xs tracking-widest text-gray-300">
+                <a href="#about" class="hover:text-amber-400 transition">О нас</a>
+                <a href="#services" class="hover:text-amber-400 transition">Услуги</a>
+                <a href="#portfolio" class="hover:text-amber-400 transition">Портфолио</a>
+                <a href="#process" class="hover:text-amber-400 transition">Как мы работаем</a>
+                <a href="#faq" class="hover:text-amber-400 transition">FAQ</a>
+                <a href="#contact" class="hover:text-amber-400 transition">Контакты</a>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-4">
+                <a href="tel:+996755000228" class="font-bold text-lg hover:text-amber-400 transition">+996 755 000 228</a>
+                <a href="https://wa.me/996755000228" target="_blank" class="btn-primary px-6 py-2 uppercase text-xs tracking-wider flex items-center gap-2">
+                    <i class="fab fa-whatsapp text-lg"></i> Написать
+                </a>
+            </div>
+
+            <!-- Мобильная кнопка -->
+            <button class="lg:hidden text-2xl text-white" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Мобильное меню -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-zinc-900 border-t border-zinc-800 absolute w-full left-0 py-4 px-4 flex-col space-y-4 shadow-2xl">
+            <a href="#about" onclick="toggleMenu()" class="block font-bold uppercase text-sm border-b border-zinc-800 pb-2">О нас</a>
+            <a href="#services" onclick="toggleMenu()" class="block font-bold uppercase text-sm border-b border-zinc-800 pb-2">Услуги</a>
+            <a href="#portfolio" onclick="toggleMenu()" class="block font-bold uppercase text-sm border-b border-zinc-800 pb-2">Портфолио</a>
+            <a href="#process" onclick="toggleMenu()" class="block font-bold uppercase text-sm border-b border-zinc-800 pb-2">Этапы</a>
+            <a href="#contact" onclick="toggleMenu()" class="block font-bold uppercase text-sm">Контакты</a>
+            <a href="https://wa.me/996755000228" class="btn-primary block text-center py-3 mt-4">WhatsApp Связь</a>
+        </div>
+    </nav>
+
+    <!-- Главный экран (Hero) -->
+    <header class="relative min-h-screen flex items-center justify-center pt-20">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1504307650259-259f11f404e9?auto=format&fit=crop&q=80&w=2000" 
+                 alt="Профессиональные строительные работы" 
+                 class="w-full h-full object-cover opacity-30">
+            <div class="absolute inset-0 bg-gradient-to-r from-black via-black/80 to-transparent"></div>
+        </div>
+        
+        <div class="relative z-10 w-full max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="fade-in-up">
+                <div class="inline-block border border-amber-400 text-amber-400 px-4 py-1 text-xs font-bold tracking-widest uppercase mb-6">
+                    г. Талас и Таласская область
+                </div>
+                <h1 class="text-5xl md:text-7xl font-black mb-6 leading-[1.1] uppercase">
+                    Ваш надежный <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-200 to-amber-500">
+                        партнер в ремонте
+                    </span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl mb-10 max-w-xl font-light">
+                    Электрика, сантехника, клининг, укладка кирпича и поклейка обоев. Комплексные решения от профессионалов <span class="text-white font-bold">Talas_master</span> с гарантией качества.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="#services" class="btn-primary px-8 py-4 uppercase tracking-widest text-sm text-center">Все услуги</a>
+                    <a href="#contact" class="btn-outline px-8 py-4 uppercase tracking-widest text-sm text-center"><i class="fas fa-calculator mr-2"></i>Рассчитать стоимость</a>
+                </div>
+            </div>
+            
+            <!-- Блок с преимуществами на главном экране -->
+            <div class="hidden lg:grid grid-cols-2 gap-4 fade-in-up" style="transition-delay: 0.2s;">
+                <div class="bg-zinc-900/80 backdrop-blur border border-zinc-800 p-6">
+                    <i class="fas fa-medal text-3xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Гарантия качества</h3>
+                    <p class="text-sm text-gray-400">Официальная гарантия на все виды выполненных работ.</p>
+                </div>
+                <div class="bg-zinc-900/80 backdrop-blur border border-zinc-800 p-6">
+                    <i class="fas fa-clock text-3xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Точно в срок</h3>
+                    <p class="text-sm text-gray-400">Соблюдаем дедлайны. Никаких задержек и простоев.</p>
+                </div>
+                <div class="bg-zinc-900/80 backdrop-blur border border-zinc-800 p-6">
+                    <i class="fas fa-user-tie text-3xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Опытные мастера</h3>
+                    <p class="text-sm text-gray-400">Только проверенные специалисты с опытом от 5 лет.</p>
+                </div>
+                <div class="bg-zinc-900/80 backdrop-blur border border-zinc-800 p-6">
+                    <i class="fas fa-file-contract text-3xl gold-text mb-4"></i>
+                    <h3 class="font-bold text-lg mb-2">Прозрачная смета</h3>
+                    <p class="text-sm text-gray-400">Фиксированные цены без скрытых платежей в процессе.</p>
+                </div>
             </div>
         </div>
-    </div>
-
-    <header class="flex justify-between items-center mb-6 py-2 sticky top-0 bg-black/80 backdrop-blur-md z-40">
-        <div onclick="requestAuth()" class="flex items-center gap-3 active:scale-95 transition-all cursor-pointer">
-            <div id="logoBox" class="w-10 h-10 bg-yellow-500 rounded-lg flex items-center justify-center text-black font-black text-xl shadow-lg">TM</div>
-            <div>
-                <h1 class="text-md font-black tracking-tighter text-white leading-none uppercase">Talas Master</h1>
-                <p id="modeText" class="text-[8px] text-zinc-600 font-bold uppercase mt-1 tracking-widest italic">Client Mode</p>
-            </div>
-        </div>
-        <button onclick="exitMaster()" class="master-only bg-red-600 text-white px-3 py-1.5 rounded-lg text-[8px] font-black uppercase tracking-tighter">Выйти</button>
     </header>
 
-    <div class="glass-panel p-4 rounded-2xl mb-6 space-y-3">
-        <input type="text" id="clientName" class="mobile-input w-full" placeholder="Имя заказчика" oninput="saveData()">
-        <input type="text" id="clientAddr" class="mobile-input w-full" placeholder="Адрес / Объект" oninput="saveData()">
-    </div>
-
-    <div class="master-only mb-6 space-y-4">
-        <div class="flex gap-2">
-            <select id="currency" onchange="saveData()" class="bg-zinc-900 text-yellow-500 text-[10px] font-black border border-zinc-800 rounded-xl px-4 py-3 outline-none">
-                <option value="сом">СОМ</option>
-                <option value="$">USD</option>
-            </select>
-            <div class="flex-1 bg-zinc-900 border border-zinc-800 rounded-xl flex items-center justify-center text-[10px] font-bold text-zinc-500 uppercase">
-                База цен: Талас 2026
-            </div>
-        </div>
-
-        <div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
-            <button onclick="addItem('Установка розетки', 250, 'шт')" class="bg-zinc-800 px-4 py-3 rounded-xl text-[10px] font-bold whitespace-nowrap border border-zinc-700 active:bg-yellow-500 active:text-black">🔌 Розетка (250)</button>
-            <button onclick="addItem('Точка освещения', 300, 'точка')" class="bg-zinc-800 px-4 py-3 rounded-xl text-[10px] font-bold whitespace-nowrap border border-zinc-700 active:bg-yellow-500 active:text-black">💡 Свет (300)</button>
-            <button onclick="addItem('Штробление бетон', 180, 'м.п.')" class="bg-zinc-800 px-4 py-3 rounded-xl text-[10px] font-bold whitespace-nowrap border border-zinc-700 active:bg-yellow-500 active:text-black">🔨 Штроба (180)</button>
-            <button onclick="addItem('Сборка щита', 3500, 'шт')" class="bg-zinc-800 px-4 py-3 rounded-xl text-[10px] font-bold whitespace-nowrap border border-zinc-700 active:bg-yellow-500 active:text-black">⚡ Щит (3.5к)</button>
-        </div>
-    </div>
-
-    <div id="list"></div>
-
-    <button onclick="addItem()" class="master-only w-full border-2 border-dashed border-zinc-800 text-zinc-600 p-4 rounded-2xl font-bold text-[10px] uppercase mb-4">
-        + Своя позиция
-    </button>
-
-    <div class="fixed bottom-6 left-4 right-4 z-[50]">
-        <div class="glass-panel p-3 rounded-xl flex items-center justify-between px-5 mb-2 shadow-2xl">
-            <div class="text-[9px] text-zinc-500 font-bold uppercase tracking-widest">Общий расчет:</div>
-            <div id="totalFloat" class="text-xl font-black text-white italic">0</div>
-        </div>
-        <button onclick="showPreview()" class="gold-btn shadow-2xl shadow-yellow-500/40 active:scale-95 transition-transform">Сформировать PDF</button>
-    </div>
-
-    <div id="previewModal" class="bg-white text-black overflow-auto">
-        <div class="fixed top-0 left-0 right-0 bg-white/95 border-b p-4 flex gap-3 z-50">
-            <button onclick="document.getElementById('previewModal').style.display='none'" class="px-6 py-3 bg-zinc-100 rounded-xl font-bold text-xs uppercase">Назад</button>
-            <button onclick="downloadPDF()" class="flex-1 bg-black text-white rounded-xl font-black text-xs uppercase italic">Скачать PDF</button>
-        </div>
-        <div id="pdfContent" class="p-8 mt-16 max-w-3xl mx-auto">
-            <div class="border-b-8 border-black pb-4 mb-6 flex justify-between items-end">
-                <div><h1 class="text-4xl font-black tracking-tighter italic">TALAS MASTER</h1><p class="text-[10px] font-bold uppercase tracking-[0.4em] text-zinc-500">Professional Electric Services</p></div>
-                <div class="text-right text-[10px] font-bold uppercase">
-                    <p id="invoiceDate"></p>
-                    <p class="text-zinc-400">Спецификация работ</p>
+    <!-- О компании / Статистика -->
+    <section id="about" class="py-20 border-b border-zinc-900 bg-dark-gray relative">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center divide-y md:divide-y-0 md:divide-x divide-zinc-800">
+                <div class="p-4 fade-in-up">
+                    <div class="text-5xl font-black gold-text mb-2 counter" data-target="500">0</div>
+                    <div class="text-sm text-gray-400 uppercase tracking-widest font-bold">+ Выполненных проектов</div>
+                </div>
+                <div class="p-4 fade-in-up" style="transition-delay: 0.1s;">
+                    <div class="text-5xl font-black gold-text mb-2 counter" data-target="5">0</div>
+                    <div class="text-sm text-gray-400 uppercase tracking-widest font-bold">Направлений работы</div>
+                </div>
+                <div class="p-4 fade-in-up" style="transition-delay: 0.2s;">
+                    <div class="text-5xl font-black gold-text mb-2 counter" data-target="10">0</div>
+                    <div class="text-sm text-gray-400 uppercase tracking-widest font-bold">Лет опыта мастеров</div>
+                </div>
+                <div class="p-4 fade-in-up" style="transition-delay: 0.3s;">
+                    <div class="text-5xl font-black gold-text mb-2 counter" data-target="100">0</div>
+                    <div class="text-sm text-gray-400 uppercase tracking-widest font-bold">% Довольных клиентов</div>
                 </div>
             </div>
-            <div class="grid grid-cols-2 gap-10 mb-10 text-[11px]">
-                <div><p class="text-zinc-400 uppercase font-black mb-2 border-b">Заказчик</p><p id="pdfClientName" class="font-black text-lg uppercase"></p><p id="pdfClientAddr" class="text-zinc-600"></p></div>
-                <div class="text-right"><p class="text-zinc-400 uppercase font-black mb-2 border-b">Исполнитель</p><p class="font-black text-lg">TALAS_MASTER</p><p class="text-zinc-600">+996 755 000 228</p></div>
+        </div>
+    </section>
+
+    <!-- Детальные Услуги -->
+    <section id="services" class="py-32 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-20 fade-in-up">
+            <span class="gold-text font-bold tracking-widest uppercase text-sm">Что мы умеем</span>
+            <h2 class="text-4xl md:text-5xl font-black uppercase mt-2">Комплекс услуг</h2>
+            <div class="h-1 w-24 gold-bg mx-auto mt-6"></div>
+        </div>
+
+        <div class="space-y-12">
+            <!-- Электрика -->
+            <div class="flex flex-col md:flex-row gap-8 items-center service-card p-0 md:p-8 rounded-lg fade-in-up">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1621905252507-b354bcadcabc?auto=format&fit=crop&q=80&w=1000" alt="Электрика" class="w-full h-80 object-cover rounded shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-0">
+                    <i class="fas fa-bolt text-5xl gold-text mb-4"></i>
+                    <h3 class="text-3xl font-black mb-4 uppercase">Электромонтаж</h3>
+                    <p class="text-gray-400 mb-6 line-clamp-3">Проектирование и монтаж электрики под ключ. От замены розетки до полной электрификации здания. Используем ГОСТ кабели и надежную автоматику.</p>
+                    <ul class="space-y-2 mb-8 text-sm font-medium">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Монтаж электропроводки (скрытая/открытая)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Сборка и установка электрощитов</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Установка розеток, выключателей, люстр</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Диагностика и устранение замыканий</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline px-6 py-2 uppercase text-xs inline-block">Заказать электрика</a>
+                </div>
             </div>
-            <table class="w-full text-xs mb-10">
-                <thead><tr class="bg-zinc-100 border-y-2 border-black"><th class="py-3 text-left pl-2">НАИМЕНОВАНИЕ РАБОТ</th><th class="py-3 text-center">ЕД.ИЗМ</th><th class="py-3 text-right">ЦЕНА</th><th class="py-3 text-right pr-2">СУММА</th></tr></thead>
-                <tbody id="pdfTable"></tbody>
-            </table>
-            <div class="flex justify-end"><div class="text-right border-t-4 border-black pt-4 px-2"><p class="text-[10px] font-bold text-zinc-400 uppercase">Итоговая сумма:</p><p id="pdfTotalMain" class="text-4xl font-black italic"></p></div></div>
+
+            <!-- Сантехника -->
+            <div class="flex flex-col md:flex-row-reverse gap-8 items-center service-card p-0 md:p-8 rounded-lg fade-in-up">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=1000" alt="Сантехника" class="w-full h-80 object-cover rounded shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-0">
+                    <i class="fas fa-faucet text-5xl gold-text mb-4"></i>
+                    <h3 class="text-3xl font-black mb-4 uppercase">Сантехнические работы</h3>
+                    <p class="text-gray-400 mb-6">Комплексные решения для водоснабжения, канализации и отопления. Работаем с полипропиленом, металлопластиком и медью.</p>
+                    <ul class="space-y-2 mb-8 text-sm font-medium">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Разводка труб водоснабжения и канализации</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Установка ванн, унитазов, раковин, бойлеров</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Монтаж систем отопления и теплых полов</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Устранение засоров и протечек</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline px-6 py-2 uppercase text-xs inline-block">Вызвать сантехника</a>
+                </div>
+            </div>
+
+            <!-- Строительные работы (Кирпич) -->
+            <div class="flex flex-col md:flex-row gap-8 items-center service-card p-0 md:p-8 rounded-lg fade-in-up">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1589939705384-5185138a04b9?auto=format&fit=crop&q=80&w=1000" alt="Укладка кирпича" class="w-full h-80 object-cover rounded shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-0">
+                    <i class="fas fa-hammer text-5xl gold-text mb-4"></i>
+                    <h3 class="text-3xl font-black mb-4 uppercase">Каменные работы</h3>
+                    <p class="text-gray-400 mb-6">Профессиональная кладка кирпича и пескоблока. Возведение несущих стен, перегородок и заборов с идеальной геометрией.</p>
+                    <ul class="space-y-2 mb-8 text-sm font-medium">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Черновая кладка стен</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Лицевая (чистовая) кладка кирпича</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Возведение межкомнатных перегородок</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Строительство заборов и столбов</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline px-6 py-2 uppercase text-xs inline-block">Рассчитать объем</a>
+                </div>
+            </div>
+
+            <!-- Отделка (Обои) -->
+            <div class="flex flex-col md:flex-row-reverse gap-8 items-center service-card p-0 md:p-8 rounded-lg fade-in-up">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1615873968403-89e068629275?auto=format&fit=crop&q=80&w=1000" alt="Поклейка обоев" class="w-full h-80 object-cover rounded shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-0">
+                    <i class="fas fa-paint-roller text-5xl gold-text mb-4"></i>
+                    <h3 class="text-3xl font-black mb-4 uppercase">Поклейка обоев</h3>
+                    <p class="text-gray-400 mb-6">Идеально ровные стены и невидимые стыки. Работаем со всеми современными материалами от бумажных до стеклообоев.</p>
+                    <ul class="space-y-2 mb-8 text-sm font-medium">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Подготовка стен (грунтовка, шпаклевка)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Поклейка флизелиновых и виниловых обоев</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Монтаж фотообоев и фресок</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Снятие старых обоев</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline px-6 py-2 uppercase text-xs inline-block">Заказать отделку</a>
+                </div>
+            </div>
+
+            <!-- Клининг -->
+            <div class="flex flex-col md:flex-row gap-8 items-center service-card p-0 md:p-8 rounded-lg fade-in-up">
+                <div class="w-full md:w-1/2">
+                    <img src="https://images.unsplash.com/photo-1581578731522-a004756a94fd?auto=format&fit=crop&q=80&w=1000" alt="Клининг" class="w-full h-80 object-cover rounded shadow-2xl">
+                </div>
+                <div class="w-full md:w-1/2 p-6 md:p-0">
+                    <i class="fas fa-broom text-5xl gold-text mb-4"></i>
+                    <h3 class="text-3xl font-black mb-4 uppercase">Профессиональный Клининг</h3>
+                    <p class="text-gray-400 mb-6">Наведем идеальную чистоту после ремонта или строительства. Используем профессиональную химию и оборудование.</p>
+                    <ul class="space-y-2 mb-8 text-sm font-medium">
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Уборка после ремонта (вынос строительного мусора)</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Генеральная уборка квартир и домов</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Мойка окон, витражей и фасадов</li>
+                        <li><i class="fas fa-check text-green-500 mr-2"></i> Химчистка мягкой мебели и ковров</li>
+                    </ul>
+                    <a href="#contact" class="btn-outline px-6 py-2 uppercase text-xs inline-block">Вызвать клининг</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Разделительный баннер -->
+    <section class="py-20 gold-bg text-black relative overflow-hidden">
+        <div class="absolute -right-20 -top-20 opacity-10">
+            <i class="fas fa-cog fa-spin text-[300px]"></i>
+        </div>
+        <div class="max-w-7xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-4xl md:text-5xl font-black uppercase mb-6">Нужен срочный выезд мастера?</h2>
+            <p class="text-xl font-medium mb-10">Аварийный выезд электрика или сантехника в течение 40 минут по городу Талас.</p>
+            <a href="tel:+996755000228" class="inline-block bg-black text-white px-10 py-5 text-xl font-black uppercase tracking-widest hover:bg-gray-900 transition shadow-2xl transform hover:scale-105">
+                <i class="fas fa-phone-alt mr-2"></i> +996 755 000 228
+            </a>
+        </div>
+    </section>
+
+    <!-- Портфолио -->
+    <section id="portfolio" class="py-32 bg-dark-gray px-4">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="gold-text font-bold tracking-widest uppercase text-sm">Галерея</span>
+                <h2 class="text-4xl md:text-5xl font-black uppercase mt-2">Наши работы</h2>
+                <div class="h-1 w-24 gold-bg mx-auto mt-6"></div>
+            </div>
+
+            <!-- Сетка портфолио -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 fade-in-up">
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?auto=format&fit=crop&q=80&w=800" alt="Работа 1" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-bolt gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Сборка электрощита</h4>
+                        <p class="text-sm text-gray-400">Частный дом</p>
+                    </div>
+                </div>
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&q=80&w=800" alt="Работа 2" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-hammer gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Кирпичная кладка</h4>
+                        <p class="text-sm text-gray-400">Коммерческий объект</p>
+                    </div>
+                </div>
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1584622781564-1d987f7333c1?auto=format&fit=crop&q=80&w=800" alt="Работа 3" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-faucet gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Разводка труб</h4>
+                        <p class="text-sm text-gray-400">Квартира новостройка</p>
+                    </div>
+                </div>
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?auto=format&fit=crop&q=80&w=800" alt="Работа 4" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-broom gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Уборка после ремонта</h4>
+                        <p class="text-sm text-gray-400">Офисное помещение</p>
+                    </div>
+                </div>
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&q=80&w=800" alt="Работа 5" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-paint-roller gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Дизайнерские обои</h4>
+                        <p class="text-sm text-gray-400">Гостиная</p>
+                    </div>
+                </div>
+                <div class="portfolio-item relative group overflow-hidden h-72 rounded">
+                    <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=800" alt="Работа 6" class="w-full h-full object-cover transition duration-500 group-hover:scale-110">
+                    <div class="overlay absolute inset-0 bg-black/80 flex flex-col justify-center items-center text-center p-4">
+                        <i class="fas fa-hard-hat gold-text text-3xl mb-3"></i>
+                        <h4 class="font-bold text-lg">Комплексный ремонт</h4>
+                        <p class="text-sm text-gray-400">Под ключ</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-12">
+                <a href="https://wa.me/996755000228" target="_blank" class="text-gray-400 hover:text-white transition uppercase text-sm font-bold border-b border-gray-600 hover:border-white pb-1">Посмотреть больше работ в WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Как мы работаем -->
+    <section id="process" class="py-32 px-4 max-w-7xl mx-auto">
+        <div class="text-center mb-20 fade-in-up">
+            <span class="gold-text font-bold tracking-widest uppercase text-sm">Алгоритм</span>
+            <h2 class="text-4xl md:text-5xl font-black uppercase mt-2">Как мы работаем</h2>
+            <div class="h-1 w-24 gold-bg mx-auto mt-6"></div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
+            <!-- Линия соединения (только для десктопа) -->
+            <div class="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-zinc-800 -z-10 transform -translate-y-1/2"></div>
+            
+            <div class="text-center bg-black p-6 fade-in-up">
+                <div class="w-20 h-20 mx-auto bg-zinc-900 border-2 border-amber-400 rounded-full flex items-center justify-center text-2xl font-black gold-text mb-6">1</div>
+                <h3 class="font-bold text-xl mb-3">Заявка</h3>
+                <p class="text-sm text-gray-400">Вы оставляете заявку на сайте или звоните нам по номеру +996 755 000 228.</p>
+            </div>
+            
+            <div class="text-center bg-black p-6 fade-in-up" style="transition-delay: 0.1s;">
+                <div class="w-20 h-20 mx-auto bg-zinc-900 border-2 border-amber-400 rounded-full flex items-center justify-center text-2xl font-black gold-text mb-6">2</div>
+                <h3 class="font-bold text-xl mb-3">Оценка</h3>
+                <p class="text-sm text-gray-400">Мастер выезжает на объект, проводит замеры и составляет точную смету.</p>
+            </div>
+
+            <div class="text-center bg-black p-6 fade-in-up" style="transition-delay: 0.2s;">
+                <div class="w-20 h-20 mx-auto bg-zinc-900 border-2 border-amber-400 rounded-full flex items-center justify-center text-2xl font-black gold-text mb-6">3</div>
+                <h3 class="font-bold text-xl mb-3">Работа</h3>
+                <p class="text-sm text-gray-400">Закупаем материалы и выполняем работу качественно и точно в оговоренный срок.</p>
+            </div>
+
+            <div class="text-center bg-black p-6 fade-in-up" style="transition-delay: 0.3s;">
+                <div class="w-20 h-20 mx-auto bg-zinc-900 border-2 border-amber-400 rounded-full flex items-center justify-center text-2xl font-black gold-text mb-6">4</div>
+                <h3 class="font-bold text-xl mb-3">Сдача</h3>
+                <p class="text-sm text-gray-400">Вы принимаете чистый объект, оплачиваете работу и получаете гарантию.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ (Вопрос-ответ) -->
+    <section id="faq" class="py-32 bg-zinc-950 px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-16 fade-in-up">
+                <span class="gold-text font-bold tracking-widest uppercase text-sm">Информация</span>
+                <h2 class="text-4xl md:text-5xl font-black uppercase mt-2">Частые вопросы</h2>
+                <div class="h-1 w-24 gold-bg mx-auto mt-6"></div>
+            </div>
+
+            <div class="space-y-4 fade-in-up">
+                <!-- Вопрос 1 -->
+                <div class="border border-zinc-800 bg-black rounded">
+                    <button class="faq-btn w-full text-left px-6 py-5 font-bold flex justify-between items-center focus:outline-none hover:text-amber-400 transition">
+                        <span>Вы выезжаете за пределы города Талас?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-zinc-900/50 text-gray-400 text-sm leading-relaxed">
+                        <div class="pb-5 pt-2">
+                            Да, мы работаем по всему городу Талас, а также осуществляем выезды в населенные пункты Таласской области. Стоимость выезда за город оговаривается индивидуально в зависимости от удаленности.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 2 -->
+                <div class="border border-zinc-800 bg-black rounded">
+                    <button class="faq-btn w-full text-left px-6 py-5 font-bold flex justify-between items-center focus:outline-none hover:text-amber-400 transition">
+                        <span>Предоставляете ли вы гарантию на электромонтаж?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-zinc-900/50 text-gray-400 text-sm leading-relaxed">
+                        <div class="pb-5 pt-2">
+                            Абсолютно. На все виды электромонтажных и сантехнических работ мы предоставляем гарантию до 3 лет. Если в течение гарантийного срока возникнут проблемы по нашей вине — мы устраним их бесплатно.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 3 -->
+                <div class="border border-zinc-800 bg-black rounded">
+                    <button class="faq-btn w-full text-left px-6 py-5 font-bold flex justify-between items-center focus:outline-none hover:text-amber-400 transition">
+                        <span>Кто закупает материалы для ремонта?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-zinc-900/50 text-gray-400 text-sm leading-relaxed">
+                        <div class="pb-5 pt-2">
+                            Вы можете закупить черновые и чистовые материалы самостоятельно, либо доверить это нам. У нас есть скидки в крупных строительных магазинах, мы предоставляем все чеки и накладные.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Вопрос 4 -->
+                <div class="border border-zinc-800 bg-black rounded">
+                    <button class="faq-btn w-full text-left px-6 py-5 font-bold flex justify-between items-center focus:outline-none hover:text-amber-400 transition">
+                        <span>Сколько стоит вызов мастера на оценку?</span>
+                        <i class="fas fa-chevron-down transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-answer px-6 bg-zinc-900/50 text-gray-400 text-sm leading-relaxed">
+                        <div class="pb-5 pt-2">
+                            Выезд мастера для составления сметы и консультации в пределах города Талас осуществляется бесплатно при условии последующего заключения договора на работы.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Форма заявки и Контакты (Футер) -->
+    <footer id="contact" class="bg-black pt-24 border-t border-zinc-900 relative">
+        <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-amber-400 to-transparent opacity-50"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
+            <!-- Инфо -->
+            <div class="lg:col-span-5 fade-in-up">
+                <h2 class="text-5xl font-black mb-6 uppercase">Свяжитесь <br><span class="gold-text">с нами</span></h2>
+                <p class="text-gray-400 mb-10 text-lg">Готовы обсудить ваш проект? Оставьте заявку, и мы перезвоним в течение 10 минут для консультации.</p>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mr-4 shrink-0">
+                            <i class="fas fa-phone-alt gold-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs uppercase text-gray-500 font-bold tracking-widest mb-1">Телефон / WhatsApp</h4>
+                            <a href="tel:+996755000228" class="text-2xl font-black hover:text-amber-400 transition">+996 755 000 228</a>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mr-4 shrink-0">
+                            <i class="fas fa-map-marker-alt gold-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs uppercase text-gray-500 font-bold tracking-widest mb-1">Локация</h4>
+                            <p class="text-lg font-bold">Кыргызстан, г. Талас</p>
+                            <p class="text-sm text-gray-400">Работаем по городу и области</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start">
+                        <div class="w-12 h-12 rounded-full bg-zinc-900 border border-zinc-800 flex items-center justify-center mr-4 shrink-0">
+                            <i class="fas fa-clock gold-text"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs uppercase text-gray-500 font-bold tracking-widest mb-1">Режим работы</h4>
+                            <p class="text-lg font-bold">Пн-Вс: 08:00 - 20:00</p>
+                            <p class="text-sm text-gray-400">Без выходных</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Форма -->
+            <div class="lg:col-span-7 fade-in-up" style="transition-delay: 0.2s;">
+                <div class="bg-zinc-900/50 border border-zinc-800 p-8 md:p-12 rounded-xl backdrop-blur">
+                    <h3 class="text-2xl font-bold mb-8 uppercase border-b border-zinc-800 pb-4">Оставить заявку</h3>
+                    <form id="mainForm" onsubmit="event.preventDefault(); submitForm();" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 font-bold mb-2">Ваше имя</label>
+                                <input type="text" required class="w-full bg-black border border-zinc-700 p-4 text-white focus:outline-none focus:border-amber-400 transition rounded-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs uppercase text-gray-500 font-bold mb-2">Номер телефона</label>
+                                <input type="tel" required placeholder="+996 ___ ___ ___" class="w-full bg-black border border-zinc-700 p-4 text-white focus:outline-none focus:border-amber-400 transition rounded-sm">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 font-bold mb-2">Интересующая услуга</label>
+                            <div class="relative">
+                                <select class="w-full bg-black border border-zinc-700 p-4 text-white appearance-none focus:outline-none focus:border-amber-400 transition rounded-sm cursor-pointer">
+                                    <option>Электромонтаж</option>
+                                    <option>Сантехнические работы</option>
+                                    <option>Кладка кирпича</option>
+                                    <option>Поклейка обоев</option>
+                                    <option>Клининг</option>
+                                    <option>Комплексный ремонт</option>
+                                    <option>Другое</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-amber-400">
+                                    <i class="fas fa-chevron-down text-sm"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs uppercase text-gray-500 font-bold mb-2">Комментарий (необязательно)</label>
+                            <textarea rows="3" class="w-full bg-black border border-zinc-700 p-4 text-white focus:outline-none focus:border-amber-400 transition rounded-sm resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn-primary w-full py-5 text-lg uppercase tracking-widest rounded-sm mt-4">
+                            Отправить заявку
+                        </button>
+                        <p class="text-center text-xs text-gray-600 mt-4">Нажимая кнопку, вы соглашаетесь на обработку персональных данных.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Копирайт -->
+        <div class="border-t border-zinc-900 bg-black py-8 text-center px-4">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://wa.me/996755000228" class="text-gray-500 hover:text-amber-400 text-xl transition"><i class="fab fa-whatsapp"></i></a>
+                <a href="#" class="text-gray-500 hover:text-amber-400 text-xl transition"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-500 hover:text-amber-400 text-xl transition"><i class="fab fa-telegram"></i></a>
+            </div>
+            <p class="text-zinc-500 text-sm font-medium">&copy; 2026 TALAS_MASTER. Все права защищены. Создано для профессионалов.</p>
+        </div>
+    </footer>
+
+    <!-- Кнопка Вверх -->
+    <a href="#" id="scrollTop" class="fixed bottom-8 right-8 bg-amber-400 text-black w-12 h-12 flex items-center justify-center rounded-full opacity-0 invisible transition-all duration-300 z-50 hover:scale-110 shadow-lg">
+        <i class="fas fa-arrow-up text-xl"></i>
+    </a>
+
+    <!-- Модальное окно успеха -->
+    <div id="successModal" class="fixed inset-0 z-[100] hidden items-center justify-center px-4">
+        <div class="absolute inset-0 bg-black/95 backdrop-blur-sm" onclick="closeModal()"></div>
+        <div class="relative bg-zinc-900 border-2 border-amber-400 p-10 max-w-md w-full text-center rounded-xl shadow-[0_0_50px_rgba(251,191,36,0.2)] transform scale-95 transition-transform duration-300" id="modalContent">
+            <div class="w-20 h-20 mx-auto bg-amber-400/10 rounded-full flex items-center justify-center mb-6">
+                <i class="fas fa-check text-4xl text-amber-400"></i>
+            </div>
+            <h3 class="text-3xl font-black mb-4 uppercase">Отлично!</h3>
+            <p class="text-gray-400 mb-8 text-lg">Ваша заявка успешно отправлена. Наш менеджер свяжется с вами в течение 10-15 минут.</p>
+            <button onclick="closeModal()" class="btn-primary w-full py-4 uppercase font-bold tracking-widest rounded-sm">Вернуться на сайт</button>
         </div>
     </div>
 
-    <datalist id="services">
-        <option value="Установка розетки" data-price="250" data-unit="шт">
-        <option value="Установка выключателя" data-price="250" data-unit="шт">
-        <option value="Прокладка кабеля (гофра)" data-price="80" data-unit="м.п.">
-        <option value="Прокладка кабеля (открыто)" data-price="50" data-unit="м.п.">
-        <option value="Монтаж распред. коробки" data-price="400" data-unit="шт">
-        <option value="Установка подрозетника (бетон)" data-price="200" data-unit="шт">
-        <option value="Установка подрозетника (кирпич)" data-price="150" data-unit="шт">
-        <option value="Сборка электрощита" data-price="3500" data-unit="шт">
-        <option value="Монтаж люстры" data-price="500" data-unit="шт">
-        <option value="Штробление (бетон)" data-price="200" data-unit="м.п.">
-        <option value="Штробление (кирпич)" data-price="100" data-unit="м.п.">
-    </datalist>
-
+    <!-- JavaScript логика -->
     <script>
-        let isMaster = false;
-        let clicks = 0;
-        const SECRET_CODE = "31082001";
+        // 1. Мобильное меню
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
 
-        // ЦЕНЫ ПО ТАЛАСУ
-        const PRICE_DATABASE = {
-            "Установка розетки": { price: 250, unit: "шт" },
-            "Точка освещения": { price: 300, unit: "точка" },
-            "Штробление бетон": { price: 180, unit: "м.п." },
-            "Сборка щита": { price: 3500, unit: "шт" }
+        // 2. Анимация навбара при скролле и кнопка "вверх"
+        const navbar = document.getElementById('navbar');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'border-zinc-800');
+                navbar.classList.remove('py-4');
+                navbar.classList.add('py-2');
+                scrollTopBtn.classList.remove('opacity-0', 'invisible');
+                scrollTopBtn.classList.add('opacity-100', 'visible');
+            } else {
+                navbar.classList.remove('shadow-lg', 'border-zinc-800');
+                navbar.classList.remove('py-2');
+                navbar.classList.add('py-4');
+                scrollTopBtn.classList.add('opacity-0', 'invisible');
+                scrollTopBtn.classList.remove('opacity-100', 'visible');
+            }
+        });
+
+        // 3. Аккордеон FAQ
+        const faqBtns = document.querySelectorAll('.faq-btn');
+        faqBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const answer = this.nextElementSibling;
+                const icon = this.querySelector('i');
+                
+                // Закрыть другие
+                document.querySelectorAll('.faq-answer').forEach(a => {
+                    if (a !== answer) {
+                        a.style.maxHeight = null;
+                        a.previousElementSibling.querySelector('i').style.transform = 'rotate(0deg)';
+                        a.previousElementSibling.classList.remove('text-amber-400');
+                    }
+                });
+
+                if (answer.style.maxHeight) {
+                    answer.style.maxHeight = null;
+                    icon.style.transform = 'rotate(0deg)';
+                    this.classList.remove('text-amber-400');
+                } else {
+                    answer.style.maxHeight = answer.scrollHeight + "px";
+                    icon.style.transform = 'rotate(180deg)';
+                    this.classList.add('text-amber-400');
+                }
+            });
+        });
+
+        // 4. Анимация счетчиков (Статистика)
+        const counters = document.querySelectorAll('.counter');
+        let hasCounted = false;
+
+        const startCounters = () => {
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-target');
+                const duration = 2000; // 2 секунды
+                const increment = target / (duration / 16); // 60fps
+                
+                let current = 0;
+                const updateCounter = () => {
+                    current += increment;
+                    if (current < target) {
+                        counter.innerText = Math.ceil(current) + (target > 50 ? '+' : '');
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.innerText = target + (target > 50 ? '+' : '');
+                    }
+                };
+                updateCounter();
+            });
         };
 
-        function requestAuth() {
-            if (isMaster) return;
-            clicks++;
-            if (clicks >= 3) {
-                document.getElementById('authModal').style.display = 'flex';
-                document.getElementById('masterPass').focus();
-                clicks = 0;
-            }
-        }
+        // 5. Анимация появления элементов при скролле (Fade In Up)
+        const fadeElements = document.querySelectorAll('.fade-in-up');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
 
-        function closeAuth() {
-            document.getElementById('authModal').style.display = 'none';
-            document.getElementById('masterPass').value = '';
-        }
-
-        function checkAuth() {
-            if (document.getElementById('masterPass').value === SECRET_CODE) {
-                isMaster = true;
-                document.body.classList.add('is-master');
-                document.getElementById('modeText').innerText = "MASTER ACCESS ENABLED";
-                document.getElementById('modeText').classList.replace('text-zinc-600', 'text-yellow-500');
-                document.querySelectorAll('.price-val, .item-name').forEach(el => el.disabled = el.readOnly = false);
-                closeAuth();
-            } else {
-                alert("Ошибка кода");
-            }
-        }
-
-        function exitMaster() {
-            isMaster = false;
-            document.body.classList.remove('is-master');
-            document.getElementById('modeText').innerText = "Client Mode";
-            document.getElementById('modeText').classList.replace('text-yellow-500', 'text-zinc-600');
-            saveData();
-            location.reload(); // Сброс состояния для безопасности
-        }
-
-        function addItem(name = "", price = 0, unit = "шт") {
-            const div = document.createElement('div');
-            div.className = 'card row-item';
-            div.innerHTML = `
-                <button onclick="this.parentElement.remove();saveData()" class="master-only absolute -top-2 -right-2 bg-red-600 w-8 h-8 rounded-full border-2 border-black font-black text-[10px]">✕</button>
-                <input type="text" list="services" class="mobile-input w-full font-bold mb-3 item-name uppercase text-xs" 
-                       value="${name}" placeholder="Выберите или введите услугу" ${isMaster ? '' : 'readonly'} onchange="autoFill(this)">
-                
-                <div class="flex gap-2 mb-3 overflow-x-auto no-scrollbar">
-                    ${['шт', 'м.п.', 'м²', 'точка'].map(u => `<div class="unit-badge ${u === unit ? 'active' : ''}" onclick="toggleUnit(this)">${u}</div>`).join('')}
-                </div>
-
-                <div class="grid grid-cols-3 gap-2">
-                    <div>
-                        <label class="text-[8px] text-zinc-600 font-black block mb-1 ml-1 uppercase">Цена</label>
-                        <input type="number" class="mobile-input w-full price-val text-yellow-500 font-black" value="${price}" ${isMaster ? '' : 'disabled'} oninput="saveData()">
-                    </div>
-                    <div>
-                        <label class="text-[8px] text-zinc-600 font-black block mb-1 ml-1 uppercase">Кол-во</label>
-                        <input type="number" class="mobile-input w-full count-val font-black bg-zinc-900" value="1" oninput="saveData()">
-                    </div>
-                    <div>
-                        <label class="text-[8px] text-yellow-500 font-black block mb-1 ml-1 uppercase italic">Сумма</label>
-                        <div class="total-val h-[52px] flex items-center justify-center font-black bg-[#111] rounded-xl border border-zinc-800 text-sm">0</div>
-                    </div>
-                </div>`;
-            document.getElementById('list').prepend(div);
-            calculateTotal();
-        }
-
-        function autoFill(input) {
-            const val = input.value;
-            const datalist = document.getElementById('services');
-            const option = Array.from(datalist.options).find(opt => opt.value === val);
-            
-            if (option) {
-                const card = input.closest('.card');
-                const priceInput = card.querySelector('.price-val');
-                priceInput.value = option.getAttribute('data-price');
-                
-                // Переключаем единицу измерения
-                const unit = option.getAttribute('data-unit');
-                card.querySelectorAll('.unit-badge').forEach(b => {
-                    b.classList.toggle('active', b.innerText === unit);
-                });
-            }
-            saveData();
-        }
-
-        function toggleUnit(el) {
-            el.parentElement.querySelectorAll('.unit-badge').forEach(b => b.classList.remove('active'));
-            el.classList.add('active');
-            saveData();
-        }
-
-        function saveData() {
-            let total = 0;
-            const cur = document.getElementById('currency').value;
-            document.querySelectorAll('.row-item').forEach(card => {
-                const p = parseFloat(card.querySelector('.price-val').value) || 0;
-                const c = parseFloat(card.querySelector('.count-val').value) || 0;
-                const sub = p * c;
-                total += sub;
-                card.querySelector('.total-val').innerText = sub.toLocaleString();
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    
+                    // Запуск счетчиков, когда секция about в зоне видимости
+                    if (entry.target.closest('#about') && !hasCounted) {
+                        startCounters();
+                        hasCounted = true;
+                    }
+                    observer.unobserve(entry.target);
+                }
             });
-            document.getElementById('totalFloat').innerText = `${total.toLocaleString()} ${cur}`;
-        }
+        }, observerOptions);
 
-        function calculateTotal() { saveData(); }
+        fadeElements.forEach(el => observer.observe(el));
 
-        function showPreview() {
-            const pdfTable = document.getElementById('pdfTable');
-            const cur = document.getElementById('currency').value;
-            document.getElementById('pdfClientName').innerText = document.getElementById('clientName').value || "ЧАСТНОЕ ЛИЦО";
-            document.getElementById('pdfClientAddr').innerText = document.getElementById('clientAddr').value || "ТАЛАССКАЯ ОБЛАСТЬ";
-            document.getElementById('invoiceDate').innerText = new Date().toLocaleDateString();
+        // 6. Обработка формы
+        function submitForm() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
             
-            pdfTable.innerHTML = '';
-            let grandTotal = 0;
-            document.querySelectorAll('.row-item').forEach(card => {
-                const name = card.querySelector('.item-name').value;
-                const p = parseFloat(card.querySelector('.price-val').value) || 0;
-                const c = parseFloat(card.querySelector('.count-val').value) || 0;
-                const u = card.querySelector('.unit-badge.active').innerText;
-                if(!name) return;
-                grandTotal += p * c;
-                pdfTable.innerHTML += `
-                    <tr class="border-b border-zinc-200">
-                        <td class="py-4 font-black uppercase text-[10px] leading-tight">${name}</td>
-                        <td class="py-4 text-center text-zinc-500">${u}</td>
-                        <td class="py-4 text-right">${p.toLocaleString()}</td>
-                        <td class="py-4 text-right font-black">${(p*c).toLocaleString()}</td>
-                    </tr>`;
-            });
-            document.getElementById('pdfTotalMain').innerText = `${grandTotal.toLocaleString()} ${cur}`;
-            document.getElementById('previewModal').style.display = 'block';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            // Небольшая задержка для анимации scale
+            setTimeout(() => {
+                content.classList.remove('scale-95');
+                content.classList.add('scale-100');
+            }, 10);
+            
+            document.getElementById('mainForm').reset();
         }
 
-        function downloadPDF() {
-            const element = document.getElementById('pdfContent');
-            html2pdf().from(element).set({
-                margin: 10,
-                filename: 'Talas_Master_Estimate.pdf',
-                html2canvas: { scale: 3 },
-                jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-            }).save();
+        function closeModal() {
+            const modal = document.getElementById('successModal');
+            const content = document.getElementById('modalContent');
+            
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 300);
         }
-
-        window.onload = () => addItem("Электромонтаж (общий)", 0);
     </script>
 </body>
 </html>

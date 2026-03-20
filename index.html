@@ -3,369 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talas_profi — Профессиональное строительство и ремонт в Таласе</title>
+    <title>Talas_profi | Профессиональный Индустриальный Сервис</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap');
-
-        :root {
-            --gold: #FBBF24;
-            --black: #000000;
-            --dark: #0a0a0a;
-            --gray-card: #121212;
-        }
-
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--black);
-            color: #ffffff;
-            scroll-behavior: smooth;
+            font-family: 'Inter', sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
         }
 
-        /* Индустриальные элементы */
-        .hazard-border {
-            border-image: repeating-linear-gradient(45deg, #FBBF24, #FBBF24 10px, #000 10px, #000 20px) 30;
-            border-width: 4px;
-            border-style: solid;
+        .gold-text { color: #FBBF24; }
+        .gold-bg { background-color: #FBBF24; }
+        .gold-border { border-color: #FBBF24; }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            border: 1px solid #1a1a1a;
+        }
+        
+        .service-card:hover {
+            border-color: #FBBF24;
+            transform: translateY(-5px);
         }
 
         .btn-primary {
-            background-color: var(--gold);
-            color: #000;
-            font-weight: 900;
-            text-transform: uppercase;
+            background-color: #FBBF24;
+            color: #000000;
+            font-weight: 700;
             transition: all 0.3s ease;
-            clip-path: polygon(5% 0, 100% 0, 95% 100%, 0 100%);
         }
 
         .btn-primary:hover {
-            background-color: #fff;
+            background-color: #FFFFFF;
             transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
         }
 
-        .glass-card {
-            background: rgba(18, 18, 18, 0.8);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .glass-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-10px);
-        }
-
-        .section-title {
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            line-height: 0.9;
-        }
-
-        /* Анимация */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s ease-out;
-        }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .bg-grid {
-            background-image: radial-gradient(rgba(251, 191, 36, 0.1) 1px, transparent 1px);
-            background-size: 30px 30px;
+        .industrial-overlay {
+            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
         }
     </style>
 </head>
-<body class="bg-grid">
+<body>
 
     <!-- Навигация -->
-    <nav class="fixed w-full z-50 bg-black/90 border-b border-white/10 backdrop-blur-md">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-8">
-                <a href="#" class="text-3xl font-black italic text-[#FBBF24] tracking-tighter">TALAS_PROFI</a>
-                <div class="hidden lg:flex gap-6 text-[10px] font-bold uppercase tracking-widest text-gray-400">
-                    <a href="#about" class="hover:text-[#FBBF24] transition" data-i18n="nav_about">О команде</a>
-                    <a href="#trust" class="hover:text-[#FBBF24] transition" data-i18n="nav_trust">Гарантии</a>
-                    <a href="#services" class="hover:text-[#FBBF24] transition" data-i18n="nav_services">Услуги</a>
-                    <a href="#contact" class="hover:text-[#FBBF24] transition" data-i18n="nav_contact">Контакты</a>
-                </div>
+    <nav class="fixed w-full z-50 bg-black/90 border-b border-yellow-500/20 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-black tracking-tighter">
+                TALAS<span class="gold-text">_PROFI</span>
             </div>
-
-            <div class="flex items-center gap-6">
-                <!-- Языки -->
-                <div class="flex bg-white/5 rounded px-2 py-1 gap-2">
-                    <button onclick="setLang('ky')" id="lang-ky" class="text-[10px] font-bold opacity-50 hover:opacity-100">KY</button>
-                    <button onclick="setLang('ru')" id="lang-ru" class="text-[10px] font-bold text-[#FBBF24]">RU</button>
-                    <button onclick="setLang('en')" id="lang-en" class="text-[10px] font-bold opacity-50 hover:opacity-100">EN</button>
-                </div>
-                <a href="tel:+996755000228" class="hidden sm:block font-black text-[#FBBF24] hover:text-white transition">+996 755 000 228</a>
-                <a href="https://wa.me/996755000228" class="bg-[#25D366] p-2 rounded-full hover:scale-110 transition">
-                    <i class="fab fa-whatsapp text-black text-xl"></i>
-                </a>
+            <div class="hidden md:flex space-x-8 font-bold text-sm uppercase tracking-widest">
+                <a href="#services" class="hover:text-yellow-400 transition">Услуги</a>
+                <a href="#about" class="hover:text-yellow-400 transition">О нас</a>
+                <a href="#contact" class="hover:text-yellow-400 transition">Контакты</a>
             </div>
+            <a href="https://wa.me/996755000228" class="btn-primary px-6 py-2 rounded-none text-xs uppercase">
+                Связаться
+            </a>
         </div>
     </nav>
 
-    <!-- HERO SECTION -->
-    <header class="relative min-h-screen flex items-center px-6 pt-20 overflow-hidden">
-        <div class="absolute right-0 top-0 w-1/2 h-full bg-[#FBBF24]/5 skew-x-[-15deg] translate-x-32 hidden lg:block"></div>
+    <!-- Геро-секция -->
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80" 
+                 alt="Индустриальный фон" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 industrial-overlay"></div>
+        </div>
         
-        <div class="max-w-7xl mx-auto w-full grid lg:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="reveal active">
-                <div class="inline-flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full mb-6">
-                    <span class="w-2 h-2 bg-[#FBBF24] rounded-full animate-ping"></span>
-                    <span class="text-[10px] uppercase font-bold tracking-widest text-gray-300" data-i18n="hero_status">Принимаем заказы в Таласской области</span>
-                </div>
-                <h1 class="section-title text-6xl md:text-8xl mb-6">
-                    <span data-i18n="hero_t1">СТРОЙ</span> <br>
-                    <span class="text-[#FBBF24]" data-i18n="hero_t2">КОМАНДА</span> <br>
-                    <span class="text-4xl md:text-6xl" data-i18n="hero_t3">В ТАЛАСЕ</span>
-                </h1>
-                <p class="text-gray-400 text-lg md:text-xl mb-10 max-w-xl leading-relaxed border-l-4 border-[#FBBF24] pl-6" data-i18n="hero_desc">
-                    Свои мастера, никакой текучки. Работаем официально по договору. Железная гарантия и честная смета без «сюрпризов».
-                </p>
-                
-                <div class="flex flex-wrap gap-4">
-                    <a href="https://wa.me/996755000228" class="btn-primary px-10 py-5 text-lg inline-block">
-                        <span data-i18n="hero_btn_main">Обсудить проект</span>
-                    </a>
-                    <a href="#services" class="border-2 border-white/20 hover:border-[#FBBF24] px-10 py-5 text-lg font-bold uppercase transition" data-i18n="hero_btn_sec">
-                        Наши услуги
-                    </a>
-                </div>
-            </div>
-
-            <div class="relative reveal active" style="transition-delay: 0.2s;">
-                <div class="hazard-border p-2">
-                    <div class="bg-[#121212] p-8">
-                        <div class="grid grid-cols-2 gap-8">
-                            <div>
-                                <div class="text-[#FBBF24] text-4xl font-black mb-1">10+</div>
-                                <div class="text-[10px] uppercase font-bold text-gray-500 tracking-tighter" data-i18n="stat_1">Лет опыта в Таласе</div>
-                            </div>
-                            <div>
-                                <div class="text-[#FBBF24] text-4xl font-black mb-1">500+</div>
-                                <div class="text-[10px] uppercase font-bold text-gray-500 tracking-tighter" data-i18n="stat_2">Завершенных объектов</div>
-                            </div>
-                            <div>
-                                <div class="text-[#FBBF24] text-4xl font-black mb-1">100%</div>
-                                <div class="text-[10px] uppercase font-bold text-gray-500 tracking-tighter" data-i18n="stat_3">Свои мастера</div>
-                            </div>
-                            <div>
-                                <div class="text-[#FBBF24] text-4xl font-black mb-1">2 ГОДА</div>
-                                <div class="text-[10px] uppercase font-bold text-gray-500 tracking-tighter" data-i18n="stat_4">Минимальная гарантия</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="relative z-10 text-center px-4">
+            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
+                ИНДУСТРИАЛЬНЫЙ <br> <span class="gold-text">СТАНДАРТ</span> КАЧЕСТВА
+            </h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
+                Профессиональные решения для вашего дома и бизнеса в Таласе. 
+                От клининга до капитального строительства.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 justify-center">
+                <a href="#services" class="btn-primary px-10 py-4 text-sm uppercase tracking-widest">
+                    Наши услуги
+                </a>
+                <a href="tel:+996755000228" class="border-2 gold-border text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-yellow-500 hover:text-black transition">
+                    Позвонить нам
+                </a>
             </div>
         </div>
     </header>
 
-    <!-- БЛОК ДОВЕРИЯ (ГЛАВНЫЕ ПРЕИМУЩЕСТВА) -->
-    <section id="trust" class="py-24 px-6 bg-[#050505]">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-20 reveal">
-                <h2 class="section-title text-4xl md:text-6xl" data-i18n="trust_title">ПОЧЕМУ МЫ — <br> <span class="text-[#FBBF24]">ВАШ ВЫБОР?</span></h2>
-                <p class="text-gray-500 max-w-sm mt-6 md:mt-0 font-bold uppercase text-[12px]" data-i18n="trust_subtitle">Мы строим отношения на доверии и профессионализме. Каждый этап под контролем.</p>
+    <!-- Секция услуг -->
+    <section id="services" class="py-24 bg-black">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="mb-16">
+                <h2 class="text-3xl font-black uppercase mb-2">Направления <span class="gold-text">работы</span></h2>
+                <div class="w-20 h-2 gold-bg"></div>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-8">
-                <!-- Карта 1 -->
-                <div class="glass-card p-10 reveal">
-                    <i class="fas fa-user-shield text-5xl text-[#FBBF24] mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase" data-i18n="trust_c1_h">СВОИ МАСТЕРА</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="trust_c1_p">Мы не нанимаем бригады «с вокзала». В Talas_profi работают штатные мастера, за результат которых мы отвечаем головой.</p>
-                </div>
-                <!-- Карта 2 -->
-                <div class="glass-card p-10 reveal" style="transition-delay: 0.1s;">
-                    <i class="fas fa-file-signature text-5xl text-[#FBBF24] mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase" data-i18n="trust_c2_h">ОФИЦИАЛЬНО</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="trust_c2_p">Никаких устных договоренностей. Составляем договор, фиксируем сроки и окончательную стоимость работ до начала процесса.</p>
-                </div>
-                <!-- Карта 3 -->
-                <div class="glass-card p-10 reveal" style="transition-delay: 0.2s;">
-                    <i class="fas fa-medal text-5xl text-[#FBBF24] mb-8"></i>
-                    <h3 class="text-2xl font-black mb-4 uppercase" data-i18n="trust_c3_h">ГАРАНТИЯ 100%</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed" data-i18n="trust_c3_p">Мы дорожим репутацией в Таласе. Если после работ что-то пойдет не так — мы исправим это бесплатно по гарантийному случаю.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- УСЛУГИ -->
-    <section id="services" class="py-24 px-6">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="section-title text-4xl md:text-6xl text-center mb-20 reveal" data-i18n="services_h">ЧТО МЫ <span class="text-[#FBBF24]">ДЕЛАЕМ?</span></h2>
-            
-            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <!-- Кладка кирпича -->
-                <div class="bg-[#121212] p-8 border border-white/5 hover:bg-[#FBBF24] group transition-all duration-500 reveal">
-                    <i class="fas fa-layer-group text-4xl text-[#FBBF24] group-hover:text-black mb-6"></i>
-                    <h4 class="text-xl font-black uppercase group-hover:text-black mb-4" data-i18n="srv_1_h">Кладка кирпича</h4>
-                    <p class="text-gray-500 group-hover:text-black/80 text-sm" data-i18n="srv_1_p">Качественная кладка стен, перегородок, заборов и облицовка. Идеальные швы и геометрия.</p>
-                </div>
-                <!-- Сантехника -->
-                <div class="bg-[#121212] p-8 border border-white/5 hover:bg-[#FBBF24] group transition-all duration-500 reveal" style="transition-delay: 0.1s;">
-                    <i class="fas fa-faucet text-4xl text-[#FBBF24] group-hover:text-black mb-6"></i>
-                    <h4 class="text-xl font-black uppercase group-hover:text-black mb-4" data-i18n="srv_2_h">Сантехника</h4>
-                    <p class="text-gray-500 group-hover:text-black/80 text-sm" data-i18n="srv_2_p">Монтаж водопровода, отопления и канализации. Установка чистовой сантехники под ключ.</p>
-                </div>
-                <!-- Обои -->
-                <div class="bg-[#121212] p-8 border border-white/5 hover:bg-[#FBBF24] group transition-all duration-500 reveal" style="transition-delay: 0.2s;">
-                    <i class="fas fa-paint-roller text-4xl text-[#FBBF24] group-hover:text-black mb-6"></i>
-                    <h4 class="text-xl font-black uppercase group-hover:text-black mb-4" data-i18n="srv_3_h">Поклейка обоев</h4>
-                    <p class="text-gray-500 group-hover:text-black/80 text-sm" data-i18n="srv_3_p">Подготовка стен, шпаклевка и поклейка любых видов обоев без видимых стыков.</p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Клининг -->
-                <div class="bg-[#121212] p-8 border border-white/5 hover:bg-[#FBBF24] group transition-all duration-500 reveal" style="transition-delay: 0.3s;">
-                    <i class="fas fa-broom text-4xl text-[#FBBF24] group-hover:text-black mb-6"></i>
-                    <h4 class="text-xl font-black uppercase group-hover:text-black mb-4" data-i18n="srv_4_h">Клининг</h4>
-                    <p class="text-gray-500 group-hover:text-black/80 text-sm" data-i18n="srv_4_p">Уборка после ремонта, генеральная чистка помещений. Профессиональная химия и оборудование.</p>
+                <div class="service-card p-8 bg-[#0a0a0a]">
+                    <i class="fa-solid fa-broom-ball text-4xl gold-text mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Клининг</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Профессиональная уборка жилых и офисных помещений любой сложности.
+                    </p>
+                </div>
+
+                <!-- Сантехника -->
+                <div class="service-card p-8 bg-[#0a0a0a]">
+                    <i class="fa-solid fa-faucet-drip text-4xl gold-text mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Сантехника</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Монтаж, ремонт и обслуживание систем водоснабжения и канализации.
+                    </p>
+                </div>
+
+                <!-- Укладка кирпича -->
+                <div class="service-card p-8 bg-[#0a0a0a]">
+                    <i class="fa-solid fa-trowel-bricks text-4xl gold-text mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Укладка кирпича</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Капитальное строительство, возведение стен и перегородок с гарантией.
+                    </p>
+                </div>
+
+                <!-- Поклейка обоев -->
+                <div class="service-card p-8 bg-[#0a0a0a]">
+                    <i class="fa-solid fa-scroll text-4xl gold-text mb-6"></i>
+                    <h3 class="text-xl font-bold mb-4 uppercase">Поклейка обоев</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed">
+                        Идеально ровные стены и качественная отделка вашего интерьера.
+                    </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ПРИЗЫВ К ДЕЙСТВИЮ -->
-    <section id="contact" class="py-24 px-6 bg-[#FBBF24] text-black">
-        <div class="max-w-5xl mx-auto text-center reveal">
-            <h2 class="text-5xl md:text-7xl font-black uppercase mb-8 leading-none" data-i18n="cta_h">НУЖЕН РАСЧЕТ <br> СТОИМОСТИ?</h2>
-            <p class="text-xl font-bold mb-12 uppercase" data-i18n="cta_p">Просто напишите нам, и мы составим предварительную смету бесплатно.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-6">
-                <a href="https://wa.me/996755000228" class="bg-black text-white px-12 py-6 text-xl font-black uppercase hover:bg-white hover:text-black transition flex items-center justify-center gap-4">
-                    <i class="fab fa-whatsapp text-2xl"></i> WHATSAPP
-                </a>
-                <a href="tel:+996755000228" class="border-4 border-black px-12 py-6 text-xl font-black uppercase hover:bg-black hover:text-white transition flex items-center justify-center gap-4">
-                    <i class="fas fa-phone-alt"></i> +996 755 000 228
-                </a>
+    <!-- О нас / Статистика -->
+    <section id="about" class="py-20 bg-[#050505] border-y border-yellow-500/10">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            <div>
+                <div class="text-5xl font-black gold-text mb-2">100%</div>
+                <div class="uppercase text-xs tracking-widest font-bold">Качество</div>
+            </div>
+            <div>
+                <div class="text-5xl font-black gold-text mb-2">24/7</div>
+                <div class="uppercase text-xs tracking-widest font-bold">Поддержка</div>
+            </div>
+            <div>
+                <div class="text-5xl font-black gold-text mb-2">Talas</div>
+                <div class="uppercase text-xs tracking-widest font-bold">Регион охвата</div>
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black py-16 px-6 border-t border-white/10">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
+    <!-- Футер / Контакты -->
+    <footer id="contact" class="py-20 bg-black border-t border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-10">
             <div>
-                <div class="text-3xl font-black italic text-[#FBBF24] mb-2">TALAS_PROFI</div>
-                <p class="text-gray-500 text-xs font-bold uppercase tracking-widest" data-i18n="foot_slogan">Ваша стройка — наша гордость</p>
+                <div class="text-3xl font-black mb-4">TALAS<span class="gold-text">_PROFI</span></div>
+                <p class="text-gray-500 max-w-sm uppercase text-[10px] tracking-widest">
+                    Профессиональный индустриальный подход к бытовым и строительным задачам.
+                </p>
             </div>
             
-            <div class="flex gap-8 text-2xl text-gray-400">
-                <a href="#" class="hover:text-[#FBBF24]"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-[#FBBF24]"><i class="fab fa-tiktok"></i></a>
-                <a href="https://wa.me/996755000228" class="hover:text-[#FBBF24]"><i class="fab fa-whatsapp"></i></a>
+            <div class="flex flex-col items-center md:items-end">
+                <div class="text-sm uppercase tracking-widest text-gray-400 mb-2">Свяжитесь с нами напрямую</div>
+                <a href="tel:+996755000228" class="text-2xl md:text-4xl font-black hover:text-yellow-400 transition">
+                    +996 755 000 228
+                </a>
+                <div class="flex space-x-6 mt-6">
+                    <a href="https://wa.me/996755000228" class="text-2xl hover:text-green-500 transition">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </a>
+                    <a href="#" class="text-2xl hover:text-pink-500 transition">
+                        <i class="fa-brands fa-instagram"></i>
+                    </a>
+                    <a href="tel:+996755000228" class="text-2xl hover:text-yellow-500 transition">
+                        <i class="fa-solid fa-phone"></i>
+                    </a>
+                </div>
             </div>
-
-            <div class="text-right">
-                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-widest" data-i18n="foot_copy">© 2026 Все права защищены</p>
-                <p class="text-gray-600 text-[10px] font-bold uppercase tracking-widest" data-i18n="foot_loc">Кыргызстан, г. Талас</p>
-            </div>
+        </div>
+        <div class="text-center mt-20 text-[10px] text-gray-700 uppercase tracking-[0.3em]">
+            © 2024 TALAS_PROFI. Все права защищены.
         </div>
     </footer>
 
-    <script>
-        // Анимация появления при скролле
-        function reveal() {
-            var reveals = document.querySelectorAll(".reveal");
-            for (var i = 0; i < reveals.length; i++) {
-                var windowHeight = window.innerHeight;
-                var elementTop = reveals[i].getBoundingClientRect().top;
-                var elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add("active");
-                }
-            }
-        }
-        window.addEventListener("scroll", reveal);
-        window.onload = reveal;
-
-        // Переводы
-        const translations = {
-            ru: {
-                nav_about: "О команде", nav_trust: "Гарантии", nav_services: "Услуги", nav_contact: "Контакты",
-                hero_status: "Принимаем заказы в Таласской области",
-                hero_t1: "СТРОЙ", hero_t2: "КОМАНДА", hero_t3: "В ТАЛАСЕ",
-                hero_desc: "Свои мастера, никакой текучки. Работаем официально по договору. Железная гарантия и честная смета без «сюрпризов».",
-                hero_btn_main: "Обсудить проект", hero_btn_sec: "Наши услуги",
-                stat_1: "Лет опыта в Таласе", stat_2: "Завершенных объектов", stat_3: "Свои мастера", stat_4: "Минимальная гарантия",
-                trust_title: "ПОЧЕМУ МЫ — <br> <span class='text-[#FBBF24]'>ВАШ ВЫБОР?</span>",
-                trust_subtitle: "Мы строим отношения на доверии и профессионализме. Каждый этап под контролем.",
-                trust_c1_h: "СВОИ МАСТЕРА", trust_c1_p: "Мы не нанимаем бригады «с вокзала». В Talas_profi работают штатные мастера, за результат которых мы отвечаем головой.",
-                trust_c2_h: "ОФИЦИАЛЬНО", trust_c2_p: "Никаких устных договоренностей. Составляем договор, фиксируем сроки и окончательную стоимость работ до начала процесса.",
-                trust_c3_h: "ГАРАНТИЯ 100%", trust_c3_p: "Мы дорожим репутацией в Таласе. Если после работ что-то пойдет не так — мы исправим это бесплатно по гарантийному случаю.",
-                services_h: "ЧТО МЫ <span class='text-[#FBBF24]'>ДЕЛАЕМ?</span>",
-                srv_1_h: "Кладка кирпича", srv_1_p: "Качественная кладка стен, перегородок, заборов и облицовка. Идеальные швы и геометрия.",
-                srv_2_h: "Сантехника", srv_2_p: "Монтаж водопровода, отопления и канализации. Установка чистовой сантехники под ключ.",
-                srv_3_h: "Поклейка обоев", srv_3_p: "Подготовка стен, шпаклевка и поклейка любых видов обоев без видимых стыков.",
-                srv_4_h: "Клининг", srv_4_p: "Уборка после ремонта, генеральная чистка помещений. Профессиональная химия и оборудование.",
-                cta_h: "НУЖЕН РАСЧЕТ <br> СТОИМОСТИ?", cta_p: "Просто напишите нам, и мы составим предварительную смету бесплатно.",
-                foot_slogan: "Ваша стройка — наша гордость", foot_copy: "© 2026 Все права защищены", foot_loc: "Кыргызстан, г. Талас"
-            },
-            ky: {
-                nav_about: "Команда жөнүндө", nav_trust: "Кепилдиктер", nav_services: "Кызматтар", nav_contact: "Байланыш",
-                hero_status: "Талас областы боюнча заказдарды алабыз",
-                hero_t1: "КУРУЛУШ", hero_t2: "КОМАНДАСЫ", hero_t3: "ТАЛАСТА",
-                hero_desc: "Өзүбүздүн мастерлер. Келишим менен расмий иштейбиз. Темирдей кепилдик жана «сюрприздерсиз» так смета.",
-                hero_btn_main: "Долбоорду талкуулоо", hero_btn_sec: "Биздин кызматтар",
-                stat_1: "Таластагы тажрыйба", stat_2: "Бүткөн объекттер", stat_3: "Өз чеберлерибиз", stat_4: "Минималдуу кепилдик",
-                trust_title: "ЭМНЕГЕ БИЗ — <br> <span class='text-[#FBBF24]'>СИЗДИН ТАНДООҢУЗ?</span>",
-                trust_subtitle: "Биз ишенимге жана кесипкөйлүккө таянабыз. Ар бир этап көзөмөлдө.",
-                trust_c1_h: "ӨЗ МАСТЕРЛЕРИБИЗ", trust_c1_p: "Биз көчөдөн бригадаларды жалдабайбыз. Talas_profi'де штаттагы чеберлер иштейт, биз алардын ишине жооп беребиз.",
-                trust_c2_h: "РАСМИЙ ТҮРДӨ", trust_c2_p: "Оозеки келишим жок. Келишим түзүп, мөөнөттөрдү жана бааны алдын ала бекитебиз.",
-                trust_c3_h: "КЕПИЛДИК 100%", trust_c3_p: "Биз Таластагы репутациябызды баалайбыз. Эгер жумуштан кийин маселе жаралса — акысыз оңдоп беребиз.",
-                services_h: "БИЗ ЭМНЕ <span class='text-[#FBBF24]'>КЫЛАБЫЗ?</span>",
-                srv_1_h: "Кирпич өрүү", srv_1_p: "Дубалдарды, тосмолорду сапаттуу өрүү. Идеалдуу геометрия жана тигиштер.",
-                srv_2_h: "Сантехника", srv_2_p: "Суу, жылуулук жана канализация монтаждоо. Сантехниканы орнотуу.",
-                srv_3_h: "Обой чаптоо", srv_3_p: "Дубалдарды даярдоо жана обойлорду билинбегендей кылып чаптоо.",
-                srv_4_h: "Клининг", srv_4_p: "Ремонттон кийинки тазалоо. Кесипкөй химия жана жабдыктар менен тазалоо.",
-                cta_h: "БААСЫН ЭСЕПТӨӨ <br> КЕРЕКПИ?", cta_p: "Бизге жазыңыз, биз алдын ала сметаны акысыз түзүп беребиз.",
-                foot_slogan: "Сиздин курулуш — биздин сыймыгыбыз", foot_copy: "© 2026 Бардык укуктар корголгон", foot_loc: "Кыргызстан, Талас ш."
-            },
-            en: {
-                nav_about: "Team", nav_trust: "Guarantees", nav_services: "Services", nav_contact: "Contact",
-                hero_status: "Taking orders in Talas region",
-                hero_t1: "CONSTRUCTION", hero_t2: "TEAM", hero_t3: "IN TALAS",
-                hero_desc: "Our own craftsmen. We work officially under contract. Iron-clad guarantee and honest estimates without 'surprises'.",
-                hero_btn_main: "Discuss Project", hero_btn_sec: "Our Services",
-                stat_1: "Years in Talas", stat_2: "Completed projects", stat_3: "In-house masters", stat_4: "Minimum guarantee",
-                trust_title: "WHY WE ARE — <br> <span class='text-[#FBBF24]'>YOUR BEST CHOICE?</span>",
-                trust_subtitle: "We build relationships based on trust and professionalism. Every stage is under control.",
-                trust_c1_h: "IN-HOUSE CRAFTSMEN", trust_c1_p: "We don't hire random crews. Talas_profi has permanent craftsmen for whose results we are fully responsible.",
-                trust_c2_h: "OFFICIAL", trust_c2_p: "No verbal agreements. We sign a contract, fixing deadlines and final costs before starting.",
-                trust_c3_h: "100% GUARANTEE", trust_c3_p: "We value our reputation in Talas. If something goes wrong after work — we fix it for free.",
-                services_h: "WHAT DO <span class='text-[#FBBF24]'>WE DO?</span>",
-                srv_1_h: "Bricklaying", srv_1_p: "High-quality wall, fence, and partition laying. Perfect joints and geometry.",
-                srv_2_h: "Plumbing", srv_2_p: "Installation of water supply, heating, and sewerage. Turnkey plumbing fixtures.",
-                srv_3_h: "Wallpapering", srv_3_p: "Wall preparation, plastering, and seamless wallpaper application.",
-                srv_4_h: "Cleaning", srv_4_p: "Post-renovation cleaning, general space cleaning with professional equipment.",
-                cta_h: "NEED A COST <br> ESTIMATE?", cta_p: "Just message us, and we will prepare a preliminary estimate for free.",
-                foot_slogan: "Your construction is our pride", foot_copy: "© 2026 All rights reserved", foot_loc: "Talas, Kyrgyzstan"
-            }
-        };
-
-        function setLang(lang) {
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-            // Update UI
-            ['ru', 'ky', 'en'].forEach(l => {
-                const btn = document.getElementById('lang-' + l);
-                btn.classList.remove('text-[#FBBF24]');
-                btn.classList.add('opacity-50');
-            });
-            const active = document.getElementById('lang-' + lang);
-            active.classList.add('text-[#FBBF24]');
-            active.classList.remove('opacity-50');
-        }
-    </script>
 </body>
 </html>

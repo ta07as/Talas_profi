@@ -282,7 +282,7 @@
                     <div class="h-2 w-32 bg-[#FBBF24]"></div>
                 </div>
                 <a href="#calculator" class="hidden md:inline-flex items-center gap-2 text-[#FBBF24] font-bold uppercase tracking-widest text-sm hover:text-white transition-colors">
-                    Перейти к калькулятору <i class="fas fa-arrow-right"></i>
+                    <i class="fas fa-arrow-right"></i>
                 </a>
             </div>
 
@@ -583,90 +583,134 @@
             </div>
         </div>
     </section>
-
-    <!-- 6. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ (КРУТАЯ ФИШКА ДЛЯ ИИ) -->
-    <section id="calculator" class="py-24 px-6 bg-[#050505] border-y border-white/5">
-        <div class="max-w-4xl mx-auto">
-            <div class="text-center mb-12 reveal">
-                <i class="fas fa-calculator text-5xl text-[#FBBF24] mb-6"></i>
-                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">Предварительный <span class="text-[#FBBF24]">расчет</span></h2>
-                <p class="text-gray-400">Выберите услугу и укажите площадь, чтобы узнать примерную стоимость работ.</p>
-            </div>
-
-            <div class="bg-[#0a0a0a] border-2 border-[#111] p-8 md:p-12 shadow-2xl reveal">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <!-- Форма -->
-                    <div class="space-y-6">
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Вид работ:</label>
-                            <select id="calc-service" class="w-full bg-black border border-white/10 text-white p-4 focus:outline-none focus:border-[#FBBF24] transition-colors appearance-none cursor-pointer">
-                                <option value="0">Выберите услугу...</option>
-                                <option value="800">Кладка кирпича (от 800 сом/м2)</option>
-                                <option value="1500">Сантехника / Теплый пол (от 1500 сом/м2)</option>
-                                <option value="300">Поклейка обоев (от 300 сом/м2)</option>
-                                <option value="150">Уборка / Клининг (от 150 сом/м2)</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Объем / Площадь (м²):</label>
-                            <input type="number" id="calc-area" min="1" placeholder="Например: 50" class="w-full bg-black border border-white/10 text-white p-4 focus:outline-none focus:border-[#FBBF24] transition-colors">
-                        </div>
-                        <button onclick="calculatePrice()" class="w-full bg-[#FBBF24] text-black font-black uppercase tracking-widest py-4 hover:bg-white transition-colors">
-                            Рассчитать
-                        </button>
-                    </div>
-
-                    <!-- Результат -->
-                    <div class="bg-black border border-white/5 p-8 flex flex-col justify-center items-center text-center">
-                        <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Примерная стоимость:</div>
-                        <div id="calc-result" class="text-4xl md:text-5xl font-black text-[#FBBF24] mb-4">0 сом</div>
-                        <p class="text-xs text-gray-600 mb-6">*Сумма ориентировочная. Точная смета после выезда замерщика.</p>
-                        <a href="https://wa.me/996755000228" class="text-xs border-b border-[#FBBF24] text-[#FBBF24] pb-1 hover:text-white transition-colors">Зафиксировать цену</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 7. FAQ (ЧАСТЫЕ ВОПРОСЫ - АККОРДЕОН) -->
-    <section class="py-24 px-6 bg-black">
-        <div class="max-w-4xl mx-auto reveal">
-            <h2 class="text-3xl md:text-5xl font-black uppercase text-center mb-16">Частые <span class="text-[#FBBF24]">вопросы</span></h2>
+       <!-- 7. FAQ (ЧАСТЫЕ ВОПРОСЫ - АККОРДЕОН) -->
+    <section class="py-24 px-6 bg-black border-t border-white/5">
+        <div class="max-w-4xl mx-auto reveal active">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-center mb-4 italic leading-none">
+                Инженерные <span class="text-[#FBBF24]">ответы</span>
+            </h2>
+            <p class="text-center text-gray-500 text-[10px] font-bold uppercase tracking-[0.4em] mb-16">
+                Разбираем все нюансы профессионального подхода
+            </p>
             
             <div class="space-y-4">
                 <!-- Вопрос 1 -->
-                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
-                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                        <span>Кто закупает строительные материалы?</span>
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">01. Кто закупает строительные материалы?</span>
                         <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
-                        <p class="pb-5">Вы можете закупить материалы самостоятельно, либо мы возьмем это на себя. У нас есть корпоративные скидки в строительных магазинах Таласа, все чеки мы предоставляем.</p>
+                        <p class="pb-5 pt-2">Вы можете закупить материалы самостоятельно, либо мы возьмем это на себя. У нас есть корпоративные скидки в строительных магазинах Таласа, все чеки мы предоставляем. Мы закупаем только проверенные бренды.</p>
                     </div>
                 </div>
+
                 <!-- Вопрос 2 -->
-                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
-                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                        <span>Что входит в гарантию 2 года?</span>
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">02. Что входит в гарантию и на какой срок?</span>
                         <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
-                        <p class="pb-5">Гарантия распространяется на все монтажные работы, выполненные нашей бригадой: целостность труб, швы кладки, отсутствие отслоения обоев при соблюдении условий эксплуатации.</p>
+                        <p class="pb-5 pt-2">Минимальная гарантия на работы — 12 месяцев. На инженерные системы (электрика, сантехника) — до 2 лет. Гарантия покрывает любые дефекты монтажа: от протечек труб до трещин в штукатурке при соблюдении норм эксплуатации.</p>
                     </div>
                 </div>
+
                 <!-- Вопрос 3 -->
-                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
-                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
-                        <span>Вы работаете по предоплате?</span>
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">03. Вы работаете по предоплате?</span>
                         <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
                     </button>
                     <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
-                        <p class="pb-5">Мы работаем поэтапно. Предоплата берется только за закупку материалов (если мы их покупаем). Оплата за работу производится по факту завершения определенных этапов, прописанных в договоре.</p>
+                        <p class="pb-5 pt-2">Мы работаем поэтапно. Оплата за работу производится только после завершения и вашей личной приемки конкретного этапа (черновая отделка, монтаж коммуникаций и т.д.). Предоплата берется только за закупку материалов.</p>
+                    </div>
+                </div>
+
+                <!-- Вопрос 4 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">04. Можно ли заказать только сантехнику или кладку?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5 pt-2">Да, мы выполняем как комплексный ремонт под ключ, так и отдельные виды работ: сантехнику, электрику, профессиональную кладку кирпича или поклейку обоев. Каждое направление ведет профильный мастер.</p>
+                    </div>
+                </div>
+
+                <!-- Вопрос 5 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">05. Сколько времени занимает капитальный ремонт?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5 pt-2">Сроки зависят от площади. В среднем: 1-комнатная квартира — 1.5 месяца, 3-комнатная — до 3 месяцев. Мы соблюдаем технологические паузы (сушка стяжки и штукатурки), так как это основа долговечности ремонта.</p>
+                    </div>
+                </div>
+
+                <!-- Вопрос 6 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">06. Вы работаете в зимний период?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5 pt-2">Да, мы работаем круглый год. В зимнее время при отсутствии центрального отопления на объекте мы используем тепловые пушки для поддержания необходимого температурного режима при выполнении «мокрых» процессов.</p>
+                    </div>
+                </div>
+
+                <!-- Вопрос 7 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">07. Предоставляете ли вы услугу клининга после работ?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5 pt-2">После завершения работ мы вывозим строительный мусор. Также у нас есть услуга профессионального послестроительного клининга: мы очистим поверхности от пыли, следов затирки и краски, чтобы вы могли сразу заехать.</p>
+                    </div>
+                </div>
+
+                <!-- Вопрос 8 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden transition-all duration-300">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase text-xs tracking-widest flex justify-between items-center group focus:outline-none" onclick="toggleFaq(this)">
+                        <span class="group-hover:text-[#FBBF24] transition-colors">08. Как контролировать ремонт, если я нахожусь не в Таласе?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5 pt-2">Мы обеспечиваем полный дистанционный контроль: еженедельные фото- и видеоотчеты в WhatsApp, акты скрытых работ. Вы будете видеть каждый этап — от прокладки труб до финальной отделки — не выходя из дома.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        function toggleFaq(button) {
+            const currentItem = button.parentElement;
+            const items = document.querySelectorAll('.faq-item');
+            
+            // Закрываем другие открытые вопросы
+            items.forEach(item => {
+                if (item !== currentItem) {
+                    item.classList.remove('active');
+                }
+            });
+
+            // Открываем/закрываем текущий
+            currentItem.classList.toggle('active');
+        }
+    </script>
 
     <!-- 8. FINAL CALL TO ACTION (ФИНАЛЬНЫЙ ПРИЗЫВ) -->
     <section class="py-24 px-6 bg-[#FBBF24] text-black text-center relative overflow-hidden">

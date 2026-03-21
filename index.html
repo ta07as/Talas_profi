@@ -1,195 +1,657 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talas_profi | Профессиональный Индустриальный Сервис</title>
+    <title>Talas_profi | Элитный ремонт и строительство в Таласе</title>
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        
+        :root {
+            --gold: #FBBF24;
+            --black: #000000;
+            --dark: #0a0a0a;
+            --gray: #1a1a1a;
+        }
+
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: #000000;
-            color: #FFFFFF;
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--black);
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
         }
 
-        .gold-text { color: #FBBF24; }
-        .gold-bg { background-color: #FBBF24; }
-        .gold-border { border-color: #FBBF24; }
-        
-        .service-card {
-            transition: all 0.3s ease;
-            border: 1px solid #1a1a1a;
+        /* Анимация при скролле */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        
-        .service-card:hover {
-            border-color: #FBBF24;
-            transform: translateY(-5px);
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        .btn-primary {
-            background-color: #FBBF24;
-            color: #000000;
-            font-weight: 700;
-            transition: all 0.3s ease;
+        /* Индустриальная сетка */
+        .bg-grid {
+            background-image: 
+                linear-gradient(to right, rgba(251, 191, 36, 0.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(251, 191, 36, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
         }
 
-        .btn-primary:hover {
-            background-color: #FFFFFF;
-            transform: scale(1.05);
+        /* Свечение */
+        .glow-gold { text-shadow: 0 0 20px rgba(251, 191, 36, 0.5); }
+        .shadow-gold { box-shadow: 0 0 25px rgba(251, 191, 36, 0.2); }
+
+        /* Бегущая строка */
+        .marquee-wrapper {
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            background: var(--gold);
+            color: var(--black);
+            padding: 10px 0;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .marquee-content {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
-        .industrial-overlay {
-            background: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.9) 100%);
+        /* Аккордеон FAQ */
+        .faq-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease-out;
         }
+        .faq-item.active .faq-content {
+            max-height: 200px; /* Приблизительная высота контента */
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        /* Кастомный скроллбар */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); }
     </style>
 </head>
-<body>
+<body class="bg-black antialiased selection:bg-[#FBBF24] selection:text-black">
 
-    <!-- Навигация -->
-    <nav class="fixed w-full z-50 bg-black/90 border-b border-yellow-500/20 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="text-2xl font-black tracking-tighter">
-                TALAS<span class="gold-text">_PROFI</span>
-            </div>
-            <div class="hidden md:flex space-x-8 font-bold text-sm uppercase tracking-widest">
-                <a href="#services" class="hover:text-yellow-400 transition">Услуги</a>
-                <a href="#about" class="hover:text-yellow-400 transition">О нас</a>
-                <a href="#contact" class="hover:text-yellow-400 transition">Контакты</a>
-            </div>
-            <a href="https://wa.me/996755000228" class="btn-primary px-6 py-2 rounded-none text-xs uppercase">
-                Связаться
+    <!-- НАВИГАЦИЯ -->
+    <nav class="fixed w-full z-50 bg-black/80 backdrop-blur-lg border-b border-white/10 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-black italic tracking-tighter text-[#FBBF24] hover:scale-105 transition-transform">
+                TALAS_PROFI
             </a>
+            
+            <!-- Десктопное меню -->
+            <div class="hidden lg:flex items-center gap-8 text-xs font-bold uppercase tracking-widest">
+                <a href="#about" class="hover:text-[#FBBF24] transition-colors">О нас</a>
+                <a href="#services" class="hover:text-[#FBBF24] transition-colors">Услуги</a>
+                <a href="#portfolio" class="hover:text-[#FBBF24] transition-colors">Объекты</a>
+                <a href="#calculator" class="hover:text-[#FBBF24] transition-colors">Расчет</a>
+                <a href="https://wa.me/996755000228" class="bg-[#FBBF24] text-black px-6 py-3 hover:bg-white hover:shadow-gold transition-all transform hover:-translate-y-1">
+                    +996 755 000 228
+                </a>
+            </div>
+
+            <!-- Мобильная кнопка -->
+            <button id="mobile-menu-btn" class="lg:hidden text-[#FBBF24] text-2xl focus:outline-none">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Мобильное меню (скрыто по умолчанию) -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#0a0a0a] border-b border-white/10 absolute w-full left-0 top-full">
+            <div class="flex flex-col px-6 py-4 gap-4 text-sm font-bold uppercase tracking-widest">
+                <a href="#about" class="mobile-link hover:text-[#FBBF24]">О нас</a>
+                <a href="#services" class="mobile-link hover:text-[#FBBF24]">Услуги</a>
+                <a href="#portfolio" class="mobile-link hover:text-[#FBBF24]">Портфолио</a>
+                <a href="#calculator" class="mobile-link hover:text-[#FBBF24]">Калькулятор</a>
+                <a href="https://wa.me/996755000228" class="text-[#FBBF24] py-2 border-t border-white/10 block mt-2">
+                    <i class="fab fa-whatsapp mr-2"></i> Написать нам
+                </a>
+            </div>
         </div>
     </nav>
 
-    <!-- Геро-секция -->
-    <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 z-0">
-            <img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&q=80" 
-                 alt="Индустриальный фон" class="w-full h-full object-cover opacity-40">
-            <div class="absolute inset-0 industrial-overlay"></div>
-        </div>
-        
-        <div class="relative z-10 text-center px-4">
-            <h1 class="text-5xl md:text-8xl font-black mb-6 leading-tight">
-                ИНДУСТРИАЛЬНЫЙ <br> <span class="gold-text">СТАНДАРТ</span> КАЧЕСТВА
-            </h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">
-                Профессиональные решения для вашего дома и бизнеса в Таласе. 
-                От клининга до капитального строительства.
-            </p>
-            <div class="flex flex-col md:flex-row gap-4 justify-center">
-                <a href="#services" class="btn-primary px-10 py-4 text-sm uppercase tracking-widest">
-                    Наши услуги
-                </a>
-                <a href="tel:+996755000228" class="border-2 gold-border text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-yellow-500 hover:text-black transition">
-                    Позвонить нам
-                </a>
+    <!-- 1. ГЛАВНЫЙ ЭКРАН (HERO) -->
+    <section id="hero" class="relative min-h-screen flex items-center pt-20 bg-grid overflow-hidden">
+        <!-- Декоративные элементы -->
+        <div class="absolute right-0 top-0 w-1/2 h-full bg-gradient-to-l from-[#FBBF24]/5 to-transparent skew-x-[-20deg] hidden lg:block"></div>
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-[#FBBF24] rounded-full mix-blend-multiply filter blur-[128px] opacity-20"></div>
+
+        <div class="max-w-7xl mx-auto w-full px-6 grid lg:grid-cols-12 gap-12 items-center relative z-10">
+            <!-- Левая часть: Текст (Занимает 7 колонок) -->
+            <div class="lg:col-span-7 reveal">
+                <div class="inline-flex items-center gap-3 bg-white/5 border border-white/10 px-4 py-2 mb-8 backdrop-blur-sm">
+                    <span class="relative flex h-2 w-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FBBF24] opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-[#FBBF24]"></span>
+                    </span>
+                    <span class="text-[10px] uppercase font-black tracking-[0.3em] text-gray-300">Талас и Таласская область</span>
+                </div>
+
+                <h1 class="text-5xl sm:text-7xl md:text-8xl font-black uppercase leading-[0.85] mb-8">
+                    <span class="block">СТРОЙ</span>
+                    <span class="text-[#FBBF24] block glow-gold">КОМАНДА</span>
+                    <span class="text-2xl sm:text-4xl block mt-4 text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-gray-600 tracking-tighter">
+                        БЕЗ КОМПРОМИССОВ
+                    </span>
+                </h1>
+
+                <p class="text-gray-400 text-lg border-l-4 border-[#FBBF24] pl-6 mb-12 max-w-xl leading-relaxed">
+                    Никакой текучки. Только свои проверенные мастера. Работаем официально по договору. Честная смета без "внезапных" доплат.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-6">
+                    <a href="https://wa.me/996755000228" class="group relative bg-[#FBBF24] text-black px-10 py-5 font-black uppercase text-sm tracking-widest text-center overflow-hidden">
+                        <span class="relative z-10">Вызвать замерщика</span>
+                        <div class="absolute inset-0 bg-white transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left duration-300"></div>
+                    </a>
+                    <a href="#portfolio" class="flex items-center justify-center gap-3 border border-white/20 hover:border-[#FBBF24] hover:text-[#FBBF24] px-10 py-5 text-sm font-black uppercase tracking-widest transition-all">
+                        <i class="fas fa-play text-xs"></i> Смотреть работы
+                    </a>
+                </div>
+            </div>
+
+            <!-- Правая часть: Визуальная статистика (Занимает 5 колонок) -->
+            <div class="lg:col-span-5 reveal delay-300 hidden md:block">
+                <div class="relative">
+                    <!-- Главная карточка -->
+                    <div class="bg-[#0a0a0a] border border-white/10 p-10 relative z-20 shadow-2xl">
+                        <div class="absolute -top-5 -left-5 text-[#FBBF24] text-6xl opacity-20"><i class="fas fa-quote-left"></i></div>
+                        <h3 class="text-2xl font-black mb-6 uppercase">Гарантия качества</h3>
+                        <p class="text-gray-400 text-sm mb-8 leading-relaxed">Каждый объект проходит строгий контроль качества на всех этапах работ.</p>
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-2 text-[#FBBF24]">
+                                    <span>Соблюдение сроков</span> <span>100%</span>
+                                </div>
+                                <div class="h-1 bg-white/10 w-full"><div class="h-full bg-[#FBBF24] w-full shadow-[0_0_10px_#FBBF24]"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between text-[10px] font-bold uppercase tracking-widest mb-2 text-[#FBBF24]">
+                                    <span>Точность сметы</span> <span>98%</span>
+                                </div>
+                                <div class="h-1 bg-white/10 w-full"><div class="h-full bg-[#FBBF24] w-[98%] shadow-[0_0_10px_#FBBF24]"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Фоновая плашка -->
+                    <div class="absolute top-6 left-6 w-full h-full border-2 border-[#FBBF24] z-10 hidden lg:block"></div>
+                </div>
             </div>
         </div>
-    </header>
+    </section>
 
-    <!-- Секция услуг -->
-    <section id="services" class="py-24 bg-black">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="mb-16">
-                <h2 class="text-3xl font-black uppercase mb-2">Направления <span class="gold-text">работы</span></h2>
-                <div class="w-20 h-2 gold-bg"></div>
+    <!-- БЕГУЩАЯ СТРОКА (MARQUEE) -->
+    <div class="marquee-wrapper border-y-4 border-[#FBBF24] shadow-gold relative z-20">
+        <div class="marquee-content gap-8 items-center">
+            <span>КЛАДКА КИРПИЧА</span> <i class="fas fa-bolt text-black"></i>
+            <span>ПРОФЕССИОНАЛЬНАЯ САНТЕХНИКА</span> <i class="fas fa-bolt text-black"></i>
+            <span>ИДЕАЛЬНЫЕ ОБОИ</span> <i class="fas fa-bolt text-black"></i>
+            <span>ГЕНЕРАЛЬНЫЙ КЛИНИНГ</span> <i class="fas fa-bolt text-black"></i>
+            <span>ГАРАНТИЯ 2 ГОДА</span> <i class="fas fa-bolt text-black"></i>
+            <!-- Дублирование для бесконечного скролла -->
+            <span>КЛАДКА КИРПИЧА</span> <i class="fas fa-bolt text-black"></i>
+            <span>ПРОФЕССИОНАЛЬНАЯ САНТЕХНИКА</span> <i class="fas fa-bolt text-black"></i>
+            <span>ИДЕАЛЬНЫЕ ОБОИ</span> <i class="fas fa-bolt text-black"></i>
+            <span>ГЕНЕРАЛЬНЫЙ КЛИНИНГ</span> <i class="fas fa-bolt text-black"></i>
+            <span>ГАРАНТИЯ 2 ГОДА</span>
+        </div>
+    </div>
+
+    <!-- 2. О НАС / БЛОК ДОВЕРИЯ -->
+    <section id="about" class="py-24 px-6 bg-[#050505]">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+            <div class="reveal">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-[#0a0a0a] border border-white/5 p-8 text-center hover:border-[#FBBF24] transition-colors">
+                        <div class="text-5xl font-black text-[#FBBF24] mb-2">10+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500">Лет на рынке</div>
+                    </div>
+                    <div class="bg-[#0a0a0a] border border-white/5 p-8 text-center hover:border-[#FBBF24] transition-colors mt-8">
+                        <div class="text-5xl font-black text-[#FBBF24] mb-2">500+</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500">Объектов</div>
+                    </div>
+                    <div class="bg-[#0a0a0a] border border-white/5 p-8 text-center hover:border-[#FBBF24] transition-colors -mt-8">
+                        <div class="text-5xl font-black text-[#FBBF24] mb-2">100%</div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500">Свои мастера</div>
+                    </div>
+                    <div class="bg-[#0a0a0a] border border-white/5 p-8 text-center hover:border-[#FBBF24] transition-colors">
+                        <div class="text-5xl font-black text-white mb-2">2 <span class="text-sm text-[#FBBF24]">Г.</span></div>
+                        <div class="text-[10px] uppercase tracking-widest text-gray-500">Гарантия</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal delay-200">
+                <h2 class="text-sm text-[#FBBF24] font-black uppercase tracking-[0.3em] mb-4">Почему мы?</h2>
+                <h3 class="text-4xl md:text-5xl font-black uppercase leading-tight mb-8">
+                    СТРОИМ ТАК, ЧТОБЫ <br> НЕ ПРИШЛОСЬ ПЕРЕДЕЛЫВАТЬ
+                </h3>
+                <p class="text-gray-400 mb-6 leading-relaxed">
+                    Строительный рынок полон "бригад на один день". Talas_profi — это системная компания. Мы берем на себя ответственность за каждый саморез и каждый шов. 
+                </p>
+                <ul class="space-y-4 text-sm font-bold text-gray-300">
+                    <li class="flex items-center gap-4"><i class="fas fa-check text-[#FBBF24]"></i> Договор с четкими сроками и суммами.</li>
+                    <li class="flex items-center gap-4"><i class="fas fa-check text-[#FBBF24]"></i> Никаких скрытых платежей в процессе работы.</li>
+                    <li class="flex items-center gap-4"><i class="fas fa-check text-[#FBBF24]"></i> Помощь в закупке материалов со скидками.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. УСЛУГИ (С РАСШИРЕННЫМ ДИЗАЙНОМ) -->
+    <section id="services" class="py-32 px-6 bg-black relative border-t border-white/5">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 reveal">
+                <div>
+                    <h2 class="text-5xl md:text-7xl font-black uppercase mb-4">
+                        <span class="text-gray-600">НАШИ</span> <br>
+                        <span class="text-[#FBBF24] glow-gold">КОМПЕТЕНЦИИ</span>
+                    </h2>
+                    <div class="h-2 w-32 bg-[#FBBF24]"></div>
+                </div>
+                <a href="#calculator" class="hidden md:inline-flex items-center gap-2 text-[#FBBF24] font-bold uppercase tracking-widest text-sm hover:text-white transition-colors">
+                    Перейти к калькулятору <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Клининг -->
-                <div class="service-card p-8 bg-[#0a0a0a]">
-                    <i class="fa-solid fa-broom-ball text-4xl gold-text mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Клининг</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Профессиональная уборка жилых и офисных помещений любой сложности.
-                    </p>
+                <!-- Услуга 1 -->
+                <div class="reveal bg-[#0a0a0a] border border-white/5 p-10 hover:-translate-y-2 hover:border-[#FBBF24] transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#FBBF24] opacity-5 rounded-bl-full group-hover:scale-150 transition-transform"></div>
+                    <i class="fas fa-layer-group text-5xl text-[#FBBF24] mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Кладка кирпича</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Возведение стен, перегородок из жженого кирпича и пескоблока. Облицовочная кладка любой сложности с идеальной геометрией швов.</p>
                 </div>
 
-                <!-- Сантехника -->
-                <div class="service-card p-8 bg-[#0a0a0a]">
-                    <i class="fa-solid fa-faucet-drip text-4xl gold-text mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Сантехника</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Монтаж, ремонт и обслуживание систем водоснабжения и канализации.
-                    </p>
+                <!-- Услуга 2 -->
+                <div class="reveal delay-100 bg-[#0a0a0a] border border-white/5 p-10 hover:-translate-y-2 hover:border-[#FBBF24] transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#FBBF24] opacity-5 rounded-bl-full group-hover:scale-150 transition-transform"></div>
+                    <i class="fas fa-faucet-drip text-5xl text-[#FBBF24] mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Сантехника</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Разводка труб водоснабжения, монтаж теплого пола, радиаторов, котельных. Установка чистовой сантехники (унитазы, ванны, душевые кабины).</p>
                 </div>
 
-                <!-- Укладка кирпича -->
-                <div class="service-card p-8 bg-[#0a0a0a]">
-                    <i class="fa-solid fa-trowel-bricks text-4xl gold-text mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Укладка кирпича</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Капитальное строительство, возведение стен и перегородок с гарантией.
-                    </p>
+                <!-- Услуга 3 -->
+                <div class="reveal delay-200 bg-[#0a0a0a] border border-white/5 p-10 hover:-translate-y-2 hover:border-[#FBBF24] transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#FBBF24] opacity-5 rounded-bl-full group-hover:scale-150 transition-transform"></div>
+                    <i class="fas fa-scroll text-5xl text-[#FBBF24] mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Поклейка обоев</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Подготовка стен под маяк, грунтовка, шпаклевка. Поклейка флизелиновых, виниловых и бумажных обоев. Гарантия невидимых стыков.</p>
                 </div>
 
-                <!-- Поклейка обоев -->
-                <div class="service-card p-8 bg-[#0a0a0a]">
-                    <i class="fa-solid fa-scroll text-4xl gold-text mb-6"></i>
-                    <h3 class="text-xl font-bold mb-4 uppercase">Поклейка обоев</h3>
-                    <p class="text-gray-500 text-sm leading-relaxed">
-                        Идеально ровные стены и качественная отделка вашего интерьера.
-                    </p>
+                <!-- Услуга 4 -->
+                <div class="reveal delay-300 bg-[#0a0a0a] border border-white/5 p-10 hover:-translate-y-2 hover:border-[#FBBF24] transition-all duration-300 group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-[#FBBF24] opacity-5 rounded-bl-full group-hover:scale-150 transition-transform"></div>
+                    <i class="fas fa-spray-can-sparkles text-5xl text-[#FBBF24] mb-8 block"></i>
+                    <h3 class="text-2xl font-black uppercase mb-4">Клининг</h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">Вывоз строительного мусора, генеральная уборка после ремонта. Мойка окон, удаление строительной пыли, пятен краски и цемента профессиональной химией.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- О нас / Статистика -->
-    <section id="about" class="py-20 bg-[#050505] border-y border-yellow-500/10">
-        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
-            <div>
-                <div class="text-5xl font-black gold-text mb-2">100%</div>
-                <div class="uppercase text-xs tracking-widest font-bold">Качество</div>
-            </div>
-            <div>
-                <div class="text-5xl font-black gold-text mb-2">24/7</div>
-                <div class="uppercase text-xs tracking-widest font-bold">Поддержка</div>
-            </div>
-            <div>
-                <div class="text-5xl font-black gold-text mb-2">Talas</div>
-                <div class="uppercase text-xs tracking-widest font-bold">Регион охвата</div>
+    <!-- 4. ЭТАПЫ РАБОТЫ (КАК МЫ РАБОТАЕМ) -->
+    <section class="py-24 px-6 bg-[#050505]">
+        <div class="max-w-7xl mx-auto text-center">
+            <h2 class="text-sm text-[#FBBF24] font-black uppercase tracking-[0.3em] mb-4 reveal">Схема работы</h2>
+            <h3 class="text-4xl md:text-5xl font-black uppercase mb-16 reveal">5 ШАГОВ К РЕЗУЛЬТАТУ</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-8 relative">
+                <!-- Линия коннектор (только для десктопа) -->
+                <div class="hidden md:block absolute top-10 left-10 right-10 h-1 bg-white/10 z-0"></div>
+
+                <div class="reveal relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-[#0a0a0a] border-2 border-[#FBBF24] flex items-center justify-center text-2xl font-black text-[#FBBF24] mb-6 shadow-gold">1</div>
+                    <h4 class="font-bold uppercase mb-2">Заявка</h4>
+                    <p class="text-xs text-gray-500">Вы звоните нам или пишете в WhatsApp</p>
+                </div>
+                <div class="reveal delay-100 relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-[#0a0a0a] border-2 border-[#FBBF24] flex items-center justify-center text-2xl font-black text-[#FBBF24] mb-6">2</div>
+                    <h4 class="font-bold uppercase mb-2">Замер</h4>
+                    <p class="text-xs text-gray-500">Бесплатный выезд инженера на объект</p>
+                </div>
+                <div class="reveal delay-200 relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-[#0a0a0a] border-2 border-[#FBBF24] flex items-center justify-center text-2xl font-black text-[#FBBF24] mb-6">3</div>
+                    <h4 class="font-bold uppercase mb-2">Договор</h4>
+                    <p class="text-xs text-gray-500">Составление точной сметы и подписание</p>
+                </div>
+                <div class="reveal delay-300 relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-[#0a0a0a] border-2 border-[#FBBF24] flex items-center justify-center text-2xl font-black text-[#FBBF24] mb-6">4</div>
+                    <h4 class="font-bold uppercase mb-2">Работы</h4>
+                    <p class="text-xs text-gray-500">Качественное выполнение в срок</p>
+                </div>
+                <div class="reveal delay-400 relative z-10 flex flex-col items-center">
+                    <div class="w-20 h-20 rounded-full bg-[#FBBF24] flex items-center justify-center text-2xl font-black text-black mb-6">5</div>
+                    <h4 class="font-bold uppercase mb-2 text-[#FBBF24]">Сдача</h4>
+                    <p class="text-xs text-gray-500">Приемка работ, оплата и гарантия</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Футер / Контакты -->
-    <footer id="contact" class="py-20 bg-black border-t border-gray-900">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-10">
-            <div>
-                <div class="text-3xl font-black mb-4">TALAS<span class="gold-text">_PROFI</span></div>
-                <p class="text-gray-500 max-w-sm uppercase text-[10px] tracking-widest">
-                    Профессиональный индустриальный подход к бытовым и строительным задачам.
-                </p>
+    <!-- 5. ПОРТФОЛИО (ГАЛЕРЕЯ) -->
+    <section id="portfolio" class="py-24 px-6 bg-black">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-4xl md:text-6xl font-black uppercase">
+                    НАШИ <span class="text-[#FBBF24]">ОБЪЕКТЫ</span>
+                </h2>
+                <p class="text-gray-500 mt-4">Мы гордимся каждой выполненной работой.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <!-- Фото 1: Кладка -->
+                <div class="reveal group relative h-80 overflow-hidden bg-gray-900 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Кладка кирпича" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <span class="bg-[#FBBF24] text-black text-[10px] font-bold uppercase px-2 py-1 mb-2 inline-block">Кладка</span>
+                        <h4 class="text-xl font-black uppercase">Частный дом, Талас</h4>
+                    </div>
+                </div>
+                <!-- Фото 2: Сантехника -->
+                <div class="reveal delay-100 group relative h-80 overflow-hidden bg-gray-900 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Сантехника" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <span class="bg-[#FBBF24] text-black text-[10px] font-bold uppercase px-2 py-1 mb-2 inline-block">Сантехника</span>
+                        <h4 class="text-xl font-black uppercase">Котельная под ключ</h4>
+                    </div>
+                </div>
+                <!-- Фото 3: Ремонт/Обои -->
+                <div class="reveal delay-200 group relative h-80 overflow-hidden bg-gray-900 border border-white/5">
+                    <img src="https://images.unsplash.com/photo-1562663474-6cbb3eaa4d14?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Отделка" class="w-full h-full object-cover opacity-60 group-hover:opacity-100 group-hover:scale-110 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent opacity-80"></div>
+                    <div class="absolute bottom-6 left-6">
+                        <span class="bg-[#FBBF24] text-black text-[10px] font-bold uppercase px-2 py-1 mb-2 inline-block">Отделка</span>
+                        <h4 class="text-xl font-black uppercase">Квартира в новостройке</h4>
+                    </div>
+                </div>
             </div>
             
-            <div class="flex flex-col items-center md:items-end">
-                <div class="text-sm uppercase tracking-widest text-gray-400 mb-2">Свяжитесь с нами напрямую</div>
-                <a href="tel:+996755000228" class="text-2xl md:text-4xl font-black hover:text-yellow-400 transition">
-                    +996 755 000 228
+            <div class="mt-12 text-center reveal">
+                <a href="https://wa.me/996755000228" class="inline-block border border-white/20 hover:border-[#FBBF24] text-white hover:text-[#FBBF24] px-8 py-4 text-sm font-black uppercase tracking-widest transition-all">
+                    Запросить полное портфолио в WhatsApp
                 </a>
-                <div class="flex space-x-6 mt-6">
-                    <a href="https://wa.me/996755000228" class="text-2xl hover:text-green-500 transition">
-                        <i class="fa-brands fa-whatsapp"></i>
-                    </a>
-                    <a href="#" class="text-2xl hover:text-pink-500 transition">
-                        <i class="fa-brands fa-instagram"></i>
-                    </a>
-                    <a href="tel:+996755000228" class="text-2xl hover:text-yellow-500 transition">
-                        <i class="fa-solid fa-phone"></i>
-                    </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. ИНТЕРАКТИВНЫЙ КАЛЬКУЛЯТОР СТОИМОСТИ (КРУТАЯ ФИШКА ДЛЯ ИИ) -->
+    <section id="calculator" class="py-24 px-6 bg-[#050505] border-y border-white/5">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12 reveal">
+                <i class="fas fa-calculator text-5xl text-[#FBBF24] mb-6"></i>
+                <h2 class="text-3xl md:text-5xl font-black uppercase mb-4">Предварительный <span class="text-[#FBBF24]">расчет</span></h2>
+                <p class="text-gray-400">Выберите услугу и укажите площадь, чтобы узнать примерную стоимость работ.</p>
+            </div>
+
+            <div class="bg-[#0a0a0a] border-2 border-[#111] p-8 md:p-12 shadow-2xl reveal">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <!-- Форма -->
+                    <div class="space-y-6">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Вид работ:</label>
+                            <select id="calc-service" class="w-full bg-black border border-white/10 text-white p-4 focus:outline-none focus:border-[#FBBF24] transition-colors appearance-none cursor-pointer">
+                                <option value="0">Выберите услугу...</option>
+                                <option value="800">Кладка кирпича (от 800 сом/м2)</option>
+                                <option value="1500">Сантехника / Теплый пол (от 1500 сом/м2)</option>
+                                <option value="300">Поклейка обоев (от 300 сом/м2)</option>
+                                <option value="150">Уборка / Клининг (от 150 сом/м2)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-widest text-gray-500 mb-2">Объем / Площадь (м²):</label>
+                            <input type="number" id="calc-area" min="1" placeholder="Например: 50" class="w-full bg-black border border-white/10 text-white p-4 focus:outline-none focus:border-[#FBBF24] transition-colors">
+                        </div>
+                        <button onclick="calculatePrice()" class="w-full bg-[#FBBF24] text-black font-black uppercase tracking-widest py-4 hover:bg-white transition-colors">
+                            Рассчитать
+                        </button>
+                    </div>
+
+                    <!-- Результат -->
+                    <div class="bg-black border border-white/5 p-8 flex flex-col justify-center items-center text-center">
+                        <div class="text-xs font-bold uppercase tracking-widest text-gray-500 mb-4">Примерная стоимость:</div>
+                        <div id="calc-result" class="text-4xl md:text-5xl font-black text-[#FBBF24] mb-4">0 сом</div>
+                        <p class="text-xs text-gray-600 mb-6">*Сумма ориентировочная. Точная смета после выезда замерщика.</p>
+                        <a href="https://wa.me/996755000228" class="text-xs border-b border-[#FBBF24] text-[#FBBF24] pb-1 hover:text-white transition-colors">Зафиксировать цену</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-20 text-[10px] text-gray-700 uppercase tracking-[0.3em]">
-            © 2024 TALAS_PROFI. Все права защищены.
+    </section>
+
+    <!-- 7. FAQ (ЧАСТЫЕ ВОПРОСЫ - АККОРДЕОН) -->
+    <section class="py-24 px-6 bg-black">
+        <div class="max-w-4xl mx-auto reveal">
+            <h2 class="text-3xl md:text-5xl font-black uppercase text-center mb-16">Частые <span class="text-[#FBBF24]">вопросы</span></h2>
+            
+            <div class="space-y-4">
+                <!-- Вопрос 1 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span>Кто закупает строительные материалы?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5">Вы можете закупить материалы самостоятельно, либо мы возьмем это на себя. У нас есть корпоративные скидки в строительных магазинах Таласа, все чеки мы предоставляем.</p>
+                    </div>
+                </div>
+                <!-- Вопрос 2 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span>Что входит в гарантию 2 года?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5">Гарантия распространяется на все монтажные работы, выполненные нашей бригадой: целостность труб, швы кладки, отсутствие отслоения обоев при соблюдении условий эксплуатации.</p>
+                    </div>
+                </div>
+                <!-- Вопрос 3 -->
+                <div class="faq-item bg-[#0a0a0a] border border-white/5 overflow-hidden">
+                    <button class="w-full px-6 py-5 text-left font-bold uppercase tracking-wider flex justify-between items-center focus:outline-none" onclick="toggleFaq(this)">
+                        <span>Вы работаете по предоплате?</span>
+                        <i class="fas fa-plus text-[#FBBF24] faq-icon transition-transform duration-300"></i>
+                    </button>
+                    <div class="faq-content bg-black/50 px-6 text-gray-400 text-sm leading-relaxed">
+                        <p class="pb-5">Мы работаем поэтапно. Предоплата берется только за закупку материалов (если мы их покупаем). Оплата за работу производится по факту завершения определенных этапов, прописанных в договоре.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. FINAL CALL TO ACTION (ФИНАЛЬНЫЙ ПРИЗЫВ) -->
+    <section class="py-24 px-6 bg-[#FBBF24] text-black text-center relative overflow-hidden">
+        <div class="absolute inset-0 z-0 opacity-10 bg-grid"></div>
+        <div class="max-w-3xl mx-auto relative z-10 reveal">
+            <h2 class="text-4xl md:text-6xl font-black uppercase mb-6 leading-tight">Готовы начать<br>ваш проект?</h2>
+            <p class="text-black/80 font-bold mb-10 text-lg">Свяжитесь с нами прямо сейчас. Выезд специалиста на замер и составление сметы — бесплатно!</p>
+            <a href="https://wa.me/996755000228" class="inline-flex items-center gap-4 bg-black text-white px-12 py-5 font-black uppercase text-sm tracking-widest hover:bg-gray-900 transition-all hover:scale-105 shadow-2xl">
+                <i class="fab fa-whatsapp text-2xl text-[#25D366]"></i> Написать в WhatsApp
+            </a>
+            <div class="mt-6 text-sm font-bold">Или звоните: +996 755 000 228</div>
+        </div>
+    </section>
+
+    <!-- 9. ФУТЕР -->
+    <footer class="bg-[#050505] pt-16 pb-8 px-6 border-t border-white/10 text-center md:text-left">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+            
+            <!-- Лого и описание -->
+            <div class="md:col-span-2">
+                <div class="text-3xl font-black italic text-[#FBBF24] mb-4">TALAS_PROFI</div>
+                <p class="text-gray-500 text-sm leading-relaxed max-w-sm mx-auto md:mx-0">
+                    Надежная строительная команда в Таласе. Профессиональная кладка, сантехника, отделка и клининг с гарантией качества.
+                </p>
+            </div>
+
+            <!-- Контакты -->
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-widest mb-6 border-b border-white/10 pb-2 inline-block">Контакты</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li><i class="fas fa-phone text-[#FBBF24] w-5"></i> +996 755 000 228</li>
+                    <li><i class="fab fa-whatsapp text-[#FBBF24] w-5"></i> +996 755 000 228</li>
+                    <li><i class="fas fa-location-dot text-[#FBBF24] w-5"></i> Кыргызстан, г. Талас</li>
+                </ul>
+            </div>
+
+            <!-- Режим работы -->
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-widest mb-6 border-b border-white/10 pb-2 inline-block">Режим работы</h4>
+                <ul class="space-y-4 text-gray-400 text-sm">
+                    <li>Пн - Сб: 08:00 - 19:00</li>
+                    <li>Вс: Выходной</li>
+                    <li class="mt-4 text-[#FBBF24]">Консультации онлайн — 24/7</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-gray-600 text-[10px] uppercase font-bold tracking-widest">
+                © 2026 Talas_profi. Все права защищены.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#FBBF24] hover:bg-white/10 transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/996755000228" class="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-gray-400 hover:text-[#25D366] hover:bg-white/10 transition-colors">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
         </div>
     </footer>
 
+    <!-- JAVASCRIPT ЛОГИКА ИНТЕРАКТИВА -->
+    <script>
+        // 1. Анимация появления элементов при скролле (Intersection Observer)
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 100; // Насколько пикселей элемент должен появиться на экране
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
+        window.addEventListener("scroll", reveal);
+        window.onload = () => {
+            reveal(); // Запуск при загрузке
+            // Эффект шапки при скролле
+            window.addEventListener('scroll', () => {
+                const nav = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    nav.classList.add('py-2', 'shadow-2xl');
+                    nav.classList.remove('py-4');
+                } else {
+                    nav.classList.add('py-4');
+                    nav.classList.remove('py-2', 'shadow-2xl');
+                }
+            });
+        };
+
+        // 2. Логика Мобильного меню
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const links = document.querySelectorAll('.mobile-link');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            let icon = btn.querySelector('i');
+            if(menu.classList.contains('hidden')) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            } else {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            }
+        });
+
+        // Закрыть меню при клике на ссылку
+        links.forEach(link => {
+            link.addEventListener('click', () => {
+                menu.classList.add('hidden');
+                btn.querySelector('i').classList.replace('fa-times', 'fa-bars');
+            });
+        });
+
+        // 3. Логика Калькулятора ремонта
+        function calculatePrice() {
+            const pricePerMeter = parseInt(document.getElementById('calc-service').value);
+            const area = parseInt(document.getElementById('calc-area').value);
+            const resultDiv = document.getElementById('calc-result');
+
+            if (pricePerMeter === 0) {
+                resultDiv.innerText = "Выберите услугу!";
+                resultDiv.style.color = "red";
+                return;
+            }
+            if (!area || area <= 0 || isNaN(area)) {
+                resultDiv.innerText = "Укажите площадь!";
+                resultDiv.style.color = "red";
+                return;
+            }
+
+            // Математика и форматирование числа (10000 -> 10 000)
+            const total = pricePerMeter * area;
+            const formattedTotal = total.toLocaleString('ru-RU');
+            
+            resultDiv.style.color = "#FBBF24"; // Возвращаем золотой цвет
+            
+            // Анимация счетчика (визуальный вау-эффект)
+            let start = 0;
+            const duration = 1000;
+            const step = Math.max(Math.floor(total / (duration / 16)), 1); // 60fps
+            
+            const counter = setInterval(() => {
+                start += step;
+                if(start >= total) {
+                    clearInterval(counter);
+                    resultDiv.innerText = "от " + formattedTotal + " сом";
+                } else {
+                    resultDiv.innerText = start.toLocaleString('ru-RU');
+                }
+            }, 16);
+        }
+
+        // 4. Логика Аккордеона FAQ
+        function toggleFaq(button) {
+            const item = button.parentElement;
+            
+            // Закрыть все остальные (опционально)
+            document.querySelectorAll('.faq-item').forEach(el => {
+                if(el !== item) el.classList.remove('active');
+            });
+
+            // Открыть/закрыть текущий
+            item.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>

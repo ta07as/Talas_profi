@@ -1539,3 +1539,20 @@
 </section>
 
 
+
+
+
+
+<script>
+    // Этот код заставляет страницу всегда открываться с самого верха при загрузке
+    window.onload = function() {
+        setTimeout(function() {
+            window.scrollTo(0, 0);
+        }, 10); // Маленькая задержка в 10 миллисекунд, чтобы браузер успел всё прогрузить
+    };
+
+    // Дополнительная страховка для очень жестких браузеров
+    if ('scrollRestoration' in history) {
+        history.scrollRestoration = 'manual';
+    }
+</script>

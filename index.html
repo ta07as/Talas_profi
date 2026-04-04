@@ -1,3 +1,119 @@
+
+/* ==========================================================================
+   СПАСИТЕЛЬНЫЙ КОД ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    
+    /* 1. Убираем лишние гигантские отступы по бокам */
+    body, section {
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+    }
+    
+    /* 2. Ломаем сетки: всё, что стояло в 3-4 колонки, теперь встанет строго в один ряд */
+    .tp-portfolio-grid, 
+    .tp-chats-grid, 
+    .tp-reviews-grid,
+    .tp-contacts-grid,
+    .tp-services-grid {
+        grid-template-columns: 1fr !important; /* Строго одна колонка! */
+        gap: 20px !important;
+    }
+
+    /* 3. Уменьшаем гигантские заголовки, чтобы они не разрывали экран */
+    h1, .tp-section-title, .tp-rev-title {
+        font-size: 26px !important;
+        letter-spacing: 1px !important;
+        text-align: center !important;
+    }
+
+    /* 4. Делаем карточки портфолио и фото удобными по высоте */
+    .tp-portfolio-item, .tp-chat-img-wrapper {
+        height: 300px !important;
+    }
+
+    /* 5. Делаем кнопки на всю ширину экрана, чтобы по ним было легко попадать пальцем */
+    .tp-btn, .tp-min-link, .tp-write-review-btn {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        justify-content: center !important;
+        font-size: 14px !important;
+    }
+    
+    /* 6. Убираем наезжающие друг на друга абсолютные элементы */
+    .tp-portfolio-content {
+        transform: translateY(0) !important; /* Сразу показываем текст, без наведения */
+    }
+    .tp-portfolio-desc {
+        opacity: 1 !important;
+    }
+}
+
+
+
+
+<div class="tp-mobile-nav">
+    <style>
+        .tp-mobile-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #050505;
+            border-top: 1px solid #FBBF24;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 10px 0;
+            z-index: 9999;
+        }
+        .tp-nav-item {
+            color: #AAAAAA;
+            text-decoration: none;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+        .tp-nav-item:hover, .tp-nav-item:active {
+            color: #FBBF24;
+        }
+        .tp-nav-icon {
+            font-size: 18px;
+        }
+        
+        /* Скрываем это меню на компьютерах, показываем только на телефонах */
+        @media (min-width: 769px) {
+            .tp-mobile-nav { display: none; }
+        }
+    </style>
+
+    <a href="#" class="tp-nav-item">
+        <span class="tp-nav-icon">⬆️</span>
+        Вверх
+    </a>
+    
+    <a href="#services" class="tp-nav-item">
+        <span class="tp-nav-icon">🛠</span>
+        Услуги
+    </a>
+    
+    <a href="#reviews" class="tp-nav-item">
+        <span class="tp-nav-icon">💬</span>
+        Отзывы
+    </a>
+    
+    <a href="#contacts" class="tp-nav-item">
+        <span class="tp-nav-icon">📞</span>
+        Связь
+    </a>
+</div>
+
+
+
 <header class="tp-header">
     <style>
         /* Общие стили шапки */

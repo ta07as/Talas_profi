@@ -1,644 +1,274 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talas_profi</title>
-    
+<header class="tp-header">
     <style>
-        /* ==========================================================================
-           1. БАЗОВЫЕ СБРОСЫ И НАСТРОЙКИ ДОКУМЕНТА (RESET & BASE)
-           ========================================================================== */
-        
-        /* Сброс внешних и внутренних отступов для всех элементов */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        /* Общие стили шапки */
+        .tp-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            border-bottom: 2px solid #111111;
+            z-index: 1000;
             font-family: 'Arial', sans-serif;
         }
 
-        /* Настройки высоты и прокрутки */
-        html {
-            scroll-behavior: smooth;
-            height: 100%;
-        }
-
-        /* Стилизация основного тела документа */
-        body {
-            background-color: #000000; /* Глубокий черный цвет фона */
-            color: #FFFFFF; /* Белый цвет текста по умолчанию */
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Контейнер для центрирования контента */
-        .tp-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-            width: 100%;
-        }
-
-
-        /* ==========================================================================
-           2. ДЕТАЛЬНЫЕ СТИЛИ НАВИГАЦИИ (HEADER & NAVIGATION)
-           ========================================================================== */
-        
-        /* Главная обертка шапки сайта */
-        .tp-header {
-            background-color: rgba(0, 0, 0, 0.95);
-            border-bottom: 2px solid #FBBF24; /* Фирменная золотая полоса */
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
-            z-index: 1000;
-            animation: fadeInDown 0.8s ease-out;
-        }
-
-        /* Контейнер внутри навигации */
         .tp-nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             padding: 15px 20px;
-            height: 70px;
-        }
-
-        /* Стилизация текстового логотипа */
-        .tp-logo {
-            color: #FBBF24;
-            font-size: 24px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
-            letter-spacing: 2px;
-            transition: transform 0.3s ease;
             display: flex;
+            justify-content: space-between; /* Раскидывает элементы по краям */
             align-items: center;
         }
 
-        .tp-logo:hover {
-            transform: scale(1.05);
+        /* ЛЕВАЯ ЧАСТЬ: Логотип */
+        .tp-logo {
+            font-size: 24px;
+            font-weight: 900;
+            color: #FBBF24;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex: 1; /* Дает одинаковую ширину для баланса */
         }
 
-        /* Список навигационных ссылок */
-        .tp-nav-links {
+        .tp-logo::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background-color: #FBBF24;
+            transform: rotate(45deg);
+        }
+
+        /* ЦЕНТРАЛЬНАЯ ЧАСТЬ: Меню + Языки */
+        .tp-center-group {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            justify-content: center;
+            flex: 2; /* Занимает больше места по центру */
+        }
+
+        .tp-nav-menu {
             display: flex;
             list-style: none;
-            gap: 25px;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
             align-items: center;
         }
 
-        /* Элементы списка навигации */
-        .tp-nav-links li {
-            position: relative;
-        }
-
-        /* Ссылки главного меню */
-        .tp-nav-links a {
+        .tp-nav-link {
             color: #FFFFFF;
             text-decoration: none;
+            font-size: 14px;
             font-weight: bold;
-            font-size: 13px;
             text-transform: uppercase;
+            letter-spacing: 1px;
             position: relative;
+            padding: 5px 0;
             transition: color 0.3s ease;
-            padding: 10px 0;
-            display: inline-block;
         }
 
-        .tp-nav-links a:hover {
-            color: #FBBF24;
-        }
-
-        /* Декоративная линия при наведении на ссылки */
-        .tp-nav-links a::after {
+        .tp-nav-link::after {
             content: '';
             position: absolute;
-            width: 100%;
-            transform: scaleX(0);
-            height: 2px;
             bottom: 0;
             left: 0;
+            width: 0;
+            height: 2px;
             background-color: #FBBF24;
-            transform-origin: bottom right;
-            transition: transform 0.4s ease-out;
+            transition: width 0.3s ease;
         }
 
-        .tp-nav-links a:hover::after {
-            transform: scaleX(1);
-            transform-origin: bottom left;
+        .tp-nav-link:hover::after {
+            width: 100%;
+        }
+
+        .tp-nav-link:hover {
+            color: #FBBF24;
         }
 
         /* --- ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN) --- */
-        
-        /* Родительский элемент выпадающего меню */
         .tp-dropdown {
             position: relative;
         }
 
-        /* Блок выпадающего меню */
         .tp-dropdown-menu {
-            display: none;
             position: absolute;
             top: 100%;
-            left: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(10px);
             background-color: #111111;
-            border: 1px solid #FBBF24;
+            border: 1px solid #222222;
             list-style: none;
-            min-width: 220px;
-            padding: 10px 0;
-            animation: fadeInSlideUp 0.4s ease;
+            padding: 15px 0;
+            margin: 0;
+            width: 220px;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
         }
 
-        /* Элементы внутри выпадающего меню */
-        .tp-dropdown-menu li {
-            width: 100%;
-        }
-
-        /* Ссылки внутри выпадающего меню */
-        .tp-dropdown-menu li a {
-            display: block;
-            padding: 12px 20px;
-            text-transform: none;
-            font-weight: normal;
-            width: 100%;
-            font-size: 14px;
-            color: #FFFFFF;
-            transition: all 0.3s ease;
-        }
-
-        /* Убираем анимацию подчеркивания для выпадающего меню */
-        .tp-dropdown-menu li a::after {
-            display: none;
-        }
-
-        /* Эффект наведения в выпадающем меню */
-        .tp-dropdown-menu li a:hover {
-            background-color: #FBBF24;
-            color: #000000;
-            padding-left: 25px; /* Небольшой сдвиг вправо при наведении */
-        }
-
-        /* Отображение меню при наведении на родителя */
         .tp-dropdown:hover .tp-dropdown-menu {
-            display: block;
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
         }
 
-        /* --- ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (LANG SWITCHER) --- */
-        
-        /* Контейнер кнопок языков */
-        .tp-lang-switcher {
-            display: flex;
-            gap: 10px;
-            margin-left: 15px;
-            border-left: 1px solid #333333;
-            padding-left: 15px;
-            align-items: center;
-        }
-
-        /* Базовые стили кнопок */
-        .tp-lang-btn {
-            background: none;
-            border: none;
-            color: #666666;
-            font-weight: bold;
-            font-size: 13px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            padding: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Стиль активного языка */
-        .tp-lang-btn.active {
-            color: #FBBF24;
-            text-shadow: 0 0 5px rgba(251, 191, 36, 0.3);
-        }
-
-        /* Наведение на кнопку языка */
-        .tp-lang-btn:hover {
-            color: #FFFFFF;
-        }
-
-
-        /* ==========================================================================
-           3. ПУСТОЕ МЕСТО ДЛЯ БУДУЩИХ БЛОКОВ (MAIN CONTENT AREA)
-           ========================================================================== */
-        
-        /* Главная секция, занимающая все оставшееся пространство */
-        .tp-main-content {
-            flex: 1;
-            padding-top: 70px; /* Компенсация фиксированной высоты шапки */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #050505; /* Чуть светлее чисто черного */
-        }
-
-        /* Плейсхолдер для понимания пустой зоны */
-        .tp-empty-area {
-            text-align: center;
-            color: #333333;
-            border: 2px dashed #222222;
-            padding: 100px 50px;
-            border-radius: 8px;
-            max-width: 600px;
-            width: 90%;
-        }
-
-        .tp-empty-area h2 {
-            font-size: 24px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            color: #444444;
-        }
-
-        .tp-empty-area p {
-            font-size: 14px;
-            line-height: 1.6;
-        }
-
-
-        /* ==========================================================================
-           4. ДЕТАЛЬНЫЕ СТИЛИ ФУТЕРА (FOOTER AREA)
-           ========================================================================== */
-        
-        /* Главная обертка подвала сайта */
-        .tp-footer {
-            background-color: #111111;
-            border-top: 2px solid #FBBF24;
-            padding: 60px 0 30px 0;
-            margin-top: auto;
-            position: relative;
-        }
-
-        /* Сетка внутри футера */
-        .tp-footer-container {
-            display: flex;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-
-        /* Секция "О нас" в футере */
-        .tp-footer-about {
-            flex: 1;
-            min-width: 280px;
-            max-width: 450px;
-        }
-
-        /* Заголовки в футере */
-        .tp-footer-about h3, 
-        .tp-footer-contacts h3 {
-            color: #FBBF24;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            font-size: 18px;
-            letter-spacing: 1px;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* Декоративная полоса под заголовками в футере */
-        .tp-footer-about h3::after, 
-        .tp-footer-contacts h3::after {
-            content: '';
-            display: block;
-            width: 40px;
-            height: 2px;
-            background-color: #FBBF24;
-            margin-top: 10px;
-        }
-
-        /* Текст в блоке "О нас" */
-        .tp-footer-about p {
+        .tp-dropdown-menu li a {
             color: #AAAAAA;
-            line-height: 1.8;
-            font-size: 14px;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: block;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
         }
 
-        /* Секция контактов в футере */
-        .tp-footer-contacts {
-            flex: 1;
-            min-width: 280px;
-            max-width: 400px;
+        .tp-dropdown-menu li a:hover {
+            color: #FBBF24;
+            background-color: #050505;
+            padding-left: 25px;
         }
 
-        /* Абзацы контактов */
-        .tp-footer-contacts p {
-            margin-bottom: 20px;
-            font-size: 14px;
-            color: #FFFFFF;
+        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (ЯРКИЙ ПО ЦЕНТРУ) */
+        .tp-lang-switch {
             display: flex;
-            align-items: center;
+            gap: 8px;
+            font-size: 16px; /* Сделали крупнее */
+            font-weight: 900;
+            border-left: 1px solid #333333; /* Отделили черточкой */
+            padding-left: 20px;
         }
 
-        /* Ссылки в контактах */
-        .tp-footer-contacts a {
-            color: #FFFFFF;
+        .tp-lang-switch a {
+            color: #666666;
             text-decoration: none;
             transition: color 0.3s ease;
-            font-weight: bold;
-            margin-left: 5px;
         }
 
-        .tp-footer-contacts a:hover {
-            color: #FBBF24;
+        .tp-lang-switch a.active {
+            color: #FBBF24; /* Активный горит золотом */
+            border-bottom: 2px solid #FBBF24;
         }
 
-        /* Индустриальная кнопка WhatsApp */
-        .tp-whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #FBBF24;
-            color: #000000;
-            padding: 14px 28px;
-            font-weight: bold;
-            text-transform: uppercase;
+        .tp-lang-switch a:hover {
+            color: #FFFFFF;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ: Номер телефона */
+        .tp-phone-wrapper {
+            display: flex;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .tp-phone {
+            color: #FFFFFF;
             text-decoration: none;
-            border: none;
-            cursor: pointer;
-            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             transition: all 0.3s ease;
-            box-shadow: 0 4px 6px rgba(251, 191, 36, 0.15);
-            font-size: 13px;
-            letter-spacing: 0.5px;
-            margin-top: 5px;
+            border: 1px solid #333333;
+            padding: 10px 20px;
+            border-radius: 4px;
         }
 
-        /* Эффект наведения на кнопку WhatsApp */
-        .tp-whatsapp-btn:hover {
+        /* Трубка телефона перед номером */
+        .tp-phone::before {
+            content: '📞';
+            font-size: 14px;
+        }
+
+        .tp-phone:hover {
+            color: #000000;
+            background-color: #FBBF24;
+            border-color: #FBBF24;
+            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
+        }
+
+        /* МОБИЛЬНАЯ ИКОНКА (ГАМБУРГЕР) */
+        .tp-burger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .tp-burger span {
+            display: block;
+            width: 25px;
+            height: 2px;
             background-color: #FFFFFF;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
         }
 
-        /* Эффект нажатия на кнопку WhatsApp */
-        .tp-whatsapp-btn:active {
-            transform: translateY(-1px);
-        }
+        /* АДАПТИВНОСТЬ */
+        @media screen and (max-width: 1024px) {
+            .tp-center-group {
+                display: none; /* Прячем меню и языки на планшетах/мобилках */
+            }
 
-        /* --- БЛОК АВТОРСКИХ ПРАВ (COPYRIGHT) --- */
-        
-        /* Линия и текст копирайта */
-        .tp-copyright {
-            text-align: center;
-            color: #555555;
-            margin-top: 50px;
-            font-size: 12px;
-            border-top: 1px solid #222222;
-            padding-top: 25px;
-            width: 100%;
-        }
+            .tp-phone-wrapper {
+                display: none; /* Прячем номер */
+            }
 
-        .tp-copyright p {
-            letter-spacing: 0.5px;
-        }
-
-
-        /* ==========================================================================
-           5. АНИМАЦИИ (KEYFRAMES ANIMATIONS)
-           ========================================================================== */
-        
-        /* Появление сверху для шапки */
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Появление снизу с легким сдвигом для меню */
-        @keyframes fadeInSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-
-        /* ==========================================================================
-           6. АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ (MEDIA QUERIES)
-           ========================================================================== */
-        
-        @media screen and (max-width: 768px) {
-            /* Перестроение контейнеров в колонку */
-            .tp-nav-container {
-                padding: 10px 20px;
-            }
-            
-            /* Скрытие ссылок в будущем для бургер-меню */
-            .tp-nav-links {
-                gap: 15px;
-            }
-            
-            .tp-nav-links a {
-                font-size: 11px;
-            }
-            
-            .tp-footer-container {
-                flex-direction: column;
-                gap: 30px;
-            }
-            
-            .tp-footer-about, 
-            .tp-footer-contacts {
-                max-width: 100%;
-            }
-            
-            .tp-empty-area {
-                padding: 50px 20px;
-            }
-        }
-
-        @media screen and (max-width: 480px) {
-            /* Стили для совсем маленьких экранов */
-            .tp-logo {
-                font-size: 18px;
-            }
-            
-            .tp-lang-switcher {
-                margin-left: 5px;
-                padding-left: 5px;
-            }
-            
-            .tp-nav-links {
-                gap: 10px;
+            .tp-burger {
+                display: flex; /* Показываем гамбургер */
             }
         }
     </style>
-</head>
-<body>
 
-    <header class="tp-header">
-        <nav class="tp-nav-container">
-            <a href="index.html" class="tp-logo">Talas_profi</a>
-            
-            <ul class="tp-nav-links">
-                <li><a href="index.html" class="lang-home">Главная</a></li>
+    <div class="tp-nav-container">
+        
+        <a href="#" class="tp-logo">Talas_profi</a>
+
+        <div class="tp-center-group">
+            <ul class="tp-nav-menu">
+                <li><a href="#" class="tp-nav-link">Главная</a></li>
                 
                 <li class="tp-dropdown">
-                    <a href="#" class="lang-services-title">Услуги ▾</a>
+                    <a href="#services" class="tp-nav-link">Услуги ▾</a>
                     <ul class="tp-dropdown-menu">
-                        <li><a href="services/electrical.html" class="lang-srv-elec">Электромонтаж</a></li>
-                        <li><a href="services/plumbing.html" class="lang-srv-plumb">Сантехника</a></li>
-                        <li><a href="services/wallpapering.html" class="lang-srv-wall">Поклейка обоев</a></li>
-                        <li><a href="services/brickwork.html" class="lang-srv-brick">Укладка кирпича</a></li>
+                        <li><a href="#">Электромонтаж</a></li>
+                        <li><a href="#">Сантехника</a></li>
+                        <li><a href="#">Демонтаж</a></li>
+                        <li><a href="#">Видеонаблюдение</a></li>
                     </ul>
                 </li>
-                
-                <li><a href="#portfolio" class="lang-portfolio">Портфолио</a></li>
-                <li><a href="#contacts" class="lang-contacts">Контакты</a></li>
 
-                <div class="tp-lang-switcher">
-                    <button class="tp-lang-btn" onclick="changeLanguage('kg')" id="btn-kg">KG</button>
-                    <button class="tp-lang-btn active" onclick="changeLanguage('ru')" id="btn-ru">RU</button>
-                </div>
+                <li><a href="#portfolio" class="tp-nav-link">Портфолио</a></li>
+                <li><a href="#contacts" class="tp-nav-link">Контакты</a></li>
             </ul>
-        </nav>
-    </header>
 
-
-    <main class="tp-main-content">
-        
-        <div class="tp-empty-area">
-            <h2>Пустая рабочая область</h2>
-            <p>Здесь будут размещаться блоки твоего сайта. Навигация сверху и футер снизу останутся неизменными.</p>
-        </div>
-        
-    </main>
-
-
-    <footer class="tp-footer" id="contacts">
-        <div class="tp-container">
-            
-            <div class="tp-footer-container">
-                
-                <div class="tp-footer-about">
-                    <h3 class="lang-foot-about-title">О компании</h3>
-                    <p class="lang-foot-about-text">Профессиональный ремонт и монтаж в Таласе. Строгий подход, индустриальные стандарты качества и честные цены. IP Algaziev A. K.</p>
-                </div>
-                
-                <div class="tp-footer-contacts">
-                    <h3 class="lang-foot-contacts-title">Контакты</h3>
-                    <p>
-                        <span class="lang-foot-phone">Телефон</span>: 
-                        <a href="tel:+996755000228">+996 755 000 228</a>
-                    </p>
-                    <p>
-                        WhatsApp: 
-                        <a href="https://wa.me/996755000228" target="_blank">+996 755 000 228</a>
-                    </p>
-                    
-                    <button class="tp-whatsapp-btn lang-wa-btn" onclick="openWhatsApp()">Написать в WhatsApp</button>
-                </div>
-                
+            <div class="tp-lang-switch">
+                <a href="#" class="active">RU</a>
+                <span style="color: #444;">/</span>
+                <a href="#">KG</a>
             </div>
-            
-            <div class="tp-copyright">
-                <p>&copy; 2026 Talas_profi. <span class="lang-foot-rights">Все права защищены.</span></p>
-            </div>
-            
         </div>
-    </footer>
 
+        <div class="tp-phone-wrapper">
+            <a href="tel:+996755000228" class="tp-phone">+996 755 000 228</a>
+        </div>
 
-    <script>
-        /* --------------------------------------------------------
-           1. ФУНКЦИЯ ДЛЯ ПЕРЕХОДА В WHATSAPP
-           -------------------------------------------------------- */
-        function openWhatsApp() {
-            const phone = "996755000228";
-            const message = "Здравствуйте! Хочу узнать подробнее о ваших услугах.";
-            
-            // Открывает чат в новой вкладке браузера
-            window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, '_blank');
-        }
-
-        /* --------------------------------------------------------
-           2. СЛОВАРЬ ДЛЯ ДВУЯЗЫЧНОЙ СИСТЕМЫ (KG / RU)
-           -------------------------------------------------------- */
-        const translations = {
-            kg: {
-                home: "Башкы бет",
-                servicesTitle: "Кызматтар ▾",
-                srvElec: "Электромонтаж",
-                srvPlumb: "Сантехника",
-                srvWall: "Тушкагаз чаптоо",
-                srvBrick: "Кыш коюу",
-                portfolio: "Портфолио",
-                contacts: "Байланыш",
-                footAboutTitle: "Компания жөнүндө",
-                footAboutText: "Таласта кесипкөй оңдоо иши. Катуу мамиле, индустриалдык сапат стандарттары жана калыс баалар. ЖК Алгазиев А. К.",
-                footContactsTitle: "Байланышуу",
-                footPhone: "Телефон",
-                waBtn: "WhatsApp аркылуу жазуу",
-                footRights: "Бардык укуктар корголгон."
-            },
-            ru: {
-                home: "Главная",
-                servicesTitle: "Услуги ▾",
-                srvElec: "Электромонтаж",
-                srvPlumb: "Сантехника",
-                srvWall: "Поклейка обоев",
-                srvBrick: "Укладка кирпича",
-                portfolio: "Портфолио",
-                contacts: "Контакты",
-                footAboutTitle: "О компании",
-                footAboutText: "Профессиональный ремонт и монтаж в Таласе. Строгий подход, индустриальные стандарты качества и честные цены. IP Algaziev A. K.",
-                footContactsTitle: "Контакты",
-                footPhone: "Телефон",
-                waBtn: "Написать в WhatsApp",
-                footRights: "Все права защищены."
-            }
-        };
-
-        /* --------------------------------------------------------
-           3. ФУНКЦИЯ ДИНАМИЧЕСКОГО ПЕРЕКЛЮЧЕНИЯ ЯЗЫКОВ
-           -------------------------------------------------------- */
-        function changeLanguage(lang) {
-            // Визуальное переключение активных классов на кнопках
-            document.getElementById('btn-kg').classList.remove('active');
-            document.getElementById('btn-ru').classList.remove('active');
-            document.getElementById('btn-' + lang).classList.add('active');
-
-            // Замена текстового контента на выбранный язык
-            document.querySelector('.lang-home').textContent = translations[lang].home;
-            document.querySelector('.lang-services-title').textContent = translations[lang].servicesTitle;
-            document.querySelector('.lang-srv-elec').textContent = translations[lang].srvElec;
-            document.querySelector('.lang-srv-plumb').textContent = translations[lang].srvPlumb;
-            document.querySelector('.lang-srv-wall').textContent = translations[lang].srvWall;
-            document.querySelector('.lang-srv-brick').textContent = translations[lang].srvBrick;
-            document.querySelector('.lang-portfolio').textContent = translations[lang].portfolio;
-            document.querySelector('.lang-contacts').textContent = translations[lang].contacts;
-            document.querySelector('.lang-foot-about-title').textContent = translations[lang].footAboutTitle;
-            document.querySelector('.lang-foot-about-text').textContent = translations[lang].footAboutText;
-            document.querySelector('.lang-foot-contacts-title').textContent = translations[lang].footContactsTitle;
-            document.querySelector('.lang-foot-phone').textContent = translations[lang].footPhone;
-            document.querySelector('.lang-wa-btn').textContent = translations[lang].waBtn;
-            document.querySelector('.lang-foot-rights').textContent = translations[lang].footRights;
-        }
-    </script>
-
-</body>
-</html>
+        <button class="tp-burger" onclick="alert('Для открытия меню на мобилках добавь пару строк JS!')">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>

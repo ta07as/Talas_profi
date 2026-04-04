@@ -1541,6 +1541,256 @@
 
 
 
+<section class="tp-monolith-contacts" id="contacts">
+    <style>
+        .tp-monolith-contacts {
+            background-color: #010101;
+            padding: 100px 20px;
+            font-family: 'Arial', sans-serif;
+            color: #FFFFFF;
+            border-top: 1px solid #111111;
+        }
+
+        .tp-monolith-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Заголовок секции */
+        .tp-mono-header {
+            text-align: left;
+            margin-bottom: 50px;
+        }
+
+        .tp-mono-title {
+            font-size: 46px;
+            color: #FBBF24;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 900;
+            margin-bottom: 5px;
+        }
+
+        .tp-mono-subtitle {
+            font-size: 12px;
+            color: #555555;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+
+        /* Сетка блока */
+        .tp-mono-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 30px;
+        }
+
+        /* ЛЕВАЯ ЧАСТЬ: ГИГАНТСКИЙ МОНИТОР СВЯЗИ */
+        .tp-mono-display {
+            background-color: #050505;
+            border: 1px solid #151515;
+            padding: 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 350px;
+            position: relative;
+            box-sizing: border-box;
+            transition: all 0.4s ease;
+        }
+
+        .tp-mono-display:hover {
+            border-color: #FBBF24;
+            box-shadow: inset 0 0 20px rgba(251, 191, 36, 0.05);
+        }
+
+        /* Декоративные уголки на дисплее */
+        .tp-mono-display::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            width: 15px;
+            height: 15px;
+            border-top: 2px solid #FBBF24;
+            border-left: 2px solid #FBBF24;
+        }
+
+        .tp-display-label {
+            font-size: 11px;
+            color: #FBBF24;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-weight: 900;
+        }
+
+        .tp-display-main-link {
+            font-size: 48px;
+            color: #FFFFFF;
+            font-weight: 900;
+            text-decoration: none;
+            letter-spacing: 1px;
+            display: block;
+            margin: 30px 0;
+            transition: color 0.3s ease;
+        }
+
+        .tp-display-main-link:hover {
+            color: #FBBF24;
+        }
+
+        .tp-display-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #111111;
+            padding-top: 20px;
+            color: #666666;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* ПРАВАЯ ЧАСТЬ: ПЛИТЫ СОЦСЕТЕЙ */
+        .tp-mono-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .tp-mono-item {
+            background-color: #0A0A0A;
+            border: 1px solid #151515;
+            padding: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            color: #FFFFFF;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .tp-item-name {
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tp-item-sub {
+            font-size: 11px;
+            color: #555555;
+            display: block;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        .tp-item-arrow {
+            color: #FBBF24;
+            font-size: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Эффект вдавливания при наведении */
+        .tp-mono-item:hover {
+            background-color: #050505;
+            border-color: #FBBF24;
+            transform: scale(0.98);
+        }
+
+        .tp-mono-item:hover .tp-item-arrow {
+            transform: translateX(5px);
+        }
+
+        /* ПОДВАЛ */
+        .tp-mono-footer {
+            margin-top: 80px;
+            border-top: 1px solid #111111;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            color: #444444;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media screen and (max-width: 1024px) {
+            .tp-mono-grid { grid-template-columns: 1fr; }
+            .tp-mono-display { min-height: auto; padding: 40px; }
+            .tp-display-main-link { font-size: 32px; }
+        }
+
+        @media screen and (max-width: 768px) {
+            .tp-monolith-contacts { padding: 60px 20px; }
+            .tp-mono-title { font-size: 32px; }
+            .tp-mono-footer { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+
+    <div class="tp-monolith-container">
+        
+        <div class="tp-mono-header">
+            <h2 class="tp-mono-title">Контакты</h2>
+            <div class="tp-mono-subtitle">Прямая связь с тяжелой артиллерией</div>
+        </div>
+
+        <div class="tp-mono-grid">
+            
+            <div class="tp-mono-display">
+                <div>
+                    <span class="tp-display-label">Основной канал связи</span>
+                    <a href="tel:+996755000228" class="tp-display-main-link">+996 755 000 228</a>
+                </div>
+                
+                <div class="tp-display-footer">
+                    <span>Локация: Талас / Бишкек</span>
+                    <span>9:00 - 21:00</span>
+                </div>
+            </div>
+
+            <div class="tp-mono-list">
+                
+                <a href="https://wa.me/996755000228" target="_blank" class="tp-mono-item">
+                    <div>
+                        <span class="tp-item-name">WhatsApp</span>
+                        <span class="tp-item-sub">Быстрое обсуждение деталей</span>
+                    </div>
+                    <span class="tp-item-arrow">→</span>
+                </a>
+
+                <a href="#" target="_blank" class="tp-mono-item">
+                    <div>
+                        <span class="tp-item-name">Instagram</span>
+                        <span class="tp-item-sub">Галерея свежих объектов</span>
+                    </div>
+                    <span class="tp-item-arrow">→</span>
+                </a>
+
+                <a href="#" target="_blank" class="tp-mono-item">
+                    <div>
+                        <span class="tp-item-name">YouTube</span>
+                        <span class="tp-item-sub">Видеоотчеты о процессах</span>
+                    </div>
+                    <span class="tp-item-arrow">→</span>
+                </a>
+
+            </div>
+
+        </div>
+
+        <div class="tp-mono-footer">
+            <span>© 2026 Talas_profi</span>
+            <span>Все права защищены</span>
+        </div>
+
+    </div>
+</section>
+
+
+
 
 
 <script>

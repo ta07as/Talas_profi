@@ -1,53 +1,4 @@
 
-/* ==========================================================================
-   СПАСИТЕЛЬНЫЙ КОД ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
-   ========================================================================== */
-@media screen and (max-width: 768px) {
-    
-    /* 1. Убираем лишние гигантские отступы по бокам */
-    body, section {
-        padding-left: 15px !important;
-        padding-right: 15px !important;
-    }
-    
-    /* 2. Ломаем сетки: всё, что стояло в 3-4 колонки, теперь встанет строго в один ряд */
-    .tp-portfolio-grid, 
-    .tp-chats-grid, 
-    .tp-reviews-grid,
-    .tp-contacts-grid,
-    .tp-services-grid {
-        grid-template-columns: 1fr !important; /* Строго одна колонка! */
-        gap: 20px !important;
-    }
-
-    /* 3. Уменьшаем гигантские заголовки, чтобы они не разрывали экран */
-    h1, .tp-section-title, .tp-rev-title {
-        font-size: 26px !important;
-        letter-spacing: 1px !important;
-        text-align: center !important;
-    }
-
-    /* 4. Делаем карточки портфолио и фото удобными по высоте */
-    .tp-portfolio-item, .tp-chat-img-wrapper {
-        height: 300px !important;
-    }
-
-    /* 5. Делаем кнопки на всю ширину экрана, чтобы по ним было легко попадать пальцем */
-    .tp-btn, .tp-min-link, .tp-write-review-btn {
-        width: 100% !important;
-        box-sizing: border-box !important;
-        justify-content: center !important;
-        font-size: 14px !important;
-    }
-    
-    /* 6. Убираем наезжающие друг на друга абсолютные элементы */
-    .tp-portfolio-content {
-        transform: translateY(0) !important; /* Сразу показываем текст, без наведения */
-    }
-    .tp-portfolio-desc {
-        opacity: 1 !important;
-    }
-}
 
 
 
@@ -115,6 +66,8 @@
 
 
 <header class="tp-header">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <style>
         /* Общие стили шапки */
         .tp-header {
@@ -133,11 +86,10 @@
             margin: 0 auto;
             padding: 15px 20px;
             display: flex;
-            justify-content: space-between; /* Раскидывает элементы по краям */
+            justify-content: space-between; 
             align-items: center;
         }
 
-        /* ЛЕВАЯ ЧАСТЬ: Логотип */
         .tp-logo {
             font-size: 24px;
             font-weight: 900;
@@ -148,7 +100,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            flex: 1; /* Дает одинаковую ширину для баланса */
+            flex: 1; 
         }
 
         .tp-logo::before {
@@ -160,13 +112,12 @@
             transform: rotate(45deg);
         }
 
-        /* ЦЕНТРАЛЬНАЯ ЧАСТЬ: Меню + Языки */
         .tp-center-group {
             display: flex;
             align-items: center;
             gap: 40px;
             justify-content: center;
-            flex: 2; /* Занимает больше места по центру */
+            flex: 2; 
         }
 
         .tp-nav-menu {
@@ -190,102 +141,21 @@
             transition: color 0.3s ease;
         }
 
-        .tp-nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #FBBF24;
-            transition: width 0.3s ease;
-        }
+        .tp-nav-link:hover { color: #FBBF24; }
 
-        .tp-nav-link:hover::after {
-            width: 100%;
-        }
-
-        .tp-nav-link:hover {
-            color: #FBBF24;
-        }
-
-        /* --- ВЫПАДАЮЩЕЕ МЕНЮ (DROPDOWN) --- */
-        .tp-dropdown {
-            position: relative;
-        }
-
-        .tp-dropdown-menu {
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%) translateY(10px);
-            background-color: #111111;
-            border: 1px solid #222222;
-            list-style: none;
-            padding: 15px 0;
-            margin: 0;
-            width: 220px;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        .tp-dropdown:hover .tp-dropdown-menu {
-            opacity: 1;
-            visibility: visible;
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .tp-dropdown-menu li a {
-            color: #AAAAAA;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: bold;
-            text-transform: uppercase;
-            display: block;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-        }
-
-        .tp-dropdown-menu li a:hover {
-            color: #FBBF24;
-            background-color: #050505;
-            padding-left: 25px;
-        }
-
-        /* ПЕРЕКЛЮЧАТЕЛЬ ЯЗЫКОВ (ЯРКИЙ ПО ЦЕНТРУ) */
         .tp-lang-switch {
             display: flex;
             gap: 8px;
-            font-size: 16px; /* Сделали крупнее */
+            font-size: 16px; 
             font-weight: 900;
-            border-left: 1px solid #333333; /* Отделили черточкой */
+            border-left: 1px solid #333333; 
             padding-left: 20px;
         }
 
-        .tp-lang-switch a {
-            color: #666666;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+        .tp-lang-switch a { color: #666666; text-decoration: none; }
+        .tp-lang-switch a.active { color: #FBBF24; border-bottom: 2px solid #FBBF24; }
 
-        .tp-lang-switch a.active {
-            color: #FBBF24; /* Активный горит золотом */
-            border-bottom: 2px solid #FBBF24;
-        }
-
-        .tp-lang-switch a:hover {
-            color: #FFFFFF;
-        }
-
-        /* ПРАВАЯ ЧАСТЬ: Номер телефона */
-        .tp-phone-wrapper {
-            display: flex;
-            justify-content: flex-end;
-            flex: 1;
-        }
-
+        .tp-phone-wrapper { display: flex; justify-content: flex-end; flex: 1; }
         .tp-phone {
             color: #FFFFFF;
             text-decoration: none;
@@ -301,20 +171,9 @@
             border-radius: 4px;
         }
 
-        /* Трубка телефона перед номером */
-        .tp-phone::before {
-            content: '📞';
-            font-size: 14px;
-        }
+        .tp-phone::before { content: '📞'; font-size: 14px; }
+        .tp-phone:hover { color: #000000; background-color: #FBBF24; }
 
-        .tp-phone:hover {
-            color: #000000;
-            background-color: #FBBF24;
-            border-color: #FBBF24;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
-        }
-
-        /* МОБИЛЬНАЯ ИКОНКА (ГАМБУРГЕР) */
         .tp-burger {
             display: none;
             flex-direction: column;
@@ -332,19 +191,89 @@
             transition: all 0.3s ease;
         }
 
-        /* АДАПТИВНОСТЬ */
-        @media screen and (max-width: 1024px) {
-            .tp-center-group {
-                display: none; /* Прячем меню и языки на планшетах/мобилках */
+        /* ---------------------------------------------------------
+           🚨 ВОТ ОН: СПАСИТЕЛЬНЫЙ КОД ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ
+           --------------------------------------------------------- */
+        @media screen and (max-width: 768px) {
+            
+            /* 1. Навигация и логотипы */
+            .tp-center-group { display: none; }
+            .tp-phone-wrapper { display: none; }
+            .tp-burger { display: flex; }
+
+            /* Меню выпадает строго на весь экран и не ломает верстку */
+            .tp-center-group.active {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                background-color: #000000;
+                padding: 20px 0;
+                border-bottom: 2px solid #111111;
+                z-index: 999;
+            }
+            .tp-nav-menu { flex-direction: column; gap: 20px; text-align: center; }
+
+            /* 2. Ломаем сетки (Гриды) во всех твоих блоках, чтобы они не сжимались в кашу */
+            .tp-services-grid, 
+            .tp-portfolio-grid, 
+            .tp-chats-grid,
+            .tp-mono-grid {
+                grid-template-columns: 1fr !important; /* Делаем строго 1 колонку */
+                gap: 15px !important;
             }
 
-            .tp-phone-wrapper {
-                display: none; /* Прячем номер */
-            }
+            /* 3. Уменьшаем гигантские шрифты, которые рвут экран мобилки */
+            .tp-modern-title { font-size: 32px !important; text-align: center; }
+            .tp-modern-desc { font-size: 15px !important; text-align: center; margin-bottom: 30px !important; }
+            .tp-section-title { font-size: 24px !important; text-align: center; }
+            .tp-rev-title { font-size: 26px !important; text-align: center; }
 
-            .tp-burger {
-                display: flex; /* Показываем гамбургер */
+            /* 4. Настраиваем высоты блоков и картинок */
+            .tp-modern-image { height: 35vh !important; } /* Фото сверху */
+            .tp-portfolio-item { height: 250px !important; } /* Карточки работ */
+            .tp-chat-img-wrapper { height: 350px !important; } /* Скрины отзывов */
+            
+            /* Сразу показываем текст в портфолио, на мобилке нет мышки для наведения */
+            .tp-portfolio-content { transform: translateY(0) !important; }
+            .tp-portfolio-desc { opacity: 1 !important; }
+            .tp-portfolio-img { filter: grayscale(0%) !important; }
+
+            /* 5. Делаем кнопки на всю ширину экрана для удобства нажатия пальцем */
+            .tp-modern-btns, .tp-portfolio-actions {
+                flex-direction: column !important;
+                width: 100% !important;
+                gap: 10px !important;
             }
+            .tp-modern-btn, .tp-btn, .tp-write-review-btn {
+                width: 100% !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* 6. Лечим нижний блок контактов */
+            .tp-mono-display {
+                padding: 30px !important;
+                min-height: auto !important;
+            }
+            .tp-display-main-link {
+                font-size: 24px !important;
+                margin: 15px 0 !important;
+            }
+            .tp-mono-item {
+                padding: 20px !important;
+            }
+        }
+        
+        @media screen and (max-width: 1024px) and (min-width: 769px) {
+            .tp-center-group { display: none; }
+            .tp-phone-wrapper { display: none; }
+            .tp-burger { display: flex; }
+            .tp-services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .tp-portfolio-grid { grid-template-columns: repeat(2, 1fr) !important; }
+            .tp-chats-grid { grid-template-columns: repeat(2, 1fr) !important; }
         }
     </style>
 

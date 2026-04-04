@@ -265,11 +265,54 @@
             <a href="tel:+996755000228" class="tp-phone">+996 755 000 228</a>
         </div>
 
-        <button class="tp-burger" onclick="alert('Для открытия меню на мобилках добавь пару строк JS!')">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+       <button class="tp-burger" id="burgerBtn">
+    <div class="tp-burger-line"></div>
+    <div class="tp-burger-line"></div>
+    <div class="tp-burger-line"></div>
+</button>
+
+<style>
+    /* Этот стиль выдвинет меню на телефонах */
+    @media screen and (max-width: 1024px) {
+        .tp-center-group.active {
+            display: flex !important;
+            flex-direction: column;
+            position: absolute;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background-color: #000000;
+            padding: 20px;
+            border-bottom: 2px solid #111111;
+            z-index: 999;
+        }
+        .tp-nav-menu {
+            flex-direction: column;
+            gap: 15px;
+            text-align: center;
+        }
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const burger = document.getElementById('burgerBtn');
+        const menu = document.querySelector('.tp-center-group');
+        const links = document.querySelectorAll('.tp-nav-link');
+
+        // Открываем/закрываем меню
+        burger.addEventListener('click', function() {
+            menu.classList.toggle('active');
+        });
+
+        // Закрываем меню при клике на любую ссылку
+        links.forEach(link => {
+            link.addEventListener('click', function() {
+                menu.classList.remove('active');
+            });
+        });
+    });
+</script>
     </div>
 </header>
 

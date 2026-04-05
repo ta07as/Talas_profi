@@ -2,202 +2,85 @@
 
 
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talas_profi</title>
+    <style>
+        /* БАЗОВЫЕ СТИЛИ И КОМПАКТНОЕ МЕНЮ */
+        body { margin: 0; padding: 0; background-color: #000; color: #fff; }
+        .tp-header {
+            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
+            background-color: #000; border-bottom: 1px solid #111; z-index: 1000;
+            font-family: 'Arial', sans-serif;
+        }
+        .tp-nav-container {
+            max-width: 1400px; height: 100%; margin: 0 auto; padding: 0 20px;
+            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
+        }
+        .tp-logo { font-size: 20px; font-weight: 900; color: #FBBF24; text-transform: uppercase; text-decoration: none; }
+        .tp-nav-menu { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
+        .tp-nav-link { color: #FFF; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+        .tp-nav-link:hover { color: #FBBF24; }
+        .tp-right-group { display: flex; align-items: center; gap: 15px; }
+        .tp-btn-call { color: #000; background-color: #FBBF24; text-decoration: none; font-size: 11px; font-weight: 900; text-transform: uppercase; padding: 8px 15px; border-radius: 2px; }
+        .tp-burger { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; }
+        .tp-burger span { display: block; width: 22px; height: 2px; background-color: #FFF; transition: 0.3s; }
 
+        /* СТИЛИ ГЛАВНОГО ЭКРАНА (ГЕРОЙ-БЛОК) */
+        .tp-hero-modern {
+            min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+            background-color: #000; font-family: 'Arial', sans-serif; padding-top: 60px; box-sizing: border-box;
+        }
+        .tp-modern-content { display: flex; flex-direction: column; justify-content: center; padding: 40px; }
+        .tp-modern-badge { color: #FBBF24; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; }
+        .tp-modern-title { font-size: 56px; color: #FFF; font-weight: 900; text-transform: uppercase; margin: 0 0 20px 0; }
+        .tp-modern-title span { color: #FBBF24; }
+        .tp-modern-desc { font-size: 16px; color: #888; line-height: 1.6; margin-bottom: 40px; }
+        .tp-modern-btns { display: flex; gap: 15px; }
+        .tp-modern-btn { text-decoration: none; padding: 18px 35px; font-size: 13px; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
+        .tp-btn-gold { background-color: #FBBF24; color: #000; }
+        .tp-btn-outline { border: 1px solid #333; color: #FFF; }
+        .tp-modern-image { background: url('https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const burger = document.getElementById('burgerBtn');
-        const menu = document.querySelector('.tp-center-group');
-        const links = document.querySelectorAll('.tp-nav-link');
+        /* АДАПТИВНОСТЬ ПОД ТЕЛЕФОНЫ */
+        @media screen and (max-width: 768px) {
+            .tp-nav-menu { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: #080808; padding: 20px 0; }
+            .tp-nav-menu.active { display: flex; }
+            .tp-burger { display: flex; }
+            .tp-burger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+            .tp-burger.active span:nth-child(2) { opacity: 0; }
+            .tp-burger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+            .tp-hero-modern { grid-template-columns: 1fr; }
+            .tp-modern-image { height: 300px; order: -1; }
+            .tp-modern-title { font-size: 32px; text-align: center; }
+            .tp-modern-desc { text-align: center; }
+            .tp-modern-btns { flex-direction: column; }
+            .tp-modern-btn { text-align: center; }
+        }
+    </style>
+</head>
+<body>
 
-        // Открываем/закрываем меню
-        burger.addEventListener('click', function() {
-            menu.classList.toggle('active');
-        });
-
-        // Закрываем меню при клике на любую ссылку
-        links.forEach(link => {
-            link.addEventListener('click', function() {
-                menu.classList.remove('active');
-            });
-        });
-    });
-</script>
+<header class="tp-header">
+    <div class="tp-nav-container">
+        <a href="#" class="tp-logo">Talas_profi</a>
+        <ul class="tp-nav-menu">
+            <li><a href="#services" class="tp-nav-link">Услуги</a></li>
+            <li><a href="#portfolio" class="tp-nav-link">Портфолио</a></li>
+            <li><a href="#reviews" class="tp-nav-link">Отзывы</a></li>
+            <li><a href="#contacts" class="tp-nav-link">Контакты</a></li>
+        </ul>
+        <div class="tp-right-group">
+            <a href="https://wa.me/996755000228" target="_blank" class="tp-btn-call">WhatsApp</a>
+            <button class="tp-burger" id="burgerBtn"><span></span><span></span><span></span></button>
+        </div>
     </div>
 </header>
 
-
-
-
 <section class="tp-hero-modern">
-    <style>
-        /* Основная обертка: используем Grid для деления экрана 50/50 */
-        .tp-hero-modern {
-            min-height: 100vh;
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Ровно две колонки */
-            background-color: #000000;
-            font-family: 'Arial', sans-serif;
-            padding-top: 70px; /* Отступ под навигацию */
-            box-sizing: border-box;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* --- ЛЕВАЯ ЧАСТЬ: КОНТЕНТ --- */
-        .tp-modern-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Центрируем по вертикали */
-            padding: 30px 50px; /* Большие отступы для воздуха */
-            color: #FFFFFF;
-            /* Анимация плавного выезда слева при загрузке */
-            animation: fadeInSlideLeft 1s ease-out both;
-        }
-
-        .tp-modern-title {
-            font-size: 72px; /* Очень крупный, брутальный шрифт */
-            font-weight: 900;
-            color: #FBBF24; /* Наше золото */
-            text-transform: uppercase;
-            line-height: 1;
-            letter-spacing: -2px; /* Уменьшили межбуквенное расстояние */
-            margin-bottom: 25px;
-        }
-
-        .tp-modern-desc {
-            font-size: 20px;
-            color: #CCCCCC;
-            line-height: 1.6;
-            margin-bottom: 50px;
-            max-width: 500px;
-        }
-
-        /* Кнопки в этом дизайне */
-        .tp-modern-btns {
-            display: flex;
-            gap: 20px;
-        }
-
-        .tp-modern-btn {
-            display: inline-block;
-            padding: 16px 40px;
-            font-weight: bold;
-            text-transform: uppercase;
-            text-decoration: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 14px;
-        }
-
-        /* Кнопка 1 (Залитая) */
-        .tp-modern-btn-primary {
-            background-color: #FBBF24;
-            color: #000000;
-            border: none;
-        }
-
-        .tp-modern-btn-primary:hover {
-            background-color: #FFFFFF;
-            transform: scale(1.03); /* Плавное увеличение при наведении */
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
-        }
-
-        /* Кнопка 2 (Прозрачная, без обводки) */
-        .tp-modern-btn-outline {
-            background-color: transparent;
-            color: #FFFFFF;
-            border: none;
-        }
-
-        .tp-modern-btn-outline:hover {
-            color: #FBBF24;
-            transform: scale(1.03);
-        }
-
-        /* --- ПРАВАЯ ЧАСТЬ: ИЗОБРАЖЕНИЕ --- */
-        .tp-modern-image {
-            background: url('https://images.unsplash.com/photo-1621905252507-b35492cc74b4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-            position: relative;
-            /* Анимация проявления с задержкой, чтобы сначала появился текст */
-            animation: fadeInReveal 1s ease-out 0.5s both;
-        }
-
-        /* Декоративный легкий золотой градиент поверх фото */
-        .tp-modern-image::after {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.5), transparent);
-        }
-
-        /* --- АНИМАЦИИ (KEYFRAMES) --- */
-        
-        /* Появление слева */
-        @keyframes fadeInSlideLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        /* Плавное проявление */
-        @keyframes fadeInReveal {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        /* --- АДАПТИВНОСТЬ ДЛЯ МОБИЛОК --- */
-        @media screen and (max-width: 1024px) {
-            .tp-hero-modern {
-                grid-template-columns: 1fr; /* Перестраиваем в одну колонку */
-                padding-top: 60px;
-            }
-            
-            .tp-modern-content {
-                padding: 80px 40px;
-                order: 2; /* Текст ставим ПОД фотографией */
-                text-align: center;
-                align-items: center;
-            }
-            
-            .tp-modern-image {
-                height: 50vh; /* Фотография занимает половину высоты экрана */
-                order: 1; /* Фотография ставится наверх */
-            }
-            
-            .tp-modern-title {
-                font-size: 48px;
-            }
-            
-            .tp-modern-desc {
-                font-size: 16px;
-            }
-            
-            .tp-modern-btns {
-                flex-direction: column;
-                gap: 15px;
-                width: 100%;
-                max-width: 300px;
-            }
-            
-            .tp-modern-btn {
-                width: 100%;
-                text-align: center;
-            }
-        }
-    </style>
-
     <div class="tp-modern-content">
         <h1 class="tp-modern-title">TALAS_PROFI</h1>
         <p class="tp-modern-desc">Индустриальный стандарт качества в Таласе. Профессиональный электромонтаж и ремонт объектов любой сложности.</p>
@@ -1558,4 +1441,15 @@
     if ('scrollRestoration' in history) {
         history.scrollRestoration = 'manual';
     }
+</script>
+
+
+
+    <script>
+    const burger = document.getElementById('burgerBtn');
+    const menu = document.querySelector('.tp-nav-menu');
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('active');
+        menu.classList.toggle('active');
+    });
 </script>

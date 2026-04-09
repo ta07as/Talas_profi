@@ -26,56 +26,16 @@
 
 
     
-<section class="tp-space-hero">
+<section class="tp-desktop-hero">
     <style>
         :root {
             --gold: #FBBF24;
             --gold-glow: rgba(251, 191, 36, 0.4);
-            --bg-dark: #000000;
+            --bg-dark: #050505;
+            --border-soft: rgba(251, 191, 36, 0.15);
         }
 
-        /* АНИМАЦИЯ ЗАМЫКАНИЯ */
-        @keyframes electric-flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow: 0 0 10px var(--gold-glow), 0 0 20px var(--gold-glow);
-                opacity: 1;
-            }
-            20%, 24%, 55%, 80% {
-                text-shadow: none;
-                opacity: 0.3;
-                transform: skewX(2deg); /* Легкий перекос при "ударе" током */
-            }
-            81% {
-                opacity: 1;
-                transform: skewX(-2deg);
-            }
-        }
-
-        .tp-hero-info h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(28px, 4.5vw, 60px);
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin: 15px 0;
-            color: #fff;
-        }
-
-        /* Применяем эффект замыкания к фразе */
-        .tp-glitch-text {
-            display: inline-block;
-            animation: electric-flicker 2s linear infinite;
-            will-change: opacity, transform;
-        }
-
-        .tp-hero-info h1 span {
-            color: transparent;
-            -webkit-text-stroke: 1px var(--gold);
-            filter: drop-shadow(0 0 5px var(--gold-glow));
-        }
-
-        /* Остальные стили секции */
-        .tp-space-hero {
+        .tp-desktop-hero {
             position: relative;
             min-height: 100vh;
             display: flex;
@@ -84,92 +44,205 @@
             background-color: var(--bg-dark);
             overflow: hidden;
             font-family: 'Inter', sans-serif;
-            padding: 20px;
+            padding: 40px;
         }
 
-        .tp-hero-wrapper {
+        /* ФОНОВАЯ СЕТКА С ПЕРСПЕКТИВОЙ */
+        .tp-bg-grid {
+            position: absolute;
+            inset: -50%;
+            background-image: 
+                linear-gradient(var(--border-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
+            background-size: 80px 80px;
+            transform: perspective(1000px) rotateX(20deg) rotateZ(10deg);
+            opacity: 0.15;
+            pointer-events: none;
+            animation: gridFlow 100s linear infinite;
+        }
+
+        @keyframes gridFlow {
+            from { transform: perspective(1000px) rotateX(20deg) rotateZ(10deg) translateY(0); }
+            to { transform: perspective(1000px) rotateX(20deg) rotateZ(10deg) translateY(-1000px); }
+        }
+
+        /* ОСНОВНОЙ КОНТЕЙНЕР */
+        .tp-main-container {
             position: relative;
             z-index: 10;
             display: flex;
-            max-width: 1440px;
+            max-width: 1600px;
             width: 100%;
-            border: 1px solid rgba(251, 191, 36, 0.1);
-            background: rgba(5, 5, 5, 0.9);
+            height: 750px;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(30px);
+            border: 1px solid var(--border-soft);
+            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
         }
 
-        .tp-hero-info {
-            flex: 1.5;
-            padding: clamp(30px, 6vw, 70px);
+        /* ТЕКСТОВЫЙ БЛОК */
+        .tp-content-side {
+            flex: 1.2;
+            padding: 80px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
         }
 
-        .tp-hero-visual {
-            flex: 1;
+        /* АНИМАЦИЯ ЗАМЫКАНИЯ */
+        @keyframes electric-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% {
+                text-shadow: 0 0 15px var(--gold-glow);
+                opacity: 1;
+            }
+            20%, 24%, 55% {
+                text-shadow: none;
+                opacity: 0.4;
+                transform: translateX(2px);
+            }
+        }
+
+        .tp-content-side h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(40px, 4vw, 72px);
+            line-height: 1;
+            text-transform: uppercase;
+            margin: 20px 0;
+            color: #fff;
+        }
+
+        .tp-flicker-phrase {
+            display: inline-block;
+            animation: electric-flicker 2.5s infinite;
+            color: #fff;
+        }
+
+        .tp-content-side h1 span.outline {
+            color: transparent;
+            -webkit-text-stroke: 1.5px var(--gold);
+        }
+
+        .tp-description {
+            color: #888;
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 550px;
+            margin-bottom: 40px;
+            border-left: 3px solid var(--gold);
+            padding-left: 20px;
+        }
+
+        /* КНОПКИ ДЛЯ ПК */
+        .tp-actions {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tp-btn {
+            padding: 20px 40px;
+            text-decoration: none;
+            font-weight: 900;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .tp-btn-gold { background: var(--gold); color: #000; }
+        .tp-btn-gold:hover { background: #fff; transform: translateY(-5px); box-shadow: 0 15px 30px var(--gold-glow); }
+
+        .tp-btn-outline { border: 1px solid #333; color: #fff; }
+        .tp-btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, 0.05); }
+
+        /* ВИЗУАЛЬНАЯ СТОРОНА (ПК) */
+        .tp-image-side {
+            flex: 0.8;
+            position: relative;
             overflow: hidden;
+            border-left: 1px solid var(--border-soft);
         }
 
-        .tp-hero-visual img {
+        .tp-image-side img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: 1.5s ease-out;
+            filter: contrast(1.1) brightness(0.8);
         }
 
-        .tp-btn-hub {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            margin-top: 30px;
+        .tp-image-side::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, #000 0%, transparent 100%);
+            opacity: 0.3;
         }
 
-        .tp-btn-nav {
-            padding: 16px;
-            text-decoration: none;
-            font-weight: 800;
-            font-size: 11px;
-            text-transform: uppercase;
-            text-align: center;
-            transition: 0.3s;
+        .tp-main-container:hover .tp-image-side img {
+            transform: scale(1.05) translateX(10px);
+            filter: contrast(1.2) brightness(1);
         }
 
-        .tp-btn-main { background: var(--gold); color: #000; grid-column: span 2; }
-        .tp-btn-wa { background: #25D366; color: #fff; }
-        .tp-btn-secondary { border: 1px solid rgba(255,255,255,0.1); color: #fff; }
+        /* ТЕХНИЧЕСКИЕ МЕТКИ */
+        .tp-tech-tag {
+            position: absolute;
+            top: 40px; right: 40px;
+            color: var(--gold);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 5px;
+            z-index: 20;
+        }
 
-        @media (max-width: 1024px) {
-            .tp-hero-wrapper { flex-direction: column; }
-            .tp-hero-visual { min-height: 300px; order: -1; }
+        /* АДАПТАЦИЯ (МОБИЛЬНЫЙ ОСТАЕТСЯ РАБОЧИМ) */
+        @media (max-width: 1100px) {
+            .tp-main-container { flex-direction: column; height: auto; }
+            .tp-content-side { padding: 40px 20px; order: 2; text-align: center; }
+            .tp-image-side { min-height: 400px; order: 1; }
+            .tp-description { margin: 0 auto 30px; border-left: 0; border-top: 2px solid var(--gold); padding: 20px 0 0; }
+            .tp-actions { justify-content: center; }
         }
     </style>
 
-    <div class="tp-hero-wrapper">
-        <div class="tp-hero-info">
-            <div style="color: var(--gold); font-family: 'Orbitron'; font-size: 11px; letter-spacing: 3px; margin-bottom: 10px;">
-                TALAS_PROFI // HIGH VOLTAGE
+    <div class="tp-bg-grid"></div>
+
+    <div class="tp-main-container">
+        <div class="tp-tech-tag">TALAS_PROFI SYSTEM v2.6</div>
+        
+        <div class="tp-content-side">
+            <div style="color: var(--gold); font-family: 'Orbitron'; font-size: 12px; letter-spacing: 6px; margin-bottom: 10px;">
+                CONNECTED // ACTIVE
             </div>
             
             <h1>
-                <span class="tp-glitch-text">Электрика в <span>Таласе</span></span> <br>
+                <div class="tp-flicker-phrase">Электрика в <span class="outline">Таласе</span></div><br>
                 которую вы искали
             </h1>
             
-            <p style="color: #666; font-size: 15px; line-height: 1.6; max-width: 450px;">
-                Инженерный подход к электромонтажу. Исправляем чужие ошибки и создаем надежные системы с нуля.
+            <p class="tp-description">
+                Профессиональное проектирование и монтаж систем любой сложности. 
+                Мы объединили индустриальную точность с безупречным качеством исполнения.
             </p>
             
-            <div class="tp-btn-hub">
-                <a href="tel:+996755000228" class="tp-btn-nav tp-btn-main">Вызвать специалиста</a>
-                <a href="https://wa.me/996755000228" class="tp-btn-nav tp-btn-wa">Написать в WhatsApp</a>
-               
-                <a href="#services" class="tp-btn-nav tp-btn-secondary">Все услуги</a>
-              
+            <div class="tp-actions">
+                <a href="tel:+996755000228" class="tp-btn tp-btn-gold">Вызвать мастера</a>
+                <a href="https://wa.me/996755000228" class="tp-btn tp-btn-outline">WhatsApp Консультация</a>
+                <a href="#portfolio" class="tp-btn tp-btn-outline">Портфолио</a>
             </div>
         </div>
 
-        <div class="tp-hero-visual">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Talas Profi">
+        <div class="tp-image-side">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Talas Profi Engineering">
         </div>
     </div>
 </section>
-
 
 
 

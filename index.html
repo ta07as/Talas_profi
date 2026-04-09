@@ -1,1556 +1,1531 @@
-
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Talas_profi</title>
+    <title>Talas_profi | Официальный сайт</title>
     <style>
-
-
-/* ==========================================
-           ПАКЕТ «УМНАЯ АНИМАЦИЯ» (ДЛЯ ВСЕГО САЙТА)
-           ========================================== */
-        
-        /* 1. АНИМАЦИЯ ПРИ ЗАГРУЗКЕ (ВСЕГО САЙТА) */
-        /* Плавное проявление контента снизу вверх */
-        @keyframes tp-fade-in-up {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-                filter: blur(5px); /* Легкое размытие на старте */
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-                filter: blur(0);
-            }
-        }
-
-        /* Применяем анимацию ко всем основным секциям сайта */
-        section, header {
-            animation: tp-fade-in-up 0.8s cubic-bezier(0.4, 0, 0.2, 1) both;
-        }
-
-        /* Добавляем поочередную задержку, чтобы блоки появлялись один за другим */
-        .tp-hero-modern { animation-delay: 0.1s; }
-        .tp-services-dense { animation-delay: 0.3s; }
-        .tp-accordion-benefits { animation-delay: 0.5s; }
-        .tp-portfolio { animation-delay: 0.7s; }
-        .tp-reviews-section { animation-delay: 0.9s; }
-        .tp-monolith-contacts { animation-delay: 1.1s; }
-
-        /* 2. МИКРО-ВЗАИМОДЕЙСТВИЯ ПРИ НАВЕДЕНИИ (ПК) */
-        
-        /* Кнопки главного экрана: плавное увеличение и тень */
-        .tp-modern-btn {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tp-modern-btn:hover {
-            transform: scale(1.03) translateY(-2px);
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.15);
-        }
-
-        /* Карточки услуг: плавное проявление неоновой обводки */
-        .tp-service-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tp-service-card:hover {
-            border-color: #FBBF24;
-            background-color: #050505;
-            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.05);
-        }
-
-        /* Полосы аккордеона преимуществ: плавное расширение */
-        .tp-accordion-item {
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-        .tp-accordion-item:hover {
-            border-color: #FBBF24;
-        }
-
-        /* Портфолио: плавный зум картинки и появление текста */
-        .tp-portfolio-item, .tp-portfolio-img, .tp-portfolio-content, .tp-portfolio-overlay {
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tp-portfolio-item:hover .tp-portfolio-img {
-            transform: scale(1.05);
-            filter: grayscale(0%) contrast(1);
-        }
-
-        /* Кнопки соцсетей внизу: плавное вдавливание */
-        .tp-mono-item {
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .tp-mono-item:hover {
-            transform: scale(0.98);
-            border-color: #FBBF24;
-        }
-
-        /* 3. ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНОВ */
-        @media screen and (max-width: 768px) {
-            /* Упрощаем анимацию при загрузке, убираем блюр и лишние сдвиги */
-            @keyframes tp-fade-in-up-mobile {
-                from { opacity: 0; transform: translateY(10px); }
-                to { opacity: 1; transform: translateY(0); }
-            }
-            section, header {
-                animation: tp-fade-in-up-mobile 0.6s ease-out both;
-            }
-            /* Убираем ховер-эффекты на кнопках, так как на мобилке нет мышки */
-            .tp-modern-btn:hover, .tp-mono-item:hover {
-                transform: none;
-                box-shadow: none;
-            }
-        }
-
-
-
-
-
-
-        
-        /* БАЗОВЫЕ СТИЛИ И КОМПАКТНОЕ МЕНЮ */
-        body { margin: 0; padding: 0; background-color: #000; color: #fff; }
-        .tp-header {
-            position: fixed; top: 0; left: 0; width: 100%; height: 60px;
-            background-color: #000; border-bottom: 1px solid #111; z-index: 1000;
-            font-family: 'Arial', sans-serif;
-        }
-        .tp-nav-container {
-            max-width: 1400px; height: 100%; margin: 0 auto; padding: 0 20px;
-            display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
-        }
-        .tp-logo { font-size: 20px; font-weight: 900; color: #FBBF24; text-transform: uppercase; text-decoration: none; }
-        .tp-nav-menu { display: flex; list-style: none; gap: 25px; margin: 0; padding: 0; }
-        .tp-nav-link { color: #FFF; text-decoration: none; font-size: 12px; font-weight: bold; text-transform: uppercase; }
-        .tp-nav-link:hover { color: #FBBF24; }
-        .tp-right-group { display: flex; align-items: center; gap: 15px; }
-        .tp-btn-call { color: #000; background-color: #FBBF24; text-decoration: none; font-size: 11px; font-weight: 900; text-transform: uppercase; padding: 8px 15px; border-radius: 2px; }
-        .tp-burger { display: none; flex-direction: column; gap: 4px; cursor: pointer; background: none; border: none; }
-        .tp-burger span { display: block; width: 22px; height: 2px; background-color: #FFF; transition: 0.3s; }
-
-        /* СТИЛИ ГЛАВНОГО ЭКРАНА (ГЕРОЙ-БЛОК) */
-        .tp-hero-modern {
-            min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
-            background-color: #000; font-family: 'Arial', sans-serif; padding-top: 60px; box-sizing: border-box;
-        }
-        .tp-modern-content { display: flex; flex-direction: column; justify-content: center; padding: 40px; }
-        .tp-modern-badge { color: #FBBF24; font-size: 12px; font-weight: 900; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; }
-        .tp-modern-title { font-size: 56px; color: #FFF; font-weight: 900; text-transform: uppercase; margin: 0 0 20px 0; }
-        .tp-modern-title span { color: #FBBF24; }
-        .tp-modern-desc { font-size: 16px; color: #888; line-height: 1.6; margin-bottom: 40px; }
-        .tp-modern-btns { display: flex; gap: 15px; }
-        .tp-modern-btn { text-decoration: none; padding: 18px 35px; font-size: 13px; font-weight: 900; text-transform: uppercase; border-radius: 4px; transition: 0.3s; }
-        .tp-btn-gold { background-color: #FBBF24; color: #000; }
-        .tp-btn-outline { border: 1px solid #333; color: #FFF; }
-        .tp-modern-image { background: url('https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; }
-
-        /* АДАПТИВНОСТЬ ПОД ТЕЛЕФОНЫ */
-        @media screen and (max-width: 768px) {
-            .tp-nav-menu { display: none; flex-direction: column; position: absolute; top: 60px; left: 0; width: 100%; background-color: #080808; padding: 20px 0; }
-            .tp-nav-menu.active { display: flex; }
-            .tp-burger { display: flex; }
-            .tp-burger.active span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
-            .tp-burger.active span:nth-child(2) { opacity: 0; }
-            .tp-burger.active span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
-            .tp-hero-modern { grid-template-columns: 1fr; }
-            .tp-modern-image { height: 300px; order: -1; }
-            .tp-modern-title { font-size: 32px; text-align: center; }
-            .tp-modern-desc { text-align: center; }
-            .tp-modern-btns { flex-direction: column; }
-            .tp-modern-btn { text-align: center; }
-        }
+        /* Общие системные настройки сайта */
+        body { margin: 0; padding: 0; background-color: #000; font-family: 'Arial', sans-serif; color: #fff; overflow-x: hidden; }
     </style>
 </head>
 <body>
 
-<header class="tp-header">
-    <div class="tp-nav-container">
-        <a href="#" class="tp-logo">Talas_profi</a>
-        <ul class="tp-nav-menu">
-            <li><a href="#services" class="tp-nav-link">Услуги</a></li>
-            <li><a href="#portfolio" class="tp-nav-link">Портфолио</a></li>
-            <li><a href="#reviews" class="tp-nav-link">Отзывы</a></li>
-            <li><a href="#contacts" class="tp-nav-link">Контакты</a></li>
-        </ul>
-        <div class="tp-right-group">
-            <a href="https://wa.me/996755000228" target="_blank" class="tp-btn-call">WhatsApp</a>
-            <button class="tp-burger" id="burgerBtn"><span></span><span></span><span></span></button>
+
+
+    
+
+
+
+
+
+    
+
+
+
+
+<nav class="tp-nav-new">
+    <div class="tp-nav-body">
+        <a href="#" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
+        
+        <div class="tp-nav-right-side">
+            <button class="tp-nav-btn-mob" onclick="toggleTpMenu()">
+                <div class="tp-burger-icon">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+            
+            <div class="tp-nav-links-pc">
+                <a href="#services">УСЛУГИ</a>
+                <a href="#portfolio">РАБОТЫ</a>
+                <a href="#contacts">КОНТАКТЫ</a>
+                <a href="tel:+996755000228" class="tp-nav-phone-pc">+996 755 000 228</a>
+            </div>
         </div>
     </div>
-</header>
 
-<section class="tp-hero-modern">
-    <div class="tp-modern-content">
-        <h1 class="tp-modern-title">TALAS_PROFI</h1>
-        <p class="tp-modern-desc">Индустриальный стандарт качества в Таласе. Профессиональный электромонтаж и ремонт объектов любой сложности.  <br>🔥 Бесплатный выезд на замер и составление сметы при заказе сегодня!</p>
-        
-        <div class="tp-modern-btns">
-            <a href="#contacts" class="tp-modern-btn tp-modern-btn-primary">Заказать услугу</a>
-            <a href="#services" class="tp-modern-btn tp-modern-btn-outline">Наши услуги</a>
+    <div class="tp-mob-drawer" id="tpDrawer">
+        <div class="tp-drawer-content">
+            <button class="tp-close-btn" onclick="toggleTpMenu()">×</button>
+            <a href="#services" onclick="toggleTpMenu()">УСЛУГИ</a>
+            <a href="#portfolio" onclick="toggleTpMenu()">РАБОТЫ</a>
+            <a href="#contacts" onclick="toggleTpMenu()">КОНТАКТЫ</a>
+            <hr>
+            <a href="tel:+996755000228" class="tp-gold-link">+996 755 000 228</a>
+            <a href="https://wa.me/996755000228" class="tp-wa-link">WHATSAPP</a>
         </div>
     </div>
-
-    <div class="tp-modern-image">
-        </div>
-</section>
-
-
-
-
-
-<section class="tp-services-dense" id="services">
-    <style>
-        .tp-services-dense {
-            background-color: #000000;
-            padding: 80px 20px;
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-            overflow: hidden;
-            perspective: 2000px;
-        }
-
-        .tp-services-container {
-            max-width: 1400px; /* Увеличили ширину контейнера для 5 колонок */
-            margin: 0 auto;
-        }
-
-        /* Заголовок секции (чуть компактнее) */
-        .tp-section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .tp-section-title {
-            font-size: 38px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 900;
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-        }
-
-        .tp-section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background-color: #FBBF24;
-            margin: 10px auto 0 auto;
-        }
-
-        .tp-section-subtitle {
-            font-size: 14px;
-            color: #AAAAAA;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Сетка: СТРОГО 5 КОЛОНОК на больших мониторах */
-        .tp-services-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px; /* Уменьшили зазор для плотности */
-        }
-
-        /* БАЗОВАЯ КОМПАКТНАЯ КАРТОЧКА */
-        .tp-service-card {
-            background-color: #111111;
-            border: 1px solid transparent;
-            padding: 40px 25px 30px 25px; /* Уменьшили отступы */
-            text-align: left;
-            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 280px; /* Уменьшили высоту */
-            
-            transform-style: preserve-3d;
-            animation: spinInCompact 1.5s cubic-bezier(0.25, 1, 0.5, 1) both;
-            
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
-        }
-
-        /* Фоновый номер */
-        .tp-service-card::before {
-            content: attr(data-number);
-            position: absolute;
-            top: 10px;
-            right: 15px;
-            font-size: 50px; /* Сделали меньше */
-            font-weight: 900;
-            color: rgba(255, 255, 255, 0.015);
-            transition: all 0.6s ease;
-            z-index: 0;
-        }
-
-        /* Наведение */
-        .tp-service-card:hover {
-            clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%) !important;
-            background-color: #050505;
-            border-color: #FBBF24;
-            transform: translateY(-10px) rotateY(5deg);
-            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.1);
-        }
-
-        .tp-service-card:hover::before {
-            color: rgba(251, 191, 36, 0.03);
-        }
-
-        .tp-service-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .tp-service-title {
-            font-size: 16px; /* Уменьшили шрифт */
-            color: #FFFFFF;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-            transition: color 0.4s ease;
-        }
-
-        .tp-service-card:hover .tp-service-title {
-            color: #FBBF24;
-        }
-
-        .tp-service-desc {
-            font-size: 12.5px; /* Уменьшили шрифт описания */
-            color: #888888;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            transition: color 0.4s ease;
-        }
-
-        .tp-service-card:hover .tp-service-desc {
-            color: #CCCCCC;
-        }
-
-        .tp-service-link {
-            color: #FBBF24;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 11px;
-            text-transform: uppercase;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 1;
-        }
-
-        .tp-service-link span {
-            transition: transform 0.4s ease;
-        }
-
-        .tp-service-card:hover .tp-service-link {
-            gap: 12px;
-            color: #FFFFFF;
-        }
-
-        .tp-service-card:hover .tp-service-link span {
-            transform: translateX(3px);
-        }
-
-        /* ==========================================================================
-           УНИКАЛЬНЫЕ ФОРМЫ (АДАПТИРОВАННЫЕ ПОД УЗКИЙ ФОРМАТ 5 В РЯД)
-           ========================================================================== */
-        .tp-service-card:nth-child(1) { clip-path: polygon(0 0, 90% 0, 100% 10%, 100% 100%, 0 100%); }
-        .tp-service-card:nth-child(2) { clip-path: polygon(0 0, 100% 0, 100% 90%, 90% 100%, 10% 100%, 0 90%); }
-        .tp-service-card:nth-child(3) { clip-path: polygon(10% 0, 100% 0, 100% 90%, 90% 100%, 0 100%, 0 10%); }
-        .tp-service-card:nth-child(4) { clip-path: polygon(10% 0, 90% 0, 100% 100%, 0 100%); }
-        .tp-service-card:nth-child(5) { clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%); }
-        .tp-service-card:nth-child(6) { clip-path: polygon(0 10%, 10% 0, 90% 0, 100% 10%, 100% 100%, 0 100%); }
-        .tp-service-card:nth-child(7) { clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%); }
-        .tp-service-card:nth-child(8) { clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%); }
-        .tp-service-card:nth-child(9) { clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%); }
-        .tp-service-card:nth-child(10) { clip-path: polygon(15% 0, 100% 0, 100% 100%, 15% 100%, 0 85%); }
-
-        /* АНИМАЦИЯ КРУЧЕНИЯ ПРИ ПОЯВЛЕНИИ */
-        @keyframes spinInCompact {
-            from {
-                opacity: 0;
-                transform: rotateY(-720deg) scale(0.5);
-            }
-            to {
-                opacity: 1;
-                transform: rotateY(0deg) scale(1);
-            }
-        }
-
-        /* Поочередные задержки от 0.1 до 1.0 секунды */
-        .tp-service-card:nth-child(1) { animation-delay: 0.1s; }
-        .tp-service-card:nth-child(2) { animation-delay: 0.2s; }
-        .tp-service-card:nth-child(3) { animation-delay: 0.3s; }
-        .tp-service-card:nth-child(4) { animation-delay: 0.4s; }
-        .tp-service-card:nth-child(5) { animation-delay: 0.5s; }
-        .tp-service-card:nth-child(6) { animation-delay: 0.6s; }
-        .tp-service-card:nth-child(7) { animation-delay: 0.7s; }
-        .tp-service-card:nth-child(8) { animation-delay: 0.8s; }
-        .tp-service-card:nth-child(9) { animation-delay: 0.9s; }
-        .tp-service-card:nth-child(10) { animation-delay: 1.0s; }
-
-        /* АДАПТИВНОСТЬ */
-        @media screen and (max-width: 1200px) {
-            .tp-services-grid { grid-template-columns: repeat(3, 1fr); } /* 3 в ряд на средних экранах */
-        }
-
-        @media screen and (max-width: 768px) {
-            .tp-services-dense { padding: 50px 20px; }
-            .tp-section-title { font-size: 30px; }
-            .tp-services-grid { grid-template-columns: 1fr; gap: 20px; }
-            
-            .tp-service-card {
-                clip-path: none !important;
-                min-height: auto;
-                padding: 30px 20px;
-            }
-            
-            @keyframes spinInCompact {
-                from { opacity: 0; transform: rotateY(-360deg) scale(0.8); }
-                to { opacity: 1; transform: rotateY(0deg) scale(1); }
-            }
-        }
-    </style>
-
-    <div class="tp-services-container">
-        
-        <div class="tp-section-header">
-            <h2 class="tp-section-title">Наши Услуги</h2>
-            <p class="tp-section-subtitle">Профессиональный индустриальный подход к любой задаче</p>
-        </div>
-
-        <div class="tp-services-grid">
-            
-            <div class="tp-service-card" data-number="01">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Электромонтаж</h3>
-                    <p class="tp-service-desc">Монтаж проводки, сборка щитов, установка освещения на объектах любой сложности.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="02">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Сантехника</h3>
-                    <p class="tp-service-desc">Монтаж систем водоснабжения, отопления и канализации под ключ.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="03">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Поклейка обоев</h3>
-                    <p class="tp-service-desc">Профессиональная подготовка стен и поклейка любых типов обоев без стыков.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="04">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Укладка кирпича</h3>
-                    <p class="tp-service-desc">Капитальное возведение стен и перегородок из кирпича и блоков.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="05">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Видеонаблюдение</h3>
-                    <p class="tp-service-desc">Проектирование и монтаж IP-видеонаблюдения, СКУД и домофонии.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="06">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Демонтаж</h3>
-                    <p class="tp-service-desc">Аккуратный снос стен, перегородок и старых коммуникаций с вывозом мусора.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="07">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Штукатурка</h3>
-                    <p class="tp-service-desc">Выравнивание стен по маякам, финишная шпаклевка под покраску.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="08">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Укладка полов</h3>
-                    <p class="tp-service-desc">Монтаж ламината, кварцвинила, паркетной доски и линолеума.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="09">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Стяжка пола</h3>
-                    <p class="tp-service-desc">Создание идеально ровного и прочного основания пола под любое покрытие.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-            <div class="tp-service-card" data-number="10">
-                <div class="tp-service-content">
-                    <h3 class="tp-service-title">Сварочные работы</h3>
-                    <p class="tp-service-desc">Изготовление металлоконструкций и сварка труб любой сложности.</p>
-                </div>
-                <a href="#" class="tp-service-link">Подробнее <span>&rarr;</span></a>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-
-
-
-<section class="tp-accordion-benefits" id="benefits">
-    <style>
-        .tp-accordion-benefits {
-            background-color: #000000;
-            padding: 80px 20px;
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-            overflow: hidden;
-        }
-
-        .tp-accordion-container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* Компактный заголовок */
-        .tp-section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .tp-section-title {
-            font-size: 34px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .tp-section-subtitle {
-            font-size: 13px;
-            color: #888888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* ОБЩАЯ ОБЕРТКА ДЛЯ ПОЛОС */
-        .tp-accordion-wrapper {
-            display: flex;
-            width: 100%;
-            height: 350px; /* Фиксированная компактная высота */
-            gap: 10px;
-        }
-
-        /* ОДНА ПОЛОСА (КАРТОЧКА) */
-        .tp-accordion-item {
-            position: relative;
-            flex: 1; /* Все полосы изначально одинаковой ширины */
-            background-color: #0A0A0A;
-            border: 1px solid #1A1A1A;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 30px;
-        }
-
-        /* Вертикальный заголовок, когда полоса сжата */
-        .tp-accordion-collapsed-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(-90deg);
-            white-space: nowrap;
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #555555;
-            transition: all 0.4s ease;
-        }
-
-        /* Контент, который спрятан и открывается при расширении */
-        .tp-accordion-content {
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-            transition-delay: 0.2s; /* Чуть ждем, пока полоса раздвинется */
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        /* Элементы внутри контента */
-        .tp-benefit-num {
-            font-size: 40px;
-            font-weight: 900;
-            color: #FBBF24;
-            font-style: italic;
-        }
-
-        .tp-benefit-title {
-            font-size: 20px;
-            color: #FFFFFF;
-            text-transform: uppercase;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-
-        .tp-benefit-desc {
-            font-size: 13px;
-            color: #AAAAAA;
-            line-height: 1.6;
-        }
-
-        /* ==========================================================================
-           ЭФФЕКТ НАВЕДЕНИЯ (ГЛАВНАЯ МАГИЯ)
-           ========================================================================== */
-        
-        /* Та карточка, на которую навели, забирает себе 4 части пространства */
-        .tp-accordion-item:hover {
-            flex: 4;
-            background-color: #111111;
-            border-color: #FBBF24;
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.05);
-        }
-
-        /* Прячем вертикальный текст при наведении */
-        .tp-accordion-item:hover .tp-accordion-collapsed-title {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        /* Проявляем нормальный горизонтальный контент */
-        .tp-accordion-item:hover .tp-accordion-content {
-            opacity: 1;
-            visibility: visible;
-        }
-
-
-        /* АДАПТИВНОСТЬ ДЛЯ МОБИЛОК */
-        @media screen and (max-width: 768px) {
-            .tp-accordion-benefits { padding: 50px 20px; }
-            .tp-section-title { font-size: 26px; }
-            
-            /* На мобилках превращаем горизонтальный аккордеон в обычные блоки в ряд */
-            .tp-accordion-wrapper {
-                flex-direction: column;
-                height: auto;
-                gap: 15px;
-            }
-            
-            .tp-accordion-item {
-                flex: none;
-                height: auto;
-                padding: 25px;
-            }
-            
-            .tp-accordion-collapsed-title {
-                display: none; /* Выключаем вертикальный текст */
-            }
-            
-            .tp-accordion-content {
-                opacity: 1;
-                visibility: visible;
-                display: block;
-            }
-            
-            .tp-benefit-num { font-size: 30px; margin-bottom: 10px; }
-        }
-    </style>
-
-    <div class="tp-accordion-container">
-        
-        <div class="tp-section-header">
-            <h2 class="tp-section-title">Привилегии работы</h2>
-            <p class="tp-section-subtitle">Почему выбирают Talas_profi</p>
-        </div>
-
-        <div class="tp-accordion-wrapper">
-            
-            <div class="tp-accordion-item">
-                <div class="tp-accordion-collapsed-title">Договор и ИП</div>
-                <div class="tp-accordion-content">
-                    <span class="tp-benefit-num">01</span>
-                    <div>
-                        <h3 class="tp-benefit-title">Юр. защита</h3>
-                        <p class="tp-benefit-desc">Работаем строго по договору через ИП. Фиксированные сметы без неприятных сюрпризов.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tp-accordion-item">
-                <div class="tp-accordion-collapsed-title">Строгие Сроки</div>
-                <div class="tp-accordion-content">
-                    <span class="tp-benefit-num">02</span>
-                    <div>
-                        <h3 class="tp-benefit-title">Тайм-менеджмент</h3>
-                        <p class="tp-benefit-desc">Никаких срывов и простоев. Сдаем объект ровно в ту дату, которую прописали на бумаге.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tp-accordion-item">
-                <div class="tp-accordion-content">
-                    <span class="tp-benefit-num">03</span>
-                    <div>
-                        <h3 class="tp-benefit-title">Качество</h3>
-                        <p class="tp-benefit-desc">Используем высококлассное оборудование и только сертифицированные материалы.</p>
-                    </div>
-                </div>
-                <div class="tp-accordion-collapsed-title">Проф. Оборудование</div>
-            </div>
-
-            <div class="tp-accordion-item">
-                <div class="tp-accordion-collapsed-title">Без посредников</div>
-                <div class="tp-accordion-content">
-                    <span class="tp-benefit-num">04</span>
-                    <div>
-                        <h3 class="tp-benefit-title">Своя команда</h3>
-                        <p class="tp-benefit-desc">Никаких случайных людей с улицы. Все мастера имеют высокую квалификацию.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="tp-accordion-item">
-                <div class="tp-accordion-collapsed-title">Честная Гарантия</div>
-                <div class="tp-accordion-content">
-                    <span class="tp-benefit-num">05</span>
-                    <div>
-                        <h3 class="tp-benefit-title">Отвечаем за результат</h3>
-                        <p class="tp-benefit-desc">Предоставляем длительную железную гарантию на все выполненные узлы и монтаж.</p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-
-
-
-<section class="tp-portfolio" id="portfolio">
-    <style>
-        .tp-portfolio {
-            background-color: #010101;
-            padding: 80px 20px;
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-            overflow: hidden;
-        }
-
-        .tp-portfolio-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Заголовок секции */
-        .tp-section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-
-        .tp-section-title {
-            font-size: 34px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 900;
-            margin-bottom: 10px;
-        }
-
-        .tp-section-subtitle {
-            font-size: 13px;
-            color: #888888;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Сетка галереи */
-        .tp-portfolio-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-            margin-bottom: 40px; /* Отступ до кнопок */
-        }
-
-        /* Элемент галереи */
-        .tp-portfolio-item {
-            position: relative;
-            height: 300px;
-            background-color: #111111;
-            overflow: hidden;
-            cursor: pointer;
-            border: 1px solid #1A1A1A;
-            transition: all 0.5s ease;
-        }
-
-        /* Изображения с автоподгонкой */
-        .tp-portfolio-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover; 
-            object-position: center;
-            filter: grayscale(100%) contrast(1.2);
-            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-            transform: scale(1);
-        }
-
-        /* Маска */
-        .tp-portfolio-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.8) 100%);
-            opacity: 0.7;
-            transition: all 0.5s ease;
-            z-index: 1;
-        }
-
-        /* Контент */
-        .tp-portfolio-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 25px;
-            box-sizing: border-box;
-            z-index: 2;
-            transform: translateY(20px);
-            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .tp-portfolio-tag {
-            font-size: 10px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            font-weight: 900;
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .tp-portfolio-title {
-            font-size: 18px;
-            color: #FFFFFF;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-
-        .tp-portfolio-desc {
-            font-size: 12px;
-            color: #AAAAAA;
-            line-height: 1.5;
-            opacity: 0;
-            transition: all 0.5s ease;
-            transition-delay: 0.1s;
-        }
-
-        /* ЭФФЕКТЫ НАВЕДЕНИЯ */
-        .tp-portfolio-item:hover {
-            border-color: #FBBF24;
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.1);
-        }
-
-        .tp-portfolio-item:hover .tp-portfolio-img {
-            filter: grayscale(0%) contrast(1);
-            transform: scale(1.08);
-        }
-
-        .tp-portfolio-item:hover .tp-portfolio-overlay {
-            opacity: 0.4;
-        }
-
-        .tp-portfolio-item:hover .tp-portfolio-content {
-            transform: translateY(0);
-        }
-
-        .tp-portfolio-item:hover .tp-portfolio-desc {
-            opacity: 1;
-        }
-
-        /* Широкие карточки */
-        .tp-portfolio-item:nth-child(2),
-        .tp-portfolio-item:nth-child(7) {
-            grid-column: span 2;
-        }
-
-        /* ==========================================================================
-           БЛОК КНОПОК ПОД ГАЛЕРЕЕЙ
-           ========================================================================== */
-        .tp-portfolio-actions {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap; /* Чтобы на мобилках кнопки вставали друг под друга */
-        }
-
-        .tp-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            height: 55px;
-            padding: 0 35px;
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-            min-width: 260px;
-        }
-
-        /* Кнопка Ватсап (Ярко-желтая/Золотая) */
-        .tp-btn-whatsapp {
-            background-color: #FBBF24;
-            color: #000000;
-            border: 1px solid #FBBF24;
-        }
-
-        .tp-btn-whatsapp:hover {
-            background-color: #000000;
-            color: #FBBF24;
-            box-shadow: 0 5px 15px rgba(251, 191, 36, 0.2);
-        }
-
-        /* Кнопка "Смотреть другие" (Черная/Прозрачная) */
-        .tp-btn-more {
-            background-color: transparent;
-            color: #FFFFFF;
-            border: 1px solid #333333;
-        }
-
-        .tp-btn-more:hover {
-            border-color: #FBBF24;
-            color: #FBBF24;
-            background-color: #0A0A0A;
-        }
-
-        /* АДАПТИВНОСТЬ */
-        @media screen and (max-width: 1024px) {
-            .tp-portfolio-grid { grid-template-columns: repeat(2, 1fr); }
-            .tp-portfolio-item:nth-child(2), .tp-portfolio-item:nth-child(7) { grid-column: span 1; }
-        }
-
-        @media screen and (max-width: 768px) {
-            .tp-portfolio { padding: 50px 20px; }
-            .tp-portfolio-grid { grid-template-columns: 1fr; }
-            .tp-portfolio-item { height: 250px; }
-            .tp-portfolio-content { transform: translateY(0); }
-            .tp-portfolio-desc { opacity: 1; }
-            .tp-portfolio-img { filter: grayscale(0%); }
-            .tp-portfolio-actions { flex-direction: column; align-items: center; }
-            .tp-btn { width: 100%; }
-        }
-    </style>
-
-    <div class="tp-portfolio-container">
-        
-        <div class="tp-section-header">
-            <h2 class="tp-section-title">Наши Работы</h2>
-            <p class="tp-section-subtitle">Качество, проверенное на практике</p>
-        </div>
-
-        <div class="tp-portfolio-grid">
-            
-            <div class="tp-portfolio-item">
-                <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_1" alt="Электромонтаж" class="tp-portfolio-img">
-                <div class="tp-portfolio-overlay"></div>
-                <div class="tp-portfolio-content">
-                    <span class="tp-portfolio-tag">Электромонтаж</span>
-                    <h3 class="tp-portfolio-title">ЖК «Ала-Тоо»</h3>
-                    <p class="tp-portfolio-desc">Комплексная разводка проводки и сборка силовых щитов под ключ в 3-х комнатной квартире.</p>
-                </div>
-            </div>
-
-            <div class="tp-portfolio-item">
-                <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_2" alt="Пром объект" class="tp-portfolio-img">
-                <div class="tp-portfolio-overlay"></div>
-                <div class="tp-portfolio-content">
-                    <span class="tp-portfolio-tag">Промышленный монтаж</span>
-                    <h3 class="tp-portfolio-title">Торговый склад</h3>
-                    <p class="tp-portfolio-desc">Проектирование и монтаж освещения и систем видеонаблюдения на площади 1200 кв.м.</p>
-                </div>
-            </div>
-
-            <div class="tp-portfolio-item">
-                <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_3" alt="Сантехника" class="tp-portfolio-img">
-                <div class="tp-portfolio-overlay"></div>
-                <div class="tp-portfolio-content">
-                    <span class="tp-portfolio-tag">Сантехника</span>
-                    <h3 class="tp-portfolio-title">Коттедж «Талас»</h3>
-                    <p class="tp-portfolio-desc">Разводка труб отопления и монтаж теплого водяного пола во всем доме.</p>
-                </div>
-            </div>
-
-            <div class="tp-portfolio-item">
-                <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_4" alt="Обои" class="tp-portfolio-img">
-                <div class="tp-portfolio-overlay"></div>
-                <div class="tp-portfolio-content">
-                    <span class="tp-portfolio-tag">Отделка</span>
-                    <h3 class="tp-portfolio-title">Дизайнерский ремонт</h3>
-                    <p class="tp-portfolio-desc">Безупречная поклейка итальянских флизелиновых обоев в гостиной.</p>
-                </div>
-            </div>
-
-        </div>
-
-        <div class="tp-portfolio-actions">
-            
-            <a href="https://wa.me/996755000228" target="_blank" class="tp-btn tp-btn-whatsapp">
-                Написать в WhatsApp
-            </a>
-
-            <a href="portfolio.html" class="tp-btn tp-btn-more">
-                Смотреть другие фото
-            </a>
-
-        </div>
-
-    </div>
-</section>
-
-
-
-<section class="tp-reviews-section" id="reviews">
-    <style>
-        .tp-reviews-section {
-            background-color: #000000;
-            padding: 80px 20px;
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-        }
-
-        .tp-reviews-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* ВЕРХНЯЯ ЧАСТЬ: Заголовки и Кнопка */
-        .tp-reviews-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 60px;
-            gap: 30px;
-        }
-
-        .tp-header-left {
-            flex: 1;
-        }
-
-        .tp-rev-title {
-            font-size: 42px;
-            color: #FBBF24;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 10px 0;
-        }
-
-        .tp-rev-subtitle {
-            font-size: 16px;
-            color: #AAAAAA;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin: 0;
-        }
-
-        /* Кнопка оставить отзыв (Золотая справа) */
-        .tp-write-review-btn {
-            background-color: #FBBF24;
-            color: #000000;
-            text-decoration: none;
-            padding: 20px 35px;
-            font-size: 14px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            text-align: center;
-            border: 1px solid #FBBF24;
-        }
-
-        .tp-write-review-btn:hover {
-            background-color: #000000;
-            color: #FBBF24;
-            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.15);
-        }
-
-        .tp-write-review-btn::after {
-            content: '💬'; /* Иконка чата (можно заменить на svg ватсапа) */
-            font-size: 18px;
-        }
-
-        /* ЗАГОЛОВОК ГАЛЕРЕИ */
-        .tp-gallery-heading {
-            font-size: 16px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: 900;
-            margin-bottom: 30px;
-            position: relative;
-            display: inline-block;
-        }
-
-        /* СЕТКА ПЕРЕПИСОК (4 штуки в ряд) */
-        .tp-chats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 25px;
-        }
-
-        /* Элемент переписки */
-        .tp-chat-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        /* Рамка для скриншота */
-        .tp-chat-img-wrapper {
-            width: 100%;
-            height: 380px; /* Фиксированная высота как на макете */
-            background-color: #0A0A0A;
-            border: 2px solid #FBBF24;
-            border-radius: 8px;
-            padding: 10px;
-            box-sizing: border-box;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            margin-bottom: 20px;
-        }
-
-        /* Сам скриншот */
-        .tp-chat-img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain; /* Чтобы весь скриншот помещался без обрезки */
-            background-color: #111111;
-            transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        /* Эффект наведения на скриншот */
-        .tp-chat-img-wrapper:hover {
-            box-shadow: 0 15px 30px rgba(251, 191, 36, 0.15);
-            background-color: #111111;
-        }
-
-        .tp-chat-img-wrapper:hover .tp-chat-img {
-            transform: scale(1.03);
-        }
-
-        /* Подпись под скрином */
-        .tp-chat-author {
-            font-size: 16px;
-            color: #FFFFFF;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .tp-chat-rating {
-            font-size: 11px;
-            color: #FBBF24;
-            letter-spacing: 2px;
-            font-weight: 900;
-            margin-bottom: 3px;
-        }
-
-        .tp-chat-source {
-            font-size: 11px;
-            color: #666666;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: bold;
-        }
-
-        /* АДАПТИВНОСТЬ */
-        @media screen and (max-width: 1100px) {
-            .tp-chats-grid { grid-template-columns: repeat(2, 1fr); }
-        }
-
-        @media screen and (max-width: 768px) {
-            .tp-reviews-header { flex-direction: column; align-items: flex-start; }
-            .tp-write-review-btn { width: 100%; justify-content: center; }
-            .tp-chats-grid { grid-template-columns: 1fr; }
-            .tp-chat-img-wrapper { height: 450px; } /* Чуть выше на мобилках */
-            .tp-rev-title { font-size: 32px; }
-        }
-    </style>
-
-    <div class="tp-reviews-container">
-        
-        <div class="tp-reviews-header">
-            <div class="tp-header-left">
-                <h2 class="tp-rev-title">ОТЗЫВЫ</h2>
-                <p class="tp-rev-subtitle">ЧТО ГОВОРЯТ О НАС</p>
-            </div>
-            
-            <a href="https://wa.me/996755000228?text=Здравствуйте! Хочу оставить отзыв о вашей работе." target="_blank" class="tp-write-review-btn">
-                ОСТАВИТЬ ОТЗЫВ В WHATSAPP
-            </a>
-        </div>
-
-        <h3 class="tp-gallery-heading">ГАЛЕРЕЯ ПЕРЕПИСОК</h3>
-
-        <div class="tp-chats-grid">
-            
-            <div class="tp-chat-item">
-                <div class="tp-chat-img-wrapper">
-                    <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_1" alt="Отзыв WhatsApp" class="tp-chat-img">
-                </div>
-                <div class="tp-chat-author">АЗАМАТ Б.</div>
-                <div class="tp-chat-rating">5-STAR RATING</div>
-                <div class="tp-chat-source">ИЗ WHATSAPP</div>
-            </div>
-
-            <div class="tp-chat-item">
-                <div class="tp-chat-img-wrapper">
-                    <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_2" alt="Отзыв WhatsApp" class="tp-chat-img">
-                </div>
-                <div class="tp-chat-author">МАРИНА В.</div>
-                <div class="tp-chat-rating">5-STAR RATING</div>
-                <div class="tp-chat-source">ИЗ WHATSAPP</div>
-            </div>
-
-            <div class="tp-chat-item">
-                <div class="tp-chat-img-wrapper">
-                    <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_3" alt="Отзыв WhatsApp" class="tp-chat-img">
-                </div>
-                <div class="tp-chat-author">ИВЛИНЦ Н.</div>
-                <div class="tp-chat-rating">5-STAR RATING</div>
-                <div class="tp-chat-source">ИЗ WHATSAPP</div>
-            </div>
-
-            <div class="tp-chat-item">
-                <div class="tp-chat-img-wrapper">
-                    <img src="https://drive.google.com/uc?export=view&id=ID_ФОТО_4" alt="Отзыв WhatsApp" class="tp-chat-img">
-                </div>
-                <div class="tp-chat-author">МШТАЛА В.</div>
-                <div class="tp-chat-rating">5-STAR RATING</div>
-                <div class="tp-chat-source">ИЗ WHATSAPP</div>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-
-
-
-<section class="tp-monolith-contacts" id="contacts">
-    <style>
-        .tp-monolith-contacts {
-            background-color: #010101;
-            padding: 100px 20px;
-            font-family: 'Arial', sans-serif;
-            color: #FFFFFF;
-            border-top: 1px solid #111111;
-        }
-
-        .tp-monolith-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* Заголовок секции */
-        .tp-mono-header {
-            text-align: left;
-            margin-bottom: 50px;
-        }
-
-        .tp-mono-title {
-            font-size: 46px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-weight: 900;
-            margin-bottom: 5px;
-        }
-
-        .tp-mono-subtitle {
-            font-size: 12px;
-            color: #555555;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            font-weight: bold;
-        }
-
-        /* Сетка блока */
-        .tp-mono-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr;
-            gap: 30px;
-        }
-
-        /* ЛЕВАЯ ЧАСТЬ: ГИГАНТСКИЙ МОНИТОР СВЯЗИ */
-        .tp-mono-display {
-            background-color: #050505;
-            border: 1px solid #151515;
-            padding: 60px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            min-height: 350px;
-            position: relative;
-            box-sizing: border-box;
-            transition: all 0.4s ease;
-        }
-
-        .tp-mono-display:hover {
-            border-color: #FBBF24;
-            box-shadow: inset 0 0 20px rgba(251, 191, 36, 0.05);
-        }
-
-        /* Декоративные уголки на дисплее */
-        .tp-mono-display::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            width: 15px;
-            height: 15px;
-            border-top: 2px solid #FBBF24;
-            border-left: 2px solid #FBBF24;
-        }
-
-        .tp-display-label {
-            font-size: 11px;
-            color: #FBBF24;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            font-weight: 900;
-        }
-
-        .tp-display-main-link {
-            font-size: 48px;
-            color: #FFFFFF;
-            font-weight: 900;
-            text-decoration: none;
-            letter-spacing: 1px;
-            display: block;
-            margin: 30px 0;
-            transition: color 0.3s ease;
-        }
-
-        .tp-display-main-link:hover {
-            color: #FBBF24;
-        }
-
-        .tp-display-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid #111111;
-            padding-top: 20px;
-            color: #666666;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        /* ПРАВАЯ ЧАСТЬ: ПЛИТЫ СОЦСЕТЕЙ */
-        .tp-mono-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .tp-mono-item {
-            background-color: #0A0A0A;
-            border: 1px solid #151515;
-            padding: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-decoration: none;
-            color: #FFFFFF;
-            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .tp-item-name {
-            font-size: 16px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .tp-item-sub {
-            font-size: 11px;
-            color: #555555;
-            display: block;
-            margin-top: 5px;
-            letter-spacing: 1px;
-        }
-
-        .tp-item-arrow {
-            color: #FBBF24;
-            font-size: 20px;
-            transition: transform 0.3s ease;
-        }
-
-        /* Эффект вдавливания при наведении */
-        .tp-mono-item:hover {
-            background-color: #050505;
-            border-color: #FBBF24;
-            transform: scale(0.98);
-        }
-
-        .tp-mono-item:hover .tp-item-arrow {
-            transform: translateX(5px);
-        }
-
-        /* ПОДВАЛ */
-        .tp-mono-footer {
-            margin-top: 80px;
-            border-top: 1px solid #111111;
-            padding-top: 30px;
-            display: flex;
-            justify-content: space-between;
-            color: #444444;
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* АДАПТИВНОСТЬ */
-        @media screen and (max-width: 1024px) {
-            .tp-mono-grid { grid-template-columns: 1fr; }
-            .tp-mono-display { min-height: auto; padding: 40px; }
-            .tp-display-main-link { font-size: 32px; }
-        }
-
-        @media screen and (max-width: 768px) {
-            .tp-monolith-contacts { padding: 60px 20px; }
-            .tp-mono-title { font-size: 32px; }
-            .tp-mono-footer { flex-direction: column; gap: 10px; text-align: center; }
-        }
-    </style>
-
-    <div class="tp-monolith-container">
-        
-        <div class="tp-mono-header">
-            <h2 class="tp-mono-title">Контакты</h2>
-            <div class="tp-mono-subtitle">Прямая связь с тяжелой артиллерией</div>
-        </div>
-
-        <div class="tp-mono-grid">
-            
-            <div class="tp-mono-display">
-                <div>
-                    <span class="tp-display-label">Основной канал связи</span>
-                    <a href="tel:+996755000228" class="tp-display-main-link">+996 755 000 228</a>
-                </div>
-                
-                <div class="tp-display-footer">
-                    <span>Локация: Талас / Бишкек</span>
-                    <span>9:00 - 21:00</span>
-                </div>
-            </div>
-
-            <div class="tp-mono-list">
-                
-                <a href="https://wa.me/996755000228" target="_blank" class="tp-mono-item">
-                    <div>
-                        <span class="tp-item-name">WhatsApp</span>
-                        <span class="tp-item-sub">Быстрое обсуждение деталей</span>
-                    </div>
-                    <span class="tp-item-arrow">→</span>
-                </a>
-
-                <a href="#" target="_blank" class="tp-mono-item">
-                    <div>
-                        <span class="tp-item-name">Instagram</span>
-                        <span class="tp-item-sub">Галерея свежих объектов</span>
-                    </div>
-                    <span class="tp-item-arrow">→</span>
-                </a>
-
-                <a href="#" target="_blank" class="tp-mono-item">
-                    <div>
-                        <span class="tp-item-name">YouTube</span>
-                        <span class="tp-item-sub">Видеоотчеты о процессах</span>
-                    </div>
-                    <span class="tp-item-arrow">→</span>
-                </a>
-
-            </div>
-
-        </div>
-
-        <div class="tp-mono-footer">
-            <span>© 2026 Talas_profi</span>
-            <span>Все права защищены</span>
-        </div>
-
-    </div>
-</section>
-
-
-
-
+</nav>
+
+<style>
+    /* ГЛОБАЛЬНЫЙ ФИКС ШИРИНЫ */
+    html, body { 
+        overflow-x: hidden; 
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body { padding-top: 70px !important; }
+
+    .tp-nav-new {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; /* Строго по ширине экрана */
+        height: 70px;
+        background: #000;
+        border-bottom: 2px solid #FBBF24;
+        z-index: 1000000;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box; /* Важно! Чтобы границы не раздували блок */
+    }
+
+    .tp-nav-body {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tp-nav-logo {
+        font-family: 'Arial Black', sans-serif;
+        font-size: 20px;
+        color: #fff;
+        text-decoration: none;
+        white-space: nowrap;
+    }
+    .tp-nav-logo span { color: #FBBF24; }
+
+    /* ПК СТИЛИ */
+    .tp-nav-links-pc { display: flex; align-items: center; gap: 25px; }
+    .tp-nav-links-pc a { color: #fff; text-decoration: none; font-size: 13px; font-weight: bold; }
+    .tp-nav-phone-pc { color: #FBBF24 !important; font-size: 16px !important; margin-left: 10px; }
+
+    /* МОБИЛЬНЫЕ СТИЛИ */
+    .tp-nav-btn-mob { display: none; background: none; border: none; cursor: pointer; padding: 10px; }
+    .tp-burger-icon span { display: block; width: 25px; height: 3px; background: #FBBF24; margin: 5px 0; }
+
+    /* ШТОРКА */
+    .tp-mob-drawer {
+        position: fixed;
+        top: 0; right: -100%; /* Спрятана справа */
+        width: 100%; height: 100%;
+        background: #000;
+        z-index: 2000000;
+        transition: 0.3s;
+    }
+    .tp-mob-drawer.active { right: 0; }
+    
+    .tp-drawer-content {
+        display: flex; flex-direction: column;
+        padding: 50px 30px; gap: 30px;
+    }
+    .tp-drawer-content a { color: #fff; text-decoration: none; font-size: 22px; font-weight: bold; }
+    .tp-close-btn { color: #FBBF24; font-size: 40px; background: none; border: none; align-self: flex-end; }
+    .tp-gold-link { color: #FBBF24 !important; }
+    .tp-wa-link { background: #25D366; text-align: center; padding: 15px; border-radius: 5px; }
+
+    @media (max-width: 900px) {
+        .tp-nav-links-pc { display: none; }
+        .tp-nav-btn-mob { display: block; }
+    }
+</style>
 
 <script>
-    // Этот код заставляет страницу всегда открываться с самого верха при загрузке
-    window.onload = function() {
-        setTimeout(function() {
-            window.scrollTo(0, 0);
-        }, 10); // Маленькая задержка в 10 миллисекунд, чтобы браузер успел всё прогрузить
-    };
-
-    // Дополнительная страховка для очень жестких браузеров
-    if ('scrollRestoration' in history) {
-        history.scrollRestoration = 'manual';
+    function toggleTpMenu() {
+        document.getElementById('tpDrawer').classList.toggle('active');
     }
 </script>
 
 
+    
 
-    <script>
-    const burger = document.getElementById('burgerBtn');
-    const menu = document.querySelector('.tp-nav-menu');
-    burger.addEventListener('click', () => {
-        burger.classList.toggle('active');
-        menu.classList.toggle('active');
-    });
-</script>
+
+
+
+
+    
+
+
+
+    
+
+
+
+
+
+
+    
+   <section class="tp-hero-section">
+    <style>
+        /* ОСНОВНЫЕ СТИЛИ */
+     .tp-hero-section {
+    display: flex;
+    flex-wrap: wrap;
+    min-height: calc(100vh - 100px); /* Для ПК */
+    background-color: #000000;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ФИКС ДЛЯ ТЕЛЕФОНА */
+@media (max-width: 1100px) {
+    .tp-hero-section {
+        min-height: calc(100vh - 70px); /* Учитываем высоту мобильного меню */
+        flex-direction: column; /* Чтобы картинка не толкала текст вбок */
+    }
+}
+
+        /* КОНТЕНТ */
+        .tp-hero-content {
+    flex: 1;
+    min-width: 320px;
+    padding: 40px 30px; /* Уменьшили отступы */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #050505;
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+@media (max-width: 768px) {
+    .tp-hero-content {
+        padding: 20px 20px; /* Еще меньше на телефоне */
+    }
+}
+        /* АНИМАЦИЯ ПОЯВЛЕНИЯ ТЕКСТА */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .tp-hero-content .tp-badge {
+            color: #FBBF24;
+            font-size: clamp(30px, 8vw, 59px); /* Адаптивный размер */
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: clamp(4px, 2vw, 10px);
+            margin-bottom: 15px;
+            display: block;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .tp-hero-content h1 {
+            color: #FFFFFF;
+            font-size: clamp(32px, 10vw, 72px); /* Масштабирование заголовка */
+            font-weight: 900;
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin: 0 0 25px 0;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
+        }
+
+        .tp-hero-content h1 span {
+            color: #FBBF24;
+        }
+
+        .tp-hero-content p {
+            color: #777777;
+            font-size: clamp(16px, 4vw, 22px);
+            line-height: 1.5;
+            max-width: 550px;
+            margin-bottom: 35px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.6s forwards;
+        }
+
+        /* КНОПКА */
+        .tp-hero-btn {
+            display: inline-block;
+            background-color: #FBBF24;
+            color: #000000;
+            padding: 18px 35px;
+            text-decoration: none;
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 2px;
+            width: fit-content;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 2px;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.9s forwards, btnPulse 2s infinite 2s;
+        }
+
+        @keyframes btnPulse {
+            0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+            70% { box-shadow: 0 0 0 20px rgba(251, 191, 36, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+        }
+
+        .tp-hero-btn:hover {
+            background-color: #FFFFFF;
+            transform: scale(1.05) translateY(-3px);
+        }
+
+        /* МЕДИА (КАРТИНКА) */
+        .tp-hero-media {
+            flex: 1.2;
+            min-width: 320px;
+            min-height: 450px;
+            background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+            position: relative;
+            overflow: hidden;
+            animation: imageZoom 20s linear infinite alternate;
+        }
+
+        @keyframes imageZoom {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+
+        .tp-hero-media::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to right, #050505, transparent);
+            z-index: 1;
+        }
+
+        /* ТОЧНАЯ НАСТРОЙКА ДЛЯ ТЕЛЕФОНА (📱) */
+        @media (max-width: 768px) {
+            .tp-hero-section { 
+                flex-direction: column; 
+                text-align: center;
+            }
+
+            .tp-hero-content { 
+                padding: 50px 20px; 
+                order: 1; 
+                min-height: 60vh;
+                align-items: center; /* Центровка кнопки и текста */
+            }
+
+            .tp-hero-media { 
+                min-height: 40vh; 
+                order: 2; 
+            }
+
+            .tp-hero-media::after { 
+                background: linear-gradient(to bottom, #050505, transparent); 
+            }
+
+            .tp-hero-btn { 
+                width: 100%; /* Кнопка на всю ширину на мобилках */
+                max-width: 300px;
+                box-sizing: border-box; 
+            }
+
+            .tp-hero-content p { 
+                margin-left: auto; 
+                margin-right: auto; 
+            }
+        }
+    </style>
+
+    <div class="tp-hero-content">
+        <span class="tp-badge">Talas_profi</span>
+        <h1>Инженерный <br> <span>Подход</span></h1>
+        <p>
+            Мы создаем надежные инженерные системы. 
+            Профессиональный электромонтаж и сантехнические решения в Таласе.
+        </p>
+        <a href="https://wa.me/996755000228" class="tp-hero-btn">Связаться с мастером</a>
+    </div>
+
+    <div class="tp-hero-media"></div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+    
+    <section class="tp-workshop-mini">
+   <style>
+    .tp-workshop-mini {
+        background-color: #000000;
+        background-image: radial-gradient(#111 1px, transparent 1px);
+        background-size: 20px 20px;
+        padding: 100px 20px; /* Увеличили отступы сверху/снизу */
+        font-family: 'Roboto Condensed', sans-serif;
+        color: #FFFFFF;
+        overflow: hidden;
+    }
+
+    .tp-mini-container {
+        /* ГЛАВНОЕ ИЗМЕНЕНИЕ: расширяем контейнер для ПК */
+        max-width: 1440px; 
+        margin: 0 auto;
+    }
+
+    .tp-mini-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .tp-mini-header h2 {
+        font-size: clamp(24px, 4vw, 42px); /* Заголовок станет крупнее на ПК */
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: 5px;
+        margin: 0;
+        color: #FFFFFF;
+    }
+
+    .tp-mini-header h2 span {
+        color: #FBBF24;
+    }
+
+    /* СЕТКА: На ПК карточки теперь будут солидного размера */
+    .tp-mini-shelves {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 25px; /* Увеличили зазоры между жетонами */
+        perspective: 1200px;
+    }
+
+    .tp-mini-shelf-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* ЦЕПИ */
+    .tp-mini-shelf-item::before,
+    .tp-mini-shelf-item::after {
+        content: '';
+        position: absolute;
+        top: -15px;
+        width: 3px;
+        height: 40px; /* Удлинили цепи для солидности */
+        background: linear-gradient(#444, #111);
+        border-radius: 2px;
+        z-index: 1;
+    }
+
+    .tp-mini-shelf-item::before { left: 20%; }
+    .tp-mini-shelf-item::after { right: 20%; }
+
+    /* ЖЕТОН (ПЛИТКА) */
+    .tp-mini-plate {
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        width: 100%;
+        padding: 40px 15px; /* Сделали жетоны выше и просторнее */
+        margin-top: 25px;
+        text-align: center;
+        box-sizing: border-box;
+        position: relative;
+        box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+        transform-origin: top center;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    @keyframes miniSwing {
+        0% { transform: rotateX(0deg); }
+        25% { transform: rotateX(-15deg); }
+        50% { transform: rotateX(10deg); }
+        75% { transform: rotateX(-5deg); }
+        100% { transform: rotateX(0deg); }
+    }
+
+    .tp-mini-shelf-item:hover .tp-mini-plate {
+        animation: miniSwing 0.8s ease-out;
+        border-color: #FBBF24;
+        background: #0d0d0d;
+        box-shadow: 0 20px 50px rgba(251, 191, 36, 0.15);
+    }
+
+    .tp-mini-icon {
+        font-size: 45px; /* Иконки стали больше на ПК */
+        margin-bottom: 15px;
+        display: block;
+        filter: grayscale(1);
+        transition: 0.4s;
+    }
+
+    .tp-mini-shelf-item:hover .tp-mini-icon {
+        filter: grayscale(0) drop-shadow(0 0 10px #FBBF24);
+        transform: scale(1.2);
+    }
+
+    .tp-mini-plate h3 {
+        font-size: 14px; /* Текст стал читабельнее */
+        text-transform: uppercase;
+        font-weight: 800;
+        margin: 0;
+        color: #555;
+        letter-spacing: 1.5px;
+        transition: 0.3s;
+    }
+
+    .tp-mini-shelf-item:hover h3 {
+        color: #FBBF24;
+    }
+
+    /* АДАПТИВ ДЛЯ МОБИЛОК (оставляем твою логику, она хорошая) */
+    @media (max-width: 800px) {
+        .tp-mini-shelves {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        .tp-mini-plate { padding: 25px 5px; }
+        .tp-mini-icon { font-size: 30px; }
+    }
+
+    @media (max-width: 500px) {
+        .tp-mini-shelves {
+            grid-template-columns: repeat(2, 1fr); /* На совсем маленьких лучше по 2 в ряд */
+        }
+    }
+</style>
+
+    <div class="tp-mini-container">
+        <div class="tp-mini-header">
+            <h2>НАШИ <span>УСЛУГИ</span></h2>
+        </div>
+
+        <div class="tp-mini-shelves">
+            <div class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">⚡</span>
+                    <h3>Электрика</h3>
+                </div>
+            </div>
+
+            <div class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🚿</span>
+                    <h3>Сантехника</h3>
+                </div>
+            </div>
+
+            <div class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🧱</span>
+                    <h3>Кладка</h3>
+                </div>
+            </div>
+
+            <div class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">✨</span>
+                    <h3>Обои</h3>
+                </div>
+            </div>
+
+            <div class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🧹</span>
+                    <h3>Клининг</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="tp-why-us-mini">
+   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@400;800&display=swap');
+
+    .tp-why-us-mini {
+        background-color: #000;
+        padding: 120px 20px; /* Больше пространства */
+        color: #fff;
+        font-family: 'Exo 2', sans-serif;
+        position: relative;
+        overflow: hidden;
+        background: 
+            radial-gradient(circle at 10% 10%, #0a0a0a 0%, #000 50%),
+            radial-gradient(circle at 90% 90%, #080808 0%, #000 50%);
+        perspective: 2000px;
+    }
+
+    .tp-mini-container {
+        /* ГЛАВНОЕ: Расширяем контейнер для ПК */
+        max-width: 1440px; 
+        margin: 0 auto;
+        position: relative;
+    }
+
+    .tp-mini-header {
+        text-align: center; /* Центрируем заголовок на ПК для баланса */
+        margin-bottom: 80px;
+        border-left: none;
+        padding-left: 0;
+    }
+
+    .tp-mini-header h2 {
+        font-family: 'Syncopate', sans-serif;
+        font-size: clamp(26px, 5vw, 48px); /* Крупный заголовок */
+        text-transform: uppercase;
+        margin: 0;
+        letter-spacing: 5px;
+        color: #fff;
+    }
+
+    .tp-mini-header h2 span { color: #FBBF24; }
+
+    /* СЕТКА ДЛЯ ПК: 2 ПУНКТА В РЯД */
+    .tp-timeline-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px 100px;
+        position: relative;
+    }
+
+    /* БЛОК ШАГА */
+    .tp-step-mini {
+        position: relative;
+        padding: 40px;
+        background: rgba(15, 15, 15, 0.5);
+        border: 1px solid rgba(251, 191, 36, 0.05);
+        display: flex;
+        align-items: flex-start;
+        opacity: 0;
+        animation: introFlyIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+        transition: 0.4s;
+    }
+
+    @keyframes introFlyIn {
+        0% { opacity: 0; transform: translateY(50px) scale(0.9); }
+        100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .tp-step-mini:nth-child(1) { animation-delay: 0.2s; }
+    .tp-step-mini:nth-child(2) { animation-delay: 0.4s; }
+    .tp-step-mini:nth-child(3) { animation-delay: 0.6s; }
+    .tp-step-mini:nth-child(4) { animation-delay: 0.8s; }
+
+    /* НОМЕР-ДИСК (Увеличен для ПК) */
+    .tp-disk-wrapper {
+        width: 70px; height: 70px;
+        margin-right: 30px;
+        flex-shrink: 0;
+        transform-style: preserve-3d;
+        animation: spinNodes 12s linear infinite;
+    }
+
+    @keyframes spinNodes {
+        from { transform: rotateY(0deg); }
+        to { transform: rotateY(360deg); }
+    }
+
+    .tp-disk-num {
+        font-family: 'Syncopate', sans-serif;
+        font-size: 24px;
+        font-weight: 900;
+        color: #FBBF24;
+        text-align: center;
+        line-height: 66px;
+        background: #000;
+        border: 2px solid #FBBF24;
+        border-radius: 50%;
+        box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
+    }
+
+    /* КОНТЕНТ */
+    .tp-step-content {
+        flex: 1;
+    }
+
+    .tp-step-mini h3 {
+        color: #FBBF24;
+        font-size: 18px;
+        text-transform: uppercase;
+        margin: 0 0 15px 0;
+        letter-spacing: 2px;
+        font-weight: 800;
+    }
+
+    .tp-step-mini p {
+        font-size: 15px;
+        color: #888;
+        line-height: 1.7;
+        margin: 0;
+    }
+
+    /* ХОВЕР ЭФФЕКТ */
+    .tp-step-mini:hover {
+        border-color: #FBBF24;
+        background: rgba(20, 20, 20, 0.8);
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        transform: translateY(-10px);
+    }
+
+    .tp-step-mini:hover p { color: #ccc; }
+
+    /* АДАПТИВ ДЛЯ ТЕЛЕФОНА */
+    @media (max-width: 1000px) {
+        .tp-timeline-grid { grid-template-columns: 1fr; gap: 30px; }
+        .tp-mini-header { text-align: left; border-left: 4px solid #FBBF24; padding-left: 15px; }
+    }
+
+    @media (max-width: 600px) {
+        .tp-step-mini { padding: 25px; }
+        .tp-disk-wrapper { width: 50px; height: 50px; margin-right: 15px; }
+        .tp-disk-num { font-size: 18px; line-height: 46px; }
+        .tp-step-mini h3 { font-size: 15px; }
+        .tp-step-mini p { font-size: 13px; }
+    }
+</style>
+
+    <div class="tp-mini-container">
+        <div class="tp-mini-header">
+            <h2>ПОЧЕМУ МЫ?</h2>
+        </div>
+
+        <div class="tp-timeline">
+            <div class="tp-step-mini">
+                <div class="tp-disk-wrapper">
+                    <div class="tp-disk-num">01</div>
+                </div>
+                <div class="tp-step-content">
+                    <h3>Опыт и Стандарты</h3>
+                    <p>Более 10 лет мы проектируем и монтируем системы в Таласе.</p>
+                </div>
+            </div>
+
+            <div class="tp-step-mini">
+                <div class="tp-disk-wrapper">
+                    <div class="tp-disk-num">02</div>
+                </div>
+                <div class="tp-step-content">
+                    <h3>PRO-Оборудование</h3>
+                    <p>Точность, скорость и долговечность вашего ремонта.</p>
+                </div>
+            </div>
+
+            <div class="tp-step-mini">
+                <div class="tp-disk-wrapper">
+                    <div class="tp-disk-num">03</div>
+                </div>
+                <div class="tp-step-content">
+                    <h3>Гарантия результата</h3>
+                    <p>Вы получаете работающую систему с официальной гарантией.</p>
+                </div>
+            </div>
+
+            <div class="tp-step-mini">
+                <div class="tp-disk-wrapper">
+                    <div class="tp-disk-num">04</div>
+                </div>
+                <div class="tp-step-content">
+                    <h3>Честная смена</h3>
+                    <p>Никаких скрытых платежей. Стоимость фиксируется в начале.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+    
+
+
+
+
+
+
+
+
+
+    
+
+
+
+    <section class="tp-team-order">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@400;800&display=swap');
+
+    .tp-team-order {
+        background-color: #000;
+        padding: 120px 20px;
+        color: #fff;
+        font-family: 'Exo 2', sans-serif;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    /* ДЕКОРАТИВНАЯ СЕТКА (Усилена для ПК) */
+    .tp-team-order::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background-image: 
+            radial-gradient(circle at 2px 2px, rgba(251, 191, 36, 0.07) 1px, transparent 0),
+            linear-gradient(to right, rgba(251, 191, 36, 0.02) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(251, 191, 36, 0.02) 1px, transparent 1px);
+        background-size: 40px 40px, 200px 200px, 200px 200px;
+    }
+
+    .tp-order-box {
+        position: relative;
+        z-index: 10;
+        /* ГЛАВНОЕ: Увеличили ширину для ПК */
+        max-width: 1200px; 
+        width: 100%;
+        background: rgba(5, 5, 5, 0.95);
+        border: 1px solid #1a1a1a;
+        padding: 100px 60px; /* Больше воздуха внутри */
+        text-align: center;
+        border-top: 5px solid #FBBF24;
+        box-shadow: 0 40px 100px rgba(0,0,0,0.8);
+    }
+
+    /* ТЕХНИЧЕСКИЕ УГЛЫ (Увеличены) */
+    .tp-corner {
+        position: absolute;
+        width: 40px; height: 40px;
+        border: 3px solid #FBBF24;
+        opacity: 0.6;
+    }
+    .tp-tl { top: 20px; left: 20px; border-right: none; border-bottom: none; }
+    .tp-tr { top: 20px; right: 20px; border-left: none; border-bottom: none; }
+    .tp-bl { bottom: 20px; left: 20px; border-right: none; border-top: none; }
+    .tp-br { bottom: 20px; right: 20px; border-left: none; border-top: none; }
+
+    .tp-order-box h2 {
+        font-family: 'Syncopate', sans-serif;
+        font-size: clamp(24px, 4vw, 52px); /* Масштабный заголовок */
+        margin-bottom: 25px;
+        text-transform: uppercase;
+        letter-spacing: 5px;
+        line-height: 1.1;
+    }
+
+    .tp-order-box h2 span { color: #FBBF24; text-shadow: 0 0 20px rgba(251, 191, 36, 0.3); }
+
+    .tp-order-box p {
+        color: #666;
+        font-size: 20px; /* Текст стал крупнее */
+        max-width: 800px;
+        margin: 0 auto 60px auto;
+        line-height: 1.8;
+    }
+
+    .tp-order-btn {
+        background: #FBBF24;
+        color: #000;
+        text-decoration: none;
+        padding: 30px 80px; /* Кнопка стала огромной и солидной */
+        font-family: 'Syncopate', sans-serif;
+        font-size: 18px;
+        font-weight: 800;
+        letter-spacing: 3px;
+        display: inline-block;
+        transition: 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        box-shadow: 0 10px 0 #b4891a; /* Эффект 3D кнопки */
+    }
+
+    .tp-order-btn:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(251, 191, 36, 0.4), 0 5px 0 #b4891a;
+        background: #fff;
+        color: #000;
+    }
+
+    .tp-team-tag {
+        font-size: 14px;
+        color: #333;
+        text-transform: uppercase;
+        letter-spacing: 8px;
+        margin-top: 50px;
+        display: block;
+    }
+
+    /* АНИМАЦИЯ ПОЯВЛЕНИЯ */
+    @keyframes boxFadeIn {
+        from { opacity: 0; transform: scale(0.95) translateY(40px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .tp-order-box { animation: boxFadeIn 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+
+    /* МОБИЛКА (Возвращаем компактность) */
+    @media (max-width: 900px) {
+        .tp-order-box { padding: 60px 30px; }
+        .tp-order-btn { padding: 22px 40px; font-size: 14px; width: 100%; box-sizing: border-box; }
+    }
+</style>
+    <div class="tp-order-box">
+        <div class="tp-corner tp-tl"></div>
+        <div class="tp-corner tp-tr"></div>
+        <div class="tp-corner tp-bl"></div>
+        <div class="tp-corner tp-br"></div>
+
+        <div class="tp-order-header">
+            <h2>ЗАКАЗАТЬ УСЛУГУ У КОМАНДЫ <span>TALAS_PROFI</span></h2>
+            <p>Мы на связи 24/7. Нажмите на кнопку, чтобы обсудить вашу работу.</p>
+           <p>Мы делаем работу любой сложности.</p>
+        </div>
+
+        <div class="tp-btn-group">
+            <a href="https://wa.me/996755000228?text=Команда Talas_profi, мне нужны ваши услуги!" class="tp-order-btn">
+                СВЯЗАТЬСЯ С НАМИ
+            </a>
+        </div>
+
+        <span class="tp-team-tag">Talas profi    первая строительная команда в тласе</span>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+<section class="tp-portfolio-gravity">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
+
+        .tp-portfolio-gravity {
+            background-color: #000;
+            padding: 80px 0;
+            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .tp-p-container {
+            max-width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tp-p-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        .tp-p-header h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(22px, 5vw, 36px);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        .tp-p-header h2 span {
+            color: #FBBF24;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+
+        .tp-gravity-streams {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: auto;
+            justify-content: center;
+        }
+
+        .tp-p-stream {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .tp-p-track {
+            display: flex;
+            gap: 15px;
+            width: fit-content;
+        }
+
+        /* АНИМАЦИИ БЕСКОНЕЧНОГО ЦИКЛА */
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 7.5px)); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(calc(-50% - 7.5px)); }
+            100% { transform: translateX(0); }
+        }
+
+        .tp-stream-1 .tp-p-track { animation: scrollLeft 50s linear infinite; }
+        .tp-stream-2 .tp-p-track { animation: scrollRight 55s linear infinite; }
+        .tp-stream-3 .tp-p-track { animation: scrollLeft 60s linear infinite; }
+
+        .tp-p-stream:hover .tp-p-track { animation-play-state: paused; }
+
+        .tp-p-item {
+            width: 300px;
+            height: 200px;
+            background-color: #111;
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: pointer;
+        }
+
+        .tp-p-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) brightness(0.5);
+            transition: 0.6s;
+        }
+
+        .tp-p-item:hover {
+            z-index: 100;
+            border-color: #FBBF24;
+            transform: scale(1.2) translateZ(50px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(251, 191, 36, 0.4);
+        }
+
+        .tp-p-item:hover img {
+            filter: grayscale(0) brightness(1);
+        }
+
+        .tp-item-mark {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .tp-p-item { width: 200px; height: 140px; }
+            .tp-stream-1 .tp-p-track { animation-duration: 30s; }
+            .tp-stream-2 .tp-p-track { animation-duration: 35s; }
+            .tp-stream-3 .tp-p-track { animation-duration: 40s; }
+        }
+    </style>
+
+    <div class="tp-p-container">
+        <div class="tp-p-header">
+            <h2>ПОРТФОЛИО <span>ПРОЕКТОВ</span></h2>
+        </div>
+
+        <div class="tp-gravity-streams">
+            
+            <div class="tp-p-stream tp-stream-1">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
+                </div>
+            </div>
+
+            <div class="tp-p-stream tp-stream-2">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
+                </div>
+            </div>
+
+            <div class="tp-p-stream tp-stream-3">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  <style>
+    .tp-portfolio-footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .tp-more-btn {
+        display: inline-block;
+        padding: 18px 45px;
+        border: 1px solid #FBBF24;
+        color: #FBBF24;
+        text-decoration: none;
+        font-family: 'Syncopate', sans-serif;
+        font-size: 13px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    .tp-more-btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: #FBBF24;
+        transition: 0.4s;
+        z-index: -1;
+    }
+
+    .tp-more-btn:hover {
+        color: #000;
+        box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+        transform: translateY(-5px);
+    }
+
+    .tp-more-btn:hover::before {
+        left: 0;
+    }
+
+    /* Декоративная подпись под кнопкой */
+    .tp-archive-tag {
+        display: block;
+        margin-top: 15px;
+        font-size: 10px;
+        color: #333;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="tp-portfolio-footer">
+    <a href="portfolio.html" class="tp-more-btn">
+        ОТКРЫТЬ ВЕСЬ АРХИВ
+    </a>
+    <span class="tp-archive-tag">FULL_DATABASE_ACCESS_2026</span>
+</div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    <section class="tp-trust-grid-8">
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@400;800&display=swap');
+
+    .tp-trust-grid-8 {
+        background-color: #000;
+        padding: 120px 20px; /* Увеличили отступы для масштаба */
+        color: #fff;
+        font-family: 'Exo 2', sans-serif;
+        position: relative;
+        /* Расширяем общую область фона */
+        max-width: 100%; 
+        margin: 0 auto;
+    }
+
+    .tp-trust-8-container {
+        /* ГЛАВНОЕ: Увеличиваем ширину сетки до 1440px */
+        max-width: 1440px; 
+        margin: 0 auto;
+    }
+
+    .tp-trust-8-header {
+        text-align: center;
+        margin-bottom: 80px; /* Больше отступ до карточек */
+    }
+
+    .tp-trust-8-header h2 {
+        font-family: 'Syncopate', sans-serif;
+        /* Делаем заголовок мощнее на ПК */
+        font-size: clamp(26px, 5vw, 42px); 
+        text-transform: uppercase;
+        letter-spacing: 6px;
+    }
+
+    .tp-trust-8-header h2 span { color: #FBBF24; }
+
+    /* СЕТКА НА 8 ПУНКТОВ */
+    .tp-grid-8 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 30px; /* Увеличили зазоры, чтобы карточки «дышали» */
+        transition: 0.5s;
+    }
+
+    /* КАРТОЧКА (Увеличена) */
+    .tp-trust-node {
+        background: rgba(10, 10, 10, 0.8);
+        border: 1px solid rgba(251, 191, 36, 0.1);
+        padding: 50px 30px; /* Сделали карточки выше и шире */
+        text-align: center;
+        position: relative;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+        overflow: hidden;
+    }
+
+    /* ЭФФЕКТ ПРИ НАВЕДЕНИИ (оставляем твою крутую логику) */
+    .tp-grid-8:hover .tp-trust-node:not(:hover) {
+        opacity: 0.2; /* Сильнее приглушаем фон */
+        filter: blur(4px) grayscale(1);
+        transform: scale(0.92);
+    }
+
+    .tp-trust-node:hover {
+        border-color: #FBBF24;
+        background: #050505;
+        transform: scale(1.15) translateY(-15px);
+        z-index: 10;
+        box-shadow: 0 30px 60px rgba(251, 191, 36, 0.25);
+    }
+
+    /* ИКОНКА И НОМЕР */
+    .tp-node-num {
+        position: absolute;
+        top: 15px; right: 15px;
+        font-family: 'Syncopate', sans-serif;
+        font-size: 12px;
+        color: rgba(251, 191, 36, 0.4);
+    }
+
+    .tp-node-icon {
+        font-size: 48px; /* Иконки стали крупнее */
+        margin-bottom: 20px;
+        display: block;
+        transition: 0.3s;
+    }
+
+    .tp-trust-node h3 {
+        font-size: 18px; /* Заголовки пунктов крупнее */
+        font-weight: 800;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        letter-spacing: 2px;
+        color: #fff;
+    }
+
+    .tp-trust-node p {
+        font-size: 14px; /* Текст читается лучше */
+        color: #777;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    /* АДАПТИВ (оставляем для телефонов) */
+    @media (max-width: 1200px) {
+        .tp-grid-8 { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 900px) {
+        .tp-grid-8 { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 600px) {
+        .tp-grid-8 { grid-template-columns: 1fr; }
+        .tp-trust-node { padding: 40px 20px; }
+    }
+</style>
+
+    <div class="tp-trust-8-container">
+        <div class="tp-trust-8-header">
+            <h2>8 СТОЛПОВ <span>ДОВЕРИЯ</span></h2>
+        </div>
+
+        <div class="tp-grid-8">
+            <div class="tp-trust-node">
+                <span class="tp-node-num">01</span>
+                <span class="tp-node-icon">📜</span>
+                <h3>ОФИЦИАЛЬНО</h3>
+                <p>Работаем по договору с четкими обязательствами.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">02</span>
+                <span class="tp-node-icon">⚖️</span>
+                <h3>ФИКС-ЦЕНА</h3>
+                <p>Смета не меняется после подписания контракта.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">03</span>
+                <span class="tp-node-icon">🛠️</span>
+                <h3>PRO-ИНСТРУМЕНТ</h3>
+                <p>Используем только современное оборудование.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">04</span>
+                <span class="tp-node-icon">🛡️</span>
+                <h3>ГАРАНТИЯ</h3>
+                <p>Бесплатное обслуживание систем до 5 лет.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">05</span>
+                <span class="tp-node-icon">⏱️</span>
+                <h3>СРОКИ</h3>
+                <p>Платим штраф за каждый день просрочки.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">06</span>
+                <span class="tp-node-icon">📱</span>
+                <h3>ОТЧЕТНОСТЬ</h3>
+                <p>Ежедневные фото/видео отчеты в WhatsApp.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">07</span>
+                <span class="tp-node-icon">📍</span>
+                <h3>ЛОКАЛЬНОСТЬ</h3>
+                <p>Мы свои, Таласские. Нас легко найти и проверить.</p>
+            </div>
+
+            <div class="tp-trust-node">
+                <span class="tp-node-num">08</span>
+                <span class="tp-node-icon">💎</span>
+                <h3>ЧИСТОТА</h3>
+                <p>Убираем весь строительный мусор за собой.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+    <footer class="tp-ultimate-footer">
+    <style>
+        /* 1. БАЗОВЫЕ НАСТРОЙКИ (ПК) */
+        .tp-ultimate-footer {
+            background-color: #000;
+            color: #fff;
+            padding: 80px 20px 40px;
+            border-top: 2px solid #FBBF24;
+            font-family: 'Exo 2', sans-serif;
+            position: relative;
+        }
+
+        .tp-f-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* СЕТКА КОНТАКТОВ */
+        .tp-f-main-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr; /* На ПК: Контакты слева, Соцсети справа */
+            gap: 40px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        /* ТЕЛЕФОН И ВАТСАП */
+        .tp-f-calls { text-align: left; }
+        
+        .tp-f-label {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 10px;
+            color: #444;
+            letter-spacing: 4px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        .tp-f-phone {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(24px, 4vw, 42px);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+        }
+        .tp-f-phone:hover { color: #FBBF24; }
+
+        .tp-f-wa-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: #25D366;
+            color: #fff;
+            padding: 15px 30px;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 11px;
+            font-weight: 900;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        /* СОЦСЕТИ КНОПКАМИ */
+        .tp-f-socials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: flex-end;
+        }
+
+        .tp-soc-link {
+            border: 1px solid #222;
+            padding: 12px 20px;
+            color: #fff;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 10px;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            flex: 1; /* Кнопки растягиваются */
+            min-width: 140px;
+            text-align: center;
+        }
+        .tp-soc-link:hover { border-color: #FBBF24; color: #FBBF24; background: rgba(251, 191, 36, 0.05); }
+
+        /* НИЖНЯЯ ИНФО-ПОЛОСА */
+        .tp-f-bottom {
+            border-top: 1px solid #111;
+            padding-top: 30px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            color: #333;
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        /* 2. ОПТИМИЗАЦИЯ ДЛЯ ТЕЛЕФОНА (📱) */
+        @media (max-width: 768px) {
+            .tp-ultimate-footer {
+                padding: 60px 15px 30px;
+            }
+
+            .tp-f-main-grid {
+                grid-template-columns: 1fr; /* Все в одну колонку */
+                text-align: center;
+                gap: 50px;
+            }
+
+            .tp-f-calls { text-align: center; }
+
+            .tp-f-wa-btn {
+                width: 100%; /* Кнопка ватсап на весь экран */
+                justify-content: center;
+            }
+
+            .tp-f-socials {
+                justify-content: center;
+            }
+
+            .tp-soc-link {
+                min-width: 45%; /* По 2 иконки в ряд на мобиле */
+            }
+
+            .tp-f-bottom {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+        }
+    </style>
+
+    <div class="tp-f-container">
+        <div class="tp-f-main-grid">
+            <div class="tp-f-calls">
+                <span class="tp-f-label">обратная связь</span><br>
+                <a href="tel:+996755000228" class="tp-f-phone">+996 755 000 228</a>
+                <br>
+                <a href="https://wa.me/996755000228" class="tp-f-wa-btn">
+                    <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    WHATSAPP ПРЯМАЯ СВЯЗЬ
+                </a>
+            </div>
+
+            <div class="tp-f-socials">
+                <a href="https://instagram.com/talas_profi" class="tp-soc-link" target="_blank">INSTAGRAM</a>
+                <a href="#" class="tp-soc-link">YOUTUBE</a>
+                <a href="https://t.me/talas_profi" class="tp-soc-link">TELEGRAM</a>
+            </div>
+        </div>
+
+        <div class="tp-f-bottom">
+            <div>TALAS_PROFI // MASTER_COMMUNITY © 2026</div>
+            <div style="color: #FBBF24;">LOC: TALAS </div>
+            <div>DEV: AKIMAALY.A</div>
+        </div>
+    </div>
+</footer>
+
+    
+
+
+    
+    
+    
+  
+</body>
+</html>

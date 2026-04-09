@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Электрик Талас | Talas_profi</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --gold: #FBBF24;
+            --gold-glow: rgba(251, 191, 36, 0.4);
+            --bg-dark: #000000;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            background-color: var(--bg-dark);
+            color: #fff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .tp-space-hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            padding: 20px;
+        }
+
+        /* ФОНОВАЯ СЕТКА */
+        .tp-bg-grid {
+            position: absolute;
+            width: 200%; height: 200%;
+            background-image: 
+                linear-gradient(var(--gold-glow) 1px, transparent 1px),
+                linear-gradient(90deg, var(--gold-glow) 1px, transparent 1px);
+            background-size: 50px 50px;
+            transform: rotate(15deg);
+            animation: gridMove 40s linear infinite;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        @keyframes gridMove {
+            from { transform: rotate(15deg) translateY(0); }
+            to { transform: rotate(15deg) translateY(-1000px); }
+        }
+
+        .tp-hero-wrapper {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: row;
+            max-width: 1300px;
+            width: 100%;
+            gap: 20px;
+        }
+
+        /* ИНФО-БЛОК */
+        .tp-hero-info {
+            flex: 1.2;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            padding: clamp(30px, 5vw, 60px);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .tp-hero-info::before, .tp-hero-info::after {
+            content: ''; position: absolute; width: 35px; height: 35px;
+            border: 2px solid var(--gold);
+        }
+        .tp-hero-info::before { top: -1px; left: -1px; border-right: 0; border-bottom: 0; }
+        .tp-hero-info::after { bottom: -1px; right: -1px; border-left: 0; border-top: 0; }
+
+        .tp-hero-info h1 {
+            font-family: 'Orbitron', sans-serif;
+            color: #fff; font-size: clamp(34px, 6vw, 75px);
+            font-weight: 900; text-transform: uppercase;
+            line-height: 0.95; margin: 15px 0;
+        }
+
+        .tp-hero-info h1 span {
+            color: transparent;
+            -webkit-text-stroke: 1px var(--gold);
+            filter: drop-shadow(0 0 15px var(--gold-glow));
+        }
+
+        /* КНОПКИ */
+        .tp-btn-hub {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-top: 30px;
+        }
+
+        .tp-btn-nav {
+            padding: 20px;
+            text-decoration: none;
+            font-weight: 900;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; align-items: center; justify-content: center;
+            border-radius: 2px;
+            border: 1px solid transparent;
+        }
+
+        .tp-btn-main {
+            background: var(--gold); color: #000;
+            grid-column: span 2; font-size: 16px;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
+        }
+        .tp-btn-main:hover { background: #fff; transform: translateY(-5px); }
+
+        .tp-btn-wa { background: #25D366; color: #fff; }
+        .tp-btn-wa:hover { filter: brightness(1.2); }
+
+        .tp-btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .tp-btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* ФОТО-БЛОК (ЦВЕТНОЙ + НОВАЯ АНИМАЦИЯ) */
+        .tp-hero-visual {
+            flex: 0.8;
+            min-height: 450px;
+            position: relative;
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            overflow: hidden;
+            background: #111;
+        }
+
+        .tp-hero-visual img {
+            width: 100%; height: 100%; object-fit: cover;
+            /* Убрали grayscale, теперь фото цветное */
+            filter: contrast(1.1) brightness(0.9);
+            transition: 1s ease-out;
+            transform: scale(1.01);
+        }
+
+        /* Анимация при наведении на весь блок */
+        .tp-hero-visual:hover img {
+            transform: scale(1.1) rotate(1deg);
+            filter: contrast(1.2) brightness(1.1);
+        }
+
+        /* Легкое наложение линий (эффект монитора) */
+        .tp-hero-visual::after {
+            content: "";
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+            background-size: 100% 3px, 3px 100%;
+            pointer-events: none;
+        }
+
+        @media (max-width: 900px) {
+            .tp-hero-wrapper { flex-direction: column; }
+            .tp-hero-info { order: 1; padding: 40px 20px; text-align: center; }
+            .tp-hero-visual { order: 2; min-height: 350px; }
+            .tp-btn-hub { grid-template-columns: 1fr; }
+            .tp-btn-main { grid-column: span 1; }
+        }
+    </style>
+</head>
+<body>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    
+<section class="tp-space-hero">
+    <div class="tp-bg-grid"></div>
+
+    <div class="tp-hero-wrapper">
+        <div class="tp-hero-info">
+            <div style="color: var(--gold); font-size: 10px; letter-spacing: 5px; text-transform: uppercase; font-weight: 800; margin-bottom: 10px;">
+                Talas_profi<br> <br> 24 / 7
+            </div>
+            
+            <h1>Услуги <br> <span>Электрика <br> в таласе</span></h1>
+            
+            <p style="color: #aaa; font-size: 17px; line-height: 1.6; margin-bottom: 25px;">
+                Надежный электромонтаж любой сложности. <br>
+                Инженерный подход, Гарантия 5 лет.
+            </p>
+            
+            <div class="tp-btn-hub">
+                <a href="tel:+996755000228" class="tp-btn-nav tp-btn-main">ВЫЗВАТЬ МАСТЕРА</a>
+                
+                <a href="https://wa.me/996755000228" class="tp-btn-nav tp-btn-wa">WHATSAPP</a>
+                <a href="/" class="tp-btn-nav tp-btn-secondary">ГЛАВНЫЙ ЭКРАН</a>
+                
+                <a href="#all-services" class="tp-btn-nav tp-btn-secondary" style="grid-column: 1 / -1;">ВСЕ НАШИ УСЛУГИ</a>
+            </div>
+        </div>
+
+        <div class="tp-hero-visual">
+            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Talas Profi Электромонтаж">
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+<section id="tech-services" class="tp-tech-section">
+    <style>
+        .tp-tech-section {
+            background: #000;
+            padding: 100px 20px;
+            font-family: 'Inter', sans-serif;
+            color: #fff;
+        }
+
+        .tp-tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .tp-tech-card {
+            background: linear-gradient(145deg, #0a0a0a 0%, #000 100%);
+            border: 1px solid rgba(251, 191, 36, 0.1);
+            padding: 50px 40px;
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        /* ЛАЗЕРНЫЙ ЛУЧ (СКАНЕР) */
+        .tp-tech-card::after {
+            content: '';
+            position: absolute;
+            top: -100%; left: 0;
+            width: 100%; height: 50%;
+            background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.1), transparent);
+            transition: 0s;
+            pointer-events: none;
+        }
+
+        .tp-tech-card:hover::after {
+            top: 100%;
+            transition: 0.8s ease-in-out;
+        }
+
+        .tp-tech-card:hover {
+            border-color: #FBBF24;
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
+        }
+
+        /* ТЕХНИЧЕСКИЙ ИНДЕКС */
+        .tp-tech-index {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            color: #FBBF24;
+            letter-spacing: 2px;
+            opacity: 0.5;
+        }
+
+        .tp-tech-card h3 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 18px;
+            text-transform: uppercase;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .tp-tech-card h3::before {
+            content: '';
+            width: 8px; height: 8px;
+            background: #FBBF24;
+            display: inline-block;
+            box-shadow: 0 0 10px #FBBF24;
+        }
+
+        .tp-tech-list {
+            list-style: none;
+            padding: 0; margin: 0;
+        }
+
+        .tp-tech-list li {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            padding-left: 15px;
+            border-left: 1px solid rgba(251, 191, 36, 0.3);
+            transition: 0.3s;
+        }
+
+        .tp-tech-card:hover .tp-tech-list li {
+            color: #eee;
+            border-left-color: #FBBF24;
+        }
+
+        /* НИЖНИЙ ЭЛЕМЕНТ (ДЕКОР) */
+        .tp-card-bottom {
+            margin-top: 30px;
+            height: 1px;
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+        }
+
+        .tp-card-bottom::after {
+            content: '';
+            position: absolute;
+            left: 0; top: 0;
+            width: 0; height: 1px;
+            background: #FBBF24;
+            transition: 0.4s;
+        }
+
+        .tp-tech-card:hover .tp-card-bottom::after {
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            .tp-tech-card { padding: 40px 25px; }
+        }
+    </style>
+
+    <div class="tp-tech-grid">
+        <div class="tp-tech-card">
+            <div class="tp-tech-index">ID: EL-01</div>
+            <h3>Монтаж Сетей</h3>
+            <ul class="tp-tech-list">
+                <li>Разводка кабеля в новостройках</li>
+                <li>Штробление стен (бетон/кирпич)</li>
+                <li>Проектирование трасс освещения</li>
+                <li>Монтаж коробок и подрозетников</li>
+            </ul>
+            <div class="tp-card-bottom"></div>
+        </div>
+
+        <div class="tp-tech-card">
+            <div class="tp-tech-index">ID: EL-02</div>
+            <h3>Силовые Щиты</h3>
+            <ul class="tp-tech-list">
+                <li>Сборка щитов 220/380 Вольт</li>
+                <li>Установка УЗО и реле контроля</li>
+                <li>Замена пакетников и автоматов</li>
+                <li>Распределение фазных нагрузок</li>
+            </ul>
+            <div class="tp-card-bottom"></div>
+        </div>
+
+        <div class="tp-tech-card">
+            <div class="tp-tech-index">ID: EL-03</div>
+            <h3>Светотехника</h3>
+            <ul class="tp-tech-list">
+                <li>Установка трековых светильников</li>
+                <li>LED-ленты и скрытые профили</li>
+                <li>Монтаж люстр и бра любой массы</li>
+                <li>Датчики света и фотореле</li>
+            </ul>
+            <div class="tp-card-bottom"></div>
+        </div>
+
+        <div class="tp-tech-card">
+            <div class="tp-tech-index">ID: EL-04</div>
+            <h3>Автоматика</h3>
+            <ul class="tp-tech-list">
+                <li>Настройка систем "Умный Дом"</li>
+                <li>Удаленное управление (смартфон)</li>
+                <li>Датчики движения и протечки</li>
+                <li>Мастер-выключатели питания</li>
+            </ul>
+            <div class="tp-card-bottom"></div>
+        </div>
+
+        <div class="tp-tech-card">
+            <div class="tp-tech-index">ID: EL-05</div>
+            <h3>Инженерная Защита</h3>
+            <ul class="tp-tech-list">
+                <li>Монтаж контура заземления</li>
+                <li>Системы грозозащиты зданий</li>
+                <li>Тепловизионное обследование</li>
+                <li>Замеры сопротивления изоляции</li>
+            </ul>
+            <div class="tp-card-bottom"></div>
+        </div>
+
+        <div class="tp-tech-card" style="border-color: rgba(251, 191, 36, 0.3);">
+            <div class="tp-tech-index" style="color: #fff; opacity: 1;">STATUS: 24/7</div>
+            <h3 style="color: #FBBF24;">Аварийный блок</h3>
+            <ul class="tp-tech-list">
+                <li>Срочный выезд (весь Талас)</li>
+                <li>Поиск обрывов в скрытой проводке</li>
+                <li>Ремонт КЗ в электрощитах</li>
+                <li>Восстановление подачи энергии</li>
+            </ul>
+            <div class="tp-card-bottom" style="background: #FBBF24;"></div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+    <section id="portfolio-row" class="tp-portfolio-fluid">
+    <style>
+        .tp-portfolio-fluid {
+            background: #000;
+            padding: 80px 0;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+
+        /* ЗАЛИПАТЕЛЬНЫЙ ЗАГОЛОВОК */
+        .tp-portfolio-header {
+            padding: 0 40px 50px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tp-pre-title {
+            color: #FBBF24;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 10px;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tp-pre-title::before {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: #FBBF24;
+        }
+
+        .tp-main-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(26px, 5vw, 44px);
+            font-weight: 900;
+            color: #fff;
+            text-transform: uppercase;
+            line-height: 1;
+            margin: 0;
+        }
+
+        .tp-main-title span {
+            color: transparent;
+            -webkit-text-stroke: 1px #FBBF24;
+            text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+            animation: tp-flicker 3s infinite;
+        }
+
+        @keyframes tp-flicker {
+            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
+            20%, 24%, 55% { opacity: 0.3; }
+        }
+
+        /* КОНТЕЙНЕР ДЛЯ 5 ШТУК */
+        .tp-row-container {
+            display: flex;
+            flex-wrap: nowrap;
+            gap: 15px;
+            padding: 0 20px 40px;
+            overflow-x: auto;
+            scrollbar-width: none; 
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tp-row-container::-webkit-scrollbar { display: none; }
+
+        .tp-case-card {
+            flex: 0 0 calc(20% - 12px); /* 5 в ряд на ПК */
+            min-width: 280px; 
+            background: #0a0a0a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .tp-case-card:hover {
+            border-color: #FBBF24;
+            transform: translateY(-10px);
+            z-index: 10;
+        }
+
+        .tp-case-img {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .tp-case-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* УБРАЛИ ЧБ ФИЛЬТР, ОСТАВИЛИ ЛЕГКОЕ ЗАТЕМНЕНИЕ */
+            filter: grayscale(0) brightness(0.8); 
+            transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .tp-case-card:hover .tp-case-img img {
+            filter: grayscale(0) brightness(1); /* ПОЛНАЯ ЯРКОСТЬ ПРИ НАВЕДЕНИИ */
+            transform: scale(1.1);
+        }
+
+        .tp-case-info {
+            padding: 25px;
+            background: linear-gradient(to bottom, #0a0a0a, #000);
+        }
+
+        .tp-case-info h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            color: #fff;
+            letter-spacing: 1px;
+            font-weight: 800;
+        }
+
+        .tp-case-info p {
+            font-size: 12px;
+            color: #777; /* СДЕЛАЛИ ТЕКСТ ЧУТЬ ЧИТАЕМЕЕ ИЗНАЧАЛЬНО */
+            line-height: 1.5;
+            margin: 0;
+            transition: 0.3s;
+        }
+
+        .tp-case-card:hover .tp-case-info p {
+            color: #aaa;
+        }
+
+        .tp-case-index {
+            position: absolute;
+            top: 15px; left: 15px;
+            background: #FBBF24;
+            color: #000;
+            font-size: 10px;
+            font-weight: 900;
+            padding: 3px 8px;
+            z-index: 5;
+            font-family: 'Orbitron', sans-serif;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+        @media (max-width: 1024px) {
+            .tp-case-card { flex: 0 0 45%; } /* 2 полных на планшете */
+        }
+
+        @media (max-width: 768px) {
+            .tp-case-card { flex: 0 0 75%; } /* 1.5 на телефоне */
+            .tp-portfolio-header { padding: 0 20px 30px; }
+            .tp-main-title { font-size: 28px; }
+        }
+    </style>
+
+    <div class="tp-portfolio-fluid-wrapper">
+        <div class="tp-portfolio-header">
+            <div class="tp-pre-title">дата обновления // 2026</div>
+            <h2 class="tp-main-title">наши работы <span>в таласе</span></h2>
+        </div>
+
+        <div class="tp-row-container">
+            <div class="tp-case-card">
+                <div class="tp-case-index">MOD-01</div>
+                <div class="tp-case-img">
+                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Электромонтаж">
+                </div>
+                <div class="tp-case-info">
+                    <h3>Черновой монтаж</h3>
+                    <p>Комплексная разводка в новостройке. Соблюдение всех углов и допусков.</p>
+                </div>
+            </div>
+
+            <div class="tp-case-card">
+                <div class="tp-case-index">MOD-02</div>
+                <div class="tp-case-img">
+                    <img src="https://images.unsplash.com/photo-1558211583-d28f61093187?q=80&w=2070" alt="Сборка щита">
+                </div>
+                <div class="tp-case-info">
+                    <h3>Сборка щита</h3>
+                    <p>Силовой узел с защитой от перегрузок. Организация внутреннего кабель-менеджмента.</p>
+                </div>
+            </div>
+
+            <div class="tp-case-card">
+                <div class="tp-case-index">MOD-03</div>
+                <div class="tp-case-img">
+                    <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=1974" alt="Светодизайн">
+                </div>
+                <div class="tp-case-info">
+                    <h3>Архитектурный свет</h3>
+                    <p>Установка трековых систем и скрытой LED-подсветки в интерьере.</p>
+                </div>
+            </div>
+
+            <div class="tp-case-card">
+                <div class="tp-case-index">MOD-04</div>
+                <div class="tp-case-img">
+                    <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?q=80&w=2080" alt="Смарт">
+                </div>
+                <div class="tp-case-info">
+                    <h3>Умные системы</h3>
+                    <p>Интеграция датчиков движения и диммеров в единую сеть управления.</p>
+                </div>
+            </div>
+
+            <div class="tp-case-card">
+                <div class="tp-case-index">MOD-05</div>
+                <div class="tp-case-img">
+                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=2070" alt="Офис">
+                </div>
+                <div class="tp-case-info">
+                    <h3>Коммерческий объект</h3>
+                    <p>Монтаж электросетей в офисном помещении с высокой нагрузкой.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+    
+
+
+    
+</body>
+</html>

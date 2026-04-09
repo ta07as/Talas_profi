@@ -355,200 +355,183 @@
 
 
     
-    <section class="tp-workshop-mini">
-   <style>
-    .tp-workshop-mini {
-        background-color: #000000;
-        background-image: radial-gradient(#111 1px, transparent 1px);
-        background-size: 20px 20px;
-        padding: 100px 20px; /* Увеличили отступы сверху/снизу */
-        font-family: 'Roboto Condensed', sans-serif;
-        color: #FFFFFF;
-        overflow: hidden;
-    }
-
-    .tp-mini-container {
-        /* ГЛАВНОЕ ИЗМЕНЕНИЕ: расширяем контейнер для ПК */
-        max-width: 1440px; 
-        margin: 0 auto;
-    }
-
-    .tp-mini-header {
-        text-align: center;
-        margin-bottom: 60px;
-    }
-
-    .tp-mini-header h2 {
-        font-size: clamp(24px, 4vw, 42px); /* Заголовок станет крупнее на ПК */
-        text-transform: uppercase;
-        font-weight: 900;
-        letter-spacing: 5px;
-        margin: 0;
-        color: #FFFFFF;
-    }
-
-    .tp-mini-header h2 span {
-        color: #FBBF24;
-    }
-
-    /* СЕТКА: На ПК карточки теперь будут солидного размера */
-    .tp-mini-shelves {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 25px; /* Увеличили зазоры между жетонами */
-        perspective: 1200px;
-    }
-
-    .tp-mini-shelf-item {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /* ЦЕПИ */
-    .tp-mini-shelf-item::before,
-    .tp-mini-shelf-item::after {
-        content: '';
-        position: absolute;
-        top: -15px;
-        width: 3px;
-        height: 40px; /* Удлинили цепи для солидности */
-        background: linear-gradient(#444, #111);
-        border-radius: 2px;
-        z-index: 1;
-    }
-
-    .tp-mini-shelf-item::before { left: 20%; }
-    .tp-mini-shelf-item::after { right: 20%; }
-
-    /* ЖЕТОН (ПЛИТКА) */
-    .tp-mini-plate {
-        background: #0a0a0a;
-        border: 1px solid #1a1a1a;
-        width: 100%;
-        padding: 40px 15px; /* Сделали жетоны выше и просторнее */
-        margin-top: 25px;
-        text-align: center;
-        box-sizing: border-box;
-        position: relative;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.8);
-        transform-origin: top center;
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-    }
-
-    @keyframes miniSwing {
-        0% { transform: rotateX(0deg); }
-        25% { transform: rotateX(-15deg); }
-        50% { transform: rotateX(10deg); }
-        75% { transform: rotateX(-5deg); }
-        100% { transform: rotateX(0deg); }
-    }
-
-    .tp-mini-shelf-item:hover .tp-mini-plate {
-        animation: miniSwing 0.8s ease-out;
-        border-color: #FBBF24;
-        background: #0d0d0d;
-        box-shadow: 0 20px 50px rgba(251, 191, 36, 0.15);
-    }
-
-    .tp-mini-icon {
-        font-size: 45px; /* Иконки стали больше на ПК */
-        margin-bottom: 15px;
-        display: block;
-        filter: grayscale(1);
-        transition: 0.4s;
-    }
-
-    .tp-mini-shelf-item:hover .tp-mini-icon {
-        filter: grayscale(0) drop-shadow(0 0 10px #FBBF24);
-        transform: scale(1.2);
-    }
-
-    .tp-mini-plate h3 {
-        font-size: 14px; /* Текст стал читабельнее */
-        text-transform: uppercase;
-        font-weight: 800;
-        margin: 0;
-        color: #555;
-        letter-spacing: 1.5px;
-        transition: 0.3s;
-    }
-
-    .tp-mini-shelf-item:hover h3 {
-        color: #FBBF24;
-    }
-
-    /* АДАПТИВ ДЛЯ МОБИЛОК (оставляем твою логику, она хорошая) */
-    @media (max-width: 800px) {
-        .tp-mini-shelves {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
+  <section class="tp-workshop-mini">
+    <style>
+        .tp-workshop-mini {
+            background-color: #000000;
+            background-image: radial-gradient(#111 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 100px 20px;
+            font-family: 'Roboto Condensed', sans-serif;
+            color: #FFFFFF;
+            overflow: hidden;
         }
-        .tp-mini-plate { padding: 25px 5px; }
-        .tp-mini-icon { font-size: 30px; }
-    }
 
-    @media (max-width: 500px) {
-        .tp-mini-shelves {
-            grid-template-columns: repeat(2, 1fr); /* На совсем маленьких лучше по 2 в ряд */
+        .tp-mini-container {
+            max-width: 1440px;
+            margin: 0 auto;
         }
-    }
-</style>
+
+        .tp-mini-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .tp-mini-header h2 {
+            font-size: clamp(24px, 4vw, 42px);
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 5px;
+            margin: 0;
+            color: #FFFFFF;
+        }
+
+        .tp-mini-header h2 span {
+            color: #FBBF24;
+        }
+
+        /* СЕТКА: Один контейнер для всех карточек */
+        .tp-mini-shelves {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5 в ряд на ПК */
+            gap: 25px;
+            perspective: 1200px;
+        }
+
+        .tp-mini-shelf-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none; /* Убираем подчеркивание ссылки */
+        }
+
+        /* ЦЕПИ */
+        .tp-mini-shelf-item::before,
+        .tp-mini-shelf-item::after {
+            content: '';
+            position: absolute;
+            top: -15px;
+            width: 3px;
+            height: 40px;
+            background: linear-gradient(#444, #111);
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .tp-mini-shelf-item::before { left: 20%; }
+        .tp-mini-shelf-item::after { right: 20%; }
+
+        .tp-mini-plate {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            width: 100%;
+            padding: 40px 15px;
+            margin-top: 25px;
+            text-align: center;
+            box-sizing: border-box;
+            position: relative;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            transform-origin: top center;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @keyframes miniSwing {
+            0% { transform: rotateX(0deg); }
+            25% { transform: rotateX(-15deg); }
+            50% { transform: rotateX(10deg); }
+            75% { transform: rotateX(-5deg); }
+            100% { transform: rotateX(0deg); }
+        }
+
+        .tp-mini-shelf-item:hover .tp-mini-plate {
+            animation: miniSwing 0.8s ease-out;
+            border-color: #FBBF24;
+            background: #0d0d0d;
+            box-shadow: 0 20px 50px rgba(251, 191, 36, 0.15);
+        }
+
+        .tp-mini-icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+            display: block;
+            filter: grayscale(1);
+            transition: 0.4s;
+        }
+
+        .tp-mini-shelf-item:hover .tp-mini-icon {
+            filter: grayscale(0) drop-shadow(0 0 10px #FBBF24);
+            transform: scale(1.2);
+        }
+
+        .tp-mini-plate h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: 800;
+            margin: 0;
+            color: #555;
+            letter-spacing: 1.5px;
+            transition: 0.3s;
+        }
+
+        .tp-mini-shelf-item:hover h3 {
+            color: #FBBF24;
+        }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 1024px) {
+            .tp-mini-shelves { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 600px) {
+            .tp-mini-shelves { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
 
     <div class="tp-mini-container">
         <div class="tp-mini-header">
             <h2>НАШИ <span>УСЛУГИ</span></h2>
         </div>
 
-       <div class="tp-mini-shelves">
-    <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item" style="text-decoration: none;">
-        <div class="tp-mini-plate">
-            <span class="tp-mini-icon">⚡</span>
-            <h3>Электрика</h3>
-        </div>
-    </a>
-</div>
-         <div class="tp-mini-shelves">
-    <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item" style="text-decoration: none;">
-        <div class="tp-mini-plate">
-            <span class="tp-mini-icon">⚡</span>
-            <h3>Электрика</h3>
-        </div>
-    </a>
-</div>
-         <div class="tp-mini-shelves">
-    <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item" style="text-decoration: none;">
-        <div class="tp-mini-plate">
-            <span class="tp-mini-icon">⚡</span>
-            <h3>Электрика</h3>
-        </div>
-    </a>
-</div>
-         <div class="tp-mini-shelves">
-    <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item" style="text-decoration: none;">
-        <div class="tp-mini-plate">
-            <span class="tp-mini-icon">⚡</span>
-            <h3>Электрика</h3>
-        </div>
-    </a>
-</div>
-         <div class="tp-mini-shelves">
-    <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item" style="text-decoration: none;">
-        <div class="tp-mini-plate">
-            <span class="tp-mini-icon">⚡</span>
-            <h3>Электрика</h3>
-        </div>
-    </a>
-</div>
+        <div class="tp-mini-shelves">
+            
+            <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">⚡</span>
+                    <h3>Электрика</h3>
+                </div>
+            </a>
 
-           
-        </div>
-    </div>
+            <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🛠️</span>
+                    <h3>Сантехника</h3>
+                </div>
+            </a>
+
+            <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🧹</span>
+                    <h3>Клининг</h3>
+                </div>
+            </a>
+
+            <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🧱</span>
+                    <h3>Кладка</h3>
+                </div>
+            </a>
+
+            <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-mini-shelf-item">
+                <div class="tp-mini-plate">
+                    <span class="tp-mini-icon">🖼️</span>
+                    <h3>Обои</h3>
+                </div>
+            </a>
+
+        </div> </div>
 </section>
-
-
-
 
 
 

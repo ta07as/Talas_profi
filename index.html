@@ -91,13 +91,15 @@
         align-items: center;
     }
 
-    .tp-nav-logo {
-        font-family: 'Arial Black', sans-serif;
-        font-size: 20px;
-        color: #fff;
-        text-decoration: none;
-        white-space: nowrap;
-    }
+   .tp-nav-body {
+    width: 100%;
+    max-width: 1400px; /* Увеличили */
+    margin: 0 auto;
+    padding: 0 40px; /* Добавили больше отступа по бокам */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
     .tp-nav-logo span { color: #FBBF24; }
 
     /* ПК СТИЛИ */
@@ -331,19 +333,19 @@
         }
     </style>
 
-    <div class="tp-hero-content">
-        <span class="tp-badge">Talas_profi</span>
-        <h1>Инженерный <br> <span>Подход</span></h1>
-        <p>
-            Мы создаем надежные инженерные системы. 
-            Профессиональный электромонтаж и сантехнические решения в Таласе.
-        </p>
-        <a href="https://wa.me/996755000228" class="tp-hero-btn">Связаться с мастером</a>
+<div class="tp-mini-container" style="display: flex; width: 100%; align-items: stretch; max-width: 1400px; margin: 0 auto;">
+        <div class="tp-hero-content" style="flex: 1;">
+            <span class="tp-badge">Talas_profi</span>
+            <h1>Инженерный <br> <span>Подход</span></h1>
+            <p>
+                Мы создаем надежные инженерные системы. 
+                Профессиональный электромонтаж и технические решения в Таласе.
+            </p>
+            <a href="https://wa.me/996755000228" class="tp-hero-btn">Связаться с мастером</a>
+        </div>
+        <div class="tp-hero-media" style="flex: 1.2;"></div>
     </div>
-
-    <div class="tp-hero-media"></div>
 </section>
-
 
 
 
@@ -368,9 +370,11 @@
         }
 
         .tp-mini-container {
-            max-width: 1440px;
-            margin: 0 auto;
-        }
+    max-width: 1400px; /* Стандартизируем под 1400 */
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+}
 
         .tp-mini-header {
             text-align: center;
@@ -391,12 +395,14 @@
         }
 
         /* СЕТКА: Один контейнер для всех карточек */
-        .tp-mini-shelves {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 5 в ряд на ПК */
-            gap: 25px;
-            perspective: 1200px;
-        }
+.tp-mini-shelves {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 30px; /* Увеличили зазор */
+    max-width: 1400px; /* Ограничили ширину */
+    margin: 0 auto; /* Центрируем */
+    perspective: 1200px;
+}
 
         .tp-mini-shelf-item {
             position: relative;

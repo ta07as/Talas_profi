@@ -465,230 +465,401 @@
 
 
 
-    <section id="portfolio-row" class="tp-portfolio-fluid">
+ <section id="tp-electric-archive" class="tp-archive">
     <style>
-        .tp-portfolio-fluid {
-            background: #000;
-            padding: 80px 0;
-            font-family: 'Inter', sans-serif;
-            overflow: hidden;
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono:wght@400;700&display=swap');
+
+        /* ОСНОВНОЙ СТИЛЬ БЛОКА */
+        .tp-archive {
+            background: #050505;
+            padding: 40px 15px;
+            color: #ffffff;
+            font-family: 'Roboto Mono', monospace;
         }
 
-        /* ЗАЛИПАТЕЛЬНЫЙ ЗАГОЛОВОК */
-        .tp-portfolio-header {
-            padding: 0 40px 50px;
+        .tp-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* ТЕХНИЧЕСКАЯ ШАПКА */
+        .tp-archive-header {
+            border: 1px solid #333;
+            padding: 20px;
+            margin-bottom: 30px;
             display: flex;
-            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(90deg, #0a0a0a 0%, #000 100%);
         }
 
-        .tp-pre-title {
-            color: #FBBF24;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 10px;
+        .tp-status {
             display: flex;
             align-items: center;
             gap: 10px;
-        }
-
-        .tp-pre-title::before {
-            content: '';
-            width: 30px;
-            height: 1px;
-            background: #FBBF24;
-        }
-
-        .tp-main-title {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(26px, 5vw, 44px);
-            font-weight: 900;
-            color: #fff;
+            color: #FBBF24;
+            font-size: 12px;
             text-transform: uppercase;
-            line-height: 1;
-            margin: 0;
         }
 
-        .tp-main-title span {
-            color: transparent;
-            -webkit-text-stroke: 1px #FBBF24;
-            text-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
-            animation: tp-flicker 3s infinite;
+        .tp-dot {
+            width: 8px;
+            height: 8px;
+            background: #FBBF24;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #FBBF24;
+            animation: tp-pulse 2s infinite;
         }
 
-        @keyframes tp-flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% { opacity: 1; }
-            20%, 24%, 55% { opacity: 0.3; }
+        @keyframes tp-pulse {
+            0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
         }
 
-        /* КОНТЕЙНЕР ДЛЯ 5 ШТУК */
-        .tp-row-container {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 15px;
-            padding: 0 20px 40px;
-            overflow-x: auto;
-            scrollbar-width: none; 
-            -webkit-overflow-scrolling: touch;
+        /* ПЛОТНАЯ СЕТКА ГАЛЕРЕИ */
+        .tp-archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 2px;
+            background: #222;
+            border: 2px solid #222;
         }
 
-        .tp-row-container::-webkit-scrollbar { display: none; }
-
-        .tp-case-card {
-            flex: 0 0 calc(20% - 12px); /* 5 в ряд на ПК */
-            min-width: 280px; 
-            background: #0a0a0a;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+        .tp-archive-item {
             position: relative;
-            transition: 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
-        .tp-case-card:hover {
-            border-color: #FBBF24;
-            transform: translateY(-10px);
-            z-index: 10;
-        }
-
-        .tp-case-img {
-            width: 100%;
-            height: 250px;
+            background: #000;
             overflow: hidden;
-            position: relative;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
         }
 
-        .tp-case-img img {
+        .tp-archive-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* УБРАЛИ ЧБ ФИЛЬТР, ОСТАВИЛИ ЛЕГКОЕ ЗАТЕМНЕНИЕ */
-            filter: grayscale(0) brightness(0.8); 
-            transition: 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 0.8;
+            display: block;
         }
 
-        .tp-case-card:hover .tp-case-img img {
-            filter: grayscale(0) brightness(1); /* ПОЛНАЯ ЯРКОСТЬ ПРИ НАВЕДЕНИИ */
-            transform: scale(1.1);
+        /* ТЕХНИЧЕСКИЙ ШТАМП НА ФОТО (ДЕСКТОП) */
+        .tp-item-meta {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 10px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
+            display: flex;
+            justify-content: space-between;
+            font-size: 10px;
+            z-index: 2;
         }
 
-        .tp-case-info {
-            padding: 25px;
-            background: linear-gradient(to bottom, #0a0a0a, #000);
-        }
-
-        .tp-case-info h3 {
-            font-size: 14px;
+        .tp-item-title {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(251, 191, 36, 0.95);
+            color: #000;
+            padding: 6px 10px;
+            font-weight: 700;
+            font-size: 11px;
+            transform: translateY(100%);
+            transition: 0.3s;
             text-transform: uppercase;
-            margin-bottom: 8px;
-            color: #fff;
-            letter-spacing: 1px;
-            font-weight: 800;
         }
 
-        .tp-case-info p {
-            font-size: 12px;
-            color: #777; /* СДЕЛАЛИ ТЕКСТ ЧУТЬ ЧИТАЕМЕЕ ИЗНАЧАЛЬНО */
-            line-height: 1.5;
-            margin: 0;
+        /* ХОВЕР ЭФФЕКТЫ (ТОЛЬКО ДЕСКТОП) */
+        @media (min-width: 769px) {
+            .tp-archive-item:hover img {
+                opacity: 1;
+                transform: scale(1.05);
+            }
+            .tp-archive-item:hover .tp-item-title {
+                transform: translateY(0);
+            }
+        }
+
+        /* МОБИЛЬНАЯ ВЕРСИЯ СЕТКИ */
+        @media (max-width: 768px) {
+            .tp-archive-grid {
+                grid-template-columns: repeat(3, 1fr); /* 3 в ряд */
+                gap: 1px;
+            }
+            .tp-item-meta, .tp-item-title { display: none; } /* Скрываем подписи в сетке */
+        }
+
+        /* ============================================================
+           СТИЛИ ДЛЯ ПОПАПА (LIGHTBOX)
+           ============================================================ */
+        .tp-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 10000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .tp-lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .tp-lightbox-content {
+            position: relative;
+            max-width: 90%;
+            max-height: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tp-lightbox-img {
+            max-width: 100%;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 2px solid #333;
+            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        }
+
+        .tp-lightbox-caption {
+            margin-top: 15px;
+            color: #FBBF24;
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            font-size: 14px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        .tp-lightbox-close {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: #fff;
+            font-size: 30px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: Arial, sans-serif;
             transition: 0.3s;
         }
 
-        .tp-case-card:hover .tp-case-info p {
-            color: #aaa;
+        .tp-lightbox-close:hover {
+            color: #FBBF24;
+            transform: scale(1.1);
         }
 
-        .tp-case-index {
-            position: absolute;
-            top: 15px; left: 15px;
-            background: #FBBF24;
-            color: #000;
-            font-size: 10px;
-            font-weight: 900;
-            padding: 3px 8px;
-            z-index: 5;
-            font-family: 'Orbitron', sans-serif;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-        }
-
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
-        @media (max-width: 1024px) {
-            .tp-case-card { flex: 0 0 45%; } /* 2 полных на планшете */
-        }
-
-        @media (max-width: 768px) {
-            .tp-case-card { flex: 0 0 75%; } /* 1.5 на телефоне */
-            .tp-portfolio-header { padding: 0 20px 30px; }
-            .tp-main-title { font-size: 28px; }
+        body.tp-lightbox-open {
+            overflow: hidden;
         }
     </style>
 
-    <div class="tp-portfolio-fluid-wrapper">
-        <div class="tp-portfolio-header">
-            <div class="tp-pre-title">дата обновления // 2026</div>
-            <h2 class="tp-main-title">наши работы <span>в таласе</span></h2>
+    <div class="tp-container">
+        <div class="tp-archive-header">
+            <div>
+                <div class="tp-status"><span class="tp-dot"></span> На Связи 24 / 7</div>
+                <h2 style="font-family: 'Orbitron', sans-serif; margin: 5px 0 0 0; color: #fff; font-size: 18px;">Все виды работ <br>в таласе</h2>
+            </div>
+            <div style="text-align: right; color: #666; font-size: 11px;">
+                <br>
+                Адрес: Таласская область 
+            </div>
         </div>
 
-        <div class="tp-row-container">
-            <div class="tp-case-card">
-                <div class="tp-case-index">MOD-01</div>
-                <div class="tp-case-img">
-                    <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Электромонтаж">
-                </div>
-                <div class="tp-case-info">
-                    <h3>Черновой монтаж</h3>
-                    <p>Комплексная разводка в новостройке. Соблюдение всех углов и допусков.</p>
-                </div>
+        <div class="tp-archive-grid">
+            
+            <div class="tp-archive-item" data-title="Сборка главного распределительного щита 380В">
+                <div class="tp-item-meta"><span>#EL-001</span><span>2026-03</span></div>
+                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600" alt="Электрика">
+                <div class="tp-item-title">Сборка силового щита</div>
             </div>
 
-            <div class="tp-case-card">
-                <div class="tp-case-index">MOD-02</div>
-                <div class="tp-case-img">
-                    <img src="https://images.unsplash.com/photo-1558211583-d28f61093187?q=80&w=2070" alt="Сборка щита">
-                </div>
-                <div class="tp-case-info">
-                    <h3>Сборка щита</h3>
-                    <p>Силовой узел с защитой от перегрузок. Организация внутреннего кабель-менеджмента.</p>
-                </div>
+            <div class="tp-archive-item" data-title="Монтаж кабельных трасс в промышленных лотках">
+                <div class="tp-item-meta"><span>#EL-002</span><span>2026-03</span></div>
+                <img src="https://images.unsplash.com/photo-1558211583-d28f61093187?q=80&w=600" alt="Проводка">
+                <div class="tp-item-title">Магистральные линии</div>
             </div>
 
-            <div class="tp-case-card">
-                <div class="tp-case-index">MOD-03</div>
-                <div class="tp-case-img">
-                    <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=1974" alt="Светодизайн">
-                </div>
-                <div class="tp-case-info">
-                    <h3>Архитектурный свет</h3>
-                    <p>Установка трековых систем и скрытой LED-подсветки в интерьере.</p>
-                </div>
+            <div class="tp-archive-item" data-title="Установка и подключение трековой системы освещения">
+                <div class="tp-item-meta"><span>#EL-003</span><span>2026-03</span></div>
+                <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=600" alt="Свет">
+                <div class="tp-item-title">Трековое освещение</div>
             </div>
 
-            <div class="tp-case-card">
-                <div class="tp-case-index">MOD-04</div>
-                <div class="tp-case-img">
-                    <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?q=80&w=2080" alt="Смарт">
-                </div>
-                <div class="tp-case-info">
-                    <h3>Умные системы</h3>
-                    <p>Интеграция датчиков движения и диммеров в единую сеть управления.</p>
-                </div>
+            <div class="tp-archive-item" data-title="Алмазное бурение и установка подрозетников в бетон">
+                <div class="tp-item-meta"><span>#EL-004</span><span>2026-02</span></div>
+                <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?q=80&w=600" alt="Розетки">
+                <div class="tp-item-title">Установка фурнитуры</div>
             </div>
 
-            <div class="tp-case-card">
-                <div class="tp-case-index">MOD-05</div>
-                <div class="tp-case-img">
-                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=2070" alt="Офис">
-                </div>
-                <div class="tp-case-info">
-                    <h3>Коммерческий объект</h3>
-                    <p>Монтаж электросетей в офисном помещении с высокой нагрузкой.</p>
-                </div>
+            <div class="tp-archive-item" data-title="Подготовка штроб под силовые кабели (черновой этап)">
+                <div class="tp-item-meta"><span>#EL-005</span><span>2026-02</span></div>
+                <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=600" alt="Штроба">
+                <div class="tp-item-title">Штробление стен</div>
             </div>
+
+            <div class="tp-archive-item" data-title="Финальная маркировка и пусконаладка автоматики в щите">
+                <div class="tp-item-meta"><span>#EL-006</span><span>2026-02</span></div>
+                <img src="https://plus.unsplash.com/premium_photo-1664372145541-4556b409492e?q=80&w=600" alt="Автоматы">
+                <div class="tp-item-title">Маркировка групп</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Используем только профессиональный инструмент для опрессовки">
+                <div class="tp-item-meta"><span>#EL-007</span><span>2026-02</span></div>
+                <img src="https://images.unsplash.com/photo-1530124564312-6f351211d38d?q=80&w=600" alt="Инструмент">
+                <div class="tp-item-title">Профессиональный инструмент</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Интеграция датчиков движения и диммеров в систему умный дом">
+                <div class="tp-item-meta"><span>#EL-008</span><span>2026-01</span></div>
+                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=600" alt="Умный дом">
+                <div class="tp-item-title">Элементы умного дома</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Монтаж и проверка контура заземления загородного дома">
+                <div class="tp-item-meta"><span>#EL-009</span><span>2026-01</span></div>
+                <img src="https://plus.unsplash.com/premium_photo-1678743130190-34a946853744?q=80&w=600" alt="Заземление">
+                <div class="tp-item-title">Контур заземления</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Монтаж эксклюзивной люстры в гостиной">
+                <div class="tp-item-meta"><span>#EL-010</span><span>2026-01</span></div>
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=600" alt="Свет">
+                <div class="tp-item-title">Интерьерное освещение</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Укладка силовых кабелей в гофре ПНД по потолку">
+                <div class="tp-item-meta"><span>#EL-011</span><span>2026-01</span></div>
+                <img src="https://plus.unsplash.com/premium_photo-1679088032607-9577953250b7?q=80&w=600" alt="Гофра">
+                <div class="tp-item-title">Разводка в гофре</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Реконструкция этажного распределительного щита">
+                <div class="tp-item-meta"><span>#EL-012</span><span>2025-12</span></div>
+                <img src="https://images.unsplash.com/photo-1596752009228-568910eb7a37?q=80&w=600" alt="Щит">
+                <div class="tp-item-title">Реконструкция ГРЩ</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Организация кабель-менеджмента в слаботочном щите">
+                <div class="tp-item-meta"><span>#EL-013</span><span>2025-12</span></div>
+                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600" alt="Слаботочка">
+                <div class="tp-item-title">Слаботочные системы</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Чистовая установка потолочных светильников (точечный свет)">
+                <div class="tp-item-meta"><span>#EL-014</span><span>2025-12</span></div>
+                <img src="https://images.unsplash.com/photo-1567459169669-bf06159f8176?q=80&w=600" alt="Свет">
+                <div class="tp-item-title">Точечное освещение</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Диагностика электросети и поиск неисправностей">
+                <div class="tp-item-meta"><span>#EL-015</span><span>2025-11</span></div>
+                <img src="https://images.unsplash.com/photo-1590496827059-86987f4c5496?q=80&w=600" alt="Мультиметр">
+                <div class="tp-item-title">Технический аудит</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Монтаж скрытой светодиодной LED-подсветки в нишу потолка">
+                <div class="tp-item-meta"><span>#EL-016</span><span>2025-11</span></div>
+                <img src="https://images.unsplash.com/photo-1615873968403-89e068629275?q=80&w=600" alt="LED">
+                <div class="tp-item-title">LED-подсветка</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Электромонтаж в складском помещении (высотный монтаж)">
+                <div class="tp-item-meta"><span>#EL-017</span><span>2025-11</span></div>
+                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=600" alt="Склад">
+                <div class="tp-item-title">Коммерческий объект</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Подключение блока розеток на кухонном фартуке">
+                <div class="tp-item-meta"><span>#EL-018</span><span>2025-10</span></div>
+                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=600" alt="Кухня">
+                <div class="tp-item-title">Кухонная электрика</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Организация ввода СИП в частный дом">
+                <div class="tp-item-meta"><span>#EL-019</span><span>2025-10</span></div>
+                <img src="https://plus.unsplash.com/premium_photo-1681286938928-8924f7943f29?q=80&w=600" alt="Ввод СИП">
+                <div class="tp-item-title">Ввод электроэнергии</div>
+            </div>
+
+            <div class="tp-archive-item" data-title="Чистовая установка дизайнерских выключателей">
+                <div class="tp-item-meta"><span>#EL-020</span><span>2025-10</span></div>
+                <img src="https://images.unsplash.com/photo-1627221371587-f8e1ac3d0521?q=80&w=600" alt="Выключатель">
+                <div class="tp-item-title">Финальная фурнитура</div>
+            </div>
+            
+        </div>
+
+        <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #444;">
+            END OF LIST // TALAS_PROFI
         </div>
     </div>
+
+    <div class="tp-lightbox" id="tpLightbox">
+        <div class="tp-lightbox-content">
+            <button class="tp-lightbox-close" id="tpLightboxClose">&times;</button>
+            <img src="" alt="Полный размер" class="tp-lightbox-img" id="tpLightboxImg">
+            <div class="tp-lightbox-caption" id="tpLightboxCaption"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridItems = document.querySelectorAll('.tp-archive-item');
+            const lightbox = document.getElementById('tpLightbox');
+            const lightboxImg = document.getElementById('tpLightboxImg');
+            const lightboxCaption = document.getElementById('tpLightboxCaption');
+            const closeBtn = document.getElementById('tpLightboxClose');
+            const body = document.body;
+
+            // Открытие попапа
+            gridItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    const title = this.getAttribute('data-title');
+                    
+                    if (img) {
+                        lightboxImg.src = img.src;
+                        lightboxCaption.textContent = title;
+                        lightbox.classList.add('active');
+                        body.classList.add('tp-lightbox-open');
+                    }
+                });
+            });
+
+            // Закрытие
+            function closeLightbox() {
+                lightbox.classList.remove('active');
+                body.classList.remove('tp-lightbox-open');
+                setTimeout(() => { lightboxImg.src = ''; lightboxCaption.textContent = ''; }, 300);
+            }
+
+            closeBtn.addEventListener('click', closeLightbox);
+            
+            lightbox.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeLightbox();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+                    closeLightbox();
+                }
+            });
+        });
+    </script>
 </section>
-
-
-
 
 
 

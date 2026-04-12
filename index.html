@@ -344,6 +344,205 @@
 
 
 
+
+
+
+    <section class="tp-numbers-block" id="stats-section">
+    <style>
+        .tp-numbers-block {
+            background-color: #000000;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tp-numbers-container {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            width: 100%;
+            max-width: 1400px;
+            gap: 20px;
+            z-index: 1;
+        }
+
+        .tp-number-card {
+            text-align: center;
+            padding: 20px 10px;
+            border-right: 1px solid #1a1a1a;
+            opacity: 0;
+            transform: translateY(50px);
+            /* Очень плавное проявление карточки — 1.5 секунды */
+            transition: all 1.5s cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+
+        .tp-number-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .tp-number-card:last-child { border-right: none; }
+
+        .tp-num-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            color: #FBBF24;
+            margin-bottom: 12px;
+        }
+
+        .tp-num-wrapper .num {
+            font-size: clamp(32px, 5vw, 60px);
+            font-weight: 900;
+            line-height: 1;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: -1px;
+        }
+
+        .tp-num-wrapper .suffix {
+            font-size: clamp(20px, 3vw, 30px);
+            font-weight: 900;
+            margin-left: 2px;
+        }
+
+        .tp-number-card .label {
+            display: block;
+            color: #FFFFFF;
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.7;
+            line-height: 1.4;
+        }
+
+        /* Замедленная золотая линия */
+        .tp-number-card::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: #FBBF24;
+            margin: 15px auto 0;
+            transition: width 2s ease 1s; /* Появляется через секунду после карточки */
+        }
+
+        .tp-number-card.show::after {
+            width: 35px;
+        }
+
+        @media (max-width: 1100px) {
+            .tp-numbers-container { grid-template-columns: repeat(3, 1fr); }
+            .tp-number-card:nth-child(3) { border-right: none; }
+        }
+
+        @media (max-width: 700px) {
+            .tp-numbers-container { grid-template-columns: 1fr 1fr; gap: 40px 10px; }
+            .tp-number-card { border-right: none; border-bottom: 1px solid #1a1a1a; padding-bottom: 25px; }
+            .tp-number-card:last-child { border-bottom: none; }
+        }
+    </style>
+
+    <div class="tp-numbers-container">
+        <div class="tp-number-card">
+            <div class="tp-num-wrapper">
+                <span class="num" data-target="150">0</span><span class="suffix">+</span>
+            </div>
+            <span class="label">Объектов сдано</span>
+        </div>
+
+        <div class="tp-number-card">
+            <div class="tp-num-wrapper">
+                <span class="num" data-target="40">0</span><span class="suffix">+</span>
+            </div>
+            <span class="label">Мастеров в деле</span>
+        </div>
+
+        <div class="tp-number-card">
+            <div class="tp-num-wrapper">
+                <span class="num" data-target="100">0</span><span class="suffix">%</span>
+            </div>
+            <span class="label">Довольных клиентов</span>
+        </div>
+
+        <div class="tp-number-card">
+            <div class="tp-num-wrapper">
+                <span class="num" data-target="60">0</span><span class="suffix">м.</span>
+            </div>
+            <span class="label">Время выезда</span>
+        </div>
+
+        <div class="tp-number-card">
+            <div class="tp-num-wrapper">
+                <span class="num" data-target="5">0</span><span class="suffix">л.</span>
+            </div>
+            <span class="label">На рынке Таласа</span>
+        </div>
+    </div>
+
+    <script>
+        const observerOptions = { threshold: 0.3 };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const cards = entry.target.querySelectorAll('.tp-number-card');
+                    cards.forEach((card, index) => {
+                        // Каскадное появление каждые 0.5 сек.
+                        setTimeout(() => {
+                            card.classList.add('show');
+                            animateValue(card.querySelector('.num'));
+                        }, index * 500);
+                    });
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        observer.observe(document.getElementById('stats-section'));
+
+        function animateValue(obj) {
+            const start = 0;
+            const end = parseInt(obj.getAttribute('data-target'));
+            // Время прокрутки цифр увеличено до 6 секунд
+            const duration = 6000;
+            let startTimestamp = null;
+            
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                
+                // Функция плавности (easeOutCubic) — цифры замедляются к концу еще сильнее
+                const easeProgress = 1 - Math.pow(1 - progress, 3);
+                
+                obj.innerText = Math.floor(easeProgress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
     
 
 

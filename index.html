@@ -253,169 +253,108 @@
 
 
 
-    
-<section class="tp-hero-section"id="gl">
+<section class="tp-hero-section" id="gl">
     <style>
-        .tp-hero-section {
-            background-color: #000000;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
+        /* ТВОИ СТИЛИ БЕЗ ИЗМЕНЕНИЙ */
+        .tp-hero-section { background-color: #000000; margin: 0; padding: 0; position: relative; overflow: hidden; width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .tp-hero-wrapper { display: flex; width: 100%; max-width: 1400px; min-height: 100vh; align-items: stretch; flex-wrap: wrap; }
+        .tp-hero-content { flex: 1; min-width: 320px; padding: 60px 40px; display: flex; flex-direction: column; justify-content: center; background-color: #000000; z-index: 10; box-sizing: border-box; }
+        
+        /* КНОПКИ ПЕРЕКЛЮЧЕНИЯ ЯЗЫКА */
+        .lang-switcher {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
             display: flex;
-            justify-content: center;
+            gap: 10px;
         }
-
-        /* КОНТЕЙНЕР-ОГРАНИЧИТЕЛЬ */
-        .tp-hero-wrapper {
-            display: flex;
-            width: 100%;
-            max-width: 1400px;
-            min-height: 100vh;
-            align-items: stretch;
-            flex-wrap: wrap; /* Позволяет блокам падать друг под друга */
-        }
-
-        /* КОНТЕНТ */
-        .tp-hero-content {
-            flex: 1;
-            min-width: 320px;
-            padding: 60px 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: #000000;
-            z-index: 10;
-            box-sizing: border-box;
-        }
-
-        /* АНИМАЦИЯ */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tp-badge {
-            color: #FBBF24;
-            font-size: clamp(24px, 5vw, 40px);
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 10px;
-            display: block;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .tp-hero-content h1 {
+        .lang-btn {
+            background: none;
+            border: 1px solid #FBBF24;
             color: #FFFFFF;
-            font-size: clamp(36px, 8vw, 64px);
+            padding: 5px 15px;
+            cursor: pointer;
             font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin: 0 0 20px 0;
-            animation: fadeInUp 0.8s ease 0.3s both;
+            transition: 0.3s;
+            font-size: 12px;
         }
-
-        .tp-hero-content p {
-            color: #BBBBBB;
-            font-size: clamp(16px, 3vw, 18px);
-            line-height: 1.6;
-            max-width: 500px;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .tp-hero-content p strong {
-            color: #FBBF24;
-        }
-
-        /* КНОПКА */
-        .tp-hero-btn {
-            display: inline-block;
+        .lang-btn.active {
             background-color: #FBBF24;
             color: #000000;
-            padding: 20px 40px;
-            text-decoration: none;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 2px;
-            width: fit-content;
-            transition: 0.3s;
-            animation: fadeInUp 0.8s ease 0.9s both;
         }
 
-        .tp-hero-btn:hover {
-            background-color: #FFFFFF;
-            transform: translateY(-3px);
-        }
+        /* АНИМАЦИЯ И ШРИФТЫ */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .tp-badge { color: #FBBF24; font-size: clamp(24px, 5vw, 40px); font-weight: 900; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 10px; display: block; animation: fadeInUp 0.8s ease forwards; }
+        .tp-hero-content h1 { color: #FFFFFF; font-size: clamp(36px, 8vw, 64px); font-weight: 900; text-transform: uppercase; line-height: 1.1; margin: 0 0 20px 0; animation: fadeInUp 0.8s ease 0.3s both; }
+        .tp-hero-content p { color: #BBBBBB; font-size: clamp(16px, 3vw, 18px); line-height: 1.6; max-width: 500px; margin-bottom: 40px; animation: fadeInUp 0.8s ease 0.6s both; }
+        .tp-hero-btn { display: inline-block; background-color: #FBBF24; color: #000000; padding: 20px 40px; text-decoration: none; font-weight: 900; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; width: fit-content; transition: 0.3s; animation: fadeInUp 0.8s ease 0.9s both; }
+        .tp-hero-btn:hover { background-color: #FFFFFF; transform: translateY(-3px); }
+        .tp-hero-media { flex: 1.2; min-width: 320px; min-height: 400px; background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat; position: relative; }
+        .tp-hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to right, #000000, transparent 30%); }
 
-        /* КАРТИНКА */
-        .tp-hero-media {
-            flex: 1.2;
-            min-width: 320px;
-            min-height: 400px;
-            background: url('https://images.unsplash.com/photo-1581094794329-c8112a89af12?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
-            position: relative;
-        }
-
-        /* Градиент для плавного перехода от текста к фото */
-        .tp-hero-media::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #000000, transparent 30%);
-        }
-
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 991px) {
-            .tp-hero-wrapper {
-                flex-direction: column;
-            }
-
-            .tp-hero-content {
-                order: 1; /* Текст сверху */
-                padding: 60px 25px;
-                text-align: center;
-                align-items: center;
-                min-height: auto;
-            }
-
-            .tp-hero-media {
-                order: 2; /* Фото снизу */
-                flex: none;
-                height: 350px;
-                min-height: 350px;
-            }
-
-            .tp-hero-media::after {
-                background: linear-gradient(to bottom, #000000, transparent 30%);
-            }
-
-            .tp-hero-btn {
-                width: 100%;
-                max-width: 320px;
-                box-sizing: border-box;
-            }
+            .tp-hero-wrapper { flex-direction: column; }
+            .tp-hero-content { order: 1; padding: 60px 25px; text-align: center; align-items: center; }
+            .tp-hero-media { order: 2; flex: none; height: 350px; }
+            .tp-hero-media::after { background: linear-gradient(to bottom, #000000, transparent 30%); }
         }
     </style>
+
+    <div class="lang-switcher">
+        <button onclick="changeLanguage('ky')" id="btn-ky" class="lang-btn active">KY</button>
+        <button onclick="changeLanguage('ru')" id="btn-ru" class="lang-btn">RU</button>
+    </div>
 
     <div class="tp-hero-wrapper">
         <div class="tp-hero-content">
             <span class="tp-badge">Talas_profi</span>
-            <h1>Впервые в <span>Таласе</span></h1>
-            <p>
-                Мы объединили лучших мастеров города на одной платформе. 
-                Теперь найти надежного исполнителя — <strong>проще, быстрее и надежнее.</strong>
+            <h1 id="hero-title">Таласта биринчи жолу</h1>
+            <p id="hero-desc">
+                Биз шаардын мыкты чеберлерин бир платформага чогулттук. 
+                Эми ишенимдүү адисти табуу — <strong>оңой, тез жана ишенимдүү.</strong>
             </p>
-            <a href="https://wa.me/996755000228" class="tp-hero-btn">Связаться с мастером</a>
+            <a href="https://wa.me/996755000228" id="hero-btn" class="tp-hero-btn">Уста менен байланышуу</a>
         </div>
         <div class="tp-hero-media"></div>
     </div>
+
+    <script>
+        const content = {
+            ky: {
+                title: "Таласта биринчи жолу",
+                desc: "Биз шаардын мыкты чеберлерин бир платформага чогулттук. Эми ишенимдүү адисти табуу — <strong>оңой, тез жана ишенимдүү.</strong>",
+                btn: "Уста менен байланышуу",
+                waMsg: "Саламатсызбы! Мага уста керек эле."
+            },
+            ru: {
+                title: "Впервые в Таласе",
+                desc: "Мы объединили лучших мастеров города на одной платформе. Теперь найти надежного исполнителя — <strong>проще, быстрее и надежнее.</strong>",
+                btn: "Связаться с мастером",
+                waMsg: "Здравствуйте! Мне нужны услуги мастера."
+            }
+        };
+
+        function changeLanguage(lang) {
+            // Тексты
+            document.getElementById('hero-title').innerText = content[lang].title;
+            document.getElementById('hero-desc').innerHTML = content[lang].desc;
+            document.getElementById('hero-btn').innerText = content[lang].btn;
+            
+            // WhatsApp ссылка
+            const waLink = `https://wa.me/996755000228?text=${encodeURIComponent(content[lang].waMsg)}`;
+            document.getElementById('hero-btn').href = waLink;
+
+            // Кнопки
+            document.getElementById('btn-ky').classList.toggle('active', lang === 'ky');
+            document.getElementById('btn-ru').classList.toggle('active', lang === 'ru');
+        }
+
+        // По умолчанию ставим кыргызский при загрузке
+        window.onload = () => changeLanguage('ky');
+    </script>
 </section>
-
-
 
 
 

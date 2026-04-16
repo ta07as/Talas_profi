@@ -892,6 +892,261 @@
 
 
 
+
+
+<section class="tp-portfolio-gravity"id="foto">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
+
+        .tp-portfolio-gravity {
+            background-color: #000;
+            padding: 80px 0;
+            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #1a1a1a;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .tp-p-container {
+            max-width: 100%;
+            position: relative;
+            z-index: 10;
+        }
+
+        .tp-p-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding: 0 20px;
+        }
+
+        .tp-p-header h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(22px, 5vw, 36px);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        .tp-p-header h2 span {
+            color: #FBBF24;
+            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
+        }
+
+        .tp-gravity-streams {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: auto;
+            justify-content: center;
+        }
+
+        .tp-p-stream {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+            position: relative;
+        }
+
+        .tp-p-track {
+            display: flex;
+            gap: 15px;
+            width: fit-content;
+        }
+
+        /* АНИМАЦИИ БЕСКОНЕЧНОГО ЦИКЛА */
+        @keyframes scrollLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-50% - 7.5px)); }
+        }
+
+        @keyframes scrollRight {
+            0% { transform: translateX(calc(-50% - 7.5px)); }
+            100% { transform: translateX(0); }
+        }
+
+        .tp-stream-1 .tp-p-track { animation: scrollLeft 50s linear infinite; }
+        .tp-stream-2 .tp-p-track { animation: scrollRight 55s linear infinite; }
+        .tp-stream-3 .tp-p-track { animation: scrollLeft 60s linear infinite; }
+
+        .tp-p-stream:hover .tp-p-track { animation-play-state: paused; }
+
+        .tp-p-item {
+            width: 300px;
+            height: 200px;
+            background-color: #111;
+            border: 1px solid #222;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            cursor: pointer;
+        }
+
+        .tp-p-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) brightness(0.5);
+            transition: 0.6s;
+        }
+
+        .tp-p-item:hover {
+            z-index: 100;
+            border-color: #FBBF24;
+            transform: scale(1.2) translateZ(50px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(251, 191, 36, 0.4);
+        }
+
+        .tp-p-item:hover img {
+            filter: grayscale(0) brightness(1);
+        }
+
+        .tp-item-mark {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 10px;
+            color: rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.7);
+            padding: 2px 6px;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .tp-p-item { width: 200px; height: 140px; }
+            .tp-stream-1 .tp-p-track { animation-duration: 30s; }
+            .tp-stream-2 .tp-p-track { animation-duration: 35s; }
+            .tp-stream-3 .tp-p-track { animation-duration: 40s; }
+        }
+    </style>
+
+    <div class="tp-p-container">
+        <div class="tp-p-header">
+            <h2>ПОРТФОЛИО <span>ПРОЕКТОВ</span></h2>
+        </div>
+
+        <div class="tp-gravity-streams">
+            
+            <div class="tp-p-stream tp-stream-1">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
+                </div>
+            </div>
+
+            <div class="tp-p-stream tp-stream-2">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
+                </div>
+            </div>
+
+            <div class="tp-p-stream tp-stream-3">
+                <div class="tp-p-track">
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
+                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+  <style>
+    .tp-portfolio-footer {
+        text-align: center;
+        margin-top: 50px;
+        padding-bottom: 20px;
+        position: relative;
+        z-index: 20;
+    }
+
+    .tp-more-btn {
+        display: inline-block;
+        padding: 18px 45px;
+        border: 1px solid #FBBF24;
+        color: #FBBF24;
+        text-decoration: none;
+        font-family: 'Syncopate', sans-serif;
+        font-size: 13px;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+        background: transparent;
+    }
+
+    .tp-more-btn::before {
+        content: '';
+        position: absolute;
+        top: 0; left: -100%;
+        width: 100%; height: 100%;
+        background: #FBBF24;
+        transition: 0.4s;
+        z-index: -1;
+    }
+
+    .tp-more-btn:hover {
+        color: #000;
+        box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+        transform: translateY(-5px);
+    }
+
+    .tp-more-btn:hover::before {
+        left: 0;
+    }
+
+    /* Декоративная подпись под кнопкой */
+    .tp-archive-tag {
+        display: block;
+        margin-top: 15px;
+        font-size: 10px;
+        color: #333;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+    }
+</style>
+
+<div class="tp-portfolio-footer">
+    <a href="portfolio.html" class="tp-more-btn">
+        ПОПРОСИТЬ ЕЩЕ ДРУГИЕ ФОТО
+    </a><br>
+    <span class="tp-archive-tag">МЫ МОЖЕМ ОТПРАВИТЬ ЕЩЕ ДРУГИЕ ФОТОГРАФИИ НА ВАШ ВАПТСАП</span>
+</div>
+</section>
+
+
+
+    
+
+
+
+
+
     
 
 

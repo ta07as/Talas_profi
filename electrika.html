@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang=ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Электрик Талас | Talas_profi</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-    
-   
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talas_profi | Официальный сайт</title>
+    <style>
+        /* Общие системные настройки сайта */
+        body { margin: 0; padding: 0; background-color: #000; font-family: 'Arial', sans-serif; color: #fff; overflow-x: hidden; }
+    </style>
 </head>
 <body>
 
@@ -20,845 +20,355 @@
 
 
 
-    
-
-
-
 
     
-<section class="tp-desktop-hero">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="tp-main-hero" id="home">
     <style>
-        :root {
-            --gold: #FBBF24;
-            --gold-glow: rgba(251, 191, 36, 0.4);
-            --bg-dark: #050505;
-            --border-soft: rgba(251, 191, 36, 0.15);
-        }
-
-        .tp-desktop-hero {
-            position: relative;
-            min-height: 100vh;
+        .tp-main-hero {
+            /* --- ОСНОВНЫЕ ЦВЕТА (Меняй здесь, чтобы изменить везде) --- */
+            --gold: #FBBF24;   /* Твой фирменный желтый */
+            --black: #000000;  /* Глубокий черный */
+            --white: #FFFFFF;  /* Белый для текста */
+            
+            /* --- ФОНОВАЯ КАРТИНКА --- */
+            /* Замени ссылку внутри url('...') на свое фото щита или процесса работы */
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80');
+            
+            background-size: cover;        /* Растягивает фото на весь экран */
+            background-position: center;   /* Центрирует фото */
+            background-attachment: fixed;  /* Эффект параллакса (фото стоит, текст плывет) */
+            min-height: 100vh;             /* Высота на весь экран телефона/ПК */
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--bg-dark);
-            overflow: hidden;
-            font-family: 'Inter', sans-serif;
-            padding: 40px;
-        }
-
-        /* ФОНОВАЯ СЕТКА С ПЕРСПЕКТИВОЙ */
-        .tp-bg-grid {
-            position: absolute;
-            inset: -50%;
-            background-image: 
-                linear-gradient(var(--border-soft) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border-soft) 1px, transparent 1px);
-            background-size: 80px 80px;
-            transform: perspective(1000px) rotateX(20deg) rotateZ(10deg);
-            opacity: 0.15;
-            pointer-events: none;
-            animation: gridFlow 100s linear infinite;
-        }
-
-        @keyframes gridFlow {
-            from { transform: perspective(1000px) rotateX(20deg) rotateZ(10deg) translateY(0); }
-            to { transform: perspective(1000px) rotateX(20deg) rotateZ(10deg) translateY(-1000px); }
-        }
-
-        /* ОСНОВНОЙ КОНТЕЙНЕР */
-        .tp-main-container {
-            position: relative;
-            z-index: 10;
-            display: flex;
-            max-width: 1600px;
-            width: 100%;
-            height: 750px;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(30px);
-            border: 1px solid var(--border-soft);
-            box-shadow: 0 50px 100px rgba(0,0,0,0.8);
-        }
-
-        /* ТЕКСТОВЫЙ БЛОК */
-        .tp-content-side {
-            flex: 1.2;
-            padding: 80px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-        }
-
-        /* АНИМАЦИЯ ЗАМЫКАНИЯ */
-        @keyframes electric-flicker {
-            0%, 18%, 22%, 25%, 53%, 57%, 100% {
-                text-shadow: 0 0 15px var(--gold-glow);
-                opacity: 1;
-            }
-            20%, 24%, 55% {
-                text-shadow: none;
-                opacity: 0.4;
-                transform: translateX(2px);
-            }
-        }
-
-        .tp-content-side h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: clamp(40px, 4vw, 72px);
-            line-height: 1;
-            text-transform: uppercase;
-            margin: 20px 0;
-            color: #fff;
-        }
-
-        .tp-flicker-phrase {
-            display: inline-block;
-            animation: electric-flicker 2.5s infinite;
-            color: #fff;
-        }
-
-        .tp-content-side h1 span.outline {
-            color: transparent;
-            -webkit-text-stroke: 1.5px var(--gold);
-        }
-
-        .tp-description {
-            color: #888;
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 550px;
-            margin-bottom: 40px;
-            border-left: 3px solid var(--gold);
-            padding-left: 20px;
-        }
-
-        /* КНОПКИ ДЛЯ ПК */
-        .tp-actions {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .tp-btn {
-            padding: 20px 40px;
-            text-decoration: none;
-            font-weight: 900;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 13px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid transparent;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .tp-btn-gold { background: var(--gold); color: #000; }
-        .tp-btn-gold:hover { background: #fff; transform: translateY(-5px); box-shadow: 0 15px 30px var(--gold-glow); }
-
-        .tp-btn-outline { border: 1px solid #333; color: #fff; }
-        .tp-btn-outline:hover { border-color: var(--gold); color: var(--gold); background: rgba(251, 191, 36, 0.05); }
-
-        /* ВИЗУАЛЬНАЯ СТОРОНА (ПК) */
-        .tp-image-side {
-            flex: 0.8;
-            position: relative;
-            overflow: hidden;
-            border-left: 1px solid var(--border-soft);
-        }
-
-        .tp-image-side img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 1.5s ease-out;
-            filter: contrast(1.1) brightness(0.8);
-        }
-
-        .tp-image-side::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, #000 0%, transparent 100%);
-            opacity: 0.3;
-        }
-
-        .tp-main-container:hover .tp-image-side img {
-            transform: scale(1.05) translateX(10px);
-            filter: contrast(1.2) brightness(1);
-        }
-
-        /* ТЕХНИЧЕСКИЕ МЕТКИ */
-        .tp-tech-tag {
-            position: absolute;
-            top: 40px; right: 40px;
-            color: var(--gold);
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            letter-spacing: 5px;
-            z-index: 20;
-        }
-
-        /* АДАПТАЦИЯ (МОБИЛЬНЫЙ ОСТАЕТСЯ РАБОЧИМ) */
-        @media (max-width: 1100px) {
-            .tp-main-container { flex-direction: column; height: auto; }
-            .tp-content-side { padding: 40px 20px; order: 2; text-align: center; }
-            .tp-image-side { min-height: 400px; order: 1; }
-            .tp-description { margin: 0 auto 30px; border-left: 0; border-top: 2px solid var(--gold); padding: 20px 0 0; }
-            .tp-actions { justify-content: center; }
-        }
-    </style>
-
-    <div class="tp-bg-grid"></div>
-
-    <div class="tp-main-container">
-        <div class="tp-tech-tag">TALAS_PROFI SYSTEM v2.6</div>
-        
-        <div class="tp-content-side">
-            <div style="color: var(--gold); font-family: 'Orbitron'; font-size: 12px; letter-spacing: 6px; margin-bottom: 10px;">
-                CONNECTED // ACTIVE
-            </div>
-            
-            <h1>
-                <div class="tp-flicker-phrase">Электрика в <span class="outline">Таласе</span></div><br>
-                которую вы искали
-            </h1>
-            
-            <p class="tp-description">
-                Профессиональное проектирование и монтаж систем любой сложности. 
-                Мы объединили индустриальную точность с безупречным качеством исполнения.
-            </p>
-            
-            <div class="tp-actions">
-                <a href="tel:+996755000228" class="tp-btn tp-btn-gold">Вызвать мастера</a>
-                <a href="https://wa.me/996755000228" class="tp-btn tp-btn-outline">WhatsApp Консультация</a>
-                <a href="#portfolio" class="tp-btn tp-btn-outline">Портфолио</a>
-            </div>
-        </div>
-
-        <div class="tp-image-side">
-            <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2069" alt="Talas Profi Engineering">
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-    
-<section id="tech-services" class="tp-tech-section">
-    <style>
-        .tp-tech-section {
-            background: #000;
-            padding: 100px 20px;
-            font-family: 'Inter', sans-serif;
-            color: #fff;
-        }
-
-        .tp-tech-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 20px;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .tp-tech-card {
-            background: linear-gradient(145deg, #0a0a0a 0%, #000 100%);
-            border: 1px solid rgba(251, 191, 36, 0.1);
-            padding: 50px 40px;
-            position: relative;
-            overflow: hidden;
-            transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        /* ЛАЗЕРНЫЙ ЛУЧ (СКАНЕР) */
-        .tp-tech-card::after {
-            content: '';
-            position: absolute;
-            top: -100%; left: 0;
-            width: 100%; height: 50%;
-            background: linear-gradient(to bottom, transparent, rgba(251, 191, 36, 0.1), transparent);
-            transition: 0s;
-            pointer-events: none;
-        }
-
-        .tp-tech-card:hover::after {
-            top: 100%;
-            transition: 0.8s ease-in-out;
-        }
-
-        .tp-tech-card:hover {
-            border-color: #FBBF24;
-            transform: scale(1.02);
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.1);
-        }
-
-        /* ТЕХНИЧЕСКИЙ ИНДЕКС */
-        .tp-tech-index {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 10px;
-            color: #FBBF24;
-            letter-spacing: 2px;
-            opacity: 0.5;
-        }
-
-        .tp-tech-card h3 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 18px;
-            text-transform: uppercase;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .tp-tech-card h3::before {
-            content: '';
-            width: 8px; height: 8px;
-            background: #FBBF24;
-            display: inline-block;
-            box-shadow: 0 0 10px #FBBF24;
-        }
-
-        .tp-tech-list {
-            list-style: none;
-            padding: 0; margin: 0;
-        }
-
-        .tp-tech-list li {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 15px;
-            line-height: 1.4;
-            padding-left: 15px;
-            border-left: 1px solid rgba(251, 191, 36, 0.3);
-            transition: 0.3s;
-        }
-
-        .tp-tech-card:hover .tp-tech-list li {
-            color: #eee;
-            border-left-color: #FBBF24;
-        }
-
-        /* НИЖНИЙ ЭЛЕМЕНТ (ДЕКОР) */
-        .tp-card-bottom {
-            margin-top: 30px;
-            height: 1px;
-            width: 100%;
-            background: rgba(255,255,255,0.05);
-            position: relative;
-        }
-
-        .tp-card-bottom::after {
-            content: '';
-            position: absolute;
-            left: 0; top: 0;
-            width: 0; height: 1px;
-            background: #FBBF24;
-            transition: 0.4s;
-        }
-
-        .tp-tech-card:hover .tp-card-bottom::after {
-            width: 100%;
-        }
-
-        @media (max-width: 600px) {
-            .tp-tech-card { padding: 40px 25px; }
-        }
-    </style>
-
-    <div class="tp-tech-grid">
-        <div class="tp-tech-card">
-            <div class="tp-tech-index">ID: EL-01</div>
-            <h3>Монтаж Сетей</h3>
-            <ul class="tp-tech-list">
-                <li>Разводка кабеля в новостройках</li>
-                <li>Штробление стен (бетон/кирпич)</li>
-                <li>Проектирование трасс освещения</li>
-                <li>Монтаж коробок и подрозетников</li>
-            </ul>
-            <div class="tp-card-bottom"></div>
-        </div>
-
-        <div class="tp-tech-card">
-            <div class="tp-tech-index">ID: EL-02</div>
-            <h3>Силовые Щиты</h3>
-            <ul class="tp-tech-list">
-                <li>Сборка щитов 220/380 Вольт</li>
-                <li>Установка УЗО и реле контроля</li>
-                <li>Замена пакетников и автоматов</li>
-                <li>Распределение фазных нагрузок</li>
-            </ul>
-            <div class="tp-card-bottom"></div>
-        </div>
-
-        <div class="tp-tech-card">
-            <div class="tp-tech-index">ID: EL-03</div>
-            <h3>Светотехника</h3>
-            <ul class="tp-tech-list">
-                <li>Установка трековых светильников</li>
-                <li>LED-ленты и скрытые профили</li>
-                <li>Монтаж люстр и бра любой массы</li>
-                <li>Датчики света и фотореле</li>
-            </ul>
-            <div class="tp-card-bottom"></div>
-        </div>
-
-        <div class="tp-tech-card">
-            <div class="tp-tech-index">ID: EL-04</div>
-            <h3>Автоматика</h3>
-            <ul class="tp-tech-list">
-                <li>Настройка систем "Умный Дом"</li>
-                <li>Удаленное управление (смартфон)</li>
-                <li>Датчики движения и протечки</li>
-                <li>Мастер-выключатели питания</li>
-            </ul>
-            <div class="tp-card-bottom"></div>
-        </div>
-
-        <div class="tp-tech-card">
-            <div class="tp-tech-index">ID: EL-05</div>
-            <h3>Инженерная Защита</h3>
-            <ul class="tp-tech-list">
-                <li>Монтаж контура заземления</li>
-                <li>Системы грозозащиты зданий</li>
-                <li>Тепловизионное обследование</li>
-                <li>Замеры сопротивления изоляции</li>
-            </ul>
-            <div class="tp-card-bottom"></div>
-        </div>
-
-        <div class="tp-tech-card" style="border-color: rgba(251, 191, 36, 0.3);">
-            <div class="tp-tech-index" style="color: #fff; opacity: 1;">STATUS: 24/7</div>
-            <h3 style="color: #FBBF24;">Аварийный блок</h3>
-            <ul class="tp-tech-list">
-                <li>Срочный выезд (весь Талас)</li>
-                <li>Поиск обрывов в скрытой проводке</li>
-                <li>Ремонт КЗ в электрощитах</li>
-                <li>Восстановление подачи энергии</li>
-            </ul>
-            <div class="tp-card-bottom" style="background: #FBBF24;"></div>
-        </div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
- <section id="tp-electric-archive" class="tp-archive">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Roboto+Mono:wght@400;700&display=swap');
-
-        /* ОСНОВНОЙ СТИЛЬ БЛОКА */
-        .tp-archive {
-            background: #050505;
-            padding: 40px 15px;
-            color: #ffffff;
-            font-family: 'Roboto Mono', monospace;
-        }
-
-        .tp-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        /* ТЕХНИЧЕСКАЯ ШАПКА */
-        .tp-archive-header {
-            border: 1px solid #333;
+            text-align: center;
+            color: var(--white);
+            font-family: 'Arial Black', sans-serif;
             padding: 20px;
-            margin-bottom: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(90deg, #0a0a0a 0%, #000 100%);
+            position: relative;
         }
 
+        /* КОНТЕЙНЕР С ТЕКСТОМ */
+        .tp-hero-content {
+            max-width: 950px;
+            width: 100%;
+            z-index: 5;
+            animation: tpFadeIn 1s ease-out; /* Анимация появления */
+        }
+
+        /* ВЕРХНЯЯ НАДПИСЬ (TALAS_PROFI) */
+        .tp-top-label {
+            display: inline-block;
+            background-color: var(--gold); /* Цвет плашки */
+            color: var(--black);           /* Цвет текста в плашке */
+            padding: 5px 15px;
+            font-size: 30px;
+            letter-spacing: 2px;           /* Расстояние между буквами */
+            text-transform: uppercase;     /* Все буквы заглавные */
+            margin-bottom: 25px;
+            font-weight: 900;
+        }
+
+        /* ГЛАВНЫЙ ЗАГОЛОВОК (H1) */
+        .tp-main-hero h1 {
+            font-size: clamp(32px, 8vw, 70px); /* Размер подстраивается под экран */
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        /* Золотое слово в заголовке */
+        .tp-main-hero h1 span {
+            color: var(--gold);
+        }
+
+        /* ПОДЗАГОЛОВОК (Описание) */
+        .tp-main-hero p {
+            font-family: 'Segoe UI', sans-serif;
+            font-size: clamp(16px, 3vw, 22px);
+            line-height: 1.5;
+            color: #E0E0E0;
+            max-width: 750px;
+            margin: 0 auto 40px;
+        }
+
+        /* Выделение 24/7 золотом */
+        .tp-main-hero p strong {
+            color: var(--gold);
+            font-weight: 700;
+        }
+
+        /* ГРУППА КНОПОК */
+        .tp-btn-group {
+            display: flex;
+            gap: 15px;              /* Расстояние между кнопками */
+            justify-content: center;
+            flex-wrap: wrap;        /* На мобилке кнопки встанут друг под друга */
+        }
+
+        /* ОБЩИЙ СТИЛЬ КНОПОК */
+        .tp-btn {
+            padding: 22px 35px;
+            font-size: 15px;
+            font-weight: 900;
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: all 0.3s ease; /* Плавность при наведении */
+            border: 2px solid var(--gold);
+            display: inline-block;
+            min-width: 260px;       /* Одинаковая ширина для обеих кнопок */
+        }
+
+        /* ЗОЛОТАЯ КНОПКА (ВЫЗОВ) */
+        .tp-btn-primary {
+            background-color: var(--gold);
+            color: var(--black);
+        }
+
+        .tp-btn-primary:hover {
+            background-color: transparent;
+            color: var(--gold);
+            transform: translateY(-5px); /* Прыжок вверх при наведении */
+            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3); /* Тень */
+        }
+
+        /* ВТОРАЯ КНОПКА (КОНСУЛЬТАЦИЯ) */
+        .tp-btn-secondary {
+            background-color: transparent;
+            color: var(--white);
+            border-color: var(--white);
+        }
+
+        .tp-btn-secondary:hover {
+            background-color: var(--white);
+            color: var(--black);
+            transform: translateY(-5px);
+        }
+
+        /* НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ */
+        @media (max-width: 600px) {
+            .tp-main-hero {
+                background-attachment: scroll; /* Выключаем параллакс, чтоб не тормозило */
+                padding-top: 80px;
+            }
+            .tp-btn {
+                width: 100%;       /* Кнопки на весь экран */
+                min-width: auto;
+            }
+            .tp-main-hero p {
+                border-top: 1px solid rgba(251, 191, 36, 0.3); /* Тонкая линия над текстом */
+                padding-top: 20px;
+            }
+        }
+
+        /* ЭФФЕКТ ПЛАВНОГО ПОЯВЛЕНИЯ ПРИ ЗАГРУЗКЕ */
+        @keyframes tpFadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+
+    <div class="tp-hero-content">
+        <div class="tp-top-label">Talas_profi</div>
+
+        <h1>Профессиональный <br><span>Электромонтаж</span> в Таласе</h1>
+        
+        <p>
+            Аварийный выезд <strong>24/7</strong>, монтаж домов и сборка щитов любой сложности. 
+            Качество, за которое я отвечаю.
+        </p>
+
+        <div class="tp-btn-group">
+            <a href="tel:+996755000228" class="tp-btn tp-btn-primary">Вызвать мастера</a>
+
+            <a href="https://wa.me/996755000228?text=Здравствуйте!%20У%20меня%20есть%20вопрос%20по%20электрике" class="tp-btn tp-btn-secondary">Консультация</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <section class="tp-modern-sos">
+    <style>
+        .tp-modern-sos {
+            --neon-red: #FF3131; /* Неоновый красный */
+            --glass-bg: rgba(20, 20, 20, 0.8);
+            --gold: #FBBF24;
+            
+            background-color: #000;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+        }
+
+        /* Светящиеся пятна на фоне для глубины */
+        .tp-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 49, 49, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .tp-sos-glass-card {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px); /* Эффект размытия стекла */
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px; /* Скругленные углы в стиле модерн */
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        /* Индикатор "В СЕТИ / ОНЛАЙН" */
         .tp-status {
             display: flex;
             align-items: center;
             gap: 10px;
-            color: #FBBF24;
-            font-size: 12px;
+            color: #4ADE80; /* Зеленый цвет */
+            font-size: 14px;
             text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
         }
 
-        .tp-dot {
+        .tp-status-dot {
             width: 8px;
             height: 8px;
-            background: #FBBF24;
+            background: #4ADE80;
             border-radius: 50%;
-            box-shadow: 0 0 10px #FBBF24;
-            animation: tp-pulse 2s infinite;
+            box-shadow: 0 0 10px #4ADE80;
+            animation: tp-pulse 1.5s infinite;
         }
 
-        @keyframes tp-pulse {
-            0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; }
+        .tp-sos-glass-card h2 {
+            color: #fff;
+            font-size: clamp(26px, 5vw, 42px);
+            margin: 0 0 15px 0;
+            font-weight: 800;
+            line-height: 1.1;
         }
 
-        /* ПЛОТНАЯ СЕТКА ГАЛЕРЕИ */
-        .tp-archive-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-            gap: 2px;
-            background: #222;
-            border: 2px solid #222;
+        .tp-sos-glass-card h2 span {
+            color: var(--neon-red);
         }
 
-        .tp-archive-item {
-            position: relative;
-            background: #000;
-            overflow: hidden;
-            aspect-ratio: 1 / 1;
-            cursor: pointer;
+        .tp-sos-glass-card p {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 500px;
         }
 
-        .tp-archive-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            opacity: 0.8;
-            display: block;
-        }
-
-        /* ТЕХНИЧЕСКИЙ ШТАМП НА ФОТО (ДЕСКТОП) */
-        .tp-item-meta {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            padding: 10px;
-            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, transparent 100%);
-            display: flex;
-            justify-content: space-between;
-            font-size: 10px;
-            z-index: 2;
-        }
-
-        .tp-item-title {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background: rgba(251, 191, 36, 0.95);
-            color: #000;
-            padding: 6px 10px;
-            font-weight: 700;
-            font-size: 11px;
-            transform: translateY(100%);
-            transition: 0.3s;
+        /* КНОПКА В СТИЛЕ НЕОНА */
+        .tp-neon-btn {
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 45px;
+            border-radius: 50px;
+            border: 2px solid var(--neon-red);
+            font-weight: 900;
             text-transform: uppercase;
-        }
-
-        /* ХОВЕР ЭФФЕКТЫ (ТОЛЬКО ДЕСКТОП) */
-        @media (min-width: 769px) {
-            .tp-archive-item:hover img {
-                opacity: 1;
-                transform: scale(1.05);
-            }
-            .tp-archive-item:hover .tp-item-title {
-                transform: translateY(0);
-            }
-        }
-
-        /* МОБИЛЬНАЯ ВЕРСИЯ СЕТКИ */
-        @media (max-width: 768px) {
-            .tp-archive-grid {
-                grid-template-columns: repeat(3, 1fr); /* 3 в ряд */
-                gap: 1px;
-            }
-            .tp-item-meta, .tp-item-title { display: none; } /* Скрываем подписи в сетке */
-        }
-
-        /* ============================================================
-           СТИЛИ ДЛЯ ПОПАПА (LIGHTBOX)
-           ============================================================ */
-        .tp-lightbox {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.95);
-            z-index: 10000;
-            display: none;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            backdrop-filter: blur(5px);
-        }
-
-        .tp-lightbox.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        .tp-lightbox-content {
-            position: relative;
-            max-width: 90%;
-            max-height: 90%;
+            letter-spacing: 1px;
+            transition: all 0.4s;
+            white-space: nowrap;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
 
-        .tp-lightbox-img {
-            max-width: 100%;
-            max-height: 80vh;
-            object-fit: contain;
-            border: 2px solid #333;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8);
+        .tp-neon-btn:hover {
+            background: var(--neon-red);
+            box-shadow: 0 0 30px rgba(255, 49, 49, 0.6);
+            transform: scale(1.05);
         }
 
-        .tp-lightbox-caption {
-            margin-top: 15px;
-            color: #FBBF24;
-            font-family: 'Orbitron', sans-serif;
-            text-transform: uppercase;
-            font-size: 14px;
-            text-align: center;
-            letter-spacing: 1px;
+        .tp-neon-btn small {
+            font-size: 10px;
+            opacity: 0.8;
+            margin-top: 4px;
         }
 
-        .tp-lightbox-close {
-            position: absolute;
-            top: -40px;
-            right: 0;
-            color: #fff;
-            font-size: 30px;
-            cursor: pointer;
-            background: none;
-            border: none;
-            font-family: Arial, sans-serif;
-            transition: 0.3s;
+        @keyframes tp-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        .tp-lightbox-close:hover {
-            color: #FBBF24;
-            transform: scale(1.1);
-        }
-
-        body.tp-lightbox-open {
-            overflow: hidden;
+        /* АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНА */
+        @media (max-width: 850px) {
+            .tp-sos-glass-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 25px;
+                border-radius: 20px;
+            }
+            .tp-status { justify-content: center; }
+            .tp-neon-btn { width: 100%; box-sizing: border-box; }
         }
     </style>
 
-    <div class="tp-container">
-        <div class="tp-archive-header">
-            <div>
-                <div class="tp-status"><span class="tp-dot"></span> На Связи 24 / 7</div>
-                <h2 style="font-family: 'Orbitron', sans-serif; margin: 5px 0 0 0; color: #fff; font-size: 18px;">Все виды работ <br>в таласе</h2>
+    <div class="tp-glow"></div>
+
+    <div class="tp-sos-glass-card">
+        <div class="tp-info-side">
+            <div class="tp-status">
+                <div class="tp-status-dot"></div> На связи (Талас)
             </div>
-            <div style="text-align: right; color: #666; font-size: 11px;">
-                <br>
-                Адрес: Таласская область 
-            </div>
+            <h2>Экстренный <span>Выезд</span></h2>
+            <p>Устранение короткого замыкания и неисправностей. Буду на месте через <strong>30 минут</strong>.</p>
         </div>
 
-        <div class="tp-archive-grid">
-            
-            <div class="tp-archive-item" data-title="Сборка главного распределительного щита 380В">
-                <div class="tp-item-meta"><span>#EL-001</span><span>2026-03</span></div>
-                <img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=600" alt="Электрика">
-                <div class="tp-item-title">Сборка силового щита</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Монтаж кабельных трасс в промышленных лотках">
-                <div class="tp-item-meta"><span>#EL-002</span><span>2026-03</span></div>
-                <img src="https://images.unsplash.com/photo-1558211583-d28f61093187?q=80&w=600" alt="Проводка">
-                <div class="tp-item-title">Магистральные линии</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Установка и подключение трековой системы освещения">
-                <div class="tp-item-meta"><span>#EL-003</span><span>2026-03</span></div>
-                <img src="https://images.unsplash.com/photo-1544724569-5f546fd6f2b5?q=80&w=600" alt="Свет">
-                <div class="tp-item-title">Трековое освещение</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Алмазное бурение и установка подрозетников в бетон">
-                <div class="tp-item-meta"><span>#EL-004</span><span>2026-02</span></div>
-                <img src="https://images.unsplash.com/photo-1565814636199-ae8133055c1c?q=80&w=600" alt="Розетки">
-                <div class="tp-item-title">Установка фурнитуры</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Подготовка штроб под силовые кабели (черновой этап)">
-                <div class="tp-item-meta"><span>#EL-005</span><span>2026-02</span></div>
-                <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=600" alt="Штроба">
-                <div class="tp-item-title">Штробление стен</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Финальная маркировка и пусконаладка автоматики в щите">
-                <div class="tp-item-meta"><span>#EL-006</span><span>2026-02</span></div>
-                <img src="https://plus.unsplash.com/premium_photo-1664372145541-4556b409492e?q=80&w=600" alt="Автоматы">
-                <div class="tp-item-title">Маркировка групп</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Используем только профессиональный инструмент для опрессовки">
-                <div class="tp-item-meta"><span>#EL-007</span><span>2026-02</span></div>
-                <img src="https://images.unsplash.com/photo-1530124564312-6f351211d38d?q=80&w=600" alt="Инструмент">
-                <div class="tp-item-title">Профессиональный инструмент</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Интеграция датчиков движения и диммеров в систему умный дом">
-                <div class="tp-item-meta"><span>#EL-008</span><span>2026-01</span></div>
-                <img src="https://images.unsplash.com/photo-1558002038-1055907df827?q=80&w=600" alt="Умный дом">
-                <div class="tp-item-title">Элементы умного дома</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Монтаж и проверка контура заземления загородного дома">
-                <div class="tp-item-meta"><span>#EL-009</span><span>2026-01</span></div>
-                <img src="https://plus.unsplash.com/premium_photo-1678743130190-34a946853744?q=80&w=600" alt="Заземление">
-                <div class="tp-item-title">Контур заземления</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Монтаж эксклюзивной люстры в гостиной">
-                <div class="tp-item-meta"><span>#EL-010</span><span>2026-01</span></div>
-                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=600" alt="Свет">
-                <div class="tp-item-title">Интерьерное освещение</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Укладка силовых кабелей в гофре ПНД по потолку">
-                <div class="tp-item-meta"><span>#EL-011</span><span>2026-01</span></div>
-                <img src="https://plus.unsplash.com/premium_photo-1679088032607-9577953250b7?q=80&w=600" alt="Гофра">
-                <div class="tp-item-title">Разводка в гофре</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Реконструкция этажного распределительного щита">
-                <div class="tp-item-meta"><span>#EL-012</span><span>2025-12</span></div>
-                <img src="https://images.unsplash.com/photo-1596752009228-568910eb7a37?q=80&w=600" alt="Щит">
-                <div class="tp-item-title">Реконструкция ГРЩ</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Организация кабель-менеджмента в слаботочном щите">
-                <div class="tp-item-meta"><span>#EL-013</span><span>2025-12</span></div>
-                <img src="https://images.unsplash.com/photo-1544256718-3bcf237f3974?q=80&w=600" alt="Слаботочка">
-                <div class="tp-item-title">Слаботочные системы</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Чистовая установка потолочных светильников (точечный свет)">
-                <div class="tp-item-meta"><span>#EL-014</span><span>2025-12</span></div>
-                <img src="https://images.unsplash.com/photo-1567459169669-bf06159f8176?q=80&w=600" alt="Свет">
-                <div class="tp-item-title">Точечное освещение</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Диагностика электросети и поиск неисправностей">
-                <div class="tp-item-meta"><span>#EL-015</span><span>2025-11</span></div>
-                <img src="https://images.unsplash.com/photo-1590496827059-86987f4c5496?q=80&w=600" alt="Мультиметр">
-                <div class="tp-item-title">Технический аудит</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Монтаж скрытой светодиодной LED-подсветки в нишу потолка">
-                <div class="tp-item-meta"><span>#EL-016</span><span>2025-11</span></div>
-                <img src="https://images.unsplash.com/photo-1615873968403-89e068629275?q=80&w=600" alt="LED">
-                <div class="tp-item-title">LED-подсветка</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Электромонтаж в складском помещении (высотный монтаж)">
-                <div class="tp-item-meta"><span>#EL-017</span><span>2025-11</span></div>
-                <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?q=80&w=600" alt="Склад">
-                <div class="tp-item-title">Коммерческий объект</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Подключение блока розеток на кухонном фартуке">
-                <div class="tp-item-meta"><span>#EL-018</span><span>2025-10</span></div>
-                <img src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?q=80&w=600" alt="Кухня">
-                <div class="tp-item-title">Кухонная электрика</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Организация ввода СИП в частный дом">
-                <div class="tp-item-meta"><span>#EL-019</span><span>2025-10</span></div>
-                <img src="https://plus.unsplash.com/premium_photo-1681286938928-8924f7943f29?q=80&w=600" alt="Ввод СИП">
-                <div class="tp-item-title">Ввод электроэнергии</div>
-            </div>
-
-            <div class="tp-archive-item" data-title="Чистовая установка дизайнерских выключателей">
-                <div class="tp-item-meta"><span>#EL-020</span><span>2025-10</span></div>
-                <img src="https://images.unsplash.com/photo-1627221371587-f8e1ac3d0521?q=80&w=600" alt="Выключатель">
-                <div class="tp-item-title">Финальная фурнитура</div>
-            </div>
-            
-        </div>
-
-        <div style="margin-top: 20px; text-align: center; font-size: 10px; color: #444;">
-            END OF LIST // TALAS_PROFI
-        </div>
+        <a href="tel:+996755000228" class="tp-neon-btn">
+            ВЫЗВАТЬ МАСТЕРА
+            <small>Talas_profi 24/7</small>
+        </a>
     </div>
-
-    <div class="tp-lightbox" id="tpLightbox">
-        <div class="tp-lightbox-content">
-            <button class="tp-lightbox-close" id="tpLightboxClose">&times;</button>
-            <img src="" alt="Полный размер" class="tp-lightbox-img" id="tpLightboxImg">
-            <div class="tp-lightbox-caption" id="tpLightboxCaption"></div>
-        </div>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const gridItems = document.querySelectorAll('.tp-archive-item');
-            const lightbox = document.getElementById('tpLightbox');
-            const lightboxImg = document.getElementById('tpLightboxImg');
-            const lightboxCaption = document.getElementById('tpLightboxCaption');
-            const closeBtn = document.getElementById('tpLightboxClose');
-            const body = document.body;
-
-            // Открытие попапа
-            gridItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const img = this.querySelector('img');
-                    const title = this.getAttribute('data-title');
-                    
-                    if (img) {
-                        lightboxImg.src = img.src;
-                        lightboxCaption.textContent = title;
-                        lightbox.classList.add('active');
-                        body.classList.add('tp-lightbox-open');
-                    }
-                });
-            });
-
-            // Закрытие
-            function closeLightbox() {
-                lightbox.classList.remove('active');
-                body.classList.remove('tp-lightbox-open');
-                setTimeout(() => { lightboxImg.src = ''; lightboxCaption.textContent = ''; }, 300);
-            }
-
-            closeBtn.addEventListener('click', closeLightbox);
-            
-            lightbox.addEventListener('click', function(e) {
-                if (e.target === this) {
-                    closeLightbox();
-                }
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && lightbox.classList.contains('active')) {
-                    closeLightbox();
-                }
-            });
-        });
-    </script>
 </section>
 
 
@@ -870,322 +380,165 @@
 
 
 
-<footer class="tp-interactive-footer">
+
+
+
+
+<section class="tp-neon-services">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Roboto+Mono:wght@400;700&display=swap');
-
-        .tp-interactive-footer {
-            background: #000;
+        .tp-neon-services {
+            --gold: #FBBF24;
+            --dark: #050505;
+            background-color: #000;
+            padding: 100px 20px;
+            font-family: 'Segoe UI', sans-serif;
             color: #fff;
-            padding: 80px 0 40px;
-            font-family: 'Roboto Mono', monospace;
-            overflow: hidden;
-            border-top: 2px solid #FBBF24;
-            user-select: none;
         }
 
-        .tp-footer-title {
-            text-align: center;
-            margin-bottom: 50px;
-            font-family: 'Orbitron', sans-serif;
-            color: #FBBF24;
-            letter-spacing: 10px;
-            font-size: clamp(14px, 3vw, 18px);
-            text-transform: uppercase;
-        }
-
-        .tp-slider-row {
-            width: 100%;
-            overflow: hidden;
-            margin-bottom: 12px;
-            cursor: grab;
+        .tp-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
             position: relative;
-            background: rgba(251, 191, 36, 0.02);
-            padding: 15px 0;
-            border-top: 1px solid rgba(255,255,255,0.03);
-            border-bottom: 1px solid rgba(255,255,255,0.03);
         }
 
-        .tp-slider-row:active { cursor: grabbing; }
-
-        .tp-slider-track {
-            display: flex;
-            width: max-content;
-            will-change: transform;
+        /* ЦЕНТРАЛЬНАЯ ЛИНИЯ (ПРОВОД) */
+        .tp-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+            z-index: 1;
         }
 
-        .tp-service-card {
-            flex: 0 0 auto;
-            padding: 12px 35px;
-            margin: 0 6px;
-            background: #0a0a0a;
-            border: 1px solid #1a1a1a;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .tp-service-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 70px;
+            z-index: 2;
         }
 
-        .tp-service-card:hover {
-            border-color: #FBBF24;
-            background: #111;
-            transform: scale(1.05);
+        /* ТОЧКА ПОДКЛЮЧЕНИЯ */
+        .tp-dot {
+            position: absolute;
+            left: 21px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--dark);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--gold);
         }
 
-        .tp-service-card a {
-            color: #666;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 700;
+        /* КРАСНАЯ ТОЧКА ДЛЯ АВАРИЙКИ */
+        .tp-dot-emergency {
+            border-color: #EF4444;
+            box-shadow: 0 0 20px #EF4444;
+        }
+
+        .tp-service-item h3 {
+            font-size: clamp(22px, 5vw, 28px);
+            color: var(--gold);
             text-transform: uppercase;
-            pointer-events: none;
+            margin: 0 0 12px 0;
+            font-weight: 900;
         }
 
-        .tp-service-card:hover a { color: #fff; }
-
-        .tp-footer-main {
-            max-width: 1200px;
-            margin: 80px auto 40px;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 40px;
+        /* Красный заголовок для срочности */
+        .tp-service-item h3.emergency-title {
+            color: #EF4444;
         }
 
-        .tp-footer-info h3 {
-            font-family: 'Orbitron', sans-serif;
-            color: #FBBF24;
-            margin-bottom: 20px;
-            font-size: 22px;
-            letter-spacing: 2px;
-        }
-
-        .tp-footer-info p {
-            color: #888;
-            font-size: 14px;
+        .tp-service-item p {
+            font-size: 18px;
+            color: #ccc;
             line-height: 1.6;
-            max-width: 350px;
+            margin: 0;
+            max-width: 600px;
         }
 
-        .tp-social-links {
+        .tp-tags {
+            margin-top: 15px;
             display: flex;
+            gap: 10px;
             flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 25px;
         }
 
-        .tp-social-icon {
-            padding: 0 20px;
-            height: 45px;
-            border: 1px solid #333;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff;
-            text-decoration: none;
-            transition: 0.3s;
+        .tp-tag {
+            background: #111;
+            border: 1px solid #222;
+            color: #777;
+            padding: 5px 12px;
             font-size: 11px;
-            font-weight: bold;
             text-transform: uppercase;
+            border-radius: 4px;
             letter-spacing: 1px;
         }
 
-        .tp-social-icon:hover {
-            border-color: #FBBF24;
-            color: #000;
-            background: #FBBF24;
-            transform: translateY(-3px);
-        }
-
-        .tp-footer-contact-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .tp-footer-contact-list li {
-            margin-bottom: 15px;
-            color: #fff;
-            font-size: 15px;
-        }
-
-        .tp-footer-contact-list span {
-            color: #FBBF24;
-            display: block;
-            font-size: 10px;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-        }
-
-        .tp-legal-bar {
-            border-top: 1px solid #111;
-            padding: 30px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 10px;
-            color: #444;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        @media (max-width: 900px) {
-            .tp-footer-main { grid-template-columns: 1fr; text-align: center; }
-            .tp-footer-info p { margin: 0 auto; }
-            .tp-social-links { justify-content: center; }
-            .tp-legal-bar { flex-direction: column; gap: 15px; text-align: center; }
+        @media (max-width: 600px) {
+            .tp-wrapper::before { left: 15px; }
+            .tp-dot { left: 6px; }
+            .tp-service-item { padding-left: 50px; }
         }
     </style>
 
-    <div class="tp-footer-title">Первый цифровой сайт услуг</div>
-
-    <div class="tp-slider-row" data-speed="1.2">
-        <div class="tp-slider-track">
-            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
-            <div class="tp-service-card"><a href="#">Сантехника</a></div>
-            <div class="tp-service-card"><a href="#">Отопление</a></div>
-            <div class="tp-service-card"><a href="#">Умный дом</a></div>
-            <div class="tp-service-card"><a href="#">Заземление</a></div>
-            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
-            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
-            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
-            <div class="tp-service-card"><a href="#">Сантехника</a></div>
-            <div class="tp-service-card"><a href="#">Отопление</a></div>
-            <div class="tp-service-card"><a href="#">Умный дом</a></div>
-            <div class="tp-service-card"><a href="#">Заземление</a></div>
-            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
-            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
-        </div>
-    </div>
-
-    <div class="tp-slider-row" data-speed="-1">
-        <div class="tp-slider-track">
-            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
-            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
-            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
-            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
-            <div class="tp-service-card"><a href="#">Ламинат</a></div>
-            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
-            <div class="tp-service-card"><a href="#">Кафель</a></div>
-            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
-            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
-            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
-            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
-            <div class="tp-service-card"><a href="#">Ламинат</a></div>
-            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
-            <div class="tp-service-card"><a href="#">Кафель</a></div>
-        </div>
-    </div>
-
-    <div class="tp-slider-row" data-speed="0.8">
-        <div class="tp-slider-track">
-            <div class="tp-service-card"><a href="#">Клининг</a></div>
-            <div class="tp-service-card"><a href="#">Послестрой</a></div>
-            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
-            <div class="tp-service-card"><a href="#">Сварка</a></div>
-            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
-            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
-            <div class="tp-service-card"><a href="#">Грузчики</a></div>
-            <div class="tp-service-card"><a href="#">Клининг</a></div>
-            <div class="tp-service-card"><a href="#">Послестрой</a></div>
-            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
-            <div class="tp-service-card"><a href="#">Сварка</a></div>
-            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
-            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
-            <div class="tp-service-card"><a href="#">Грузчики</a></div>
-        </div>
-    </div>
-
-    <div class="tp-footer-main">
-        <div class="tp-footer-info">
-            <h3>TALAS_PROFI</h3>
-            <p>Ваш надежный партнер в Таласе. Полный спектр технических решений и все услуги под единым управлением.</p>
-            <div class="tp-social-links">
-                <a href="https://wa.me/996755000228" class="tp-social-icon" target="_blank" rel="noopener">WhatsApp</a>
-                <a href="#" class="tp-social-icon">Instagram</a>
-                <a href="#" class="tp-social-icon">Telegram</a>
+    <div class="tp-wrapper">
+        
+        <div class="tp-service-item">
+            <div class="tp-dot tp-dot-emergency"></div>
+            <h3 class="emergency-title">Аварийный выезд 24/7</h3>
+            <p>Пропал свет, пахнет горелым или искрит щиток? Приеду в течение 30 минут в любую точку Таласа. Быстро найду причину и всё исправлю, чтобы вы не сидели в темноте.</p>
+            <div class="tp-tags">
+                <div class="tp-tag" style="color: #EF4444; border-color: #EF4444;">Срочно</div>
+                <div class="tp-tag">Круглосуточно</div>
             </div>
         </div>
 
-        <div class="tp-footer-contacts">
-            <ul class="tp-footer-contact-list">
-                <li><span>Обратная связь</span>+996 755 000 228</li>
-                <li><span>Рабочее время</span>08:00 — 20:00 (Ежедневно)</li>
-            </ul>
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Дома и квартиры</h3>
+            <p>Делаю проводку с нуля или полностью меняю старую. Подскажу, где лучше поставить розетки, чтобы было удобно. Штроблю стены быстро и без лишней пыли.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">Под ключ</div>
+                <div class="tp-tag">Без пыли</div>
+            </div>
         </div>
 
-        <div class="tp-footer-contacts">
-            <ul class="tp-footer-contact-list">
-                <li><span>Локация</span>Кыргызстан, г. Талас</li>
-                <li><span>Email </span>talas_profi@mail.com</li>
-            </ul>
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Сборка щитов</h3>
+            <p>Собираю надежные электрощиты. Ставлю защиту, которая спасет ваш холодильник, телевизор и компьютер от сгорания, если в сети прыгнет напряжение.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">Безопасность</div>
+                <div class="tp-tag">Защита техники</div>
+            </div>
         </div>
+
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Бизнес и склады</h3>
+            <p>Подключаю магазины, цеха и склады. Провожу 380 вольт, настраиваю освещение и подключаю оборудование. Работаю так, чтобы ваш бизнес не простаивал.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">380V</div>
+                <div class="tp-tag">Промышленный монтаж</div>
+            </div>
+        </div>
+
+        <div style="padding-left: 80px; color: #444; font-size: 14px; text-transform: uppercase;">
+            + Выполняю любые другие работы по электрике
+        </div>
+
     </div>
+</section>
 
-    <div class="tp-legal-bar">
-        <div>© 2026 TALAS_PROFI. Все права защищены.</div>
-        <div style="color: #222; opacity: 0.5;">ID: TP-PRO-2026</div>
-        <div>Industrial Build by Talas_profi</div>
-    </div>
 
-    <script>
-        const rows = document.querySelectorAll('.tp-slider-row');
-        
-        rows.forEach(row => {
-            const track = row.querySelector('.tp-slider-track');
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-            let autoSpeed = parseFloat(row.dataset.speed);
-            let currentAutoPos = 0;
 
-            function animate() {
-                if (!isDown) {
-                    currentAutoPos -= autoSpeed;
-                    const halfWidth = track.scrollWidth / 2;
-                    
-                    if (autoSpeed > 0 && Math.abs(currentAutoPos) >= halfWidth) {
-                        currentAutoPos = 0;
-                    } else if (autoSpeed < 0 && currentAutoPos >= 0) {
-                        currentAutoPos = -halfWidth;
-                    }
-                    
-                    track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
-                }
-                requestAnimationFrame(animate);
-            }
+    
 
-            const startAction = (e) => {
-                isDown = true;
-                const pageX = e.pageX || e.touches[0].pageX;
-                startX = pageX - track.offsetLeft;
-                scrollLeft = currentAutoPos;
-            };
-
-            const endAction = () => {
-                isDown = false;
-            };
-
-            const moveAction = (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const pageX = e.pageX || e.touches[0].pageX;
-                const x = pageX - track.offsetLeft;
-                const walk = x - startX;
-                currentAutoPos = scrollLeft + walk;
-                track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
-            };
-
-            row.addEventListener('mousedown', startAction);
-            window.addEventListener('mouseup', endAction);
-            row.addEventListener('mousemove', moveAction);
-            row.addEventListener('dragstart', (e) => e.preventDefault());
-
-            row.addEventListener('touchstart', startAction, {passive: false});
-            row.addEventListener('touchend', endAction);
-            row.addEventListener('touchmove', moveAction, {passive: false});
-
-            animate();
-        });
-    </script>
-</footer>
+    
 
 
 
@@ -1195,8 +548,7 @@
 
 
     
-
-
     
+      
 </body>
 </html>

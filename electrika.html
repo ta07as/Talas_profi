@@ -21,6 +21,213 @@
 
 
 
+
+    <nav class="tp-nav-new">
+    <div class="tp-nav-body">
+        <a href="#" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
+        
+        <div class="tp-nav-right-side">
+            <button class="tp-nav-btn-mob" onclick="toggleTpMenu()">
+                <div class="tp-burger-icon">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+            
+            <div class="tp-nav-links-pc">
+                <a href="#gl">ГЛАВНЫЙ ЭКРАН</a>
+                <a href="#tp-services-section">УСЛУГИ</a>
+                <a href="#order">ПОЧЕМУ МЫ</a>
+                <a href="#foto">ПОРТФОЛИО</a>
+                <a href="#contakt">КОНТАКТЫ</a>
+                <a href="tel:+996755000228" class="tp-nav-phone-pc">+996 755 000 228</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tp-mob-drawer" id="tpDrawer">
+        <div class="tp-drawer-content">
+            <button class="tp-close-btn" onclick="toggleTpMenu()">×</button>
+            <a href="#gl" onclick="toggleTpMenu()">ГЛАВНЫЙ ЭКРАН</a>
+            <a href="#tp-services-section" onclick="toggleTpMenu()">УСЛУГИ</a>
+            <a href="#order" onclick="toggleTpMenu()">ПОЧЕМУ МЫ</a>
+            <a href="#foto" onclick="toggleTpMenu()">ПОРТФОЛИО</a>
+            <a href="#contakt" onclick="toggleTpMenu()">КОНТАКТЫ</a>
+            <hr style="border: 0; border-top: 1px solid #333; width: 100%;">
+            <a href="tel:+996755000228" class="tp-gold-link">+996 755 000 228</a>
+            <a href="https://wa.me/996755000228" class="tp-wa-link">WHATSAPP</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* [3] ПЛАВНЫЙ СКРОЛЛ ДЛЯ ВСЕЙ СТРАНИЦЫ */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    html, body { 
+        overflow-x: hidden; 
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body { padding-top: 70px !important; }
+
+    /* СТИЛИ ШАПКИ */
+    .tp-nav-new {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 70px;
+        background: #000;
+        border-bottom: 2px solid #FBBF24;
+        z-index: 1000000;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .tp-nav-body {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tp-nav-logo {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .tp-nav-logo span { color: #FBBF24; }
+
+    /* ПК СТИЛИ */
+    .tp-nav-links-pc { display: flex; align-items: center; gap: 25px; }
+    .tp-nav-links-pc a { 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 13px; 
+        font-weight: bold; 
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+    .tp-nav-links-pc a:hover { color: #FBBF24; }
+    .tp-nav-phone-pc { color: #FBBF24 !important; font-size: 16px !important; margin-left: 10px; }
+
+    /* МОБИЛЬНЫЕ СТИЛИ */
+    .tp-nav-btn-mob { display: none; background: none; border: none; cursor: pointer; padding: 10px; }
+    .tp-burger-icon span { display: block; width: 25px; height: 3px; background: #FBBF24; margin: 5px 0; }
+
+    /* ОБНОВЛЕННАЯ ПЛАВНАЯ ШТОРКА */
+    .tp-mob-drawer {
+        position: fixed;
+        top: 0; right: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.98);
+        z-index: 2000000;
+        display: flex;
+        justify-content: center;
+        
+        /* Эффекты появления */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tp-mob-drawer.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .tp-drawer-content {
+        display: flex; flex-direction: column;
+        padding: 60px 40px; 
+        gap: 25px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .tp-drawer-content a { 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 20px; 
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    /* Анимация появления ссылок внутри шторки */
+    .tp-mob-drawer.active .tp-drawer-content a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Задержка для каждой ссылки (ступенчатое появление) */
+    .tp-drawer-content a:nth-child(2) { transition-delay: 0.1s; }
+    .tp-drawer-content a:nth-child(3) { transition-delay: 0.2s; }
+    .tp-drawer-content a:nth-child(4) { transition-delay: 0.3s; }
+    .tp-drawer-content a:nth-child(5) { transition-delay: 0.4s; }
+    .tp-drawer-content a:nth-child(6) { transition-delay: 0.5s; }
+
+    .tp-close-btn { 
+        color: #FBBF24; 
+        font-size: 50px; 
+        background: none; 
+        border: none; 
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .tp-gold-link { color: #FBBF24 !important; }
+    .tp-wa-link { 
+        background: #FBBF24; 
+        color: #000 !important; 
+        padding: 15px; 
+        border-radius: 50px;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+        .tp-nav-links-pc { display: none; }
+        .tp-nav-btn-mob { display: block; }
+        .tp-nav-body { padding: 0 20px; }
+    }
+</style>
+
+<script>
+    // ФУНКЦИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ С ПЛАВНЫМ ЭФФЕКТОМ
+    function toggleTpMenu() {
+        const drawer = document.getElementById('tpDrawer');
+        drawer.classList.toggle('active');
+        
+        // Блокируем скролл основной страницы при открытом меню
+        if(drawer.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+    
+
+
+
+
+
     
 
 

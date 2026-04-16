@@ -751,6 +751,162 @@
 
 
 
+<section class="tp-expertise">
+    <style>
+        .tp-expertise {
+            --gold: #FBBF24;
+            --black: #000000;
+            --dark-grey: #0F0F0F;
+            
+            background-color: var(--black);
+            padding: 100px 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #FFFFFF;
+            border-top: 1px solid #1A1A1A;
+        }
+
+        .tp-exp-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tp-exp-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .tp-exp-header h2 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: clamp(26px, 5vw, 42px);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .tp-exp-header h2 span {
+            color: var(--gold);
+        }
+
+        /* СЕТКА ПРЕИМУЩЕСТВ */
+        .tp-exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .tp-exp-item {
+            background: var(--dark-grey);
+            padding: 40px;
+            border: 1px solid #1A1A1A;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        /* Золотой уголок в стиле промышленной маркировки */
+        .tp-exp-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, transparent 50%, var(--gold) 50%);
+        }
+
+        .tp-exp-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .tp-exp-item h3 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 20px;
+            color: var(--gold);
+            margin-top: 0;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .tp-exp-item p {
+            font-size: 16px;
+            color: #CCCCCC;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        /* МАЛЕНЬКИЙ ТЕКСТ-СНОСКА */
+        .tp-exp-law {
+            margin-top: 50px;
+            padding: 20px;
+            border: 1px dashed #333;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            color: #666;
+            font-size: 13px;
+        }
+
+        /* АДАПТАЦИЯ */
+        @media (max-width: 768px) {
+            .tp-exp-item { padding: 30px; }
+            .tp-exp-header { margin-bottom: 40px; }
+        }
+    </style>
+
+    <div class="tp-exp-container">
+        <div class="tp-exp-header">
+            <h2>Техника <span>решает всё</span></h2>
+        </div>
+
+        <div class="tp-exp-grid">
+            
+            <div class="tp-exp-item">
+                <h3>Проф. Инструмент</h3>
+                <p>Я не работаю старыми дедовскими методами. Использую современные штроборезы с пылесосом (минимум пыли в доме), точные тестеры и надежные обжимные прессы. Качественный инструмент — это залог того, что контакты не подгорят.</p>
+            </div>
+
+            <div class="tp-exp-item">
+                <h3>Стандарты ПУЭ</h3>
+                <p>Работаю строго по Правилам Устройства Электроустановок (ПУЭ). Это значит — правильное сечение кабеля, надежная изоляция и грамотное распределение нагрузки. Ваша проводка будет безопасной на 100%.</p>
+            </div>
+
+            <div class="tp-exp-item">
+                <h3>Гарантия 1 год</h3>
+                <p>Я уверен в своей работе, поэтому даю официальную гарантию на монтаж. Если в течение года возникнет любая проблема по моей вине — приеду и исправлю всё абсолютно бесплатно.</p>
+            </div>
+
+        </div>
+
+        <div class="tp-exp-law">
+            ТЕХНИЧЕСКИЙ РЕГЛАМЕНТ ТАЛАС_ПРОФИ // СОБЛЮДЕНИЕ НОРМ БЕЗОПАСНОСТИ ОБЯЗАТЕЛЬНО
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+    
+
+
+
 
 
 

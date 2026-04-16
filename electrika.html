@@ -892,6 +892,331 @@
 
 
 
+    
+
+
+
+
+<footer class="tp-interactive-footer"id="contakt">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Roboto+Mono:wght@400;700&display=swap');
+
+        .tp-interactive-footer {
+            background: #000;
+            color: #fff;
+            padding: 80px 0 40px;
+            font-family: 'Roboto Mono', monospace;
+            overflow: hidden;
+            border-top: 2px solid #FBBF24;
+            user-select: none;
+        }
+
+        .tp-footer-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Orbitron', sans-serif;
+            color: #FBBF24;
+            letter-spacing: 10px;
+            font-size: clamp(14px, 3vw, 18px);
+            text-transform: uppercase;
+        }
+
+        .tp-slider-row {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 12px;
+            cursor: grab;
+            position: relative;
+            background: rgba(251, 191, 36, 0.02);
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .tp-slider-row:active { cursor: grabbing; }
+
+        .tp-slider-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .tp-service-card {
+            flex: 0 0 auto;
+            padding: 12px 35px;
+            margin: 0 6px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tp-service-card:hover {
+            border-color: #FBBF24;
+            background: #111;
+            transform: scale(1.05);
+        }
+
+        .tp-service-card a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .tp-service-card:hover a { color: #fff; }
+
+        .tp-footer-main {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .tp-footer-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FBBF24;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
+
+        .tp-footer-info p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 350px;
+        }
+
+        .tp-social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .tp-social-icon {
+            padding: 0 20px;
+            height: 45px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tp-social-icon:hover {
+            border-color: #FBBF24;
+            color: #000;
+            background: #FBBF24;
+            transform: translateY(-3px);
+        }
+
+        .tp-footer-contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tp-footer-contact-list li {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .tp-footer-contact-list span {
+            color: #FBBF24;
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .tp-legal-bar {
+            border-top: 1px solid #111;
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .tp-footer-main { grid-template-columns: 1fr; text-align: center; }
+            .tp-footer-info p { margin: 0 auto; }
+            .tp-social-links { justify-content: center; }
+            .tp-legal-bar { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+
+    <div class="tp-footer-title">Первый цифровой сайт услуг</div>
+
+    <div class="tp-slider-row" data-speed="1.2">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Сантехника</a></div>
+            <div class="tp-service-card"><a href="#">Отопление</a></div>
+            <div class="tp-service-card"><a href="#">Умный дом</a></div>
+            <div class="tp-service-card"><a href="#">Заземление</a></div>
+            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
+            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
+            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Сантехника</a></div>
+            <div class="tp-service-card"><a href="#">Отопление</a></div>
+            <div class="tp-service-card"><a href="#">Умный дом</a></div>
+            <div class="tp-service-card"><a href="#">Заземление</a></div>
+            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
+            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
+        </div>
+    </div>
+
+    <div class="tp-slider-row" data-speed="-1">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
+            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
+            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
+            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
+            <div class="tp-service-card"><a href="#">Ламинат</a></div>
+            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Кафель</a></div>
+            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
+            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
+            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
+            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
+            <div class="tp-service-card"><a href="#">Ламинат</a></div>
+            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Кафель</a></div>
+        </div>
+    </div>
+
+    <div class="tp-slider-row" data-speed="0.8">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Клининг</a></div>
+            <div class="tp-service-card"><a href="#">Послестрой</a></div>
+            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
+            <div class="tp-service-card"><a href="#">Сварка</a></div>
+            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
+            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
+            <div class="tp-service-card"><a href="#">Грузчики</a></div>
+            <div class="tp-service-card"><a href="#">Клининг</a></div>
+            <div class="tp-service-card"><a href="#">Послестрой</a></div>
+            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
+            <div class="tp-service-card"><a href="#">Сварка</a></div>
+            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
+            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
+            <div class="tp-service-card"><a href="#">Грузчики</a></div>
+        </div>
+    </div>
+
+    <div class="tp-footer-main">
+        <div class="tp-footer-info">
+            <h3>TALAS_PROFI</h3>
+            <p>Ваш надежный партнер в Таласе. Полный спектр технических решений и все услуги под единым управлением.</p>
+            <div class="tp-social-links">
+                <a href="https://wa.me/996755000228" class="tp-social-icon" target="_blank" rel="noopener">WhatsApp</a>
+                <a href="#" class="tp-social-icon">Instagram</a>
+                <a href="#" class="tp-social-icon">Telegram</a>
+            </div>
+        </div>
+
+        <div class="tp-footer-contacts">
+            <ul class="tp-footer-contact-list">
+                <li><span>Обратная связь</span>+996 755 000 228</li>
+                <li><span>Рабочее время</span>08:00 — 20:00 (Ежедневно)</li>
+            </ul>
+        </div>
+
+        <div class="tp-footer-contacts">
+            <ul class="tp-footer-contact-list">
+                <li><span>Локация</span>Кыргызстан, г. Талас</li>
+                <li><span>Email </span>talas_profi@mail.com</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tp-legal-bar">
+        <div>© 2026 TALAS_PROFI. Все права защищены.</div>
+        <div style="color: #222; opacity: 0.5;">ID: TP-PRO-2026</div>
+        <div>Industrial Build by Talas_profi</div>
+    </div>
+
+    <script>
+        const rows = document.querySelectorAll('.tp-slider-row');
+        
+        rows.forEach(row => {
+            const track = row.querySelector('.tp-slider-track');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let autoSpeed = parseFloat(row.dataset.speed);
+            let currentAutoPos = 0;
+
+            function animate() {
+                if (!isDown) {
+                    currentAutoPos -= autoSpeed;
+                    const halfWidth = track.scrollWidth / 2;
+                    
+                    if (autoSpeed > 0 && Math.abs(currentAutoPos) >= halfWidth) {
+                        currentAutoPos = 0;
+                    } else if (autoSpeed < 0 && currentAutoPos >= 0) {
+                        currentAutoPos = -halfWidth;
+                    }
+                    
+                    track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
+                }
+                requestAnimationFrame(animate);
+            }
+
+            const startAction = (e) => {
+                isDown = true;
+                const pageX = e.pageX || e.touches[0].pageX;
+                startX = pageX - track.offsetLeft;
+                scrollLeft = currentAutoPos;
+            };
+
+            const endAction = () => {
+                isDown = false;
+            };
+
+            const moveAction = (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const pageX = e.pageX || e.touches[0].pageX;
+                const x = pageX - track.offsetLeft;
+                const walk = x - startX;
+                currentAutoPos = scrollLeft + walk;
+                track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
+            };
+
+            row.addEventListener('mousedown', startAction);
+            window.addEventListener('mouseup', endAction);
+            row.addEventListener('mousemove', moveAction);
+            row.addEventListener('dragstart', (e) => e.preventDefault());
+
+            row.addEventListener('touchstart', startAction, {passive: false});
+            row.addEventListener('touchend', endAction);
+            row.addEventListener('touchmove', moveAction, {passive: false});
+
+            animate();
+        });
+    </script>
+</footer>
+
+
+
+    
 
 
     

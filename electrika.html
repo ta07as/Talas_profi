@@ -894,6 +894,161 @@
 
 
 
+<section class="tp-reviews">
+    <style>
+        .tp-reviews {
+            --gold: #FBBF24;
+            --black: #000000;
+            --card-bg: #111111;
+            background-color: var(--black);
+            padding: 80px 20px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .tp-rev-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tp-rev-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .tp-rev-header h2 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: clamp(26px, 5vw, 38px);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .tp-rev-header h2 span { color: var(--gold); }
+
+        .tp-rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .tp-rev-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #1A1A1A;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tp-rev-card:hover { border-color: var(--gold); }
+
+        .tp-stars { color: var(--gold); margin-bottom: 10px; font-size: 12px; }
+
+        .tp-rev-text {
+            font-style: italic;
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .tp-user-info strong { display: block; color: var(--gold); font-size: 16px; }
+        .tp-user-info span { color: #555; font-size: 13px; }
+    </style>
+
+    <div class="tp-rev-container">
+        <div class="tp-rev-header">
+            <h2>Что говорят <span>о нас в Таласе</span></h2>
+        </div>
+
+        <div class="tp-rev-grid">
+            
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Вызвали Акима, когда в щитке начался треск. Приехал очень быстро, за полчаса. Всё проверил, заменил сгоревший автомат. Теперь спим спокойно."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Бакыт</strong>
+                    <span>г. Талас (центр)</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Заказывали полную проводку в новом доме. Сделал всё по ПУЭ, аккуратно, мусор за собой убрал. Приятно работать с профи."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Улан</strong>
+                    <span>с. Кок-Ой</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Установил защиту от скачков напряжения. Объясняет всё простыми словами, не пытается содрать лишнего. Очень честный мастер."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Айгуль</strong>
+                    <span>мкр. Анар</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Нужно было срочно подключить торговое оборудование в магазине. Аким приехал в тот же день, всё настроил и проверил заземление. Работаем без сбоев!"</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Канат</strong>
+                    <span>Владелец магазина</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Боялся, что мастер сделает и пропадет, как это часто бывает. Но Аким дал гарантию и оставил визитку. Сразу видно — Talas_profi дорожит именем."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Мирлан</strong>
+                    <span>Частный сектор</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Удивило, что мастер пришел с крутым инструментом и пылесосом. В доме почти не было пыли после штробления. Совсем другой уровень сервиса!"</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Нурбек</strong>
+                    <span>г. Талас</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
 <section class="tp-portfolio-gravity"id="foto">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');

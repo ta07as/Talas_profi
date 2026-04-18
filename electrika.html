@@ -895,10 +895,7 @@
 
 
 
-
-
-
-<section class="tp-portfolio-gravity"id="foto">
+<section class="tp-portfolio-gravity" id="foto">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
 
@@ -910,242 +907,201 @@
             position: relative;
             overflow: hidden;
             border-top: 1px solid #1a1a1a;
-            border-bottom: 1px solid #1a1a1a;
-        }
-
-        .tp-p-container {
-            max-width: 100%;
-            position: relative;
-            z-index: 10;
         }
 
         .tp-p-header {
             text-align: center;
-            margin-bottom: 50px;
-            padding: 0 20px;
+            margin-bottom: 40px;
         }
 
         .tp-p-header h2 {
             font-family: 'Syncopate', sans-serif;
-            font-size: clamp(22px, 5vw, 36px);
+            font-size: clamp(20px, 4vw, 32px);
             text-transform: uppercase;
             letter-spacing: 5px;
             margin: 0;
         }
 
-        .tp-p-header h2 span {
-            color: #FBBF24;
-            text-shadow: 0 0 15px rgba(251, 191, 36, 0.5);
-        }
+        .tp-p-header h2 span { color: #FBBF24; }
 
+        /* СЕТКА ПОТОКОВ (4 РЯДА) */
         .tp-gravity-streams {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            height: auto;
-            justify-content: center;
+            gap: 10px;
         }
 
         .tp-p-stream {
             display: flex;
             overflow: hidden;
             width: 100%;
-            position: relative;
         }
 
         .tp-p-track {
             display: flex;
-            gap: 15px;
+            gap: 10px;
             width: fit-content;
         }
 
-        /* АНИМАЦИИ БЕСКОНЕЧНОГО ЦИКЛА */
-        @keyframes scrollLeft {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(calc(-50% - 7.5px)); }
-        }
+        /* АНИМАЦИИ ДЛЯ 4 РЯДОВ */
+        @keyframes scrollL { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 5px)); } }
+        @keyframes scrollR { 0% { transform: translateX(calc(-50% - 5px)); } 100% { transform: translateX(0); } }
 
-        @keyframes scrollRight {
-            0% { transform: translateX(calc(-50% - 7.5px)); }
-            100% { transform: translateX(0); }
-        }
-
-        .tp-stream-1 .tp-p-track { animation: scrollLeft 50s linear infinite; }
-        .tp-stream-2 .tp-p-track { animation: scrollRight 55s linear infinite; }
-        .tp-stream-3 .tp-p-track { animation: scrollLeft 60s linear infinite; }
+        .s1 .tp-p-track { animation: scrollL 35s linear infinite; }
+        .s2 .tp-p-track { animation: scrollR 40s linear infinite; }
+        .s3 .tp-p-track { animation: scrollL 45s linear infinite; }
+        .s4 .tp-p-track { animation: scrollR 38s linear infinite; }
 
         .tp-p-stream:hover .tp-p-track { animation-play-state: paused; }
 
         .tp-p-item {
-            width: 300px;
-            height: 200px;
+            width: 280px;
+            height: 180px;
             background-color: #111;
-            border: 1px solid #222;
             position: relative;
-            overflow: hidden;
-            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
             cursor: pointer;
+            flex-shrink: 0;
         }
 
         .tp-p-item img {
-            width: 100%;
-            height: 100%;
+            width: 100%; height: 100%;
             object-fit: cover;
-            filter: grayscale(1) brightness(0.5);
-            transition: 0.6s;
+            filter: grayscale(1) brightness(0.4);
+            transition: 0.5s;
         }
 
-        .tp-p-item:hover {
-            z-index: 100;
-            border-color: #FBBF24;
-            transform: scale(1.2) translateZ(50px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(251, 191, 36, 0.4);
-        }
-
-        .tp-p-item:hover img {
-            filter: grayscale(0) brightness(1);
-        }
-
+        .tp-p-item:hover img { filter: grayscale(0) brightness(1); }
+        
         .tp-item-mark {
-            position: absolute;
-            bottom: 10px; right: 10px;
-            font-family: 'Courier New', monospace;
-            font-size: 10px;
-            color: rgba(255,255,255,0.3);
-            background: rgba(0,0,0,0.7);
-            padding: 2px 6px;
-            pointer-events: none;
+            position: absolute; bottom: 5px; right: 5px;
+            font-size: 9px; color: rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.6); padding: 2px 5px;
         }
+
+        /* ПОЛНОЭКРАННЫЙ ПОПАП */
+        .tp-full-popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.98);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .tp-full-img {
+            max-width: 95%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 1px solid #FBBF24;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
+            animation: zoomUp 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @keyframes zoomUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tp-close-btn {
+            position: absolute; top: 20px; right: 30px;
+            color: #FBBF24; font-size: 50px; cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* ПОДВАЛ БЛОКА */
+        .tp-portfolio-footer { text-align: center; margin-top: 40px; }
+        .tp-more-btn {
+            display: inline-block; padding: 15px 35px;
+            border: 1px solid #FBBF24; color: #FBBF24;
+            text-decoration: none; font-size: 12px;
+            transition: 0.4s; font-family: 'Syncopate', sans-serif;
+        }
+        .tp-more-btn:hover { background: #FBBF24; color: #000; }
 
         @media (max-width: 768px) {
-            .tp-p-item { width: 200px; height: 140px; }
-            .tp-stream-1 .tp-p-track { animation-duration: 30s; }
-            .tp-stream-2 .tp-p-track { animation-duration: 35s; }
-            .tp-stream-3 .tp-p-track { animation-duration: 40s; }
+            .tp-p-item { width: 160px; height: 110px; }
         }
     </style>
 
     <div class="tp-p-container">
         <div class="tp-p-header">
-            <h2>ПОРТФОЛИО <span>ПРОЕКТОВ</span></h2>
+            <h2>НАШИ <span>РАБОТЫ</span></h2>
         </div>
 
         <div class="tp-gravity-streams">
-            
-            <div class="tp-p-stream tp-stream-1">
-                <div class="tp-p-track">
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_01</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_02</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_03</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1595844730298-b9f0ff98ffd0?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_04</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_05</div></div>
-                </div>
-            </div>
+            <div class="tp-p-stream s1"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500"><div class="tp-item-mark">01</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500"><div class="tp-item-mark">02</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500"><div class="tp-item-mark">03</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500"><div class="tp-item-mark">01</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500"><div class="tp-item-mark">02</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500"><div class="tp-item-mark">03</div></div>
+            </div></div>
 
-            <div class="tp-p-stream tp-stream-2">
-                <div class="tp-p-track">
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_06</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_07</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_08</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_09</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_10</div></div>
-                </div>
-            </div>
+            <div class="tp-p-stream s2"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500"><div class="tp-item-mark">04</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500"><div class="tp-item-mark">05</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500"><div class="tp-item-mark">06</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500"><div class="tp-item-mark">04</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500"><div class="tp-item-mark">05</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500"><div class="tp-item-mark">06</div></div>
+            </div></div>
 
-            <div class="tp-p-stream tp-stream-3">
-                <div class="tp-p-track">
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_11</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_12</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_13</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1495033041221-5992a731805a?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_14</div></div>
-                    <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500" alt="Work"><div class="tp-item-mark">OBJ_15</div></div>
-                </div>
-            </div>
+            <div class="tp-p-stream s3"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500"><div class="tp-item-mark">07</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500"><div class="tp-item-mark">08</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500"><div class="tp-item-mark">09</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500"><div class="tp-item-mark">07</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500"><div class="tp-item-mark">08</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500"><div class="tp-item-mark">09</div></div>
+            </div></div>
 
+            <div class="tp-p-stream s4"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500"><div class="tp-item-mark">10</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500"><div class="tp-item-mark">11</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500"><div class="tp-item-mark">12</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500"><div class="tp-item-mark">10</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500"><div class="tp-item-mark">11</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500"><div class="tp-item-mark">12</div></div>
+            </div></div>
+        </div>
+
+        <div class="tp-portfolio-footer">
+            <a href="https://wa.me/996755000228" class="tp-more-btn">ПОЛУЧИТЬ БОЛЬШЕ ФОТО В WHATSAPP</a>
         </div>
     </div>
-  <style>
-    .tp-portfolio-footer {
-        text-align: center;
-        margin-top: 50px;
-        padding-bottom: 20px;
-        position: relative;
-        z-index: 20;
-    }
 
-    .tp-more-btn {
-        display: inline-block;
-        padding: 18px 45px;
-        border: 1px solid #FBBF24;
-        color: #FBBF24;
-        text-decoration: none;
-        font-family: 'Syncopate', sans-serif;
-        font-size: 13px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-        position: relative;
-        overflow: hidden;
-        background: transparent;
-    }
+    <div id="tp-full-popup" class="tp-full-popup">
+        <span class="tp-close-btn">&times;</span>
+        <img id="tp-img-target" class="tp-full-img">
+    </div>
 
-    .tp-more-btn::before {
-        content: '';
-        position: absolute;
-        top: 0; left: -100%;
-        width: 100%; height: 100%;
-        background: #FBBF24;
-        transition: 0.4s;
-        z-index: -1;
-    }
+    <script>
+        const fullPopup = document.getElementById('tp-full-popup');
+        const imgTarget = document.getElementById('tp-img-target');
+        const closeBtn = document.querySelector('.tp-close-btn');
 
-    .tp-more-btn:hover {
-        color: #000;
-        box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
-        transform: translateY(-5px);
-    }
+        document.querySelectorAll('.tp-p-item img').forEach(img => {
+            img.onclick = (e) => {
+                e.stopPropagation();
+                imgTarget.src = img.src;
+                fullPopup.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Блокируем скролл сайта
+            };
+        });
 
-    .tp-more-btn:hover::before {
-        left: 0;
-    }
+        const closePopup = () => {
+            fullPopup.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Возвращаем скролл
+        };
 
-    /* Декоративная подпись под кнопкой */
-    .tp-archive-tag {
-        display: block;
-        margin-top: 15px;
-        font-size: 10px;
-        color: #333;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-    }
-</style>
-
-<div class="tp-portfolio-footer">
-    <a href="portfolio.html" class="tp-more-btn">
-        ПОПРОСИТЬ ЕЩЕ ДРУГИЕ ФОТО
-    </a><br>
-    <span class="tp-archive-tag">МЫ МОЖЕМ ОТПРАВИТЬ ЕЩЕ ДРУГИЕ ФОТОГРАФИИ НА ВАШ ВАПТСАП</span>
-</div>
+        closeBtn.onclick = closePopup;
+        fullPopup.onclick = closePopup;
+    </script>
 </section>
-
-
-
-
 
 
 

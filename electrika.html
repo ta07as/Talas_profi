@@ -238,175 +238,136 @@
 
 
 
-
-
-
-<section class="tp-main-hero" id="home">
+<section class="tp-hero-section" id="gl">
     <style>
-        .tp-main-hero {
-            /* --- ОСНОВНЫЕ ЦВЕТА (Меняй здесь, чтобы изменить везде) --- */
-            --gold: #FBBF24;   /* Твой фирменный желтый */
-            --black: #000000;  /* Глубокий черный */
-            --white: #FFFFFF;  /* Белый для текста */
-            
-            /* --- ФОНОВАЯ КАРТИНКА --- */
-            /* Замени ссылку внутри url('...') на свое фото щита или процесса работы */
-            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
-                        url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?auto=format&fit=crop&w=1920&q=80');
-            
-            background-size: cover;        /* Растягивает фото на весь экран */
-            background-position: center;   /* Центрирует фото */
-            background-attachment: fixed;  /* Эффект параллакса (фото стоит, текст плывет) */
-            min-height: 100vh;             /* Высота на весь экран телефона/ПК */
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
+
+        .tp-hero-section {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=2000') no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 0 20px;
+            box-sizing: border-box;
             text-align: center;
-            color: var(--white);
-            font-family: 'Arial Black', sans-serif;
-            padding: 20px;
+            color: #fff;
             position: relative;
         }
 
-        /* КОНТЕЙНЕР С ТЕКСТОМ */
         .tp-hero-content {
-            max-width: 950px;
-            width: 100%;
+            max-width: 900px;
             z-index: 5;
-            animation: tpFadeIn 1s ease-out; /* Анимация появления */
         }
 
-        /* ВЕРХНЯЯ НАДПИСЬ (TALAS_PROFI) */
-        .tp-top-label {
-            display: inline-block;
-            background-color: var(--gold); /* Цвет плашки */
-            color: var(--black);           /* Цвет текста в плашке */
-            padding: 5px 15px;
-            font-size: 30px;
-            letter-spacing: 2px;           /* Расстояние между буквами */
-            text-transform: uppercase;     /* Все буквы заглавные */
-            margin-bottom: 25px;
-            font-weight: 900;
-        }
-
-        /* ГЛАВНЫЙ ЗАГОЛОВОК (H1) */
-        .tp-main-hero h1 {
-            font-size: clamp(32px, 8vw, 70px); /* Размер подстраивается под экран */
+        .tp-hero-section h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(32px, 8vw, 70px);
+            text-transform: uppercase;
             line-height: 1.1;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            letter-spacing: -1px;
+            margin: 0 0 20px 0;
+            letter-spacing: -2px;
         }
 
-        /* Золотое слово в заголовке */
-        .tp-main-hero h1 span {
-            color: var(--gold);
+        .tp-hero-section h1 span {
+            color: #FBBF24;
+            display: block;
         }
 
-        /* ПОДЗАГОЛОВОК (Описание) */
-        .tp-main-hero p {
-            font-family: 'Segoe UI', sans-serif;
+        .tp-hero-section p {
+            font-family: 'Exo 2', sans-serif;
             font-size: clamp(16px, 3vw, 22px);
-            line-height: 1.5;
-            color: #E0E0E0;
-            max-width: 750px;
-            margin: 0 auto 40px;
+            max-width: 650px;
+            margin: 0 auto 40px auto;
+            color: #ccc;
+            line-height: 1.6;
         }
 
-        /* Выделение 24/7 золотом */
-        .tp-main-hero p strong {
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        /* ГРУППА КНОПОК */
-        .tp-btn-group {
+        .tp-hero-btns {
             display: flex;
-            gap: 15px;              /* Расстояние между кнопками */
+            gap: 20px;
             justify-content: center;
-            flex-wrap: wrap;        /* На мобилке кнопки встанут друг под друга */
         }
 
-        /* ОБЩИЙ СТИЛЬ КНОПОК */
-        .tp-btn {
-            padding: 22px 35px;
-            font-size: 15px;
-            font-weight: 900;
-            text-transform: uppercase;
+        .tp-btn-main {
+            background: #FBBF24;
+            color: #000;
+            padding: 20px 40px;
             text-decoration: none;
-            letter-spacing: 1px;
-            transition: all 0.3s ease; /* Плавность при наведении */
-            border: 2px solid var(--gold);
-            display: inline-block;
-            min-width: 260px;       /* Одинаковая ширина для обеих кнопок */
+            font-family: 'Syncopate', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 2px solid #FBBF24;
         }
 
-        /* ЗОЛОТАЯ КНОПКА (ВЫЗОВ) */
-        .tp-btn-primary {
-            background-color: var(--gold);
-            color: var(--black);
+        .tp-btn-sec {
+            background: transparent;
+            color: #fff;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 14px;
+            border: 2px solid #fff;
+            transition: 0.3s;
         }
 
-        .tp-btn-primary:hover {
-            background-color: transparent;
-            color: var(--gold);
-            transform: translateY(-5px); /* Прыжок вверх при наведении */
-            box-shadow: 0 10px 25px rgba(251, 191, 36, 0.3); /* Тень */
-        }
+        .tp-btn-main:hover { background: #fff; border-color: #fff; }
+        .tp-btn-sec:hover { background: #FBBF24; border-color: #FBBF24; color: #000; }
 
-        /* ВТОРАЯ КНОПКА (КОНСУЛЬТАЦИЯ) */
-        .tp-btn-secondary {
-            background-color: transparent;
-            color: var(--white);
-            border-color: var(--white);
-        }
-
-        .tp-btn-secondary:hover {
-            background-color: var(--white);
-            color: var(--black);
-            transform: translateY(-5px);
-        }
-
-        /* НАСТРОЙКИ ДЛЯ МОБИЛЬНЫХ ТЕЛЕФОНОВ */
-        @media (max-width: 600px) {
-            .tp-main-hero {
-                background-attachment: scroll; /* Выключаем параллакс, чтоб не тормозило */
-                padding-top: 80px;
+        /* ИСПРАВЛЕНИЯ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+        @media (max-width: 768px) {
+            .tp-hero-section {
+                padding-top: 100px; /* Отступ под фиксированную шапку */
+                padding-bottom: 60px;
+                min-height: auto; /* На мобилке блок подстраивается под контент */
             }
-            .tp-btn {
-                width: 100%;       /* Кнопки на весь экран */
-                min-width: auto;
-            }
-            .tp-main-hero p {
-                border-top: 1px solid rgba(251, 191, 36, 0.3); /* Тонкая линия над текстом */
-                padding-top: 20px;
-            }
-        }
 
-        /* ЭФФЕКТ ПЛАВНОГО ПОЯВЛЕНИЯ ПРИ ЗАГРУЗКЕ */
-        @keyframes tpFadeIn {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            .tp-hero-section h1 {
+                font-size: 34px !important; /* Четкий читаемый размер */
+                letter-spacing: 0;
+                margin-bottom: 15px;
+            }
+
+            .tp-hero-section p {
+                font-size: 15px !important;
+                margin-bottom: 30px;
+                padding: 0 10px;
+            }
+
+            .tp-hero-btns {
+                flex-direction: column; /* Кнопки одна под другой */
+                gap: 15px;
+                align-items: center;
+            }
+
+            .tp-btn-main, .tp-btn-sec {
+                width: 100%; /* Кнопки на всю ширину экрана */
+                max-width: 300px;
+                padding: 18px 20px;
+                font-size: 12px;
+                box-sizing: border-box;
+            }
         }
     </style>
 
     <div class="tp-hero-content">
-        <div class="tp-top-label">Talas_profi</div>
-
-        <h1>Профессиональный <br><span>Электромонтаж</span> в Таласе</h1>
+        <h1>Профессиональные <span>Решения в Таласе</span></h1>
+        <p>Качественные услуги от мастеров своего дела: электрика, сантехника, ремонт и благоустройство вашего дома.</p>
         
-        <p>
-            Аварийный выезд <strong>24/7</strong>, монтаж домов и сборка щитов любой сложности. 
-            Качество, за которое я отвечаю.
-        </p>
-
-        <div class="tp-btn-group">
-            <a href="tel:+996755000228" class="tp-btn tp-btn-primary">Вызвать мастера</a>
-
-            <a href="https://wa.me/996755000228?text=Здравствуйте!%20У%20меня%20есть%20вопрос%20по%20электрике" class="tp-btn tp-btn-secondary">Консультация</a>
+        <div class="tp-hero-btns">
+            <a href="https://wa.me/996755000228" class="tp-btn-main">ВЫЗВАТЬ МАСТЕРА</a>
         </div>
     </div>
 </section>
+
+
+
+
+
+    
 
 
 

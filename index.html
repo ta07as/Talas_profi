@@ -1476,7 +1476,7 @@
 
 
 
- <section class="tp-trust-grid-8">
+<section class="tp-trust-grid-8">
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@400;800&display=swap');
 
@@ -1485,33 +1485,31 @@
         padding: 80px 0; 
         color: #fff;
         font-family: 'Exo 2', sans-serif;
+        overflow: hidden;
     }
 
     .tp-trust-8-container {
-        max-width: 1400px; 
+        max-width: 1200px; 
         margin: 0 auto;
-        padding: 0 40px;
+        padding: 0 20px;
         box-sizing: border-box;
     }
 
     .tp-trust-8-header {
-        text-align: left;
+        text-align: center;
         margin-bottom: 50px;
-        border-left: 4px solid #FBBF24;
-        padding-left: 20px;
     }
 
     .tp-trust-8-header h2 {
         font-family: 'Syncopate', sans-serif;
-        font-size: clamp(22px, 3vw, 36px); 
+        font-size: clamp(20px, 4vw, 32px); 
         text-transform: uppercase;
-        letter-spacing: 3px;
+        letter-spacing: 5px;
         margin: 0;
     }
 
     .tp-trust-8-header h2 span { color: #FBBF24; }
 
-    /* СЕТКА: 4 в ряд на ПК */
     .tp-grid-8 {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
@@ -1519,132 +1517,151 @@
     }
 
     .tp-trust-node {
-        background: rgba(15, 15, 15, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        padding: 30px 20px;
-        text-align: left;
+        background: #0a0a0a;
+        border: 1px solid #1a1a1a;
+        padding: 30px 15px;
+        text-align: center;
         position: relative;
-        transition: 0.3s;
         display: flex;
         flex-direction: column;
-        min-height: 180px;
+        align-items: center;
+        
+        /* МЕДЛЕННОЕ ПОЯВЛЕНИЕ */
+        opacity: 0;
+        transform: translateY(40px);
+        animation: tp-reveal-slow 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
 
-    .tp-node-num {
+    /* ЗАЛИПАТЕЛЬНАЯ ПУЛЬСАЦИЯ ГРАНИЦЫ */
+    .tp-trust-node::after {
+        content: '';
         position: absolute;
-        top: 15px; right: 15px;
-        font-size: 10px;
-        color: rgba(251, 191, 36, 0.3);
+        inset: 0;
+        border: 1px solid #FBBF24;
+        opacity: 0;
+        transition: 0.4s;
     }
 
-    .tp-node-icon { font-size: 28px; margin-bottom: 15px; }
+    .tp-trust-node:hover::after {
+        opacity: 1;
+        animation: tp-border-pulse 2s infinite;
+    }
+
+    .tp-node-icon { 
+        font-size: 32px; 
+        margin-bottom: 12px;
+        transition: 0.5s ease;
+    }
+
+    .tp-trust-node:hover .tp-node-icon {
+        transform: scale(1.15);
+        filter: drop-shadow(0 0 15px #FBBF24);
+    }
 
     .tp-trust-node h3 {
         font-size: 14px;
         font-weight: 800;
         text-transform: uppercase;
-        margin-bottom: 8px;
+        margin-bottom: 5px;
         color: #fff;
+        letter-spacing: 1px;
     }
 
     .tp-trust-node p {
-        font-size: 12px;
-        color: #777;
-        line-height: 1.4;
+        font-size: 11px;
+        color: #666;
+        line-height: 1.3;
         margin: 0;
     }
 
-    /* АДАПТИВНОСТЬ ПОД ТВОЙ ЗАПРОС */
-    
-    /* Для планшетов и больших телефонов */
-    @media (max-width: 1024px) {
-        .tp-grid-8 { grid-template-columns: repeat(3, 1fr); }
+    /* УВЕЛИЧЕННЫЕ ЗАДЕРЖКИ ДЛЯ ПЛАВНОЙ ОЧЕРЕДИ */
+    .tp-trust-node:nth-child(1) { animation-delay: 0.2s; }
+    .tp-trust-node:nth-child(2) { animation-delay: 0.4s; }
+    .tp-trust-node:nth-child(3) { animation-delay: 0.6s; }
+    .tp-trust-node:nth-child(4) { animation-delay: 0.8s; }
+    .tp-trust-node:nth-child(5) { animation-delay: 1.0s; }
+    .tp-trust-node:nth-child(6) { animation-delay: 1.2s; }
+    .tp-trust-node:nth-child(7) { animation-delay: 1.4s; }
+    .tp-trust-node:nth-child(8) { animation-delay: 1.6s; }
+
+    @keyframes tp-reveal-slow {
+        0% {
+            opacity: 0;
+            transform: translateY(40px);
+        }
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
-    /* ДЛЯ ТЕЛЕФОНОВ: 3 В РЯД */
+    @keyframes tp-border-pulse {
+        0% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0.4); }
+        70% { box-shadow: 0 0 0 15px rgba(251, 191, 36, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(251, 191, 36, 0); }
+    }
+
     @media (max-width: 768px) {
-        .tp-trust-8-container { padding: 0 15px; }
-        
         .tp-grid-8 { 
-            grid-template-columns: repeat(3, 1fr); /* 3 колонки */
-            gap: 8px; /* Уменьшаем зазоры, чтобы влезло */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 8px;
         }
-
-        .tp-trust-node { 
-            padding: 15px 10px; 
-            min-height: 140px; 
-            text-align: center; /* На мобилках по центру удобнее */
-        }
-
-        .tp-node-icon { font-size: 24px; margin-bottom: 10px; }
-        
-        .tp-trust-node h3 { font-size: 10px; letter-spacing: 0; }
-        
-        .tp-trust-node p { display: none; } /* Скрываем описание на мобилках, чтобы влезло 3 в ряд */
-        
-        .tp-node-num { display: none; }
+        .tp-trust-node { padding: 20px 10px; min-height: 110px; }
+        .tp-node-icon { font-size: 24px; }
+        .tp-trust-node h3 { font-size: 10px; }
+        .tp-trust-node p { display: none; }
     }
 </style>
 
-    <div class="tp-trust-8-container">
-        <div class="tp-trust-8-header">
-            <h2>8 СТОЛПОВ <span>ДОВЕРИЯ</span></h2>
-        </div>
+<div class="tp-trust-8-container">
+    <div class="tp-trust-8-header">
+        <h2>КОДЕКС <span>ДОВЕРИЯ</span></h2>
+    </div>
 
-        <div class="tp-grid-8">
-            <div class="tp-trust-node">
-                <span class="tp-node-num">01</span>
-                <span class="tp-node-icon">📜</span>
-                <h3>Официально</h3>
-                <p>Работаем по договору.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">02</span>
-                <span class="tp-node-icon">⚖️</span>
-                <h3>Фикс-Цена</h3>
-                <p>Смета не меняется.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">03</span>
-                <span class="tp-node-icon">🛠️</span>
-                <h3>Инструмент</h3>
-                <p>Pro-оборудование.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">04</span>
-                <span class="tp-node-icon">🛡️</span>
-                <h3>Гарантия</h3>
-                <p>До 5 лет сервиса.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">05</span>
-                <span class="tp-node-icon">⏱️</span>
-                <h3>Сроки</h3>
-                <p>Платим за просрочку.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">06</span>
-                <span class="tp-node-icon">📱</span>
-                <h3>Отчеты</h3>
-                <p>Фото в WhatsApp.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">07</span>
-                <span class="tp-node-icon">📍</span>
-                <h3>Свои</h3>
-                <p>Местные мастера.</p>
-            </div>
-            <div class="tp-trust-node">
-                <span class="tp-node-num">08</span>
-                <span class="tp-node-icon">💎</span>
-                <h3>Чистота</h3>
-                <p>Убираем мусор.</p>
-            </div>
+    <div class="tp-grid-8">
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">📜</span>
+            <h3>Закон</h3>
+            <p>Работаем по договору</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">⚖️</span>
+            <h3>Честно</h3>
+            <p>Цена не изменится</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">🛠️</span>
+            <h3>Proфи</h3>
+            <p>Инструмент Milwaukee</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">🛡️</span>
+            <h3>Броня</h3>
+            <p>Гарантия до 5 лет</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">⏱️</span>
+            <h3>Срок</h3>
+            <p>Ни дня просрочки</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">📱</span>
+            <h3>Отчет</h3>
+            <p>Фото в WhatsApp</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">📍</span>
+            <h3>Свои</h3>
+            <p>Мастера из Таласа</p>
+        </div>
+        <div class="tp-trust-node">
+            <span class="tp-node-icon">💎</span>
+            <h3>Чисто</h3>
+            <p>Убираем весь мусор</p>
         </div>
     </div>
+</div>
 </section>
-
-
 
 
 

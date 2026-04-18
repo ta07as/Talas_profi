@@ -1,1 +1,1618 @@
+<!DOCTYPE html>
+<html lang=ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talas_profi | Официальный сайт</title>
+    <style>
+        /* Общие системные настройки сайта */
+        body { margin: 0; padding: 0; background-color: #000; font-family: 'Arial', sans-serif; color: #fff; overflow-x: hidden; }
+    </style>
+</head>
+<body>
 
+
+
+
+
+
+
+
+
+
+<nav class="tp-nav-new">
+    <div class="tp-nav-body">
+        <a href="index.html" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
+        
+        <div class="tp-nav-right-side">
+            <button class="tp-nav-btn-mob" onclick="toggleTpMenu()">
+                <div class="tp-burger-icon">
+                    <span></span><span></span><span></span>
+                </div>
+            </button>
+            
+            <div class="tp-nav-links-pc">
+                <a href="index.html#gl">ГЛАВНЫЙ ЭКРАН</a>
+                <a href="index.html#tp-services-section">УСЛУГИ</a>
+                <a href="index.html#order">ПОЧЕМУ МЫ</a>
+                <a href="index.html#foto">ПОРТФОЛИО</a>
+                <a href="index.html#contakt">КОНТАКТЫ</a>
+                <a href="tel:+996755000228" class="tp-nav-phone-pc">+996 755 000 228</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="tp-mob-drawer" id="tpDrawer">
+        <div class="tp-drawer-content">
+            <button class="tp-close-btn" onclick="toggleTpMenu()">×</button>
+            <a href="index.html#gl" onclick="toggleTpMenu()">ГЛАВНЫЙ ЭКРАН</a>
+            <a href="index.html#tp-services-section" onclick="toggleTpMenu()">УСЛУГИ</a>
+            <a href="index.html#order" onclick="toggleTpMenu()">ПОЧЕМУ МЫ</a>
+            <a href="index.html#foto" onclick="toggleTpMenu()">ПОРТФОЛИО</a>
+            <a href="index.html#contakt" onclick="toggleTpMenu()">КОНТАКТЫ</a>
+            <hr style="border: 0; border-top: 1px solid #333; width: 100%;">
+            <a href="tel:+996755000228" class="tp-gold-link">+996 755 000 228</a>
+            <a href="https://wa.me/996755000228" class="tp-wa-link">WHATSAPP</a>
+        </div>
+    </div>
+</nav>
+
+<style>
+    /* [3] ПЛАВНЫЙ СКРОЛЛ ДЛЯ ВСЕЙ СТРАНИЦЫ */
+    html {
+        scroll-behavior: smooth;
+    }
+
+    html, body { 
+        overflow-x: hidden; 
+        width: 100%;
+        margin: 0;
+        padding: 0;
+    }
+
+    body { padding-top: 70px !important; }
+
+    /* СТИЛИ ШАПКИ */
+    .tp-nav-new {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%;
+        height: 70px;
+        background: #000;
+        border-bottom: 2px solid #FBBF24;
+        z-index: 1000000;
+        display: flex;
+        align-items: center;
+        box-sizing: border-box;
+    }
+
+    .tp-nav-body {
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .tp-nav-logo {
+        color: #fff;
+        text-decoration: none;
+        font-family: 'Orbitron', sans-serif;
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .tp-nav-logo span { color: #FBBF24; }
+
+    /* ПК СТИЛИ */
+    .tp-nav-links-pc { display: flex; align-items: center; gap: 25px; }
+    .tp-nav-links-pc a { 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 13px; 
+        font-weight: bold; 
+        transition: 0.3s;
+        text-transform: uppercase;
+    }
+    .tp-nav-links-pc a:hover { color: #FBBF24; }
+    .tp-nav-phone-pc { color: #FBBF24 !important; font-size: 16px !important; margin-left: 10px; }
+
+    /* МОБИЛЬНЫЕ СТИЛИ */
+    .tp-nav-btn-mob { display: none; background: none; border: none; cursor: pointer; padding: 10px; }
+    .tp-burger-icon span { display: block; width: 25px; height: 3px; background: #FBBF24; margin: 5px 0; }
+
+    /* ОБНОВЛЕННАЯ ПЛАВНАЯ ШТОРКА */
+    .tp-mob-drawer {
+        position: fixed;
+        top: 0; right: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.98);
+        z-index: 2000000;
+        display: flex;
+        justify-content: center;
+        
+        /* Эффекты появления */
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-20px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tp-mob-drawer.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .tp-drawer-content {
+        display: flex; flex-direction: column;
+        padding: 60px 40px; 
+        gap: 25px;
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+    }
+
+    .tp-drawer-content a { 
+        color: #fff; 
+        text-decoration: none; 
+        font-size: 20px; 
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        transition: 0.3s;
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    /* Анимация появления ссылок внутри шторки */
+    .tp-mob-drawer.active .tp-drawer-content a {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    
+    /* Задержка для каждой ссылки (ступенчатое появление) */
+    .tp-drawer-content a:nth-child(2) { transition-delay: 0.1s; }
+    .tp-drawer-content a:nth-child(3) { transition-delay: 0.2s; }
+    .tp-drawer-content a:nth-child(4) { transition-delay: 0.3s; }
+    .tp-drawer-content a:nth-child(5) { transition-delay: 0.4s; }
+    .tp-drawer-content a:nth-child(6) { transition-delay: 0.5s; }
+
+    .tp-close-btn { 
+        color: #FBBF24; 
+        font-size: 50px; 
+        background: none; 
+        border: none; 
+        cursor: pointer;
+        margin-bottom: 20px;
+    }
+
+    .tp-gold-link { color: #FBBF24 !important; }
+    .tp-wa-link { 
+        background: #FBBF24; 
+        color: #000 !important; 
+        padding: 15px; 
+        border-radius: 50px;
+        margin-top: 10px;
+    }
+
+    @media (max-width: 900px) {
+        .tp-nav-links-pc { display: none; }
+        .tp-nav-btn-mob { display: block; }
+        .tp-nav-body { padding: 0 20px; }
+    }
+</style>
+
+<script>
+    // ФУНКЦИЯ ОТКРЫТИЯ/ЗАКРЫТИЯ С ПЛАВНЫМ ЭФФЕКТОМ
+    function toggleTpMenu() {
+        const drawer = document.getElementById('tpDrawer');
+        drawer.classList.toggle('active');
+        
+        // Блокируем скролл основной страницы при открытом меню
+        if(drawer.classList.contains('active')) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'auto';
+        }
+    }
+</script>
+    
+
+
+
+
+
+    
+
+
+
+
+
+
+<section class="tp-hero-section" id="gl">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
+
+        .tp-hero-section {
+            /* Фоновое фото заменил на качественную сантехнику */
+            background: linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.75)), 
+                        url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=2000') no-repeat center center;
+            background-size: cover;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            box-sizing: border-box;
+            text-align: center;
+            color: #fff;
+            position: relative;
+        }
+
+        .tp-hero-content {
+            max-width: 900px;
+            z-index: 5;
+        }
+
+        .tp-hero-section h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(30px, 7vw, 65px);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin: 0 0 20px 0;
+            letter-spacing: -1px;
+        }
+
+        .tp-hero-section h1 span {
+            color: #FBBF24;
+            display: block;
+        }
+
+        .tp-hero-section p {
+            font-family: 'Exo 2', sans-serif;
+            font-size: clamp(16px, 3vw, 20px);
+            max-width: 600px;
+            margin: 0 auto 35px auto;
+            color: #eee;
+            line-height: 1.5;
+        }
+
+        .tp-hero-btns {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .tp-btn-main {
+            background: #FBBF24;
+            color: #000;
+            padding: 20px 45px;
+            text-decoration: none;
+            font-family: 'Syncopate', sans-serif;
+            font-size: 14px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: 2px solid #FBBF24;
+            box-shadow: 0 10px 20px rgba(251, 191, 36, 0.2);
+        }
+
+        .tp-btn-main:hover { 
+            background: #fff; 
+            border-color: #fff; 
+            transform: translateY(-3px);
+        }
+
+        /* АДАПТИВ ПОД ТЕЛЕФОН */
+        @media (max-width: 768px) {
+            .tp-hero-section {
+                padding-top: 90px;
+                padding-bottom: 50px;
+                min-height: 100vh;
+            }
+
+            .tp-hero-section h1 {
+                font-size: 32px !important;
+                margin-bottom: 15px;
+            }
+
+            .tp-hero-section p {
+                font-size: 15px !important;
+                margin-bottom: 30px;
+            }
+
+            .tp-btn-main {
+                width: 100%;
+                max-width: 320px;
+                padding: 18px 20px;
+            }
+        }
+    </style>
+
+    <div class="tp-hero-content">
+        <h1>Услуги опытного <span>Сантехника в Таласе</span></h1>
+        
+        <p>Устраним любой засор, починим кран или полностью заменим трубы сегодня. Работаем чисто, быстро и с гарантией.</p>
+        
+        <div class="tp-hero-btns">
+            <a href="https://wa.me/996755000228" class="tp-btn-main">ВЫЗВАТЬ МАСТЕРА НА ДОМ</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <section class="tp-modern-sos">
+    <style>
+        .tp-modern-sos {
+            --neon-red: #FF3131; /* Неоновый красный для тревоги/внимания */
+            --glass-bg: rgba(20, 20, 20, 0.8);
+            --gold: #FBBF24;
+            
+            background-color: #000;
+            padding: 80px 20px;
+            display: flex;
+            justify-content: center;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            position: relative;
+        }
+
+        .tp-glow {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 49, 49, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .tp-sos-glass-card {
+            max-width: 1000px;
+            width: 100%;
+            background: var(--glass-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            padding: 50px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 2;
+            position: relative;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .tp-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #4ADE80;
+            font-size: 14px;
+            text-transform: uppercase;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .tp-status-dot {
+            width: 8px;
+            height: 8px;
+            background: #4ADE80;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #4ADE80;
+            animation: tp-pulse 1.5s infinite;
+        }
+
+        .tp-sos-glass-card h2 {
+            color: #fff;
+            font-size: clamp(26px, 5vw, 42px);
+            margin: 0 0 15px 0;
+            font-weight: 800;
+            line-height: 1.1;
+        }
+
+        .tp-sos-glass-card h2 span {
+            color: var(--neon-red);
+        }
+
+        .tp-sos-glass-card p {
+            color: #aaa;
+            font-size: 18px;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 500px;
+        }
+
+        .tp-neon-btn {
+            background: transparent;
+            color: #fff;
+            text-decoration: none;
+            padding: 20px 45px;
+            border-radius: 50px;
+            border: 2px solid var(--neon-red);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.4s;
+            white-space: nowrap;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .tp-neon-btn:hover {
+            background: var(--neon-red);
+            box-shadow: 0 0 30px rgba(255, 49, 49, 0.6);
+            transform: scale(1.05);
+        }
+
+        .tp-neon-btn small {
+            font-size: 10px;
+            opacity: 0.8;
+            margin-top: 4px;
+        }
+
+        @keyframes tp-pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.5; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @media (max-width: 850px) {
+            .tp-sos-glass-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 40px 25px;
+                border-radius: 20px;
+            }
+            .tp-status { justify-content: center; }
+            .tp-neon-btn { width: 100%; box-sizing: border-box; }
+        }
+    </style>
+
+    <div class="tp-glow"></div>
+
+    <div class="tp-sos-glass-card">
+        <div class="tp-info-side">
+            <div class="tp-status">
+                <div class="tp-status-dot"></div> На связи (Талас)
+            </div>
+            <h2>Срочный <span>Ремонт</span></h2>
+            <p>Прорвало трубу или сильный засор? Не ждите потопа! Приеду со своим инструментом через <strong>30 минут</strong>.</p>
+        </div>
+
+        <a href="tel:+996755000228" class="tp-neon-btn">
+            ВЫЗВАТЬ САНТЕХНИКА
+            <small>Talas_profi 24/7</small>
+        </a>
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="tp-neon-services">
+    <style>
+        .tp-neon-services {
+            --gold: #FBBF24;
+            --dark: #050505;
+            background-color: #000;
+            padding: 100px 20px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .tp-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* ЦЕНТРАЛЬНАЯ ЛИНИЯ (ТРУБА) */
+        .tp-wrapper::before {
+            content: '';
+            position: absolute;
+            left: 30px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, var(--gold), var(--gold), transparent);
+            z-index: 1;
+        }
+
+        .tp-service-item {
+            position: relative;
+            padding-left: 80px;
+            margin-bottom: 70px;
+            z-index: 2;
+        }
+
+        .tp-dot {
+            position: absolute;
+            left: 21px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: var(--dark);
+            border: 2px solid var(--gold);
+            border-radius: 50%;
+            box-shadow: 0 0 15px var(--gold);
+        }
+
+        .tp-dot-emergency {
+            border-color: #EF4444;
+            box-shadow: 0 0 20px #EF4444;
+        }
+
+        .tp-service-item h3 {
+            font-size: clamp(22px, 5vw, 28px);
+            color: var(--gold);
+            text-transform: uppercase;
+            margin: 0 0 12px 0;
+            font-weight: 900;
+        }
+
+        .tp-service-item h3.emergency-title {
+            color: #EF4444;
+        }
+
+        .tp-service-item p {
+            font-size: 18px;
+            color: #ccc;
+            line-height: 1.6;
+            margin: 0;
+            max-width: 600px;
+        }
+
+        .tp-tags {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tp-tag {
+            background: #111;
+            border: 1px solid #222;
+            color: #777;
+            padding: 5px 12px;
+            font-size: 11px;
+            text-transform: uppercase;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+
+        @media (max-width: 600px) {
+            .tp-wrapper::before { left: 15px; }
+            .tp-dot { left: 6px; }
+            .tp-service-item { padding-left: 50px; }
+        }
+    </style>
+
+    <div class="tp-wrapper">
+        
+        <div class="tp-service-item">
+            <div class="tp-dot tp-dot-emergency"></div>
+            <h3 class="emergency-title">Срочное устранение течи</h3>
+            <p>Прорвало трубу, заливает соседей или забилась канализация? Приеду быстро, перекрою воду и залатаю пробоину. Спасу ваш ремонт и нервы в любое время суток.</p>
+            <div class="tp-tags">
+                <div class="tp-tag" style="color: #EF4444; border-color: #EF4444;">SOS</div>
+                <div class="tp-tag">Выезд 30 мин</div>
+            </div>
+        </div>
+
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Монтаж сантехники</h3>
+            <p>Качественно установлю унитаз, раковину, ванну или душевую кабину. Подключу смесители и соберу сифоны так, чтобы ничего не капало годами. Всё будет ровно и красиво.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">Чистая работа</div>
+                <div class="tp-tag">Гарантия</div>
+            </div>
+        </div>
+
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Замена труб и стояков</h3>
+            <p>Меняю старые гнилые трубы на современный пластик. Делаю разводку воды и канализации в квартирах и частных домах. Забудете о ржавой воде и плохом напоре навсегда.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">Пластик/Металл</div>
+                <div class="tp-tag">На века</div>
+            </div>
+        </div>
+
+        <div class="tp-service-item">
+            <div class="tp-dot"></div>
+            <h3>Отопление и теплый пол</h3>
+            <p>Монтирую радиаторы и систему «теплый пол». Подключу котел и настрою систему так, чтобы дома было тепло даже в самые сильные морозы Таласа. Работаю экономно и эффективно.</p>
+            <div class="tp-tags">
+                <div class="tp-tag">Теплый пол</div>
+                <div class="tp-tag">Монтаж котлов</div>
+            </div>
+        </div>
+
+        <div style="padding-left: 80px; color: #444; font-size: 14px; text-transform: uppercase;">
+            + Прочистка засоров любой сложности и мелкий ремонт
+        </div>
+
+    </div>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+  
+
+    
+
+    
+
+
+
+
+<section class="tp-expertise">
+    <style>
+        .tp-expertise {
+            --gold: #FBBF24;
+            --black: #000000;
+            --dark-grey: #0F0F0F;
+            
+            background-color: var(--black);
+            padding: 100px 20px;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: #FFFFFF;
+            border-top: 1px solid #1A1A1A;
+        }
+
+        .tp-exp-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tp-exp-header {
+            margin-bottom: 60px;
+            text-align: center;
+        }
+
+        .tp-exp-header h2 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: clamp(26px, 5vw, 42px);
+            text-transform: uppercase;
+            margin: 0;
+            letter-spacing: 1px;
+        }
+
+        .tp-exp-header h2 span {
+            color: var(--gold);
+        }
+
+        .tp-exp-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .tp-exp-item {
+            background: var(--dark-grey);
+            padding: 40px;
+            border: 1px solid #1A1A1A;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .tp-exp-item::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(45deg, transparent 50%, var(--gold) 50%);
+        }
+
+        .tp-exp-item:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+        }
+
+        .tp-exp-item h3 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: 20px;
+            color: var(--gold);
+            margin-top: 0;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .tp-exp-item p {
+            font-size: 16px;
+            color: #CCCCCC;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .tp-exp-law {
+            margin-top: 50px;
+            padding: 20px;
+            border: 1px dashed #333;
+            text-align: center;
+            font-family: 'Courier New', Courier, monospace;
+            color: #666;
+            font-size: 13px;
+        }
+
+        @media (max-width: 768px) {
+            .tp-exp-item { padding: 30px; }
+            .tp-exp-header { margin-bottom: 40px; }
+        }
+    </style>
+
+    <div class="tp-exp-container">
+        <div class="tp-exp-header">
+            <h2>Надёжность <span>в деталях</span></h2>
+        </div>
+
+        <div class="tp-exp-grid">
+            
+            <div class="tp-exp-item">
+                <h3>Проф. Оборудование</h3>
+                <p>Использую профессиональные аппараты для сварки труб, мощные прочистные машины и точные лазерные уровни. Правильный инструмент гарантирует, что швы будут герметичными, а сантехника будет стоять идеально ровно и без протечек.</p>
+            </div>
+
+            <div class="tp-exp-item">
+                <h3>ГОСТ и СНиП</h3>
+                <p>Работаю строго по строительным нормам (СНиП). Соблюдаю правильный уклон канализационных труб, чтобы не было засоров, и использую только проверенные материалы. Ваша система водоснабжения будет работать тихо и долго.</p>
+            </div>
+
+            <div class="tp-exp-item">
+                <h3>Гарантия 1 год</h3>
+                <p>Я ценю свою репутацию в Таласе, поэтому даю годовую гарантию на все выполненные работы. Если в течение года что-то потечет или заскрипит — приеду и устраню всё за свой счет в приоритетном порядке.</p>
+            </div>
+
+        </div>
+
+        <div class="tp-exp-law">
+            ТЕХНИЧЕСКИЙ РЕГЛАМЕНТ ТАЛАС_ПРОФИ // ГЕРМЕТИЧНОСТЬ И НАДЕЖНОСТЬ СОЕДИНЕНИЙ ГАРАНТИРОВАНА
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="tp-portfolio-gravity" id="foto">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Exo+2:wght@300;800&display=swap');
+
+        .tp-portfolio-gravity {
+            background-color: #000;
+            padding: 80px 0;
+            color: #fff;
+            font-family: 'Exo 2', sans-serif;
+            position: relative;
+            overflow: hidden;
+            border-top: 1px solid #1a1a1a;
+        }
+
+        .tp-p-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .tp-p-header h2 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(20px, 4vw, 32px);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        .tp-p-header h2 span { color: #FBBF24; }
+
+        /* СЕТКА ПОТОКОВ (4 РЯДА) */
+        .tp-gravity-streams {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tp-p-stream {
+            display: flex;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .tp-p-track {
+            display: flex;
+            gap: 10px;
+            width: fit-content;
+        }
+
+        /* АНИМАЦИИ ДЛЯ 4 РЯДОВ */
+        @keyframes scrollL { 0% { transform: translateX(0); } 100% { transform: translateX(calc(-50% - 5px)); } }
+        @keyframes scrollR { 0% { transform: translateX(calc(-50% - 5px)); } 100% { transform: translateX(0); } }
+
+        .s1 .tp-p-track { animation: scrollL 35s linear infinite; }
+        .s2 .tp-p-track { animation: scrollR 40s linear infinite; }
+        .s3 .tp-p-track { animation: scrollL 45s linear infinite; }
+        .s4 .tp-p-track { animation: scrollR 38s linear infinite; }
+
+        .tp-p-stream:hover .tp-p-track { animation-play-state: paused; }
+
+        .tp-p-item {
+            width: 280px;
+            height: 180px;
+            background-color: #111;
+            position: relative;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .tp-p-item img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            filter: grayscale(1) brightness(0.4);
+            transition: 0.5s;
+        }
+
+        .tp-p-item:hover img { filter: grayscale(0) brightness(1); }
+        
+        .tp-item-mark {
+            position: absolute; bottom: 5px; right: 5px;
+            font-size: 9px; color: rgba(255,255,255,0.4);
+            background: rgba(0,0,0,0.6); padding: 2px 5px;
+        }
+
+        /* ПОЛНОЭКРАННЫЙ ПОПАП */
+        .tp-full-popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0,0,0,0.98);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+
+        .tp-full-img {
+            max-width: 95%;
+            max-height: 90%;
+            object-fit: contain;
+            border: 1px solid #FBBF24;
+            box-shadow: 0 0 40px rgba(251, 191, 36, 0.2);
+            animation: zoomUp 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        @keyframes zoomUp {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .tp-close-btn {
+            position: absolute; top: 20px; right: 30px;
+            color: #FBBF24; font-size: 50px; cursor: pointer;
+            font-weight: 300;
+        }
+
+        /* ПОДВАЛ БЛОКА */
+        .tp-portfolio-footer { text-align: center; margin-top: 40px; }
+        .tp-more-btn {
+            display: inline-block; padding: 15px 35px;
+            border: 1px solid #FBBF24; color: #FBBF24;
+            text-decoration: none; font-size: 12px;
+            transition: 0.4s; font-family: 'Syncopate', sans-serif;
+        }
+        .tp-more-btn:hover { background: #FBBF24; color: #000; }
+
+        @media (max-width: 768px) {
+            .tp-p-item { width: 160px; height: 110px; }
+        }
+    </style>
+
+    <div class="tp-p-container">
+        <div class="tp-p-header">
+            <h2>НАШИ <span>РАБОТЫ</span></h2>
+        </div>
+
+        <div class="tp-gravity-streams">
+            <div class="tp-p-stream s1"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500"><div class="tp-item-mark">01</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500"><div class="tp-item-mark">02</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500"><div class="tp-item-mark">03</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=500"><div class="tp-item-mark">01</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1504148455328-c376907d081c?q=80&w=500"><div class="tp-item-mark">02</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1621905251189-08b45d6a269e?q=80&w=500"><div class="tp-item-mark">03</div></div>
+            </div></div>
+
+            <div class="tp-p-stream s2"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500"><div class="tp-item-mark">04</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500"><div class="tp-item-mark">05</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500"><div class="tp-item-mark">06</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1541271696563-3be2f99a7b28?q=80&w=500"><div class="tp-item-mark">04</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=500"><div class="tp-item-mark">05</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1558227691-41ea78d1f631?q=80&w=500"><div class="tp-item-mark">06</div></div>
+            </div></div>
+
+            <div class="tp-p-stream s3"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500"><div class="tp-item-mark">07</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500"><div class="tp-item-mark">08</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500"><div class="tp-item-mark">09</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=500"><div class="tp-item-mark">07</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1534398079543-7ae6d016b86a?q=80&w=500"><div class="tp-item-mark">08</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1581094288338-2314dddb7ecc?q=80&w=500"><div class="tp-item-mark">09</div></div>
+            </div></div>
+
+            <div class="tp-p-stream s4"><div class="tp-p-track">
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500"><div class="tp-item-mark">10</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500"><div class="tp-item-mark">11</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500"><div class="tp-item-mark">12</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?q=80&w=500"><div class="tp-item-mark">10</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=500"><div class="tp-item-mark">11</div></div>
+                <div class="tp-p-item"><img src="https://images.unsplash.com/photo-1632629815363-283819d2487e?q=80&w=500"><div class="tp-item-mark">12</div></div>
+            </div></div>
+        </div>
+
+        <div class="tp-portfolio-footer">
+            <a href="https://wa.me/996755000228" class="tp-more-btn">ПОЛУЧИТЬ БОЛЬШЕ ФОТО В WHATSAPP</a>
+        </div>
+    </div>
+
+    <div id="tp-full-popup" class="tp-full-popup">
+        <span class="tp-close-btn">&times;</span>
+        <img id="tp-img-target" class="tp-full-img">
+    </div>
+
+    <script>
+        const fullPopup = document.getElementById('tp-full-popup');
+        const imgTarget = document.getElementById('tp-img-target');
+        const closeBtn = document.querySelector('.tp-close-btn');
+
+        document.querySelectorAll('.tp-p-item img').forEach(img => {
+            img.onclick = (e) => {
+                e.stopPropagation();
+                imgTarget.src = img.src;
+                fullPopup.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Блокируем скролл сайта
+            };
+        });
+
+        const closePopup = () => {
+            fullPopup.style.display = 'none';
+            document.body.style.overflow = 'auto'; // Возвращаем скролл
+        };
+
+        closeBtn.onclick = closePopup;
+        fullPopup.onclick = closePopup;
+    </script>
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<section class="tp-reviews">
+    <style>
+        .tp-reviews {
+            --gold: #FBBF24;
+            --black: #000000;
+            --card-bg: #111111;
+            background-color: var(--black);
+            padding: 80px 20px;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .tp-rev-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .tp-rev-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .tp-rev-header h2 {
+            font-family: 'Arial Black', sans-serif;
+            font-size: clamp(26px, 5vw, 38px);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .tp-rev-header h2 span { color: var(--gold); }
+
+        .tp-rev-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .tp-rev-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid #1A1A1A;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .tp-rev-card:hover { border-color: var(--gold); }
+
+        .tp-stars { color: var(--gold); margin-bottom: 10px; font-size: 12px; }
+
+        .tp-rev-text {
+            font-style: italic;
+            color: #ccc;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            font-size: 15px;
+        }
+
+        .tp-user-info strong { display: block; color: var(--gold); font-size: 16px; }
+        .tp-user-info span { color: #555; font-size: 13px; }
+    </style>
+
+    <div class="tp-rev-container">
+        <div class="tp-rev-header">
+            <h2>Что говорят <span>о нас в Таласе</span></h2>
+        </div>
+
+        <div class="tp-rev-grid">
+            
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Среди ночи прорвало гибкую подводку на кухне. Вода хлестала, не могли перекрыть. Мастер приехал за 20 минут, всё заменил и проверил другие краны. Спас наш ламинат!"</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Бакыт</strong>
+                    <span>г. Талас (центр)</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Меняли старые трубы в ванной. Сделал всё очень аккуратно, трубы спаяны ровно, нигде не капает. После работы мастер сам убрал весь мусор. Приятно иметь дело с профессионалом."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Улан</strong>
+                    <span>с. Кок-Ой</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Установил инсталляцию и унитаз. Всё четко по уровню. Объяснил, какие запчасти лучше купить, чтобы дольше прослужили, и не взял лишнего за работу. Честный мастер."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Айгуль</strong>
+                    <span>мкр. Анар</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Был сложный засор в канализации, химия не помогала. Мастер приехал со специальным тросом и за 15 минут всё прочистил. Теперь вода уходит моментально. Рекомендую!"</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Канат</strong>
+                    <span>Владелец кафе</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Боялись, что после замены батарей всё потечет, но мастер дал гарантию. Прошло полгода, всё сухо и дома тепло. Видно, что Talas_profi отвечает за качество."</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Мирлан</strong>
+                    <span>Частный сектор</span>
+                </div>
+            </div>
+
+            <div class="tp-rev-card">
+                <div>
+                    <div class="tp-stars">★★★★★</div>
+                    <p class="tp-rev-text">"Приятно удивило, что мастер пришел со своим хорошим инструментом, а не просил у меня ключи. Поставил фильтры на воду и настроил бойлер. Всё работает идеально!"</p>
+                </div>
+                <div class="tp-user-info">
+                    <strong>Нурбек</strong>
+                    <span>г. Талас</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+  
+
+
+
+
+
+    
+
+
+
+
+
+
+
+<section id="premium-order" style="background: #000; padding: 60px 20px; font-family: 'Arial', sans-serif; text-align: center;">
+    
+    <div style="max-width: 500px; margin: 0 auto; border: 1px solid #222; background: linear-gradient(145deg, #0a0a0a, #000); padding: 40px 30px; position: relative; border-top: 4px solid #FBBF24;">
+        
+        <h2 style="margin: 0 0 15px 0; color: #fff; font-size: 24px; text-transform: uppercase; letter-spacing: 2px;">
+            Заказать <span style="color: #FBBF24;">премиальный</span> монтаж систем
+        </h2>
+        <p style="color: #888; font-size: 14px; margin-bottom: 30px; line-height: 1.6;">
+            Надежные решения для вашего комфорта: от скрытой разводки труб до установки элитной сантехники.
+        </p>
+        
+        <form action="#">
+            <input type="text" placeholder="Ваше имя" required style="width: 100%; background: #000; border: 1px solid #333; padding: 15px; color: #fff; margin-bottom: 12px; box-sizing: border-box; outline: none;">
+            
+            <input type="tel" placeholder="Номер телефона" required style="width: 100%; background: #000; border: 1px solid #333; padding: 15px; color: #fff; margin-bottom: 12px; box-sizing: border-box; outline: none;">
+            
+            <input type="text" placeholder="Ваш адрес" required style="width: 100%; background: #000; border: 1px solid #333; padding: 15px; color: #fff; margin-bottom: 25px; box-sizing: border-box; outline: none;">
+
+            <button type="submit" style="width: 100%; background: transparent; border: 2px solid #FBBF24; color: #FBBF24; padding: 18px; font-size: 14px; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; letter-spacing: 1px;">
+                Оставить заявку на монтаж
+            </button>
+        </form>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <p style="color: #666; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px;">
+            Нужна помощь прямо сейчас?
+        </p>
+        <a href="tel:+996755000228" style="display: inline-block; background: #FBBF24; color: #000; padding: 20px 40px; text-decoration: none; font-weight: 900; font-size: 16px; text-transform: uppercase; border-radius: 0; box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3); transition: 0.3s;">
+              Вызвать сантехника на дом сейчас
+        </a>
+    </div>
+
+</section>
+
+
+
+
+
+
+
+  
+
+
+
+
+    
+
+    
+
+
+
+
+
+    
+
+
+
+
+<footer class="tp-interactive-footer"id="contakt">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@900&family=Roboto+Mono:wght@400;700&display=swap');
+
+        .tp-interactive-footer {
+            background: #000;
+            color: #fff;
+            padding: 80px 0 40px;
+            font-family: 'Roboto Mono', monospace;
+            overflow: hidden;
+            border-top: 2px solid #FBBF24;
+            user-select: none;
+        }
+
+        .tp-footer-title {
+            text-align: center;
+            margin-bottom: 50px;
+            font-family: 'Orbitron', sans-serif;
+            color: #FBBF24;
+            letter-spacing: 10px;
+            font-size: clamp(14px, 3vw, 18px);
+            text-transform: uppercase;
+        }
+
+        .tp-slider-row {
+            width: 100%;
+            overflow: hidden;
+            margin-bottom: 12px;
+            cursor: grab;
+            position: relative;
+            background: rgba(251, 191, 36, 0.02);
+            padding: 15px 0;
+            border-top: 1px solid rgba(255,255,255,0.03);
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .tp-slider-row:active { cursor: grabbing; }
+
+        .tp-slider-track {
+            display: flex;
+            width: max-content;
+            will-change: transform;
+        }
+
+        .tp-service-card {
+            flex: 0 0 auto;
+            padding: 12px 35px;
+            margin: 0 6px;
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .tp-service-card:hover {
+            border-color: #FBBF24;
+            background: #111;
+            transform: scale(1.05);
+        }
+
+        .tp-service-card a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .tp-service-card:hover a { color: #fff; }
+
+        .tp-footer-main {
+            max-width: 1200px;
+            margin: 80px auto 40px;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+        }
+
+        .tp-footer-info h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #FBBF24;
+            margin-bottom: 20px;
+            font-size: 22px;
+            letter-spacing: 2px;
+        }
+
+        .tp-footer-info p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+            max-width: 350px;
+        }
+
+        .tp-social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 25px;
+        }
+
+        .tp-social-icon {
+            padding: 0 20px;
+            height: 45px;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .tp-social-icon:hover {
+            border-color: #FBBF24;
+            color: #000;
+            background: #FBBF24;
+            transform: translateY(-3px);
+        }
+
+        .tp-footer-contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .tp-footer-contact-list li {
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        .tp-footer-contact-list span {
+            color: #FBBF24;
+            display: block;
+            font-size: 10px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            letter-spacing: 1px;
+        }
+
+        .tp-legal-bar {
+            border-top: 1px solid #111;
+            padding: 30px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            color: #444;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        @media (max-width: 900px) {
+            .tp-footer-main { grid-template-columns: 1fr; text-align: center; }
+            .tp-footer-info p { margin: 0 auto; }
+            .tp-social-links { justify-content: center; }
+            .tp-legal-bar { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+
+    <div class="tp-footer-title">Первый цифровой сайт услуг</div>
+
+    <div class="tp-slider-row" data-speed="1.2">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Сантехника</a></div>
+            <div class="tp-service-card"><a href="#">Отопление</a></div>
+            <div class="tp-service-card"><a href="#">Умный дом</a></div>
+            <div class="tp-service-card"><a href="#">Заземление</a></div>
+            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
+            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
+            <div class="tp-service-card"><a href="#">Электромонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Сантехника</a></div>
+            <div class="tp-service-card"><a href="#">Отопление</a></div>
+            <div class="tp-service-card"><a href="#">Умный дом</a></div>
+            <div class="tp-service-card"><a href="#">Заземление</a></div>
+            <div class="tp-service-card"><a href="#">Щиты 380В</a></div>
+            <div class="tp-service-card"><a href="#">Видеонаблюдение</a></div>
+        </div>
+    </div>
+
+    <div class="tp-slider-row" data-speed="-1">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
+            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
+            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
+            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
+            <div class="tp-service-card"><a href="#">Ламинат</a></div>
+            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Кафель</a></div>
+            <div class="tp-service-card"><a href="#">Кирпичная кладка</a></div>
+            <div class="tp-service-card"><a href="#">Поклейка обоев</a></div>
+            <div class="tp-service-card"><a href="#">Покраска стен</a></div>
+            <div class="tp-service-card"><a href="#">Штукатурка</a></div>
+            <div class="tp-service-card"><a href="#">Ламинат</a></div>
+            <div class="tp-service-card"><a href="#">Демонтаж</a></div>
+            <div class="tp-service-card"><a href="#">Кафель</a></div>
+        </div>
+    </div>
+
+    <div class="tp-slider-row" data-speed="0.8">
+        <div class="tp-slider-track">
+            <div class="tp-service-card"><a href="#">Клининг</a></div>
+            <div class="tp-service-card"><a href="#">Послестрой</a></div>
+            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
+            <div class="tp-service-card"><a href="#">Сварка</a></div>
+            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
+            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
+            <div class="tp-service-card"><a href="#">Грузчики</a></div>
+            <div class="tp-service-card"><a href="#">Клининг</a></div>
+            <div class="tp-service-card"><a href="#">Послестрой</a></div>
+            <div class="tp-service-card"><a href="#">Мойка окон</a></div>
+            <div class="tp-service-card"><a href="#">Сварка</a></div>
+            <div class="tp-service-card"><a href="#">Алмазное бурение</a></div>
+            <div class="tp-service-card"><a href="#">Вывоз мусора</a></div>
+            <div class="tp-service-card"><a href="#">Грузчики</a></div>
+        </div>
+    </div>
+
+    <div class="tp-footer-main">
+        <div class="tp-footer-info">
+            <h3>TALAS_PROFI</h3>
+            <p>Ваш надежный партнер в Таласе. Полный спектр технических решений и все услуги под единым управлением.</p>
+            <div class="tp-social-links">
+                <a href="https://wa.me/996755000228" class="tp-social-icon" target="_blank" rel="noopener">WhatsApp</a>
+                <a href="#" class="tp-social-icon">Instagram</a>
+                <a href="#" class="tp-social-icon">Telegram</a>
+            </div>
+        </div>
+
+        <div class="tp-footer-contacts">
+            <ul class="tp-footer-contact-list">
+                <li><span>Обратная связь</span>+996 755 000 228</li>
+                <li><span>Рабочее время</span>08:00 — 20:00 (Ежедневно)</li>
+            </ul>
+        </div>
+
+        <div class="tp-footer-contacts">
+            <ul class="tp-footer-contact-list">
+                <li><span>Локация</span>Кыргызстан, г. Талас</li>
+                <li><span>Email </span>talas_profi@mail.com</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="tp-legal-bar">
+        <div>© 2026 TALAS_PROFI. Все права защищены.</div>
+        <div style="color: #222; opacity: 0.5;">ID: TP-PRO-2026</div>
+        <div>Industrial Build by Talas_profi</div>
+    </div>
+
+    <script>
+        const rows = document.querySelectorAll('.tp-slider-row');
+        
+        rows.forEach(row => {
+            const track = row.querySelector('.tp-slider-track');
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let autoSpeed = parseFloat(row.dataset.speed);
+            let currentAutoPos = 0;
+
+            function animate() {
+                if (!isDown) {
+                    currentAutoPos -= autoSpeed;
+                    const halfWidth = track.scrollWidth / 2;
+                    
+                    if (autoSpeed > 0 && Math.abs(currentAutoPos) >= halfWidth) {
+                        currentAutoPos = 0;
+                    } else if (autoSpeed < 0 && currentAutoPos >= 0) {
+                        currentAutoPos = -halfWidth;
+                    }
+                    
+                    track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
+                }
+                requestAnimationFrame(animate);
+            }
+
+            const startAction = (e) => {
+                isDown = true;
+                const pageX = e.pageX || e.touches[0].pageX;
+                startX = pageX - track.offsetLeft;
+                scrollLeft = currentAutoPos;
+            };
+
+            const endAction = () => {
+                isDown = false;
+            };
+
+            const moveAction = (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const pageX = e.pageX || e.touches[0].pageX;
+                const x = pageX - track.offsetLeft;
+                const walk = x - startX;
+                currentAutoPos = scrollLeft + walk;
+                track.style.transform = `translate3d(${currentAutoPos}px, 0, 0)`;
+            };
+
+            row.addEventListener('mousedown', startAction);
+            window.addEventListener('mouseup', endAction);
+            row.addEventListener('mousemove', moveAction);
+            row.addEventListener('dragstart', (e) => e.preventDefault());
+
+            row.addEventListener('touchstart', startAction, {passive: false});
+            row.addEventListener('touchend', endAction);
+            row.addEventListener('touchmove', moveAction, {passive: false});
+
+            animate();
+        });
+    </script>
+</footer>
+
+
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+    
+
+
+
+
+
+
+    
+    
+      
+</body>
+</html>

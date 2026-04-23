@@ -29,18 +29,17 @@
 
 
     
-
 <nav class="tp-nav-new">
     <div class="tp-nav-body">
         <a href="#" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
         
         <div class="tp-nav-right-side">
             <div class="tp-nav-links-pc">
-                <a href="#gl">ГЛАВНЫЙ ЭКРАН</a>
-                <a href="#tp-services-section">УСЛУГИ</a>
-                <a href="#order">ПОЧЕМУ МЫ</a>
-                <a href="#foto">ПОРТФОЛИО</a>
-                <a href="#contakt">КОНТАКТЫ</a>
+                <a href="#gl">БАШКЫ БЕТ</a> 
+                <a href="#tp-services-section">КЫЗМАТТАР</a> 
+                <a href="#order">ЭМНЕ ҮЧҮН БИЗ</a> 
+                <a href="#foto">СҮРӨТТӨР</a> 
+                <a href="#contakt">БАЙЛАНЫШ</a> 
                 <a href="tel:+996755000228" class="tp-nav-phone-pc">+996 755 000 228</a>
             </div>
         </div>
@@ -50,26 +49,29 @@
 <div class="tp-mobile-bottom-nav">
     <a href="#gl" class="tp-bnav-item">
         <span class="tp-bnav-icon">🏠</span>
-        <span class="tp-bnav-label">Главная</span>
+        <span class="tp-bnav-label">Башкы бет</span> 
     </a>
     <a href="#tp-services-section" class="tp-bnav-item">
         <span class="tp-bnav-icon">🛠️</span>
-        <span class="tp-bnav-label">Услуги</span>
+        <span class="tp-bnav-label">Кызматтар</span> 
     </a>
+    
     <a href="https://wa.me/996755000228" class="tp-bnav-item tp-bnav-main">
         <span class="tp-bnav-icon">WA</span>
     </a>
+
     <a href="#foto" class="tp-bnav-item">
         <span class="tp-bnav-icon">📷</span>
-        <span class="tp-bnav-label">Работы</span>
+        <span class="tp-bnav-label">Сүрөттөр</span> 
     </a>
     <a href="#contakt" class="tp-bnav-item">
         <span class="tp-bnav-icon">📞</span>
-        <span class="tp-bnav-label">Связь</span>
+        <span class="tp-bnav-label">Байланыш</span> 
     </a>
 </div>
 
 <style>
+    /* Базовые стили без изменений */
     html { scroll-behavior: smooth; }
     body { margin: 0; padding: 0; padding-top: 70px !important; }
 
@@ -104,7 +106,6 @@
         font-size: 20px;
         letter-spacing: 2px;
     }
-
     .tp-nav-logo span { color: #FBBF24; }
 
     .tp-nav-links-pc { display: flex; align-items: center; gap: 25px; }
@@ -121,10 +122,9 @@
 
     /* МОБИЛЬНАЯ НИЖНЯЯ НАВИГАЦИЯ */
     .tp-mobile-bottom-nav {
-        display: none; /* Скрыта на ПК */
+        display: none; 
         position: fixed;
-        bottom: 0;
-        left: 0;
+        bottom: 0; left: 0;
         width: 100%;
         height: 65px;
         background: #000;
@@ -132,7 +132,7 @@
         z-index: 1000000;
         justify-content: space-around;
         align-items: center;
-        padding-bottom: env(safe-area-inset-bottom); /* Поддержка iPhone с челкой снизу */
+        padding-bottom: env(safe-area-inset-bottom);
     }
 
     .tp-bnav-item {
@@ -146,43 +146,28 @@
         transition: 0.2s;
     }
 
-    .tp-bnav-icon {
-        font-size: 20px;
-        margin-bottom: 2px;
-    }
+    .tp-bnav-icon { font-size: 20px; margin-bottom: 2px; }
+    .tp-bnav-label { font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
 
-    .tp-bnav-label {
-        font-size: 10px;
-        font-weight: bold;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
+    .tp-bnav-item:active { color: #FBBF24; transform: scale(0.95); }
 
-    .tp-bnav-item:active {
-        color: #FBBF24;
-        transform: scale(0.95);
-    }
-
-    /* Акцентная кнопка WhatsApp в центре */
+    /* ИЗМЕНЕНИЕ: Фирменный зеленый цвет для кнопки WhatsApp */
     .tp-bnav-main {
-        background: #FBBF24;
-        color: #000 !important;
+        background: #25D366; /* Фирменный зеленый WhatsApp */
+        color: #fff !important;
         height: 50px;
         max-width: 50px;
         border-radius: 12px;
-        margin-bottom: 10px; /* Немного приподнимаем */
-        box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+        margin-bottom: 10px;
+        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); /* Тень в цвет кнопки */
     }
 
-    .tp-bnav-main .tp-bnav-icon {
-        font-weight: 900;
-        font-size: 16px;
-    }
+    .tp-bnav-main .tp-bnav-icon { font-weight: 900; font-size: 16px; }
 
     @media (max-width: 900px) {
         .tp-nav-links-pc { display: none; }
         .tp-mobile-bottom-nav { display: flex; }
-        body { padding-bottom: 70px !important; } /* Место под нижнюю панель */
+        body { padding-bottom: 70px !important; }
     }
 </style>
 

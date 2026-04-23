@@ -189,7 +189,6 @@
 
 
 
-
 <section class="tp-hero-section" id="gl">
     <style>
         .tp-hero-section {
@@ -208,14 +207,14 @@
             display: flex;
             width: 100%;
             max-width: 1400px;
-            min-height: 100vh;
+            min-height: 100vh; /* На ПК занимаем всю высоту экрана */
             align-items: stretch;
             flex-wrap: wrap; 
         }
 
         /* КОНТЕНТ */
         .tp-hero-content {
-            flex: 1;
+            flex: 1; /* Текст занимает половину */
             min-width: 320px;
             padding: 60px 40px;
             display: flex;
@@ -226,7 +225,7 @@
             box-sizing: border-box;
         }
 
-        /* АНИМАЦИЯ */
+        /* АНИМАЦИЯ (сохранена) */
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -287,47 +286,50 @@
             transform: translateY(-3px);
         }
 
-        /* КАРТИНКА - ОБНОВЛЕНА ССЫЛКА */
+        /* КАРТИНКА - ИСПРАВЛЕНА, ЧТОБЫ БЫЛО ВИДНО */
         .tp-hero-media {
-            flex: 1.2;
+            flex: 1.5; /* Увеличили область картинки на ПК */
             min-width: 320px;
-            min-height: 400px;
-            /* Ссылка на твое фото из Google Drive через прямой просмотр */
+            /* Ссылка на твое фото */
             background: url('https://lh3.googleusercontent.com/d/1DYsvYA2s2zEdXydltaXTAlGXsYBWSsiQ') center/cover no-repeat;
             position: relative;
         }
 
-        /* Градиент для плавного перехода */
+        /* ИСПРАВЛЕНИЕ ГРАДИЕНТА НА ПК: ТЕПЕРЬ ОН НЕ ЗАТЕМНЯЕТ КАРТИНКУ */
         .tp-hero-media::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to right, #000000, transparent 30%);
+            /* Градиент только слева, чтобы отделить от черного фона текста */
+            background: linear-gradient(to right, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 15%, rgba(0,0,0,0) 100%);
         }
 
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
+        /* МОБИЛЬНАЯ АДАПТАЦИЯ - ТОЖЕ ИСПРАВЛЕНО */
         @media (max-width: 991px) {
             .tp-hero-wrapper {
                 flex-direction: column;
+                min-height: auto; /* На мобильном высота по контенту */
             }
 
             .tp-hero-content {
                 order: 1; 
-                padding: 60px 25px;
+                padding: 40px 25px 30px 25px; /* Уменьшили отступы */
                 text-align: center;
                 align-items: center;
                 min-height: auto;
+                flex: none; /* Отменяем flex: 1 */
             }
 
             .tp-hero-media {
                 order: 2; 
                 flex: none;
-                height: 350px;
-                min-height: 350px;
+                height: 50vh; /* Картинка занимает половину высоты экрана на мобильном */
+                min-height: 300px;
             }
 
+            /* ИСПРАВЛЕНИЕ ГРАДИЕНТА НА МОБИЛЬНОМ: БЕЗ ЗАТЕМНЕНИЯ */
             .tp-hero-media::after {
-                background: linear-gradient(to bottom, #000000, transparent 30%);
+                background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 10%, rgba(0,0,0,0) 100%);
             }
 
             .tp-hero-btn {

@@ -203,7 +203,7 @@
             width: 100%;
             display: flex;
             justify-content: center;
-            font-family: sans-serif;
+            font-family: 'Arial Black', sans-serif;
         }
 
         .tp-hero-wrapper {
@@ -215,7 +215,6 @@
             position: relative;
         }
 
-        /* КОНТЕНТ (ПК версия) */
         .tp-hero-content {
             flex: 1;
             min-width: 450px;
@@ -228,7 +227,7 @@
             box-sizing: border-box;
         }
 
-        /* МЕДИА (ПК версия) */
+        /* ВОТ ТУТ ТВОЯ КАРТИНКА */
         .tp-hero-media {
             flex: 1.2;
             background: url('https://lh3.googleusercontent.com/d/1DYsvYA2s2zEdXydltaXTAlGXsYBWSsiQ') center/cover no-repeat;
@@ -236,199 +235,11 @@
             z-index: 5;
         }
 
-        /* Градиент для ПК (плавный переход слева) */
-        .tp-hero-media::after {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #000000 0%, rgba(0,0,0,0) 20%);
-        }
-
-        /* ТИПОГРАФИКА */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .tp-badge {
-            color: #FBBF24;
-            font-size: 24px;
-            font-weight: 900;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-bottom: 15px;
-            animation: fadeInUp 0.8s ease forwards;
-        }
-
-        .tp-hero-content h1 {
-            color: #FFFFFF;
-            font-size: clamp(32px, 5vw, 64px);
-            font-weight: 900;
-            text-transform: uppercase;
-            line-height: 1.1;
-            margin: 0 0 25px 0;
-            animation: fadeInUp 0.8s ease 0.3s both;
-        }
-
-        .tp-hero-content h1 span {
-            color: #FBBF24;
-        }
-
-        .tp-hero-content p {
-            color: #FFFFFF;
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 500px;
-            margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease 0.6s both;
-        }
-
-        .tp-hero-btn {
-            display: inline-block;
-            background-color: #FBBF24;
-            color: #000000;
-            padding: 22px 45px;
-            text-decoration: none;
-            font-weight: 900;
-            text-transform: uppercase;
-            font-size: 14px;
-            letter-spacing: 2px;
-            transition: 0.3s;
-            animation: fadeInUp 0.8s ease 0.9s both;
-        }
-
-        .tp-hero-btn:hover {
-            background-color: #FFFFFF;
-            transform: translateY(-3px);
-        }
-
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ (Картинка становится фоном) */
-        @media (max-width: 991px) {
-            .tp-hero-wrapper {
-                min-height: 600px;
-                height: 100vh;
-            }
-
-            .tp-hero-media {
-                position: absolute;
-                inset: 0;
-                width: 100%;
-                height: 100%;
-                z-index: 1;
-            }
-
-            /* Затемнение фона на мобильном, чтобы текст читался */
-            .tp-hero-media::after {
-                background: linear-gradient(to top, rgba(0,0,0,0.9) 30%, rgba(0,0,0,0.4) 100%);
-            }
-
-            .tp-hero-content {
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 100%;
-                background-color: transparent; /* Убираем черный фон блока */
-                padding: 40px 20px;
-                text-align: center;
-                align-items: center;
-                z-index: 10;
-                min-width: unset;
-            }
-
-            .tp-hero-content p {
-                font-size: 16px;
-                text-shadow: 1px 1px 10px rgba(0,0,0,0.5);
-            }
-
-            .tp-hero-btn {
-                width: 80%;
-            }
-        }
-    </style>
-
-    <div class="tp-hero-wrapper">
-        <div class="tp-hero-content">
-            <span class="tp-badge">Talas_profi</span>
-            <h1>Таласта <span>алгачкы жолу</span></h1>
-            <p>
-                Биз шаардын бардык кызматтарын бир аянтчага чогулттук. 
-                Эми ишенимдүү адисти табуу — <strong>оңой, тез жана ишенимдүү.</strong>
-            </p>
-            <a href="https://wa.me/996755000228" class="tp-hero-btn">Буйрутма берүү</a>
-        </div>
-        <div class="tp-hero-media"></div>
-    </div>
-</section>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<section class="tp-hero-section" id="gl">
-    <style>
-        .tp-hero-section {
-            background-color: #000000;
-            margin: 0;
-            padding: 0;
-            position: relative;
-            overflow: hidden;
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        .tp-hero-wrapper {
-            display: flex;
-            width: 100%;
-            max-width: 1400px;
-            min-height: 100vh;
-            align-items: stretch;
-            position: relative;
-        }
-
-        /* КОНТЕНТ */
-        .tp-hero-content {
-            flex: 1;
-            min-width: 450px;
-            padding: 60px 50px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: #000000;
-            z-index: 10;
-            box-sizing: border-box;
-        }
-
-        /* МЕДИА С ВАШИМ ФОТО */
-        .tp-hero-media {
-            flex: 1.2;
-            /* Прямая ссылка на ваше фото из Google Drive */
-            background: url('https://lh3.googleusercontent.com/d/1DYsvYA2s2zEdXydltaXTAlGXsYBWSsiQ') center/cover no-repeat;
-            position: relative;
-            z-index: 5;
-        }
-
-        /* Градиент для ПК */
         .tp-hero-media::after {
             content: '';
             position: absolute;
             inset: 0;
             background: linear-gradient(to right, #000000 0%, rgba(0,0,0,0) 15%);
-        }
-
-        /* ТИПОГРАФИКА */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .tp-badge {
@@ -438,7 +249,6 @@
             text-transform: uppercase;
             letter-spacing: 4px;
             margin-bottom: 15px;
-            animation: fadeInUp 0.8s ease forwards;
         }
 
         .tp-hero-content h1 {
@@ -448,7 +258,6 @@
             text-transform: uppercase;
             line-height: 1.1;
             margin: 0 0 25px 0;
-            animation: fadeInUp 0.8s ease 0.3s both;
         }
 
         .tp-hero-content h1 span {
@@ -461,7 +270,6 @@
             line-height: 1.6;
             max-width: 500px;
             margin-bottom: 40px;
-            animation: fadeInUp 0.8s ease 0.6s both;
         }
 
         .tp-hero-btn {
@@ -476,21 +284,15 @@
             letter-spacing: 2px;
             transition: 0.3s;
             text-align: center;
-            animation: fadeInUp 0.8s ease 0.9s both;
         }
 
         .tp-hero-btn:hover {
             background-color: #FFFFFF;
-            transform: translateY(-3px);
+            transform: scale(1.05);
         }
 
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 991px) {
-            .tp-hero-wrapper {
-                min-height: 600px;
-                height: 100vh;
-            }
-
+            .tp-hero-wrapper { min-height: 100vh; }
             .tp-hero-media {
                 position: absolute;
                 inset: 0;
@@ -498,27 +300,17 @@
                 height: 100%;
                 z-index: 1;
             }
-
             .tp-hero-media::after {
-                background: linear-gradient(to top, rgba(0,0,0,1) 10%, rgba(0,0,0,0.3) 100%);
+                background: linear-gradient(to top, #000000 20%, rgba(0,0,0,0.4) 100%);
             }
-
             .tp-hero-content {
                 position: absolute;
                 bottom: 0;
-                left: 0;
+                background: transparent;
                 width: 100%;
-                background-color: transparent;
                 padding: 40px 20px;
                 text-align: center;
                 align-items: center;
-                z-index: 10;
-                min-width: unset;
-            }
-
-            .tp-hero-btn {
-                width: 100%;
-                max-width: 300px;
             }
         }
     </style>
@@ -536,6 +328,19 @@
         <div class="tp-hero-media"></div>
     </div>
 </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

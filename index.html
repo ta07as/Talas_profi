@@ -346,14 +346,13 @@
 
 
 
-
 <section class="tp-services-block" id="tp-services-section">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Exo+2:wght@300;400;700;900&display=swap');
 
         .tp-services-block {
             background-color: #000000;
-            padding: 80px 20px;
+            padding: 60px 10px;
             font-family: 'Exo 2', sans-serif;
             color: #FFFFFF;
             overflow: hidden;
@@ -365,16 +364,15 @@
             margin: 0 auto;
         }
 
-        /* ЗАГОЛОВОК СВЕРХУ */
         .tp-block-title {
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .tp-block-title h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(24px, 5vw, 40px);
+            font-size: clamp(20px, 5vw, 40px);
             text-transform: uppercase;
-            letter-spacing: 5px;
+            letter-spacing: 3px;
             margin: 0;
             color: #FFFFFF;
         }
@@ -389,7 +387,7 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
         }
 
         .tp-gear-item {
@@ -447,11 +445,6 @@
             transition: 0.4s;
         }
 
-        .tp-gear-item:hover .tp-gear-icon {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 10px #FBBF24);
-        }
-
         .tp-gear-body h3 {
             font-size: 11px;
             color: #666;
@@ -459,23 +452,18 @@
             text-transform: uppercase;
             font-weight: 800;
             letter-spacing: 1px;
-            transition: 0.3s;
         }
 
         .tp-gear-item:hover h3 {
             color: #FBBF24;
         }
 
-        /* КНОПКА WHATSAPP СНИЗУ */
-        .tp-whatsapp-footer {
-            margin-top: 40px;
-        }
-
+        /* КНОПКА WHATSAPP */
         .tp-whatsapp-btn {
             display: inline-flex;
             align-items: center;
             gap: 15px;
-            background: #FBBF24; /* Фирменный желтый */
+            background: #FBBF24;
             color: #000;
             padding: 18px 35px;
             border-radius: 50px;
@@ -483,41 +471,52 @@
             font-weight: 900;
             text-transform: uppercase;
             font-size: 14px;
-            letter-spacing: 1px;
             transition: all 0.4s;
-            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2);
         }
 
-        .tp-whatsapp-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(251, 191, 36, 0.4);
-            background: #FFFFFF;
-        }
-
-        .tp-whatsapp-btn svg {
-            width: 24px;
-            height: 24px;
-            fill: currentColor;
-        }
+        .tp-whatsapp-btn svg { width: 24px; height: 24px; fill: currentColor; }
 
         .tp-btn-desc {
-            display: block;
             margin-top: 20px;
-            font-size: 14px;
+            font-size: 13px;
             color: #555;
             max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.5;
+            margin-inline: auto;
         }
 
-        /* АДАПТИВ */
+        /* АДАПТИВ ДЛЯ ТЕЛЕФОНА (5-6 в ряд) */
         @media (max-width: 600px) {
-            .tp-gear-grid { gap: 10px; }
-            .tp-gear-body { width: 105px; height: 105px; }
-            .tp-gear-icon { font-size: 28px; }
-            .tp-gear-body h3 { font-size: 9px; }
-            .tp-whatsapp-btn { width: 90%; padding: 15px 20px; font-size: 12px; }
+            .tp-gear-grid { 
+                gap: 8px; 
+                flex-wrap: nowrap; /* Принудительно в один ряд */
+                overflow-x: auto; /* Если не влезут, можно будет листать */
+                padding: 10px;
+                justify-content: space-between;
+            }
+            
+            .tp-gear-item {
+                flex: 0 0 calc(16.66% - 8px); /* 6 элементов в ряд */
+                min-width: 55px; /* Чтобы иконки не схлопнулись */
+            }
+
+            .tp-gear-body { 
+                width: 55px; 
+                height: 55px; 
+            }
+
+            .tp-gear-body::before { inset: -3px; }
+
+            .tp-gear-icon { 
+                font-size: 18px; 
+                margin-bottom: 2px; 
+            }
+
+            .tp-gear-body h3 { 
+                font-size: 6px; 
+                letter-spacing: 0;
+            }
+
+            .tp-whatsapp-btn { width: 100%; padding: 15px 10px; font-size: 11px; }
         }
     </style>
 
@@ -530,13 +529,13 @@
             <a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-gear-item">
                 <div class="tp-gear-body">
                     <span class="tp-gear-icon">⚡</span>
-                    <h3>Электрика</h3>
+                    <h3>Электр.</h3>
                 </div>
             </a>
             <a href="https://ta07as.github.io/Talas_profi/san.html" class="tp-gear-item">
                 <div class="tp-gear-body">
                     <span class="tp-gear-icon">🛠️</span>
-                    <h3>Сантехника</h3>
+                    <h3>Сантех.</h3>
                 </div>
             </a>
             <a href="https://ta07as.github.io/Talas_profi/klin.html" class="tp-gear-item">
@@ -544,33 +543,23 @@
                     <span class="tp-gear-icon">🧹</span>
                     <h3>Клининг</h3>
                 </div>
+            </a>
             <a href="https://ta07as.github.io/Talas_profi/evrmnt.html" class="tp-gear-item">
                 <div class="tp-gear-body">
                     <span class="tp-gear-icon">🖼️</span>
                     <h3>Обои</h3>
                 </div>
             </a>
-<a href="https://ta07as.github.io/Talas_profi/electrika.html" class="tp-gear-item">
+            <a href="https://ta07as.github.io/Talas_profi/brick.html" class="tp-gear-item">
                 <div class="tp-gear-body">
-                    <span class="tp-gear-icon">⚡</span>
-                    <h3>Электрика</h3>
+                    <span class="tp-gear-icon">🧱</span>
+                    <h3>Кирпич</h3>
                 </div>
             </a>
-            <a href="https://ta07as.github.io/Talas_profi/san.html" class="tp-gear-item">
+            <a href="#tp-services-section" class="tp-gear-item">
                 <div class="tp-gear-body">
-                    <span class="tp-gear-icon">🛠️</span>
-                    <h3>Сантехника</h3>
-                </div>
-            </a>
-            <a href="https://ta07as.github.io/Talas_profi/klin.html" class="tp-gear-item">
-                <div class="tp-gear-body">
-                    <span class="tp-gear-icon">🧹</span>
-                    <h3>Клининг</h3>
-                </div>
-            <a href="https://ta07as.github.io/Talas_profi/evrmnt.html" class="tp-gear-item">
-                <div class="tp-gear-body">
-                    <span class="tp-gear-icon">🖼️</span>
-                    <h3>Обои</h3>
+                    <span class="tp-gear-icon">➕</span>
+                    <h3>Ещё</h3>
                 </div>
             </a>
         </div>
@@ -580,7 +569,7 @@
                 <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.203 0-4.391 1.203-4.391 3.242 0 1.234.75 2.148 1.844 2.656-.258.953-1.016 3.016-1.016 3.016-.063.156.031.219.125.172 0 0 2.297-1.125 3.156-1.578.422.125.859.188 1.281.188 2.203 0 4.391-1.203 4.391-3.242 0-2.039-2.188-3.254-4.391-3.254zm0 1.344c1.469 0 3.047.813 3.047 1.906 0 1.094-1.578 1.906-3.047 1.906-.391 0-.75-.063-1.094-.188l-.203-.078-.953.516.313-.938-.109-.156c-.609-.375-1.047-1.016-1.047-1.727 0-1.094 1.578-1.906 3.047-1.906zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5c4.694 0 8.5 3.806 8.5 8.5s-3.806 8.5-8.5 8.5-8.5-3.806-8.5-8.5 3.806-8.5 8.5-8.5z"/></svg>
                 Написать в WhatsApp
             </a>
-            <p class="tp-btn-desc">Напишите сюда, если не нашли услугу, которая вам нужна — мы обязательно поможем!</p>
+            <p class="tp-btn-desc">Talas_profi — профессиональные решения для вашего дома.</p>
         </div>
     </div>
 
@@ -588,14 +577,12 @@
         document.addEventListener('DOMContentLoaded', function() {
             const items = document.querySelectorAll('.tp-gear-item');
             const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        items.forEach((item, i) => {
-                            setTimeout(() => item.classList.add('tp-animated'), i * 80);
-                        });
-                        observer.unobserve(entry.target);
-                    }
-                });
+                if (entries[0].isIntersecting) {
+                    items.forEach((item, i) => {
+                        setTimeout(() => item.classList.add('tp-animated'), i * 50);
+                    });
+                    observer.disconnect();
+                }
             }, { threshold: 0.1 });
             observer.observe(document.querySelector('.tp-gear-grid'));
         });

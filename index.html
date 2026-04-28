@@ -365,12 +365,12 @@
         }
 
         .tp-block-title {
-            margin-bottom: 40px;
+            margin-bottom: 30px;
         }
 
         .tp-block-title h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(20px, 5vw, 40px);
+            font-size: clamp(20px, 5vw, 36px);
             text-transform: uppercase;
             letter-spacing: 3px;
             margin: 0;
@@ -387,15 +387,15 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 20px;
-            margin-bottom: 50px;
+            margin-bottom: 40px;
         }
 
         .tp-gear-item {
             position: relative;
             text-decoration: none;
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
         }
 
         .tp-gear-item.tp-animated {
@@ -404,8 +404,8 @@
         }
 
         .tp-gear-body {
-            width: 130px;
-            height: 130px;
+            width: 120px;
+            height: 120px;
             background: #0a0a0a;
             border: 1px solid #1a1a1a;
             border-radius: 50%;
@@ -414,109 +414,84 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: 0.3s;
         }
 
         .tp-gear-body::before {
             content: '';
             position: absolute;
-            inset: -5px;
+            inset: -4px;
             border: 1px dashed #333;
             border-radius: 50%;
             transition: 0.8s ease;
-            opacity: 0.5;
+            opacity: 0.4;
         }
 
         .tp-gear-item:hover .tp-gear-body {
             border-color: #FBBF24;
-            background: #0f0f0f;
-            box-shadow: 0 0 30px rgba(251, 191, 36, 0.15);
-        }
-
-        .tp-gear-item:hover .tp-gear-body::before {
-            transform: rotate(180deg);
-            border-color: #FBBF24;
-            opacity: 1;
+            box-shadow: 0 0 20px rgba(251, 191, 36, 0.2);
         }
 
         .tp-gear-icon {
-            font-size: 35px;
-            margin-bottom: 8px;
-            transition: 0.4s;
+            font-size: 32px;
+            margin-bottom: 5px;
         }
 
         .tp-gear-body h3 {
-            font-size: 11px;
-            color: #666;
+            font-size: 10px;
+            color: #777;
             margin: 0;
             text-transform: uppercase;
             font-weight: 800;
-            letter-spacing: 1px;
-        }
-
-        .tp-gear-item:hover h3 {
-            color: #FBBF24;
         }
 
         /* КНОПКА WHATSAPP */
         .tp-whatsapp-btn {
             display: inline-flex;
             align-items: center;
-            gap: 15px;
+            gap: 12px;
             background: #FBBF24;
             color: #000;
-            padding: 18px 35px;
+            padding: 15px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 14px;
-            transition: all 0.4s;
-        }
-
-        .tp-whatsapp-btn svg { width: 24px; height: 24px; fill: currentColor; }
-
-        .tp-btn-desc {
-            margin-top: 20px;
             font-size: 13px;
-            color: #555;
-            max-width: 400px;
-            margin-inline: auto;
+            transition: 0.3s;
         }
 
-        /* АДАПТИВ ДЛЯ ТЕЛЕФОНА (5-6 в ряд) */
+        /* АДАПТИВ: СТРОГО ПО 5 В РЯД */
         @media (max-width: 600px) {
             .tp-gear-grid { 
-                gap: 8px; 
-                flex-wrap: nowrap; /* Принудительно в один ряд */
-                overflow-x: auto; /* Если не влезут, можно будет листать */
-                padding: 10px;
+                gap: 5px; 
+                flex-wrap: nowrap; /* Запрещаем перенос */
                 justify-content: space-between;
+                padding: 5px;
             }
             
             .tp-gear-item {
-                flex: 0 0 calc(16.66% - 8px); /* 6 элементов в ряд */
-                min-width: 55px; /* Чтобы иконки не схлопнулись */
+                flex: 0 0 calc(20% - 5px); /* Ровно 20% ширины на каждый элемент */
             }
 
             .tp-gear-body { 
-                width: 55px; 
-                height: 55px; 
+                width: 64px; /* Оптимальный размер для 5 штук */
+                height: 64px; 
             }
 
             .tp-gear-body::before { inset: -3px; }
 
             .tp-gear-icon { 
-                font-size: 18px; 
+                font-size: 22px; 
                 margin-bottom: 2px; 
             }
 
             .tp-gear-body h3 { 
-                font-size: 6px; 
-                letter-spacing: 0;
+                font-size: 7px; 
+                letter-spacing: -0.2px;
             }
 
-            .tp-whatsapp-btn { width: 100%; padding: 15px 10px; font-size: 11px; }
+            .tp-whatsapp-btn { width: 100%; box-sizing: border-box; }
         }
     </style>
 
@@ -556,20 +531,12 @@
                     <h3>Кирпич</h3>
                 </div>
             </a>
-            <a href="#tp-services-section" class="tp-gear-item">
-                <div class="tp-gear-body">
-                    <span class="tp-gear-icon">➕</span>
-                    <h3>Ещё</h3>
-                </div>
-            </a>
         </div>
 
         <div class="tp-whatsapp-footer">
             <a href="https://wa.me/996755000228" class="tp-whatsapp-btn" target="_blank">
-                <svg viewBox="0 0 24 24"><path d="M12.031 6.172c-2.203 0-4.391 1.203-4.391 3.242 0 1.234.75 2.148 1.844 2.656-.258.953-1.016 3.016-1.016 3.016-.063.156.031.219.125.172 0 0 2.297-1.125 3.156-1.578.422.125.859.188 1.281.188 2.203 0 4.391-1.203 4.391-3.242 0-2.039-2.188-3.254-4.391-3.254zm0 1.344c1.469 0 3.047.813 3.047 1.906 0 1.094-1.578 1.906-3.047 1.906-.391 0-.75-.063-1.094-.188l-.203-.078-.953.516.313-.938-.109-.156c-.609-.375-1.047-1.016-1.047-1.727 0-1.094 1.578-1.906 3.047-1.906zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 1.5c4.694 0 8.5 3.806 8.5 8.5s-3.806 8.5-8.5 8.5-8.5-3.806-8.5-8.5 3.806-8.5 8.5-8.5z"/></svg>
-                Написать в WhatsApp
+                <span>Написать в WhatsApp</span>
             </a>
-            <p class="tp-btn-desc">Talas_profi — профессиональные решения для вашего дома.</p>
         </div>
     </div>
 
@@ -579,7 +546,7 @@
             const observer = new IntersectionObserver((entries) => {
                 if (entries[0].isIntersecting) {
                     items.forEach((item, i) => {
-                        setTimeout(() => item.classList.add('tp-animated'), i * 50);
+                        setTimeout(() => item.classList.add('tp-animated'), i * 60);
                     });
                     observer.disconnect();
                 }

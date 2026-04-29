@@ -357,57 +357,55 @@
 
 
 
-
 <section class="tp-services-block" id="tp-services-section">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@800&family=Exo+2:wght@300;400;700;900&display=swap');
 
         .tp-services-block {
             background-color: #000000;
-            padding: 50px 5px;
+            padding: 40px 10px;
             font-family: 'Exo 2', sans-serif;
             color: #FFFFFF;
             text-align: center;
+            box-sizing: border-box;
+        }
+
+        .tp-services-block * {
+            box-sizing: border-box; /* Чтобы паддинги не раздували блоки */
         }
 
         .tp-services-container {
-            max-width: 1200px;
+            max-width: 1000px;
             margin: 0 auto;
-        }
-
-        .tp-block-title {
-            margin-bottom: 25px;
         }
 
         .tp-block-title h2 {
             font-family: 'Orbitron', sans-serif;
-            font-size: clamp(18px, 4vw, 32px);
+            font-size: clamp(18px, 5vw, 32px);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            margin-bottom: 30px;
             color: #FFFFFF;
         }
 
-        .tp-block-title h2 span {
-            color: #FBBF24;
-        }
+        .tp-block-title h2 span { color: #FBBF24; }
 
-        /* СЕТКА: 4 В РЯД */
+        /* СЕТКА УСЛУГ */
         .tp-gear-grid {
             display: flex;
-            flex-wrap: wrap; 
+            flex-wrap: wrap; /* Разрешаем перенос для 5-го элемента */
             justify-content: center;
             gap: 15px;
-            margin-bottom: 35px;
+            margin-bottom: 40px;
+            width: 100%;
         }
 
         .tp-gear-item {
-            position: relative;
             text-decoration: none;
             opacity: 0;
-            transform: translateY(15px);
+            transform: translateY(10px);
             transition: all 0.5s ease;
-            flex: 0 0 calc(25% - 15px); 
-            max-width: 120px;
+            flex: 0 0 calc(25% - 15px); /* Ровно 4 в ряд на десктопе */
+            max-width: 130px;
         }
 
         .tp-gear-item.tp-animated {
@@ -416,8 +414,8 @@
         }
 
         .tp-gear-body {
-            aspect-ratio: 1 / 1;
             width: 100%;
+            aspect-ratio: 1/1; /* Строгий круг */
             background: #0a0a0a;
             border: 1px solid #1a1a1a;
             border-radius: 50%;
@@ -426,7 +424,6 @@
             align-items: center;
             justify-content: center;
             position: relative;
-            transition: 0.3s;
         }
 
         .tp-gear-body::before {
@@ -438,75 +435,60 @@
             opacity: 0.4;
         }
 
-        .tp-gear-item:hover .tp-gear-body {
-            border-color: #FBBF24;
-            box-shadow: 0 0 15px rgba(251, 191, 36, 0.3);
-        }
-
-        .tp-gear-icon {
-            font-size: 28px;
-            margin-bottom: 4px;
-        }
-
-        .tp-gear-body h3 {
-            font-size: 9px;
-            color: #FFFFFF;
-            margin: 0;
+        .tp-gear-icon { font-size: 28px; margin-bottom: 5px; }
+        .tp-gear-body h3 { 
+            font-size: 10px; 
+            color: #FFFFFF; 
+            margin: 0; 
             text-transform: uppercase;
             font-weight: 800;
         }
 
-        /* ЦЕНТРИРОВАНИЕ КНОПКИ */
+        /* КНОПКА WHATSAPP - ЦЕНТРИРОВАНИЕ */
         .tp-whatsapp-footer {
             display: flex;
             justify-content: center;
             width: 100%;
+            margin-top: 20px;
         }
 
         .tp-whatsapp-btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            justify-content: center; /* Центрирует текст внутри кнопки */
+            justify-content: center;
             background: #FBBF24;
             color: #000;
-            padding: 14px 25px;
+            padding: 15px 30px;
             border-radius: 50px;
             text-decoration: none;
             font-weight: 900;
             text-transform: uppercase;
-            font-size: 12px;
+            font-size: 13px;
+            width: fit-content;
+            min-width: 260px;
             transition: 0.3s;
-            min-width: 200px; /* Чтобы кнопка не была слишком короткой */
         }
 
-        .tp-whatsapp-btn:hover {
-            background: #FFFFFF;
-            transform: scale(1.05);
-        }
-
-        /* МОБИЛЬНАЯ АДАПТАЦИЯ: СТРОГО 4 В РЯД */
+        /* АДАПТИВ ПОД ТЕЛЕФОН (СТРОГО 4 В РЯД) */
         @media (max-width: 600px) {
             .tp-gear-grid { 
-                gap: 5px; 
-                flex-wrap: nowrap; 
-                justify-content: space-between;
-                padding: 0 5px;
+                gap: 8px; /* Уменьшаем зазоры чтобы влезло */
+                flex-wrap: wrap; /* Позволяет 5-му элементу упасть вниз */
+                justify-content: center;
             }
             
             .tp-gear-item {
-                flex: 0 0 calc(25% - 5px);
-                max-width: none;
+                flex: 0 0 calc(25% - 8px); /* Жестко 4 в ряд */
+                max-width: 80px; /* Ограничиваем размер круга */
             }
 
-            .tp-gear-icon { font-size: 20px; }
-
-            .tp-gear-body h3 { 
-                font-size: 7px; 
-                letter-spacing: -0.5px; 
-            }
+            .tp-gear-icon { font-size: 22px; }
+            .tp-gear-body h3 { font-size: 7px; letter-spacing: -0.5px; }
+            .tp-gear-body::before { inset: -3px; }
 
             .tp-whatsapp-btn { 
-                width: 90%; 
+                width: 100%; 
+                min-width: unset;
                 font-size: 11px;
             }
         }
@@ -552,7 +534,7 @@
 
         <div class="tp-whatsapp-footer">
             <a href="https://wa.me/996755000228" class="tp-whatsapp-btn" target="_blank">
-                <span>Написать в WhatsApp</span>
+                Написать в WhatsApp
             </a>
         </div>
     </div>

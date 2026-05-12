@@ -27,17 +27,23 @@
 
 
 
-
 <!-- ВЕРХНЯЯ НАВИГАЦИЯ -->
 <nav class="tp-nav-new">
     <div class="tp-nav-body">
         <a href="#" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
         
-        <!-- Кнопка Гамбургер для мобилок -->
-        <div class="tp-mobile-menu-toggle" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="tp-nav-controls">
+            <!-- КНОПКА ПЕРЕКЛЮЧЕНИЯ ТЕМЫ -->
+            <button id="theme-toggle" class="tp-theme-btn">
+                <span class="theme-icon">☀️</span>
+            </button>
+
+            <!-- Кнопка Гамбургер -->
+            <div class="tp-mobile-menu-toggle" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
         </div>
 
         <div class="tp-nav-right-side">
@@ -53,7 +59,7 @@
     </div>
 </nav>
 
-<!-- ВЫПАДАЮЩЕЕ МОБИЛЬНОЕ МЕНЮ (ГАМБУРГЕР) -->
+<!-- ВЫПАДАЮЩЕЕ МОБИЛЬНОЕ МЕНЮ -->
 <div class="tp-mobile-full-menu" id="mobileMenu">
     <div class="tp-menu-header">
         <span class="tp-status-online">● Азыр иштейбиз</span>
@@ -61,114 +67,122 @@
     </div>
     
     <div class="tp-menu-content">
-        <a href="#tp-services-section" onclick="toggleMobileMenu()">🛠️ Бардык кызматтар</a>
-        <a href="#faq-section" onclick="toggleMobileMenu()">❓ Суроо-жооп (FAQ)</a>
-        <a href="#garant" onclick="toggleMobileMenu()">🛡️ Кепилдик (Гарантия)</a>
-        <a href="#reviews" onclick="toggleMobileMenu()">⭐ Пикирлер</a>
+        <a href="#gl" onclick="toggleMobileMenu()">🏠 Башкы бет</a>
+        <a href="#tp-services-section" onclick="toggleMobileMenu()">🛠️ Кызматтар</a>
+        <a href="#faq-section" onclick="toggleMobileMenu()">❓ Суроо-жооп</a>
+        <a href="#foto" onclick="toggleMobileMenu()">📷 Жумуштарыбыз</a>
+        <a href="#contakt" onclick="toggleMobileMenu()">📞 Байланыш</a>
         
         <div class="tp-menu-info-block">
             <p class="tp-info-label">Иштөө убактысы:</p>
             <p class="tp-info-value">Күн сайын: 08:00 – 21:00</p>
-            <p class="tp-info-sub">Өзгөчө кырдаалдарда 24/7 жаза берсеңиз болот</p>
+            <p class="tp-info-sub">WhatsApp аркылуу 24/7 жазсаңыз болот</p>
         </div>
 
+        <a href="https://wa.me/996755000228" class="tp-menu-wa-btn">WhatsApp аркылуу жазуу</a>
         <a href="tel:+996755000228" class="tp-menu-call-btn">ЧАЛУУ: +996 755 000 228</a>
     </div>
 </div>
 
-<!-- ТВОЯ НИЖНЯЯ ПАНЕЛЬ (ОСТАВИЛ БЕЗ ИЗМЕНЕНИЙ, ТОЛЬКО ПОДПРАВИЛ СТИЛИ) -->
-<div class="tp-mobile-bottom-nav">
-    <a href="#gl" class="tp-bnav-item">
-        <span class="tp-bnav-icon">🏠</span>
-        <span class="tp-bnav-label">Башкы</span> 
-    </a>
-    <a href="#tp-services-section" class="tp-bnav-item">
-        <span class="tp-bnav-icon">🛠️</span>
-        <span class="tp-bnav-label">Кызматтар</span> 
-    </a>
-    
-    <a href="https://wa.me/996755000228" class="tp-bnav-item tp-bnav-main">
-        <span class="tp-bnav-icon">WA</span>
-    </a>
-
-    <a href="#faq-section" class="tp-bnav-item">
-        <span class="tp-bnav-icon">❓</span>
-        <span class="tp-bnav-label">Суроолор</span> 
-    </a>
-    <a href="#contakt" class="tp-bnav-item">
-        <span class="tp-bnav-icon">📞</span>
-        <span class="tp-bnav-label">Байланыш</span> 
-    </a>
-</div>
-
 <style>
-    /* ... твои старые стили сохраняются ... */
+    :root {
+        --bg-color: #000000;
+        --nav-bg: #000000;
+        --text-color: #FFFFFF;
+        --accent-color: #FBBF24;
+        --card-bg: #111111;
+    }
+
+    [data-theme="light"] {
+        --bg-color: #FFFFFF;
+        --nav-bg: #F5F5F5;
+        --text-color: #000000;
+        --accent-color: #D48806;
+        --card-bg: #EDEDED;
+    }
+
     html { scroll-behavior: smooth; }
-    body { margin: 0; padding: 0; padding-top: 70px !important; font-family: sans-serif; }
+    body { 
+        margin: 0; padding: 0; padding-top: 70px !important; 
+        font-family: 'Segoe UI', sans-serif; 
+        background-color: var(--bg-color); 
+        color: var(--text-color);
+        transition: 0.3s ease;
+    }
 
     .tp-nav-new {
         position: fixed; top: 0; left: 0; width: 100%; height: 70px;
-        background: #000; border-bottom: 2px solid #FBBF24; z-index: 1000;
-        display: flex; align-items: center;
+        background: var(--nav-bg); border-bottom: 2px solid var(--accent-color); z-index: 1000;
+        display: flex; align-items: center; transition: 0.3s;
     }
 
-    .tp-nav-body { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
+    .tp-nav-body { 
+        width: 100%; 
+        max-width: 1400px; 
+        margin: 0 auto; 
+        padding: 0 20px; 
+        display: flex; 
+        justify-content: space-between; 
+        align-items: center; 
+    }
 
-    .tp-nav-logo { color: #fff; text-decoration: none; font-weight: 900; font-size: 20px; letter-spacing: 1px; }
-    .tp-nav-logo span { color: #FBBF24; }
+    .tp-nav-logo { color: var(--text-color); text-decoration: none; font-weight: 900; font-size: 22px; letter-spacing: 1px; flex-shrink: 0; }
+    .tp-nav-logo span { color: var(--accent-color); }
 
-    /* ГАМБУРГЕР КНОПКА */
+    .tp-nav-controls { display: flex; align-items: center; gap: 15px; }
+
+    .tp-theme-btn {
+        background: none; border: 1px solid var(--accent-color); color: var(--text-color);
+        width: 38px; height: 38px; border-radius: 50%; cursor: pointer;
+        display: flex; align-items: center; justify-content: center; font-size: 18px;
+    }
+
     .tp-mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
-    .tp-mobile-menu-toggle span { width: 25px; height: 3px; background: #FBBF24; transition: 0.3s; }
+    .tp-mobile-menu-toggle span { width: 28px; height: 3px; background: var(--accent-color); transition: 0.3s; }
 
-    /* ВЫПАДАЮЩЕЕ МЕНЮ */
+    /* МЕНЮ */
     .tp-mobile-full-menu {
-        position: fixed; top: 0; right: -100%; width: 85%; height: 100%;
-        background: #000; z-index: 2000000; transition: 0.4s;
-        box-shadow: -5px 0 20px rgba(0,0,0,0.5); padding: 25px;
+        position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
+        background: var(--bg-color); z-index: 2000000; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 30px; box-sizing: border-box;
     }
     .tp-mobile-full-menu.active { right: 0; }
 
-    .tp-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
-    .tp-status-online { color: #25D366; font-size: 14px; font-weight: bold; }
-    .tp-close-menu { color: #FBBF24; font-size: 24px; cursor: pointer; }
+    .tp-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
+    .tp-status-online { color: #25D366; font-size: 14px; font-weight: bold; text-transform: uppercase; }
+    .tp-close-menu { color: var(--accent-color); font-size: 30px; cursor: pointer; }
 
     .tp-menu-content a {
-        display: block; color: #fff; text-decoration: none; font-size: 18px;
-        padding: 15px 0; border-bottom: 1px solid #333; font-weight: bold;
+        display: block; color: var(--text-color); text-decoration: none; font-size: 20px;
+        padding: 18px 0; border-bottom: 1px solid rgba(128,128,128,0.2); font-weight: bold;
     }
 
-    .tp-menu-info-block { margin-top: 30px; background: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #FBBF24; }
-    .tp-info-label { color: #888; font-size: 12px; margin: 0; }
-    .tp-info-value { color: #fff; font-size: 16px; font-weight: bold; margin: 5px 0; }
-    .tp-info-sub { color: #FBBF24; font-size: 11px; margin: 0; }
+    .tp-menu-info-block { margin: 30px 0; background: var(--card-bg); padding: 20px; border-radius: 12px; border-left: 5px solid var(--accent-color); }
+    .tp-info-label { color: #888; font-size: 12px; margin: 0; text-transform: uppercase; }
+    .tp-info-value { color: var(--text-color); font-size: 18px; font-weight: bold; margin: 8px 0; }
+    .tp-info-sub { color: var(--accent-color); font-size: 12px; margin: 0; }
 
-    .tp-menu-call-btn {
-        margin-top: 25px; background: #FBBF24; color: #000 !important;
-        text-align: center; border-radius: 8px; padding: 18px !important;
-        border-bottom: none !important; font-size: 16px !important;
+    .tp-menu-call-btn, .tp-menu-wa-btn {
+        margin-top: 15px; text-align: center; border-radius: 10px; padding: 18px !important;
+        font-size: 16px !important; border-bottom: none !important;
     }
+    .tp-menu-call-btn { background: var(--accent-color); color: #000 !important; }
+    .tp-menu-wa-btn { background: #25D366; color: #fff !important; }
 
-    /* МОБИЛЬНАЯ НИЖНЯЯ НАВИГАЦИЯ */
-    .tp-mobile-bottom-nav {
-        display: none; position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
-        background: #000; border-top: 2px solid #FBBF24; z-index: 1000;
-        justify-content: space-around; align-items: center;
-    }
+    .tp-nav-links-pc a { color: var(--text-color); text-decoration: none; font-size: 13px; font-weight: bold; margin-left: 25px; transition: 0.3s; }
+    .tp-nav-links-pc a:hover { color: var(--accent-color); }
+    .tp-nav-phone-pc { color: var(--accent-color) !important; font-size: 16px !important; }
 
-    .tp-bnav-item { text-decoration: none; display: flex; flex-direction: column; align-items: center; color: #FFFFFF; flex: 1; }
-    .tp-bnav-icon { font-size: 18px; }
-    .tp-bnav-label { font-size: 9px; font-weight: bold; text-transform: uppercase; margin-top: 2px; }
-
-    .tp-bnav-main {
-        background: #25D366; color: #fff !important; height: 50px; max-width: 50px;
-        border-radius: 50%; margin-bottom: 20px; border: 3px solid #000;
-    }
-
+    /* МОБИЛЬНЫЕ ТВИКИ */
     @media (max-width: 900px) {
         .tp-nav-links-pc { display: none; }
         .tp-mobile-menu-toggle { display: flex; }
-        .tp-mobile-bottom-nav { display: flex; }
+        
+        /* Это прижимает кнопки вправо на мобилках */
+        .tp-nav-controls { 
+            flex: 1; 
+            justify-content: flex-end; 
+        }
     }
 </style>
 
@@ -176,6 +190,22 @@
     function toggleMobileMenu() {
         const menu = document.getElementById('mobileMenu');
         menu.classList.toggle('active');
+        document.body.style.overflow = menu.classList.contains('active') ? 'hidden' : 'auto';
+    }
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = themeToggle.querySelector('.theme-icon');
+
+    themeToggle.addEventListener('click', () => {
+        const isLight = document.documentElement.getAttribute('data-theme') === 'light';
+        document.documentElement.setAttribute('data-theme', isLight ? 'dark' : 'light');
+        themeIcon.textContent = isLight ? '☀️' : '🌙';
+        localStorage.setItem('theme', isLight ? 'dark' : 'light');
+    });
+
+    if (localStorage.getItem('theme') === 'light') {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeIcon.textContent = '🌙';
     }
 </script>
 

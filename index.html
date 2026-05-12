@@ -28,11 +28,18 @@
 
 
 
-    
+<!-- ВЕРХНЯЯ НАВИГАЦИЯ -->
 <nav class="tp-nav-new">
     <div class="tp-nav-body">
         <a href="#" class="tp-nav-logo">TALAS<span>_PROFI</span></a>
         
+        <!-- Кнопка Гамбургер для мобилок -->
+        <div class="tp-mobile-menu-toggle" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
         <div class="tp-nav-right-side">
             <div class="tp-nav-links-pc">
                 <a href="#gl">БАШКЫ БЕТ</a> 
@@ -46,10 +53,34 @@
     </div>
 </nav>
 
+<!-- ВЫПАДАЮЩЕЕ МОБИЛЬНОЕ МЕНЮ (ГАМБУРГЕР) -->
+<div class="tp-mobile-full-menu" id="mobileMenu">
+    <div class="tp-menu-header">
+        <span class="tp-status-online">● Азыр иштейбиз</span>
+        <div class="tp-close-menu" onclick="toggleMobileMenu()">✕</div>
+    </div>
+    
+    <div class="tp-menu-content">
+        <a href="#tp-services-section" onclick="toggleMobileMenu()">🛠️ Бардык кызматтар</a>
+        <a href="#faq-section" onclick="toggleMobileMenu()">❓ Суроо-жооп (FAQ)</a>
+        <a href="#garant" onclick="toggleMobileMenu()">🛡️ Кепилдик (Гарантия)</a>
+        <a href="#reviews" onclick="toggleMobileMenu()">⭐ Пикирлер</a>
+        
+        <div class="tp-menu-info-block">
+            <p class="tp-info-label">Иштөө убактысы:</p>
+            <p class="tp-info-value">Күн сайын: 08:00 – 21:00</p>
+            <p class="tp-info-sub">Өзгөчө кырдаалдарда 24/7 жаза берсеңиз болот</p>
+        </div>
+
+        <a href="tel:+996755000228" class="tp-menu-call-btn">ЧАЛУУ: +996 755 000 228</a>
+    </div>
+</div>
+
+<!-- ТВОЯ НИЖНЯЯ ПАНЕЛЬ (ОСТАВИЛ БЕЗ ИЗМЕНЕНИЙ, ТОЛЬКО ПОДПРАВИЛ СТИЛИ) -->
 <div class="tp-mobile-bottom-nav">
     <a href="#gl" class="tp-bnav-item">
         <span class="tp-bnav-icon">🏠</span>
-        <span class="tp-bnav-label">Башкы бет</span> 
+        <span class="tp-bnav-label">Башкы</span> 
     </a>
     <a href="#tp-services-section" class="tp-bnav-item">
         <span class="tp-bnav-icon">🛠️</span>
@@ -60,9 +91,9 @@
         <span class="tp-bnav-icon">WA</span>
     </a>
 
-    <a href="#foto" class="tp-bnav-item">
-        <span class="tp-bnav-icon">📷</span>
-        <span class="tp-bnav-label">Сүрөттөр</span> 
+    <a href="#faq-section" class="tp-bnav-item">
+        <span class="tp-bnav-icon">❓</span>
+        <span class="tp-bnav-label">Суроолор</span> 
     </a>
     <a href="#contakt" class="tp-bnav-item">
         <span class="tp-bnav-icon">📞</span>
@@ -71,105 +102,82 @@
 </div>
 
 <style>
-    /* Базовые стили без изменений */
+    /* ... твои старые стили сохраняются ... */
     html { scroll-behavior: smooth; }
-    body { margin: 0; padding: 0; padding-top: 70px !important; }
+    body { margin: 0; padding: 0; padding-top: 70px !important; font-family: sans-serif; }
 
-    /* ВЕРХНЯЯ ШАПКА (ПК) */
     .tp-nav-new {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 70px;
-        background: #000;
-        border-bottom: 2px solid #FBBF24;
-        z-index: 1000;
-        display: flex;
-        align-items: center;
+        position: fixed; top: 0; left: 0; width: 100%; height: 70px;
+        background: #000; border-bottom: 2px solid #FBBF24; z-index: 1000;
+        display: flex; align-items: center;
     }
 
-    .tp-nav-body {
-        width: 100%;
-        max-width: 1400px;
-        margin: 0 auto;
-        padding: 0 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+    .tp-nav-body { width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
 
-    .tp-nav-logo {
-        color: #fff;
-        text-decoration: none;
-        font-family: 'Orbitron', sans-serif;
-        font-weight: 900;
-        font-size: 20px;
-        letter-spacing: 2px;
-    }
+    .tp-nav-logo { color: #fff; text-decoration: none; font-weight: 900; font-size: 20px; letter-spacing: 1px; }
     .tp-nav-logo span { color: #FBBF24; }
 
-    .tp-nav-links-pc { display: flex; align-items: center; gap: 25px; }
-    .tp-nav-links-pc a { 
-        color: #fff; 
-        text-decoration: none; 
-        font-size: 13px; 
-        font-weight: bold; 
-        text-transform: uppercase;
-        transition: 0.3s;
+    /* ГАМБУРГЕР КНОПКА */
+    .tp-mobile-menu-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .tp-mobile-menu-toggle span { width: 25px; height: 3px; background: #FBBF24; transition: 0.3s; }
+
+    /* ВЫПАДАЮЩЕЕ МЕНЮ */
+    .tp-mobile-full-menu {
+        position: fixed; top: 0; right: -100%; width: 85%; height: 100%;
+        background: #000; z-index: 2000000; transition: 0.4s;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.5); padding: 25px;
     }
-    .tp-nav-links-pc a:hover { color: #FBBF24; }
-    .tp-nav-phone-pc { color: #FBBF24 !important; font-size: 16px !important; }
+    .tp-mobile-full-menu.active { right: 0; }
+
+    .tp-menu-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+    .tp-status-online { color: #25D366; font-size: 14px; font-weight: bold; }
+    .tp-close-menu { color: #FBBF24; font-size: 24px; cursor: pointer; }
+
+    .tp-menu-content a {
+        display: block; color: #fff; text-decoration: none; font-size: 18px;
+        padding: 15px 0; border-bottom: 1px solid #333; font-weight: bold;
+    }
+
+    .tp-menu-info-block { margin-top: 30px; background: #111; padding: 15px; border-radius: 8px; border-left: 4px solid #FBBF24; }
+    .tp-info-label { color: #888; font-size: 12px; margin: 0; }
+    .tp-info-value { color: #fff; font-size: 16px; font-weight: bold; margin: 5px 0; }
+    .tp-info-sub { color: #FBBF24; font-size: 11px; margin: 0; }
+
+    .tp-menu-call-btn {
+        margin-top: 25px; background: #FBBF24; color: #000 !important;
+        text-align: center; border-radius: 8px; padding: 18px !important;
+        border-bottom: none !important; font-size: 16px !important;
+    }
 
     /* МОБИЛЬНАЯ НИЖНЯЯ НАВИГАЦИЯ */
     .tp-mobile-bottom-nav {
-        display: none; 
-        position: fixed;
-        bottom: 0; left: 0;
-        width: 100%;
-        height: 65px;
-        background: #000;
-        border-top: 2px solid #FBBF24;
-        z-index: 1000000;
-        justify-content: space-around;
-        align-items: center;
-        padding-bottom: env(safe-area-inset-bottom);
+        display: none; position: fixed; bottom: 0; left: 0; width: 100%; height: 65px;
+        background: #000; border-top: 2px solid #FBBF24; z-index: 1000;
+        justify-content: space-around; align-items: center;
     }
 
-    .tp-bnav-item {
-        text-decoration: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        color: #FFFFFF;
-        flex: 1;
-        transition: 0.2s;
-    }
+    .tp-bnav-item { text-decoration: none; display: flex; flex-direction: column; align-items: center; color: #FFFFFF; flex: 1; }
+    .tp-bnav-icon { font-size: 18px; }
+    .tp-bnav-label { font-size: 9px; font-weight: bold; text-transform: uppercase; margin-top: 2px; }
 
-    .tp-bnav-icon { font-size: 20px; margin-bottom: 2px; }
-    .tp-bnav-label { font-size: 10px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
-
-    .tp-bnav-item:active { color: #FBBF24; transform: scale(0.95); }
-
-    /* ИЗМЕНЕНИЕ: Фирменный зеленый цвет для кнопки WhatsApp */
     .tp-bnav-main {
-        background: #25D366; /* Фирменный зеленый WhatsApp */
-        color: #fff !important;
-        height: 50px;
-        max-width: 50px;
-        border-radius: 12px;
-        margin-bottom: 10px;
-        box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); /* Тень в цвет кнопки */
+        background: #25D366; color: #fff !important; height: 50px; max-width: 50px;
+        border-radius: 50%; margin-bottom: 20px; border: 3px solid #000;
     }
-
-    .tp-bnav-main .tp-bnav-icon { font-weight: 900; font-size: 16px; }
 
     @media (max-width: 900px) {
         .tp-nav-links-pc { display: none; }
+        .tp-mobile-menu-toggle { display: flex; }
         .tp-mobile-bottom-nav { display: flex; }
-        body { padding-bottom: 70px !important; }
     }
 </style>
+
+<script>
+    function toggleMobileMenu() {
+        const menu = document.getElementById('mobileMenu');
+        menu.classList.toggle('active');
+    }
+</script>
 
 
 

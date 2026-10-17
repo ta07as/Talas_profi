@@ -206,6 +206,122 @@
   
   
   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================= БЛОК: КАНТИП ИШТЕЙБИЗ ================= -->
+<section class="px-4 py-6 border-b border-zinc-800">
+  <div class="max-w-md mx-auto">
+
+    <!-- Заголовок -->
+    <h3 class="text-2xl font-black uppercase text-white mb-4 text-center" id="txt-howTitle">
+      Кантип иштейбиз?
+    </h3>
+
+    <!-- 3 Простых шага -->
+    <div class="space-y-3">
+
+      <!-- Шаг 1 -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step1Title">1. Жазыңыз же чалыңыз</h4>
+        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step1Desc">WhatsApp аркылуу же телефондон билдириңиз</p>
+      </div>
+
+      <!-- Шаг 2 -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step2Title">2. Убакытты сүйлөшөбүз</h4>
+        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step2Desc">Сизге ыңгайлуу саатка макулдашабыз</p>
+      </div>
+
+      <!-- Шаг 3 -->
+      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step3Title">3. Уста келип жасайт</h4>
+        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step3Desc">Мастер келип, жумушту бүтүрүп берет</p>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Автономный скрипт перевода только для этого блока -->
+  <script>
+    (function() {
+      // 📝 Тексты перевода только для текущего блока
+      const localTranslations = {
+        kg: {
+          howTitle: "Кантип иштейбиз?",
+          step1Title: "1. Жазыңыз же чалыңыз",
+          step1Desc: "WhatsApp аркылуу же телефондон билдириңиз",
+          step2Title: "2. Убакытты сүйлөшөбүз",
+          step2Desc: "Сизге ыңгайлуу саатка макулдашабыз",
+          step3Title: "3. Уста келип жасайт",
+          step3Desc: "Мастер келип, жумушту бүтүрүп берет"
+        },
+        ru: {
+          howTitle: "Как мы работаем?",
+          step1Title: "1. Напишите или позвоните",
+          step1Desc: "Сообщите задачу через WhatsApp или по телефону",
+          step2Title: "2. Согласуем время",
+          step2Desc: "Договоримся на удобное для вас время",
+          step3Title: "3. Мастер выполнит работу",
+          step3Desc: "Специалист приедет и всё качественно сделает"
+        }
+      };
+
+      // Функция обновления текстов текущего блока
+      function updateBlockTexts() {
+        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
+        const data = localTranslations[lang];
+        if (!data) return;
+
+        for (let key in data) {
+          const el = document.getElementById('txt-' + key);
+          if (el) {
+            el.innerHTML = data[key];
+          }
+        }
+      }
+
+      // Слушаем переключение глобальной кнопки языка
+      const langBtn = document.getElementById('lang-toggle');
+      if (langBtn) {
+        langBtn.addEventListener('click', function() {
+          setTimeout(updateBlockTexts, 10);
+        });
+      }
+
+      // Инициализация при загрузке страницы
+      document.addEventListener("DOMContentLoaded", updateBlockTexts);
+      updateBlockTexts();
+    })();
+  </script>
+</section>
+<!-- ================= КОНЕЦ БЛОКА: КАНТИП ИШТЕЙБИЗ ================= -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   
   
   

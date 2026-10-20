@@ -9,7 +9,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Иконки -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
+  <link rel="manifest" href="manifest.json">
   <style>
     body {
       background-color: #000000;
@@ -1055,5 +1055,105 @@
     document.addEventListener("DOMContentLoaded", updateLanguageUI);
   </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ================= БЛОК: БЕЛЫЙ PWA-БАННЕР УСТАНОВКИ ================= -->
+<div id="pwa-white-banner" class="fixed inset-x-0 bottom-0 z-50 p-4 bg-white border-t border-zinc-200 shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.3)] transform translate-y-full transition-transform duration-300">
+  <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-black text-amber-400 text-lg shadow-md shrink-0">TP</div>
+      <div>
+        <h4 class="text-sm font-black text-zinc-900 uppercase leading-tight" id="txt-pwaWhiteTitle">Talas_profi</h4>
+        <p class="text-xs text-zinc-600 font-bold leading-tight mt-0.5" id="txt-pwaWhiteDesc">Колдонмону телефонуңузга орнотуңуз</p>
+      </div>
+    </div>
+    <div class="flex items-center gap-2 shrink-0">
+      <button type="button" onclick="closeWhitePwaBanner()" class="text-zinc-400 hover:text-zinc-700 p-1.5 text-base font-bold">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button type="button" id="pwa-install-white-btn" class="bg-amber-400 hover:bg-amber-500 text-black font-black text-xs px-4 py-2.5 rounded-xl shadow-md uppercase">
+        Орнотуу
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      let pwaPromptEvent = null;
+      const banner = document.getElementById('pwa-white-banner');
+      const installBtn = document.getElementById('pwa-install-white-btn');
+
+      const pwaTrans = {
+        kg: { pwaTitle: "Talas_profi", pwaDesc: "Колдонмону телефонуңузга орнотуңуз", pwaBtn: "Орнотуу" },
+        ru: { pwaTitle: "Talas_profi", pwaDesc: "Установите приложение на телефон", pwaBtn: "Установить" }
+      };
+
+      function updatePwaTexts(lang) {
+        const l = lang || (typeof currentLang !== 'undefined' ? currentLang : 'kg');
+        const data = pwaTrans[l];
+        if (!data) return;
+        document.getElementById('txt-pwaWhiteTitle').innerText = data.pwaTitle;
+        document.getElementById('txt-pwaWhiteDesc').innerText = data.pwaDesc;
+        installBtn.innerText = data.pwaBtn;
+      }
+
+      window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        pwaPromptEvent = e;
+        if (banner) banner.classList.remove('translate-y-full');
+      });
+
+      installBtn.addEventListener('click', async () => {
+        if (pwaPromptEvent) {
+          pwaPromptEvent.prompt();
+          pwaPromptEvent = null;
+          closeWhitePwaBanner();
+        } else {
+          const isRu = (typeof currentLang !== 'undefined' && currentLang === 'ru');
+          alert(isRu ? 'Нажмите «Поделиться» и выберите «На экран «Домой»»' : 'Браузердин «Бөлүшүү» баскычын басып, «Башкы экранга кошуу» тандаңыз');
+          closeWhitePwaBanner();
+        }
+      });
+
+      window.closeWhitePwaBanner = function() {
+        if (banner) banner.classList.add('translate-y-full');
+      };
+
+      window.addEventListener('languageChanged', (e) => {
+        if (e.detail && e.detail.lang) updatePwaTexts(e.detail.lang);
+      });
+
+      document.addEventListener("DOMContentLoaded", () => updatePwaTexts());
+    })();
+  </script>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
 </body>
 </html>

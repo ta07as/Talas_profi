@@ -375,6 +375,142 @@
 
 
 
+  <!-- ================= БЛОК: ЗАЯВКА СВОИМИ СЛОВАМИ (С АДРЕСОМ) ================= -->
+<section class="px-4 py-8 border-b border-zinc-800 bg-zinc-950">
+  <div class="max-w-md mx-auto">
+
+    <!-- Заголовок формы -->
+    <div class="text-center mb-6">
+      <div class="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/30 text-amber-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2">
+        <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+        <span id="txt-simpleFormBadge">Оңой буюртма</span>
+      </div>
+      <h3 class="text-2xl font-black uppercase text-white mb-1" id="txt-simpleFormTitle">
+        Кайсы мастер керек?
+      </h3>
+      <p class="text-zinc-400 text-xs font-medium" id="txt-simpleFormSubtitle">
+        Жумушту жазыңыз — биз мастер таап беребиз
+      </p>
+    </div>
+
+    <!-- Карточка формы -->
+    <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl space-y-4">
+
+      <!-- 1. Поле ввода работы / мастера -->
+      <div>
+        <label class="block text-xs font-bold text-amber-400 uppercase tracking-wide mb-1.5" id="txt-labelWorkSimple">
+          1. Эмне кылуу керек же кайсы мастер керек?
+        </label>
+        <textarea id="simpleWorkInput" rows="3" 
+                  placeholder="Мисалы: Электрик керек, розетка оңдоо же люстра илиш керек..." 
+                  class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600 resize-none"></textarea>
+      </div>
+
+      <!-- 2. Строка адреса -->
+      <div>
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5" id="txt-labelAddressSimple">
+          2. Дарегиңиз (шаар / айыл / көчө):
+        </label>
+        <input type="text" id="simpleAddressInput" placeholder="Мисалы: Талас ш., Ленин көчөсү 15" 
+               class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600">
+      </div>
+
+      <!-- 3. Номер телефона -->
+      <div>
+        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5" id="txt-labelPhoneSimple">
+          3. Байланыш телефонуңуз:
+        </label>
+        <input type="tel" id="simplePhoneInput" placeholder="+996 7xx xxx xxx" value="+996 " 
+               class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-amber-400 font-bold text-base rounded-xl p-3 outline-none transition-all">
+      </div>
+
+      <!-- Кнопка отправки в WhatsApp -->
+      <button type="button" onclick="submitSimpleOrder()" 
+              class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-4 rounded-xl flex items-center justify-center gap-2.5 shadow-lg shadow-[#25D366]/20 active:scale-95 transition-all mt-2">
+        <i class="fa-brands fa-whatsapp text-2xl"></i>
+        <span id="txt-simpleSubmitBtn">WhatsApp аркылуу жөнөтүү</span>
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Автономный скрипт перевода и логики -->
+  <script>
+    (function() {
+      const simpleFormTranslations = {
+        kg: {
+          simpleFormBadge: "Оңой буюртма",
+          simpleFormTitle: "Кайсы мастер керек?",
+          simpleFormSubtitle: "Жумушту жазыңыз — биз мастер таап беребиз",
+          labelWorkSimple: "1. Эмне кылуу керек же кайсы мастер керек?",
+          labelAddressSimple: "2. Дарегиңиз (шаар / айыл / көчө):",
+          labelPhoneSimple: "3. Байланыш телефонуңуз:",
+          simpleSubmitBtn: "WhatsApp аркылуу жөнөтүү",
+          placeholderWorkSimple: "Мисалы: Электрик керек, розетка оңдоо же люстра илиш керек...",
+          placeholderAddressSimple: "Мисалы: Талас ш., Ленин көчөсү 15"
+        },
+        ru: {
+          simpleFormBadge: "Простой заказ",
+          simpleFormTitle: "Какой мастер нужен?",
+          simpleFormSubtitle: "Опишите задачу — мы подберем мастера",
+          labelWorkSimple: "1. Что нужно сделать или какой мастер нужен?",
+          labelAddressSimple: "2. Ваш адрес (город / село / улица):",
+          labelPhoneSimple: "3. Ваш контактный телефон:",
+          simpleSubmitBtn: "Отправить через WhatsApp",
+          placeholderWorkSimple: "Например: Нужен электрик, починить розетку или повесить люстру...",
+          placeholderAddressSimple: "Например: г. Талас, ул. Ленина 15"
+        }
+      };
+
+      window.submitSimpleOrder = function() {
+        const work = document.getElementById('simpleWorkInput').value.trim() || 'Көрсөтүлгөн эмес';
+        const address = document.getElementById('simpleAddressInput').value.trim() || 'Көрсөтүлгөн эмес';
+        const phone = document.getElementById('simplePhoneInput').value.trim();
+
+        const messageText = `Саламатсызбы! Жаңы буюртма:\n\n🛠 Жумуш/Мастер: ${work}\n📍 Дареги: ${address}\n📞 Телефон: ${phone}`;
+        const encoded = encodeURIComponent(messageText);
+        
+        window.open(`https://wa.me/996755000228?text=${encoded}`, '_blank');
+      };
+
+      function updateSimpleFormTexts() {
+        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
+        const data = simpleFormTranslations[lang];
+        if (!data) return;
+
+        for (let key in data) {
+          const el = document.getElementById('txt-' + key);
+          if (el) {
+            el.innerHTML = data[key];
+          }
+        }
+
+        const inputWork = document.getElementById('simpleWorkInput');
+        if (inputWork && data.placeholderWorkSimple) {
+          inputWork.placeholder = data.placeholderWorkSimple;
+        }
+
+        const inputAddress = document.getElementById('simpleAddressInput');
+        if (inputAddress && data.placeholderAddressSimple) {
+          inputAddress.placeholder = data.placeholderAddressSimple;
+        }
+      }
+
+      const langBtn = document.getElementById('lang-toggle');
+      if (langBtn) {
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
@@ -625,10 +761,119 @@
 
 
 
+<!-- ================= БЛОК: ЮРИДИЧЕСКИ ЗАЩИЩЕННЫЙ ФУТЕР ================= -->
+<footer class="px-4 pt-8 pb-10 bg-zinc-950 border-t border-zinc-800 text-zinc-400">
+  <div class="max-w-md mx-auto">
+
+    <!-- Кнопки экстренной связи -->
+    <div class="grid grid-cols-2 gap-2.5 mb-6">
+      <a href="https://wa.me/996755000228" target="_blank" rel="noopener noreferrer" 
+         class="bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
+        <i class="fa-brands fa-whatsapp text-lg"></i>
+        <span>WhatsApp</span>
+      </a>
+
+      <a href="tel:+996755000228" 
+         class="bg-amber-400 hover:bg-amber-500 text-black font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
+        <i class="fa-solid fa-phone text-sm"></i>
+        <span id="txt-legalCallBtn">Чалуу</span>
+      </a>
+    </div>
+
+    <!-- Юридический дисклеймер (Защита от ответственности) -->
+    <div class="bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl mb-6 text-[11px] leading-relaxed text-zinc-400 space-y-2">
+      <p class="font-bold text-zinc-300 flex items-center gap-1.5" id="txt-legalNoticeTitle">
+        <i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:
+      </p>
+      <p id="txt-legalNoticeText">
+        «Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.
+      </p>
+    </div>
+
+    <!-- Официальные реквизиты ИП -->
+    <div class="text-center text-[11px] text-zinc-500 space-y-1 mb-6 border-b border-zinc-900 pb-5">
+      <p class="font-bold text-zinc-400 uppercase tracking-wider" id="txt-legalOwner">ИП «Talas_profi»</p>
+      <p id="txt-legalAddress">Кыргыз Республикасы, Талас облусу, Талас ш.</p>
+      <p id="txt-legalContacts">Байланыш телефону: +996 755 000 228</p>
+      <p class="text-[10px] text-zinc-600 mt-2" id="txt-legalConsent">
+        Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.
+      </p>
+    </div>
+
+    <!-- Копирайт -->
+    <div class="text-center text-[11px] text-zinc-600 font-medium">
+      <p>&copy; 2026 Talas_profi. <span id="txt-legalRights">Бардык укуктар корголгон.</span></p>
+    </div>
+
+  </div>
+
+  <!-- Автономный скрипт перевода только для юридического подвала -->
+  <script>
+    (function() {
+      const legalFooterTranslations = {
+        kg: {
+          legalCallBtn: "Чалуу",
+          legalNoticeTitle: '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:',
+          legalNoticeText: "«Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.",
+          legalOwner: "ИП «Talas_profi»",
+          legalAddress: "Кыргыз Республикасы, Талас облусу, Талас ш.",
+          legalContacts: "Байланыш телефону: +996 755 000 228",
+          legalConsent: "Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.",
+          legalRights: "Бардык укуктар корголгон."
+        },
+        ru: {
+          legalCallBtn: "Позвонить",
+          legalNoticeTitle: '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Правовая информация:',
+          legalNoticeText: "Сервис «Talas_profi» является информационно-диспетчерской службой. Сервис связывает заказчиков с независимыми исполнителями (мастерами). Ответственность за качество и гарантию выполненных работ несет непосредственный исполнитель услуги.",
+          legalOwner: "ИП «Talas_profi»",
+          legalAddress: "Кыргызская Республика, Таласская область, г. Талас",
+          legalContacts: "Контактный телефон: +996 755 000 228",
+          legalConsent: "Нажимая на кнопки связи на сайте, вы выражаете согласие с условиями предоставления услуг и обработкой персональных данных.",
+          legalRights: "Все права защищены."
+        }
+      };
+
+      function updateLegalFooterTexts() {
+        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
+        const data = legalFooterTranslations[lang];
+        if (!data) return;
+
+        for (let key in data) {
+          const el = document.getElementById('txt-' + key);
+          if (el) {
+            el.innerHTML = data[key];
+          }
+        }
+      }
+
+      const langBtn = document.getElementById('lang-toggle');
+      if (langBtn) {
+        langBtn.addEventListener('click', function() {
+          setTimeout(updateLegalFooterTexts, 10);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", updateLegalFooterTexts);
+      updateLegalFooterTexts();
+    })();
+  </script>
+</footer>
+<!-- ================= КОНЕЦ БЛОКА: ЮРИДИЧЕСКИ ЗАЩИЩЕННЫЙ ФУТЕР ================= -->
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+  
 
 
 

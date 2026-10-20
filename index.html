@@ -858,6 +858,154 @@
 
 
 
+
+
+
+
+
+
+
+
+  <!-- ================= БЛОК: БЕЛЫЙ БАННЕР УСТАНОВКИ ПРИЛОЖЕНИЯ ================= -->
+<div id="pwa-white-banner" class="fixed inset-x-0 bottom-0 z-50 p-4 bg-white border-t border-zinc-200 shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.3)] transform translate-y-full transition-transform duration-300">
+  <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+    
+    <!-- Логотип и Текст -->
+    <div class="flex items-center gap-3">
+      <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-black text-amber-400 text-lg shadow-md shrink-0 tracking-tighter">
+        TP
+      </div>
+      <div>
+        <h4 class="text-sm font-black text-zinc-900 uppercase leading-tight" id="txt-pwaWhiteTitle">
+          Talas_profi
+        </h4>
+        <p class="text-xs text-zinc-600 font-bold leading-tight mt-0.5" id="txt-pwaWhiteDesc">
+          Колдонмону телефонуңузга орнотуңуз
+        </p>
+      </div>
+    </div>
+
+    <!-- Кнопки -->
+    <div class="flex items-center gap-2 shrink-0">
+      <!-- Закрыть -->
+      <button onclick="closeWhitePwaBanner()" class="text-zinc-400 hover:text-zinc-700 p-1.5 text-base font-bold">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Установить -->
+      <button id="pwa-install-white-btn" class="bg-amber-400 hover:bg-amber-500 text-black font-black text-xs px-4 py-2.5 rounded-xl shadow-md active:scale-95 transition-all uppercase tracking-wide">
+        Орнотуу
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Скрипт логики автоматической установки -->
+  <script>
+    (function() {
+      let pwaPromptEvent;
+      const banner = document.getElementById('pwa-white-banner');
+      const installBtn = document.getElementById('pwa-install-white-btn');
+
+      const pwaWhiteTranslations = {
+        kg: {
+          pwaTitle: "Talas_profi",
+          pwaDesc: "Колдонмону телефонуңузга орнотуңуз",
+          pwaBtn: "Орнотуу"
+        },
+        ru: {
+          pwaTitle: "Talas_profi",
+          pwaDesc: "Установите приложение на телефон",
+          pwaBtn: "Установить"
+        }
+      };
+
+      function updateWhitePwaTexts(lang) {
+        const l = lang || (typeof currentLang !== 'undefined' ? currentLang : 'kg');
+        const data = pwaWhiteTranslations[l];
+        if (!data) return;
+
+        const titleEl = document.getElementById('txt-pwaWhiteTitle');
+        const descEl = document.getElementById('txt-pwaWhiteDesc');
+        if (titleEl) titleEl.innerText = data.pwaTitle;
+        if (descEl) descEl.innerText = data.pwaDesc;
+        if (installBtn) installBtn.innerText = data.pwaBtn;
+      }
+
+      // Перехватываем системный запрос браузера на установку PWA
+      window.addEventListener('beforeinstallprompt', (e) => {
+        // Запрещаем браузеру показывать стандартный мелкий системный плашка
+        e.preventDefault();
+        pwaPromptEvent = e;
+
+        // Показываем наш красивый белый баннер
+        if (banner) {
+          banner.classList.remove('translate-y-full');
+        }
+      });
+
+      // Логика нажатия на кнопку "Орнотуу / Установить"
+      if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+          if (pwaPromptEvent) {
+            // Вызываем автоматическое окно подтверждения установки от Android/Chrome
+            pwaPromptEvent.prompt();
+            
+            // Ждем ответа пользователя
+            const { outcome } = await pwaPromptEvent.userChoice;
+            if (outcome === 'accepted') {
+              console.log('Приложение успешно установлено на рабочий стол');
+            }
+            pwaPromptEvent = null;
+            closeWhitePwaBanner();
+          } else {
+            // Если зашли с Safari (iOS), подсказываем как добавить на рабочий стол в 1 шаг
+            const isRu = (typeof currentLang !== 'undefined' && currentLang === 'ru');
+            alert(isRu 
+              ? 'Нажмите кнопку «Поделиться» (иконка со стрелкой) и выберите «На экран «Домой»»' 
+              : 'Браузердин «Бөлүшүү» баскычын басып, «Башкы экранга кошуу» бөлүмүн тандаңыз');
+            closeWhitePwaBanner();
+          }
+        });
+      }
+
+      window.closeWhitePwaBanner = function() {
+        if (banner) {
+          banner.classList.add('translate-y-full');
+        }
+      };
+
+      // Слушаем переключение языка
+      window.addEventListener('languageChanged', function(e) {
+        if (e.detail && e.detail.lang) {
+          updateWhitePwaTexts(e.detail.lang);
+        }
+      });
+
+      const headerLangBtn = document.getElementById('lang-toggle');
+      if (headerLangBtn) {
+        headerLangBtn.addEventListener('click', function() {
+          setTimeout(updateWhitePwaTexts, 50);
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        updateWhitePwaTexts();
+      });
+      updateWhitePwaTexts();
+    })();
+  </script>
+</div>
+<!-- ================= КОНЕЦ БЛОКА ================= -->
+
+
+
+
+
+
+
+
+
   
 
 

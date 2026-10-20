@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
-  <!-- Черный глубокий фон с скругленными углами -->
+  <!-- Черный глубокий фон со скругленными углами -->
   <rect width="512" height="512" rx="100" fill="#000000" />
   <!-- Буквы TP золотого цвета -->
   <text x="50%" y="55%" dominant-baseline="middle" text-anchor="middle" fill="#FBBF24" font-family="system-ui, -apple-system, sans-serif" font-weight="900" font-size="240" letter-spacing="-10">TP</text>

@@ -988,42 +988,6 @@
   
   
 
-  <!-- ================= ГЛОБАЛЬНАЯ СИСТЕМА ПЕРЕВОДА ================= -->
-  <script>
-    const translations = {
-      kg: {
-        subtitle: "Талас жана облус",
-        callBtnHeader: "Чалуу"
-      },
-      ru: {
-        subtitle: "Талас и область",
-        callBtnHeader: "Позвонить"
-      }
-    };
-
-    let currentLang = 'kg';
-
-    function updateLanguageUI() {
-      document.getElementById('lang-label').innerText = (currentLang === 'kg') ? 'RU' : 'KG';
-      const langData = translations[currentLang];
-
-      for (let key in langData) {
-        const el = document.getElementById('txt-' + key);
-        if (el) {
-          el.innerHTML = langData[key];
-        }
-      }
-    }
-
-    function toggleLanguage() {
-      currentLang = (currentLang === 'kg') ? 'ru' : 'kg';
-      updateLanguageUI();
-    }
-
-    document.addEventListener("DOMContentLoaded", updateLanguageUI);
-  </script>
-
-  
   
   
   

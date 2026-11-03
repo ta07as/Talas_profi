@@ -5,6 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Talas_profi</title>
   
+  <!-- Подключение манифеста PWA (обязательно для установки) -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- FontAwesome Иконки -->
@@ -20,7 +24,7 @@
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black">
 
-  <!-- ================= БЛОК 1: ШАПКА С ПЕРЕКЛЮЧАТЕЛЕМ ЯЗЫКА ================= -->
+  <!-- ================= БЛОК 1: ШАПКА С ПЕРЕКЛЮЧАТЕЛЕМ ЯЗЫКА И УСТАНОВКОЙ PWA ================= -->
   <header class="sticky top-0 z-50 bg-black/95 backdrop-blur border-b border-zinc-800 px-3 py-2.5">
     <div class="max-w-md mx-auto flex items-center justify-between gap-2">
       
@@ -40,9 +44,16 @@
         </div>
       </div>
 
-      <!-- Переключатель языка + Кнопка звонка -->
+      <!-- Кнопки: Установка + Переключатель языка + Звонок -->
       <div class="flex items-center gap-2">
         
+        <!-- Кнопка установки PWA -->
+       <!-- Убрали класс "hidden", теперь кнопка видна всегда -->
+<button id="pwa-install-btn" onclick="installPWA()" class="bg-amber-400/10 border border-amber-400/40 hover:border-amber-400 text-amber-400 font-bold text-xs px-2.5 py-2 rounded-lg flex items-center gap-1 active:scale-95 transition-all">
+  <i class="fa-solid fa-download text-xs"></i>
+  <span id="txt-installBtn">Скачать</span>
+</button>
+
         <!-- Кнопка переключения языка -->
         <button id="lang-toggle" onclick="toggleLanguage()" class="bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-amber-400 font-bold text-xs px-2.5 py-2 rounded-lg flex items-center gap-1 active:scale-95 transition-all">
           <i class="fa-solid fa-globe text-zinc-400 text-[11px]"></i>
@@ -60,6 +71,44 @@
     </div>
   </header>
   <!-- ================= КОНЕЦ БЛОКА 1 ================= -->
+
+  <!-- Скрипт установки PWA и регистрация Service Worker -->
+  <script>
+    // Регистрация Service Worker для PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
+    }
+
+    let deferredPrompt = null;
+    const installBtn = document.getElementById('pwa-install-btn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      if (installBtn) {
+        installBtn.classList.remove('hidden');
+      }
+    });
+
+    async function installPWA() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        installBtn.classList.add('hidden');
+      }
+      deferredPrompt = null;
+    }
+
+    window.addEventListener('appinstalled', () => {
+      if (installBtn) {
+        installBtn.classList.add('hidden');
+      }
+      deferredPrompt = null;
+    });
+  </script>
+
+
 
 
 

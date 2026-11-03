@@ -24,7 +24,7 @@
 </head>
 <body class="antialiased selection:bg-amber-400 selection:text-black">
 
-  <!-- ================= БЛОК 1: ШАПКА С ПЕРЕКЛЮЧАТЕЛЕМ ЯЗЫКА И УСТАНОВКОЙ PWA ================= -->
+  <!-- ================= БЛОК 1: ШАПКА ================= -->
   <header class="sticky top-0 z-50 bg-black/95 backdrop-blur border-b border-zinc-800 px-3 py-2.5">
     <div class="max-w-md mx-auto flex items-center justify-between gap-2">
       
@@ -44,56 +44,46 @@
         </div>
       </div>
 
-      <!-- Кнопки: Установка + Переключатель языка + Звонок -->
+      <!-- Кнопки -->
       <div class="flex items-center gap-2">
-        
-        <!-- Кнопка установки PWA -->
         <button id="pwa-install-btn" onclick="handlePWAInstall()" class="bg-amber-400/10 border border-amber-400/40 hover:border-amber-400 text-amber-400 font-bold text-xs px-2.5 py-2 rounded-lg flex items-center gap-1 active:scale-95 transition-all">
           <i class="fa-solid fa-download text-xs"></i>
           <span id="txt-installBtn">Тиркеме</span>
         </button>
 
-        <!-- Кнопка переключения языка -->
         <button id="lang-toggle" onclick="toggleLanguage()" class="bg-zinc-900 border border-zinc-700 hover:border-amber-400 text-amber-400 font-bold text-xs px-2.5 py-2 rounded-lg flex items-center gap-1 active:scale-95 transition-all">
           <i class="fa-solid fa-globe text-zinc-400 text-[11px]"></i>
           <span id="lang-label">RU</span>
         </button>
 
-        <!-- Кнопка Звонка -->
-        <a href="tel:+996755000228" class="bg-amber-400 hover:bg-amber-500 text-black font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-md shadow-amber-400/20 active:scale-95 transition-all">
+        <a href="tel:+996755000228" class="call-btn bg-amber-400 hover:bg-amber-500 text-black font-bold text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 shadow-md shadow-amber-400/20 active:scale-95 transition-all">
           <i class="fa-solid fa-phone text-xs"></i>
           <span id="txt-callBtnHeader">Чалуу</span>
         </a>
-
       </div>
 
     </div>
   </header>
-  <!-- ================= КОНЕЦ БЛОКА 1 ================= -->
 
-  <!-- ================= МОДАЛЬНОЕ ОКНО ИНСТРУКЦИИ ================= -->
+  <!-- ================= МОДАЛЬНОЕ ОКНО PWA ================= -->
   <div id="pwa-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-[100] hidden flex items-end sm:items-center justify-center p-4">
     <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-5 max-w-sm w-full space-y-4 shadow-2xl relative">
-      
       <button onclick="closePWAInstruction()" class="absolute top-3 right-3 text-zinc-400 hover:text-white p-2">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
 
       <div class="flex items-center gap-3">
-        <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center text-black font-black text-xl">
-          TP
-        </div>
+        <div class="w-10 h-10 bg-amber-400 rounded-xl flex items-center justify-center text-black font-black text-xl">TP</div>
         <div>
           <h3 class="font-bold text-white text-base">Talas_profi</h3>
           <p class="text-xs text-zinc-400" id="txt-modalSub">Тиркемени экранга кошуу</p>
         </div>
       </div>
 
-      <!-- Пошаговая инструкция -->
       <div class="space-y-3 text-sm border-t border-zinc-800 pt-3">
         <div class="flex items-start gap-3 text-zinc-300">
           <span class="bg-amber-400/20 text-amber-400 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5">1</span>
-          <p id="txt-step1">Браузердин менюсун ачыңыз (жогорудагы 3 чекит же <i class="fa-solid fa-arrow-up-from-bracket text-amber-400"></i> бөлүшүү баскычы).</p>
+          <p id="txt-step1">Браузердин менюсун ачыңыз (жогорудагы 3 чекит же <i class='fa-solid fa-arrow-up-from-bracket text-amber-400'></i> бөлүшүү баскычы).</p>
         </div>
         <div class="flex items-start gap-3 text-zinc-300">
           <span class="bg-amber-400/20 text-amber-400 text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center shrink-0 mt-0.5">2</span>
@@ -101,50 +91,15 @@
         </div>
       </div>
 
-      <button onclick="closePWAInstruction()" class="w-full bg-amber-400 hover:bg-amber-500 text-black font-bold py-2.5 rounded-xl transition-all">
+      <button onclick="closePWAInstruction()" class="w-full bg-amber-400 hover:bg-amber-500 text-black font-bold py-2.5 rounded-xl transition-all" id="txt-modalBtn">
         Түшүнүктүү
       </button>
-
     </div>
   </div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  <!-- ================= БЛОК 2: ГЛАВНЫЙ ЭКРАН (HERO SECTION) ================= -->
+  <!-- ================= БЛОК 2: ГЛАВНЫЙ ЭКРАН ================= -->
   <section class="px-4 pt-6 pb-8 border-b border-zinc-800">
     <div class="max-w-md mx-auto">
-
-      <!-- Эксклюзивная крупная плашка -->
       <div class="text-center mb-4">
         <span class="inline-flex items-center gap-2 bg-amber-400/10 border border-amber-400/40 text-amber-400 px-3.5 py-1.5 rounded-full text-xs font-black uppercase tracking-wide">
           <i class="fa-solid fa-star text-amber-400"></i>
@@ -152,39 +107,29 @@
         </span>
       </div>
 
-      <!-- Главный заголовок -->
       <h2 class="text-3xl font-black uppercase tracking-tight text-white text-center leading-tight mb-3" id="txt-titleHtml">
-        Бардык кызматтар <br>
-        <span class="text-amber-400">Таласта</span> бир жерде
+        Бардык кызматтар <br><span class="text-amber-400">Таласта</span> бир жерде
       </h2>
 
-      <!-- Подзаголовок -->
       <p class="text-zinc-300 text-sm font-medium text-center leading-relaxed mb-6 px-2" id="txt-desc">
         Электрика, сантехника, ремонт, тазалоо жана башка бардык жумуштар. Усталар чалууга даяр!
       </p>
 
-      <!-- Большие удобные кнопки вызова -->
       <div class="grid grid-cols-2 gap-3 mb-6">
-        
-        <!-- WhatsApp -->
         <a href="https://wa.me/996755000228?text=%D0%A1%D0%B0%D0%BB%D0%B0%D0%BC%D0%B0%D1%82%D1%81%D1%8B%D0%B7%D0%B1%D0%B0!%20%D0%9C%D0%B5%D0%BD%20%D0%BA%D1%8B%D0%B7%D0%BC%D0%B0%D1%82%20%D0%B1%D1%83%D1%8E%D1%80%D1%82%D0%BC%D0%B0%20%D0%B1%D0%B5%D1%80%D0%B5%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%B3%D0%B5%D0%BD%D0%B5%D0%BC." 
-           target="_blank" 
-           rel="noopener noreferrer"
-           class="bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-xl shadow-[#25D366]/20 active:scale-95 transition-all text-center">
+           target="_blank" rel="noopener noreferrer"
+           class="whatsapp-btn bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-xl shadow-[#25D366]/20 active:scale-95 transition-all text-center">
           <i class="fa-brands fa-whatsapp text-2xl"></i>
           <span id="txt-btnWa">WhatsApp</span>
         </a>
 
-        <!-- Чалуу / Звонок -->
         <a href="tel:+996755000228" 
-           class="bg-amber-400 hover:bg-amber-500 text-black font-black text-base py-4 px-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-xl shadow-amber-400/20 active:scale-95 transition-all text-center">
+           class="call-btn bg-amber-400 hover:bg-amber-500 text-black font-black text-base py-4 px-3 rounded-2xl flex flex-col items-center justify-center gap-1 shadow-xl shadow-amber-400/20 active:scale-95 transition-all text-center">
           <i class="fa-solid fa-phone text-2xl"></i>
           <span id="txt-btnCall">Чалуу</span>
         </a>
-
       </div>
 
-      <!-- 3 фишки внизу -->
       <div class="grid grid-cols-3 gap-2 text-center">
         <div class="bg-zinc-900 p-3 rounded-xl border border-zinc-800">
           <span class="text-amber-400 font-black text-sm block mb-0.5" id="txt-feat1Val">Тез</span>
@@ -199,56 +144,211 @@
           <span class="text-xs font-bold text-zinc-300" id="txt-feat3Key">Баалар</span>
         </div>
       </div>
-
     </div>
   </section>
-  <!-- ================= КОНЕЦ БЛОКА 2 ================= -->
 
+  <!-- ================= БЛОК 3: КАНТИП ИШТЕЙБИЗ ================= -->
+  <section class="px-4 py-6 border-b border-zinc-800">
+    <div class="max-w-md mx-auto">
+      <h3 class="text-2xl font-black uppercase text-white mb-4 text-center" id="txt-howTitle">
+        Кантип иштейбиз?
+      </h3>
+      <div class="space-y-3">
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+          <h4 class="text-base font-black text-amber-400 mb-1" id="txt-howStep1Title">1. Жазыңыз же чалыңыз</h4>
+          <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-howStep1Desc">WhatsApp аркылуу же телефондон билдириңиз</p>
+        </div>
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+          <h4 class="text-base font-black text-amber-400 mb-1" id="txt-howStep2Title">2. Убакытты сүйлөшөбүз</h4>
+          <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-howStep2Desc">Сизге ыңгайлуу саатка макулдашабыз</p>
+        </div>
+        <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
+          <h4 class="text-base font-black text-amber-400 mb-1" id="txt-howStep3Title">3. Уста келип жасайт</h4>
+          <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-howStep3Desc">Мастер келип, жумушту бүтүрүп берет</p>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- ================= БЛОК 4: ФОРМА ЗАЯВКИ ================= -->
+  <section class="px-4 py-8 border-b border-zinc-800 bg-zinc-950" id="order-form-section">
+    <div class="max-w-md mx-auto">
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/30 text-amber-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2">
+          <i class="fa-solid fa-pen-to-square text-amber-400"></i>
+          <span id="txt-formBadge">Оңой буюртма</span>
+        </div>
+        <h3 class="text-2xl font-black uppercase text-white mb-1" id="txt-formTitle">Кайсы мастер керек?</h3>
+        <p class="text-zinc-400 text-xs font-medium" id="txt-formDesc">Жумушту жазыңыз — биз мастер таап беребиз</p>
+      </div>
 
+      <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-amber-400 uppercase tracking-wide mb-1.5" id="txt-labelWork">1. Эмне кылуу керек же кайсы мастер керек?</label>
+          <textarea id="userWorkText" rows="3" class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600 resize-none"></textarea>
+        </div>
 
+        <div>
+          <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5" id="txt-labelAddress">2. Дарегиңиз (шаар / айыл / көчө):</label>
+          <input type="text" id="userAddressText" class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600">
+        </div>
 
+        <div>
+          <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5" id="txt-labelPhone">3. Байланыш телефонуңуз:</label>
+          <input type="tel" id="userPhoneText" value="+996 " class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-amber-400 font-bold text-base rounded-xl p-3 outline-none transition-all">
+        </div>
 
+        <button type="button" onclick="sendOrderToWhatsApp()" class="whatsapp-btn w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-4 rounded-xl flex items-center justify-center gap-2.5 shadow-lg shadow-[#25D366]/20 active:scale-95 transition-all mt-2">
+          <i class="fa-brands fa-whatsapp text-2xl"></i>
+          <span id="txt-formBtn">WhatsApp аркылуу жөнөтүү</span>
+        </button>
+      </div>
+    </div>
+  </section>
 
+  <!-- ================= БЛОК 5: ВСЕ УСЛУГИ В 1 КЛИК ================= -->
+  <section class="px-4 py-6 border-b border-zinc-800">
+    <div class="max-w-md mx-auto">
+      <div class="bg-zinc-900 p-5 rounded-2xl border border-amber-400/30 text-center relative overflow-hidden shadow-xl">
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
 
+        <div class="w-14 h-14 bg-amber-400/10 border border-amber-400/30 rounded-2xl flex items-center justify-center text-amber-400 text-2xl mx-auto mb-3 shadow-md">
+          <i class="fa-solid fa-screwdriver-wrench"></i>
+        </div>
 
+        <h3 class="text-2xl font-black uppercase tracking-tight text-white mb-2" id="txt-allTitle">
+          Каалаган жумушту жасап беребиз!
+        </h3>
 
+        <p class="text-zinc-300 text-sm font-medium leading-relaxed mb-4" id="txt-allDesc">
+          Тизмеде жок жумуш болсо дагы жаза бериңиз. Майда оңдоодон баштап, чоң курулушка чейин Таластагы эң мыкты мастерди таап беребиз.
+        </p>
 
+        <div class="flex flex-wrap items-center justify-center gap-1.5 mb-5 opacity-80">
+          <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Электрика</span>
+          <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Сантехника</span>
+          <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Клининг</span>
+          <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Ремонт</span>
+          <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Эмерек</span>
+          <span class="bg-amber-400/20 text-amber-400 text-[11px] font-black px-2.5 py-1 rounded-md border border-amber-400/40" id="txt-tagOther">+ Жана башкалар</span>
+        </div>
 
+        <a href="https://wa.me/996755000228?text=%D0%A1%D0%B0%D0%bb%D0%B0%D0%BC%D0%B0%D1%82%D1%81%D1%8B%D0%B7%D0%B1%D0%B0!%20%D0%9C%D0%B5%D0%BD%D0%B3%D0%B5%20%D0%BA%D1%8B%D0%B7%D0%BC%D0%B0%D1%82%20%D0%B1%D1%83%D1%8E%D1%80%D1%82%D0%BC%D0%B0%20%D0%B1%D0%B5%D1%80%D0%B5%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%B3%D0%B5%D0%BD%D0%B5%D0%BC." 
+           target="_blank" rel="noopener noreferrer"
+           class="whatsapp-btn w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 active:scale-95 transition-all">
+          <i class="fa-brands fa-whatsapp text-2xl"></i>
+          <span id="txt-allBtn">Каалаган услугага заказ берүү</span>
+        </a>
+      </div>
+    </div>
+  </section>
 
+  <!-- ================= БЛОК 6: ФУТЕР ================= -->
+  <footer class="px-4 pt-8 pb-10 bg-zinc-950 border-t border-zinc-800 text-zinc-400">
+    <div class="max-w-md mx-auto">
+      <div class="grid grid-cols-2 gap-2.5 mb-6">
+        <a href="https://wa.me/996755000228" target="_blank" rel="noopener noreferrer" 
+           class="whatsapp-btn bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
+          <i class="fa-brands fa-whatsapp text-lg"></i>
+          <span>WhatsApp</span>
+        </a>
+        <a href="tel:+996755000228" 
+           class="call-btn bg-amber-400 hover:bg-amber-500 text-black font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
+          <i class="fa-solid fa-phone text-sm"></i>
+          <span id="txt-legalCallBtn">Чалуу</span>
+        </a>
+      </div>
 
+      <div class="bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl mb-6 text-[11px] leading-relaxed text-zinc-400 space-y-2">
+        <p class="font-bold text-zinc-300 flex items-center gap-1.5" id="txt-legalNoticeTitle">
+          <i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:
+        </p>
+        <p id="txt-legalNoticeText">
+          «Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.
+        </p>
+      </div>
 
+      <div class="text-center text-[11px] text-zinc-500 space-y-1 mb-6 border-b border-zinc-900 pb-5">
+        <p class="font-bold text-zinc-400 uppercase tracking-wider" id="txt-legalOwner">ИП «Talas_profi»</p>
+        <p id="txt-legalAddress">Кыргыз Республикасы, Талас облусу, Талас ш.</p>
+        <p id="txt-legalContacts">Байланыш телефону: +996 755 000 228</p>
+        <p class="text-[10px] text-zinc-600 mt-2" id="txt-legalConsent">
+          Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.
+        </p>
+      </div>
 
+      <div class="text-center text-[11px] text-zinc-600 font-medium">
+        <p>&copy; 2026 Talas_profi. <span id="txt-legalRights">Бардык укуктар корголгон.</span></p>
+      </div>
+    </div>
+  </footer>
 
+  <!-- ================= БЛОК 7: БЕЛЫЙ БАННЕР PWA ================= -->
+  <div id="pwa-white-banner" class="fixed inset-x-0 bottom-0 z-50 p-4 bg-white border-t border-zinc-200 shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.3)] transform translate-y-full transition-transform duration-300">
+    <div class="max-w-md mx-auto flex items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-black text-amber-400 text-lg shadow-md shrink-0 tracking-tighter">TP</div>
+        <div>
+          <h4 class="text-sm font-black text-zinc-900 uppercase leading-tight" id="txt-pwaWhiteTitle">Talas_profi</h4>
+          <p class="text-xs text-zinc-600 font-bold leading-tight mt-0.5" id="txt-pwaWhiteDesc">Колдонмону телефонуңузга орнотуңуз</p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 shrink-0">
+        <button type="button" onclick="closeWhitePwaBanner()" class="text-zinc-400 hover:text-zinc-700 p-1.5 text-base font-bold"><i class="fa-solid fa-xmark"></i></button>
+        <button type="button" id="pwa-install-white-btn" class="whatsapp-btn bg-amber-400 hover:bg-amber-500 text-black font-black text-xs px-4 py-2.5 rounded-xl shadow-md active:scale-95 transition-all uppercase tracking-wide">Орнотуу</button>
+      </div>
+    </div>
+  </div>
 
+  <!-- ================= ЕДИНЫЙ СКРИПТ (ПЕРЕВОДЫ + PWA + FIREBASE) ================= -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, push, onDisconnect, set, increment, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+    // Ссылка на твою базу данных Firebase
+    const firebaseConfig = {
+      databaseURL: "https://talasprof-default-rtdb.firebaseio.com"
+    };
 
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
+    // Считаем посещения и онлайн
+    const onlineRef = ref(db, 'stats/online');
+    const userPresenceRef = push(onlineRef);
+    update(ref(db, 'stats'), { views: increment(1) });
+    set(userPresenceRef, true);
+    onDisconnect(userPresenceRef).remove();
 
+    // Трекинг кликов
+    window.trackClick = function(eventType) {
+      const updates = {};
+      updates[`stats/${eventType}`] = increment(1);
+      update(ref(db), updates);
+    };
 
+    document.addEventListener("DOMContentLoaded", () => {
+      document.querySelectorAll('.whatsapp-btn').forEach(btn => {
+        btn.addEventListener('click', () => trackClick('whatsapp'));
+      });
+      document.querySelectorAll('.call-btn').forEach(btn => {
+        btn.addEventListener('click', () => trackClick('calls'));
+      });
+    });
+  </script>
 
-
-
-
-
-
-  
-  <!-- ================= ЕДИНЫЙ СКРИПТ (ПЕРЕВОДЫ + PWA) ================= -->
   <script>
-    // 1. ОБЩИЙ СЛОВАРЬ ПЕРЕВОДОВ (KG / RU)
-    let currentLang = 'kg'; // По умолчанию кыргызский
+    let currentLang = 'kg';
 
     const translations = {
       kg: {
-        // Шапка и модалка
         "txt-subtitle": "Талас жана облус",
         "txt-installBtn": "Тиркеме",
         "txt-callBtnHeader": "Чалуу",
         "txt-modalSub": "Тиркемени экранга кошуу",
         "txt-step1": "Браузердин менюсун ачыңыз (жогорудагы 3 чекит же <i class='fa-solid fa-arrow-up-from-bracket text-amber-400'></i> бөлүшүү баскычы).",
         "txt-step2": "<b>«На главный экран»</b> же <b>«Установить приложение»</b> дегенди тандаңыз.",
-        
-        // Главный блок (Hero)
+        "txt-modalBtn": "Түшүнүктүү",
         "txt-badge": "Таласта биринчи ушундай сервис!",
         "txt-titleHtml": 'Бардык кызматтар <br><span class="text-amber-400">Таласта</span> бир жерде',
         "txt-desc": "Электрика, сантехника, ремонт, тазалоо жана башка бардык жумуштар. Усталар чалууга даяр!",
@@ -259,18 +359,45 @@
         "txt-feat2Val": "100%",
         "txt-feat2Key": "Сапат",
         "txt-feat3Val": "Ыңгайлуу",
-        "txt-feat3Key": "Баалар"
+        "txt-feat3Key": "Баалар",
+        "txt-howTitle": "Кантип иштейбиз?",
+        "txt-howStep1Title": "1. Жазыңыз же чалыңыз",
+        "txt-howStep1Desc": "WhatsApp аркылуу же телефондон билдириңиз",
+        "txt-howStep2Title": "2. Убакытты сүйлөшөбүз",
+        "txt-howStep2Desc": "Сизге ыңгайлуу саатка макулдашабыз",
+        "txt-howStep3Title": "3. Уста келип жасайт",
+        "txt-howStep3Desc": "Мастер келип, жумушту бүтүрүп берет",
+        "txt-formBadge": "Оңой буюртма",
+        "txt-formTitle": "Кайсы мастер керек?",
+        "txt-formDesc": "Жумушту жазыңыз — биз мастер таап беребиз",
+        "txt-labelWork": "1. Эмне кылуу керек же кайсы мастер керек?",
+        "txt-labelAddress": "2. Дарегиңиз (шаар / айыл / көчө):",
+        "txt-labelPhone": "3. Байланыш телефонуңуз:",
+        "txt-formBtn": "WhatsApp аркылуу жөнөтүү",
+        "txt-allTitle": "Каалаган жумушту жасап беребиз!",
+        "txt-allDesc": "Тизмеде жок жумуш болсо дагы жаза бериңиз. Майда оңдоодон баштап, чоң курулушка чейин Таластагы эң мыкты мастерди таап беребиз.",
+        "txt-tagOther": "+ Жана башкалар",
+        "txt-allBtn": "Каалаган услугага заказ берүү",
+        "txt-legalCallBtn": "Чалуу",
+        "txt-legalNoticeTitle": '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:',
+        "txt-legalNoticeText": "«Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.",
+        "txt-legalOwner": "ИП «Talas_profi»",
+        "txt-legalAddress": "Кыргыз Республикасы, Талас облусу, Талас ш.",
+        "txt-legalContacts": "Байланыш телефону: +996 755 000 228",
+        "txt-legalConsent": "Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.",
+        "txt-legalRights": "Бардык укуктар корголгон.",
+        "txt-pwaWhiteTitle": "Talas_profi",
+        "txt-pwaWhiteDesc": "Колдонмону телефонуңузга орнотуңуз",
+        "txt-pwaInstallBtn": "Орнотуу"
       },
       ru: {
-        // Шапка и модалка
         "txt-subtitle": "Талас и область",
         "txt-installBtn": "Скачать",
         "txt-callBtnHeader": "Позвонить",
         "txt-modalSub": "Добавить приложение на экран",
         "txt-step1": "Откройте меню браузера (3 точки в углу или кнопка «Поделиться» <i class='fa-solid fa-arrow-up-from-bracket text-amber-400'></i>).",
         "txt-step2": "Выберите пункт <b>«На главный экран»</b> или <b>«Установить приложение»</b>.",
-        
-        // Главный блок (Hero)
+        "txt-modalBtn": "Понятно",
         "txt-badge": "Первый подобный сервис в Таласе!",
         "txt-titleHtml": 'Все виды услуг <br><span class="text-amber-400">в Таласе</span> в одном месте',
         "txt-desc": "Электрика, сантехника, ремонт, уборка и любые другие задачи. Мастера готовы к вызову!",
@@ -281,25 +408,53 @@
         "txt-feat2Val": "100%",
         "txt-feat2Key": "Качество",
         "txt-feat3Val": "Удобные",
-        "txt-feat3Key": "Цены"
+        "txt-feat3Key": "Цены",
+        "txt-howTitle": "Как мы работаем?",
+        "txt-howStep1Title": "1. Напишите или позвоните",
+        "txt-howStep1Desc": "Сообщите задачу через WhatsApp или по телефону",
+        "txt-howStep2Title": "2. Согласуем время",
+        "txt-howStep2Desc": "Договоримся на удобное для вас время",
+        "txt-howStep3Title": "3. Мастер выполнит работу",
+        "txt-howStep3Desc": "Специалист приедет и всё качественно сделает",
+        "txt-formBadge": "Простой заказ",
+        "txt-formTitle": "Какой мастер нужен?",
+        "txt-formDesc": "Опишите задачу — мы подберем мастера",
+        "txt-labelWork": "1. Что нужно сделать или какой мастер нужен?",
+        "txt-labelAddress": "2. Ваш адрес (город / село / улица):",
+        "txt-labelPhone": "3. Ваш контактный телефон:",
+        "txt-formBtn": "Отправить через WhatsApp",
+        "txt-allTitle": "Выполним любую работу!",
+        "txt-allDesc": "Даже если нужной услуги нет в списке — просто напишите нам. От мелкого ремонта до крупных задач — найдем лучшего мастера в Таласе.",
+        "txt-tagOther": "+ И многое другое",
+        "txt-allBtn": "Заказать любую услугу",
+        "txt-legalCallBtn": "Позвонить",
+        "txt-legalNoticeTitle": '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Правовая информация:',
+        "txt-legalNoticeText": "Сервис «Talas_profi» является информационно-диспетчерской службой. Сервис связывает заказчиков с независимыми исполнителями (мастерами). Ответственность за качество и гарантию выполненных работ несет непосредственный исполнитель услуги.",
+        "txt-legalOwner": "ИП «Talas_profi»",
+        "txt-legalAddress": "Кыргызская Республика, Таласская область, г. Талас",
+        "txt-legalContacts": "Контактный телефон: +996 755 000 228",
+        "txt-legalConsent": "Нажимая на кнопки связи на сайте, вы выражаете согласие с условиями предоставления услуг и обработкой персональных данных.",
+        "txt-legalRights": "Все права защищены.",
+        "txt-pwaWhiteTitle": "Talas_profi",
+        "txt-pwaWhiteDesc": "Установите приложение на телефон",
+        "txt-pwaInstallBtn": "Установить"
       }
     };
 
     function updateLanguageUI() {
-      // Меняем текст на кнопке переключения языка (показывает, на какой язык можно переключить)
       const langLabel = document.getElementById('lang-label');
       if (langLabel) {
         langLabel.innerText = (currentLang === 'kg') ? 'RU' : 'KG';
       }
-
-      // Пробегаем по словарю и обновляем все элементы с префиксом txt-
       const langData = translations[currentLang];
       for (const [id, text] of Object.entries(langData)) {
         const el = document.getElementById(id);
-        if (el) {
-          el.innerHTML = text;
-        }
+        if (el) el.innerHTML = text;
       }
+      const workInput = document.getElementById('userWorkText');
+      const addressInput = document.getElementById('userAddressText');
+      if (workInput) workInput.placeholder = (currentLang === 'ru') ? 'Например: Нужен электрик, починить розетку...' : 'Мисалы: Электрик керек, розетка оңдоо...';
+      if (addressInput) addressInput.placeholder = (currentLang === 'ru') ? 'Например: г. Талас, ул. Ленина 15' : 'Мисалы: Талас ш., Ленин көчөсү 15';
     }
 
     function toggleLanguage() {
@@ -307,840 +462,71 @@
       updateLanguageUI();
     }
 
-    // Запускаем первичный перевод при загрузке
     document.addEventListener("DOMContentLoaded", updateLanguageUI);
 
-    // 2. РЕГИСТРАЦИЯ SERVICE WORKER ДЛЯ PWA
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('sw.js')
-        .then(() => console.log('✅ Service Worker успешно зарегистрирован'))
-        .catch(err => console.log('❌ Ошибка Service Worker:', err));
+    function sendOrderToWhatsApp() {
+      const work = document.getElementById('userWorkText').value.trim() || 'Көрсөтүлгөн эмес';
+      const address = document.getElementById('userAddressText').value.trim() || 'Көрсөтүлгөн эмес';
+      const phone = document.getElementById('userPhoneText').value.trim();
+      const text = `Саламатсызбы! Жаңы буюртма:\n\n🛠 Жумуш/Мастер: ${work}\n📍 Дареги: ${address}\n📞 Телефон: ${phone}`;
+      window.open(`https://wa.me/996755000228?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    // 3. МЕХАНИЗМ УСТАНОВКИ PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(err => console.log('SW error:', err));
+    }
+
     let deferredPrompt = null;
+    const whiteBanner = document.getElementById('pwa-white-banner');
 
     window.addEventListener('beforeinstallprompt', (e) => {
       e.preventDefault();
       deferredPrompt = e;
-      console.log('⚡ Браузер готов к автоустановке PWA');
+      if (whiteBanner) whiteBanner.classList.remove('translate-y-full');
     });
 
-    async function handlePWAInstall() {
+    window.handlePWAInstall = async function() {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         const { outcome } = await deferredPrompt.userChoice;
-        console.log(`Результат установки: ${outcome}`);
-        deferredPrompt = null;
+        if (outcome === 'accepted') deferredPrompt = null;
       } else {
         showPWAInstruction();
       }
     }
 
-    function showPWAInstruction() {
+    const installWhiteBtn = document.getElementById('pwa-install-white-btn');
+    if (installWhiteBtn) {
+      installWhiteBtn.addEventListener('click', async () => {
+        if (deferredPrompt) {
+          deferredPrompt.prompt();
+          const { outcome } = await deferredPrompt.userChoice;
+          deferredPrompt = null;
+          closeWhitePwaBanner();
+        } else {
+          showPWAInstruction();
+          closeWhitePwaBanner();
+        }
+      });
+    }
+
+    window.showPWAInstruction = function() {
       document.getElementById('pwa-modal').classList.remove('hidden');
     }
 
-    function closePWAInstruction() {
+    window.closePWAInstruction = function() {
       document.getElementById('pwa-modal').classList.add('hidden');
     }
 
+    window.closeWhitePwaBanner = function() {
+      if (whiteBanner) whiteBanner.classList.add('translate-y-full');
+    }
+
     window.addEventListener('appinstalled', () => {
-      console.log('🎉 Приложение успешно установлено на устройство!');
       deferredPrompt = null;
+      closeWhitePwaBanner();
     });
   </script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-<!-- ================= БЛОК: КАНТИП ИШТЕЙБИЗ ================= -->
-<section class="px-4 py-6 border-b border-zinc-800">
-  <div class="max-w-md mx-auto">
-
-    <!-- Заголовок -->
-    <h3 class="text-2xl font-black uppercase text-white mb-4 text-center" id="txt-howTitle">
-      Кантип иштейбиз?
-    </h3>
-
-    <!-- 3 Простых шага -->
-    <div class="space-y-3">
-
-      <!-- Шаг 1 -->
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step1Title">1. Жазыңыз же чалыңыз</h4>
-        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step1Desc">WhatsApp аркылуу же телефондон билдириңиз</p>
-      </div>
-
-      <!-- Шаг 2 -->
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step2Title">2. Убакытты сүйлөшөбүз</h4>
-        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step2Desc">Сизге ыңгайлуу саатка макулдашабыз</p>
-      </div>
-
-      <!-- Шаг 3 -->
-      <div class="bg-zinc-900 p-4 rounded-xl border border-zinc-800">
-        <h4 class="text-base font-black text-amber-400 mb-1" id="txt-step3Title">3. Уста келип жасайт</h4>
-        <p class="text-sm font-medium text-zinc-300 leading-snug" id="txt-step3Desc">Мастер келип, жумушту бүтүрүп берет</p>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- Автономный скрипт перевода только для этого блока -->
-  <script>
-    (function() {
-      // 📝 Тексты перевода только для текущего блока
-      const localTranslations = {
-        kg: {
-          howTitle: "Кантип иштейбиз?",
-          step1Title: "1. Жазыңыз же чалыңыз",
-          step1Desc: "WhatsApp аркылуу же телефондон билдириңиз",
-          step2Title: "2. Убакытты сүйлөшөбүз",
-          step2Desc: "Сизге ыңгайлуу саатка макулдашабыз",
-          step3Title: "3. Уста келип жасайт",
-          step3Desc: "Мастер келип, жумушту бүтүрүп берет"
-        },
-        ru: {
-          howTitle: "Как мы работаем?",
-          step1Title: "1. Напишите или позвоните",
-          step1Desc: "Сообщите задачу через WhatsApp или по телефону",
-          step2Title: "2. Согласуем время",
-          step2Desc: "Договоримся на удобное для вас время",
-          step3Title: "3. Мастер выполнит работу",
-          step3Desc: "Специалист приедет и всё качественно сделает"
-        }
-      };
-
-      // Функция обновления текстов текущего блока
-      function updateBlockTexts() {
-        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
-        const data = localTranslations[lang];
-        if (!data) return;
-
-        for (let key in data) {
-          const el = document.getElementById('txt-' + key);
-          if (el) {
-            el.innerHTML = data[key];
-          }
-        }
-      }
-
-      // Слушаем переключение глобальной кнопки языка
-      const langBtn = document.getElementById('lang-toggle');
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          setTimeout(updateBlockTexts, 10);
-        });
-      }
-
-      // Инициализация при загрузке страницы
-      document.addEventListener("DOMContentLoaded", updateBlockTexts);
-      updateBlockTexts();
-    })();
-  </script>
-</section>
-<!-- ================= КОНЕЦ БЛОКА: КАНТИП ИШТЕЙБИЗ ================= -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ================= БЛОК: НОВАЯ ПРОСТАЯ ФОРМА ЗАЯВКИ ================= -->
-<section class="px-4 py-8 border-b border-zinc-800 bg-zinc-950" id="order-form-section">
-  <div class="max-w-md mx-auto">
-
-    <!-- Заголовок формы -->
-    <div class="text-center mb-6">
-      <div class="inline-flex items-center gap-1.5 bg-amber-400/10 border border-amber-400/30 text-amber-400 px-3 py-1 rounded-full text-xs font-black uppercase tracking-wider mb-2">
-        <i class="fa-solid fa-pen-to-square text-amber-400"></i>
-        <span class="form-txt" data-kg="Оңой буюртма" data-ru="Простой заказ">Оңой буюртма</span>
-      </div>
-      <h3 class="text-2xl font-black uppercase text-white mb-1 form-txt" data-kg="Кайсы мастер керек?" data-ru="Какой мастер нужен?">
-        Кайсы мастер керек?
-      </h3>
-      <p class="text-zinc-400 text-xs font-medium form-txt" data-kg="Жумушту жазыңыз — биз мастер таап беребиз" data-ru="Опишите задачу — мы подберем мастера">
-        Жумушту жазыңыз — биз мастер таап беребиз
-      </p>
-    </div>
-
-    <!-- Карточка формы -->
-    <div class="bg-zinc-900 border border-zinc-800 p-5 rounded-2xl shadow-xl space-y-4">
-
-      <!-- 1. Поле ввода работы / мастера -->
-      <div>
-        <label class="block text-xs font-bold text-amber-400 uppercase tracking-wide mb-1.5 form-txt" data-kg="1. Эмне кылуу керек же кайсы мастер керек?" data-ru="1. Что нужно сделать или какой мастер нужен?">
-          1. Эмне кылуу керек же кайсы мастер керек?
-        </label>
-        <textarea id="userWorkText" rows="3" 
-                  placeholder="Мисалы: Электрик керек, розетка оңдоо же люстра илиш керек..." 
-                  class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600 resize-none"></textarea>
-      </div>
-
-      <!-- 2. Строка адреса -->
-      <div>
-        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5 form-txt" data-kg="2. Дарегиңиз (шаар / айыл / көчө):" data-ru="2. Ваш адрес (город / село / улица):">
-          2. Дарегиңиз (шаар / айыл / көчө):
-        </label>
-        <input type="text" id="userAddressText" placeholder="Мисалы: Талас ш., Ленин көчөсү 15" 
-               class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-white font-medium text-sm rounded-xl p-3 outline-none transition-all placeholder:text-zinc-600">
-      </div>
-
-      <!-- 3. Номер телефона -->
-      <div>
-        <label class="block text-xs font-bold text-zinc-300 uppercase tracking-wide mb-1.5 form-txt" data-kg="3. Байланыш телефонуңуз:" data-ru="3. Ваш контактный телефон:">
-          3. Байланыш телефонуңуз:
-        </label>
-        <input type="tel" id="userPhoneText" placeholder="+996 7xx xxx xxx" value="+996 " 
-               class="w-full bg-black border border-zinc-700 focus:border-amber-400 text-amber-400 font-bold text-base rounded-xl p-3 outline-none transition-all">
-      </div>
-
-      <!-- Кнопка отправки в WhatsApp -->
-      <button type="button" onclick="sendOrderToWhatsApp()" 
-              class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-4 rounded-xl flex items-center justify-center gap-2.5 shadow-lg shadow-[#25D366]/20 active:scale-95 transition-all mt-2">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span class="form-txt" data-kg="WhatsApp аркылуу жөнөтүү" data-ru="Отправить через WhatsApp">WhatsApp аркылуу жөнөтүү</span>
-      </button>
-
-    </div>
-
-  </div>
-
-  <!-- Простой скрипт управления этой формой -->
-  <script>
-    // Функция отправки в WhatsApp
-    function sendOrderToWhatsApp() {
-      const work = document.getElementById('userWorkText').value.trim() || 'Көрсөтүлгөн эмес';
-      const address = document.getElementById('userAddressText').value.trim() || 'Көрсөтүлгөн эмес';
-      const phone = document.getElementById('userPhoneText').value.trim();
-
-      const text = `Саламатсызбы! Жаңы буюртма:\n\n🛠 Жумуш/Мастер: ${work}\n📍 Дареги: ${address}\n📞 Телефон: ${phone}`;
-      window.open(`https://wa.me/996755000228?text=${encodeURIComponent(text)}`, '_blank');
-    }
-
-    // Функция перевода текстов именно этого блока
-    function updateThisFormLanguage() {
-      const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
-      
-      // Переводим все элементы с классом form-txt внутри этого блока
-      const elements = document.querySelectorAll('#order-form-section .form-txt');
-      elements.forEach(el => {
-        const translation = el.getAttribute('data-' + lang);
-        if (translation) {
-          el.innerText = translation;
-        }
-      });
-
-      // Переводим плейсхолдеры для инпутов
-      const workInput = document.getElementById('userWorkText');
-      const addressInput = document.getElementById('userAddressText');
-      
-      if (workInput) {
-        workInput.placeholder = (lang === 'ru') ? 'Например: Нужен электрик, починить розетку...' : 'Мисалы: Электрик керек, розетка оңдоо...';
-      }
-      if (addressInput) {
-        addressInput.placeholder = (lang === 'ru') ? 'Например: г. Талас, ул. Ленина 15' : 'Мисалы: Талас ш., Ленин көчөсү 15';
-      }
-    }
-
-    // Слушаем клик по кнопке смены языка в шапке
-    const headerLangBtn = document.getElementById('lang-toggle');
-    if (headerLangBtn) {
-      headerLangBtn.addEventListener('click', function() {
-        setTimeout(updateThisFormLanguage, 50);
-      });
-    }
-
-    // Запускаем при загрузке
-    document.addEventListener("DOMContentLoaded", updateThisFormLanguage);
-    updateThisFormLanguage();
-  </script>
-</section>
-<!-- ================= КОНЕЦ БЛОКА ФОРМЫ ================= -->
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  <!-- ================= БЛОК: ВСЕ УСЛУГИ В 1 КЛИК ================= -->
-<section class="px-4 py-6 border-b border-zinc-800">
-  <div class="max-w-md mx-auto">
-
-    <!-- Главная акцентная карточка -->
-    <div class="bg-zinc-900 p-5 rounded-2xl border border-amber-400/30 text-center relative overflow-hidden shadow-xl">
-      
-      <!-- Декоративное свечение -->
-      <div class="absolute -top-12 -right-12 w-32 h-32 bg-amber-400/10 rounded-full blur-2xl pointer-events-none"></div>
-
-      <!-- Иконка сервиса -->
-      <div class="w-14 h-14 bg-amber-400/10 border border-amber-400/30 rounded-2xl flex items-center justify-center text-amber-400 text-2xl mx-auto mb-3 shadow-md">
-        <i class="fa-solid fa-screwdriver-wrench"></i>
-      </div>
-
-      <!-- Заголовок -->
-      <h3 class="text-2xl font-black uppercase tracking-tight text-white mb-2" id="txt-allTitle">
-        Каалаган жумушту жасап беребиз!
-      </h3>
-
-      <!-- Понятное описание -->
-      <p class="text-zinc-300 text-sm font-medium leading-relaxed mb-4" id="txt-allDesc">
-        Тизмеде жок жумуш болсо дагы жаза бериңиз. Майда оңдоодон баштап, чоң курулушка чейин Таластагы эң мыкты мастерди таап беребиз.
-      </p>
-
-      <!-- Компактный список примеров (бегущие теги) -->
-      <div class="flex flex-wrap items-center justify-center gap-1.5 mb-5 opacity-80">
-        <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Электрика</span>
-        <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Сантехника</span>
-        <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Клининг</span>
-        <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Ремонт</span>
-        <span class="bg-zinc-800 text-zinc-300 text-[11px] font-bold px-2.5 py-1 rounded-md border border-zinc-700">Эмерек</span>
-        <span class="bg-amber-400/20 text-amber-400 text-[11px] font-black px-2.5 py-1 rounded-md border border-amber-400/40">+ Жана башкалар</span>
-      </div>
-
-      <!-- Крупная кнопка заказа в WhatsApp -->
-      <a href="https://wa.me/996755000228?text=%D0%A1%D0%B0%D0%BB%D0%B0%D0%BC%D0%B0%D1%82%D1%81%D1%8B%D0%B7%D0%B1%D0%B0!%20%D0%9C%D0%B5%D0%BD%D0%B3%D0%B5%20%D0%BA%D1%8B%D0%B7%D0%BC%D0%B0%D1%82%20%D0%B1%D1%83%D1%8E%D1%80%D1%82%D0%BC%D0%B0%20%D0%B1%D0%B5%D1%80%D0%B5%D0%B9%D0%BD%20%D0%B4%D0%B5%D0%B3%D0%B5%D0%BD%D0%B5%D0%BC." 
-         target="_blank" 
-         rel="noopener noreferrer"
-         class="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-base py-4 px-4 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-[#25D366]/20 active:scale-95 transition-all">
-        <i class="fa-brands fa-whatsapp text-2xl"></i>
-        <span id="txt-allBtn">Каалаган услугага заказ берүү</span>
-      </a>
-
-    </div>
-
-  </div>
-
-  <!-- Автономный скрипт перевода только для этого блока -->
-  <script>
-    (function() {
-      // 📝 Тексты перевода
-      const allServiceTranslations = {
-        kg: {
-          allTitle: "Каалаган жумушту жасап беребиз!",
-          allDesc: "Тизмеде жок жумуш болсо дагы жаза бериңиз. Майда оңдоодон баштап, чоң курулушка чейин Таластагы эң мыкты мастерди таап беребиз.",
-          allBtn: "Каалаган услугага заказ берүү"
-        },
-        ru: {
-          allTitle: "Выполним любую работу!",
-          allDesc: "Даже если нужной услуги нет в списке — просто напишите нам. От мелкого ремонта до крупных задач — найдем лучшего мастера в Таласе.",
-          allBtn: "Заказать любую услугу"
-        }
-      };
-
-      // Функция обновления текстов этого блока
-      function updateAllBlockTexts() {
-        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
-        const data = allServiceTranslations[lang];
-        if (!data) return;
-
-        for (let key in data) {
-          const el = document.getElementById('txt-' + key);
-          if (el) {
-            el.innerHTML = data[key];
-          }
-        }
-      }
-
-      // Подключение к кнопке переключения языка
-      const langBtn = document.getElementById('lang-label');
-      if (langBtn) {
-        const parentBtn = langBtn.closest('button');
-        if (parentBtn) {
-          parentBtn.addEventListener('click', function() {
-            setTimeout(updateAllBlockTexts, 10);
-          });
-        }
-      }
-
-      document.addEventListener("DOMContentLoaded", updateAllBlockTexts);
-      updateAllBlockTexts();
-    })();
-  </script>
-</section>
-<!-- ================= КОНЕЦ БЛОКА: ВСЕ УСЛУГИ В 1 КЛИК ================= -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- ================= БЛОК: ЭЛ ҮЧҮН ЖАНА КОЛДОО (ДОБРОТА И СОЦСЕТИ) ================= -->
-<section class="px-4 py-8 border-b border-zinc-800 bg-zinc-950">
-  <div class="max-w-md mx-auto text-center">
-
-    <!-- Иконка сердца / заботы -->
-    <div class="w-12 h-12 rounded-2xl bg-amber-400/10 border border-amber-400/30 text-amber-400 text-2xl flex items-center justify-center mx-auto mb-3 shadow-lg shadow-amber-400/5">
-      <i class="fa-solid fa-heart"></i>
-    </div>
-
-    <!-- Заголовок -->
-    <h3 class="text-2xl font-black uppercase text-white mb-2" id="txt-kindTitle">
-      Биз сиздер үчүн иштейбиз!
-    </h3>
-
-    <!-- Душевный текст -->
-    <p class="text-zinc-300 text-sm font-medium leading-relaxed mb-6 px-1" id="txt-kindDesc">
-      Бул сайт Талас шаарынын жана облусунун тургундарына ыңгайлуу болсун деп атайын ачылды. Биздин максат — ар бир үйгө сапаттуу жана ишенимдүү кызмат жеткирүү. Бизди колдоп, жакындарыңызга сунуштап койсоңуз, биз абдан кубанычта болобуз!
-    </p>
-
-    <!-- Блок соцсетей (Заглушка под будущие ссылки) -->
-    <div class="bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl">
-      <p class="text-xs font-bold text-amber-400 uppercase tracking-wider mb-3" id="txt-socialTitle">
-        Биз социалдык тармактарда (Жакында):
-      </p>
-
-      <div class="grid grid-cols-4 gap-2">
-        
-        <!-- Instagram -->
-        <a href="#" onclick="return false;" class="bg-zinc-800/80 border border-zinc-700/60 p-2.5 rounded-xl flex flex-col items-center gap-1 opacity-75 hover:opacity-100 transition-all">
-          <i class="fa-brands fa-instagram text-xl text-pink-500"></i>
-          <span class="text-[10px] font-bold text-zinc-400">Instagram</span>
-        </a>
-
-        <!-- WhatsApp -->
-        <a href="https://wa.me/996755000228" target="_blank" class="bg-zinc-800/80 border border-zinc-700/60 p-2.5 rounded-xl flex flex-col items-center gap-1 hover:border-[#25D366] transition-all">
-          <i class="fa-brands fa-whatsapp text-xl text-[#25D366]"></i>
-          <span class="text-[10px] font-bold text-zinc-400">WhatsApp</span>
-        </a>
-
-        <!-- Telegram -->
-        <a href="#" onclick="return false;" class="bg-zinc-800/80 border border-zinc-700/60 p-2.5 rounded-xl flex flex-col items-center gap-1 opacity-75 hover:opacity-100 transition-all">
-          <i class="fa-brands fa-telegram text-xl text-sky-400"></i>
-          <span class="text-[10px] font-bold text-zinc-400">Telegram</span>
-        </a>
-
-        <!-- YouTube -->
-        <a href="#" onclick="return false;" class="bg-zinc-800/80 border border-zinc-700/60 p-2.5 rounded-xl flex flex-col items-center gap-1 opacity-75 hover:opacity-100 transition-all">
-          <i class="fa-brands fa-youtube text-xl text-red-500"></i>
-          <span class="text-[10px] font-bold text-zinc-400">YouTube</span>
-        </a>
-
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Автономный скрипт перевода только для этого блока -->
-  <script>
-    (function() {
-      const kindTranslations = {
-        kg: {
-          kindTitle: "Биз сиздер үчүн иштейбиз!",
-          kindDesc: "Бул сайт Талас шаарынын жана облусунун тургундарына ыңгайлуу болсун деп атайын ачылды. Биздин максат — ар бир үйгө сапаттуу жана ишенимдүү кызмат жеткирүү. Бизди колдоп, жакындарыңызга сунуштап койсоңуз, биз абдан кубанычта болобуз!",
-          socialTitle: "Биз социалдык тармактарда (Жакында):"
-        },
-        ru: {
-          kindTitle: "Мы работаем для вас!",
-          kindDesc: "Этот сайт создан специально для удобства жителей города Талас и всей области. Наша цель — принести качественный и надежный сервис в каждый дом. Будем искренне благодарны за вашу поддержку и рекомендации близким!",
-          socialTitle: "Мы в социальных сетях (Скоро):"
-        }
-      };
-
-      function updateKindBlockTexts() {
-        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
-        const data = kindTranslations[lang];
-        if (!data) return;
-
-        for (let key in data) {
-          const el = document.getElementById('txt-' + key);
-          if (el) {
-            el.innerHTML = data[key];
-          }
-        }
-      }
-
-      const langBtn = document.getElementById('lang-toggle');
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          setTimeout(updateKindBlockTexts, 10);
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", updateKindBlockTexts);
-      updateKindBlockTexts();
-    })();
-  </script>
-</section>
-<!-- ================= КОНЕЦ БЛОКА: ЭЛ ҮЧҮН ЖАНА КОЛДОО ================= -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <!-- ================= БЛОК: ЮРИДИЧЕСКИ ЗАЩИЩЕННЫЙ ФУТЕР ================= -->
-<footer class="px-4 pt-8 pb-10 bg-zinc-950 border-t border-zinc-800 text-zinc-400">
-  <div class="max-w-md mx-auto">
-
-    <!-- Кнопки экстренной связи -->
-    <div class="grid grid-cols-2 gap-2.5 mb-6">
-      <a href="https://wa.me/996755000228" target="_blank" rel="noopener noreferrer" 
-         class="bg-[#25D366] hover:bg-[#20bd5a] text-white font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
-        <i class="fa-brands fa-whatsapp text-lg"></i>
-        <span>WhatsApp</span>
-      </a>
-
-      <a href="tel:+996755000228" 
-         class="bg-amber-400 hover:bg-amber-500 text-black font-black text-xs py-3 px-3 rounded-xl flex items-center justify-center gap-2 active:scale-95 transition-all text-center">
-        <i class="fa-solid fa-phone text-sm"></i>
-        <span id="txt-legalCallBtn">Чалуу</span>
-      </a>
-    </div>
-
-    <!-- Юридический дисклеймер (Защита от ответственности) -->
-    <div class="bg-zinc-900/90 border border-zinc-800 p-4 rounded-2xl mb-6 text-[11px] leading-relaxed text-zinc-400 space-y-2">
-      <p class="font-bold text-zinc-300 flex items-center gap-1.5" id="txt-legalNoticeTitle">
-        <i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:
-      </p>
-      <p id="txt-legalNoticeText">
-        «Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.
-      </p>
-    </div>
-
-    <!-- Официальные реквизиты ИП -->
-    <div class="text-center text-[11px] text-zinc-500 space-y-1 mb-6 border-b border-zinc-900 pb-5">
-      <p class="font-bold text-zinc-400 uppercase tracking-wider" id="txt-legalOwner">ИП «Talas_profi»</p>
-      <p id="txt-legalAddress">Кыргыз Республикасы, Талас облусу, Талас ш.</p>
-      <p id="txt-legalContacts">Байланыш телефону: +996 755 000 228</p>
-      <p class="text-[10px] text-zinc-600 mt-2" id="txt-legalConsent">
-        Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.
-      </p>
-    </div>
-
-    <!-- Копирайт -->
-    <div class="text-center text-[11px] text-zinc-600 font-medium">
-      <p>&copy; 2026 Talas_profi. <span id="txt-legalRights">Бардык укуктар корголгон.</span></p>
-    </div>
-
-  </div>
-
-  <!-- Автономный скрипт перевода только для юридического подвала -->
-  <script>
-    (function() {
-      const legalFooterTranslations = {
-        kg: {
-          legalCallBtn: "Чалуу",
-          legalNoticeTitle: '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Юридикалык маалымат:',
-          legalNoticeText: "«Talas_profi» кызматы — маалыматтык диспетчердик сервис болуп саналат. Сервис буюртмачылар менен көз карандысыз аткаруучуларды (усталарды) байланыштырат. Аткарылган жумуштардын сапаты жана кепилдиги үчүн түздөн-түз келишим түзгөн аткаруучу жоопкерчилик тартат.",
-          legalOwner: "ИП «Talas_profi»",
-          legalAddress: "Кыргыз Республикасы, Талас облусу, Талас ш.",
-          legalContacts: "Байланыш телефону: +996 755 000 228",
-          legalConsent: "Сайттагы баскычтарды басуу аркылуу сиз кызматтарды көрсөтүү шарттарына жана жеке маалыматтарды иштеп чыгууга макулдугуңузду бересиз.",
-          legalRights: "Бардык укуктар корголгон."
-        },
-        ru: {
-          legalCallBtn: "Позвонить",
-          legalNoticeTitle: '<i class="fa-solid fa-scale-balanced text-amber-400"></i> Правовая информация:',
-          legalNoticeText: "Сервис «Talas_profi» является информационно-диспетчерской службой. Сервис связывает заказчиков с независимыми исполнителями (мастерами). Ответственность за качество и гарантию выполненных работ несет непосредственный исполнитель услуги.",
-          legalOwner: "ИП «Talas_profi»",
-          legalAddress: "Кыргызская Республика, Таласская область, г. Талас",
-          legalContacts: "Контактный телефон: +996 755 000 228",
-          legalConsent: "Нажимая на кнопки связи на сайте, вы выражаете согласие с условиями предоставления услуг и обработкой персональных данных.",
-          legalRights: "Все права защищены."
-        }
-      };
-
-      function updateLegalFooterTexts() {
-        const lang = (typeof currentLang !== 'undefined') ? currentLang : 'kg';
-        const data = legalFooterTranslations[lang];
-        if (!data) return;
-
-        for (let key in data) {
-          const el = document.getElementById('txt-' + key);
-          if (el) {
-            el.innerHTML = data[key];
-          }
-        }
-      }
-
-      const langBtn = document.getElementById('lang-toggle');
-      if (langBtn) {
-        langBtn.addEventListener('click', function() {
-          setTimeout(updateLegalFooterTexts, 10);
-        });
-      }
-
-      document.addEventListener("DOMContentLoaded", updateLegalFooterTexts);
-      updateLegalFooterTexts();
-    })();
-  </script>
-</footer>
-<!-- ================= КОНЕЦ БЛОКА: ЮРИДИЧЕСКИ ЗАЩИЩЕННЫЙ ФУТЕР ================= -->
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-
-
-
-  
-
-
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  <!-- ================= БЛОК: БЕЛЫЙ БАННЕР УСТАНОВКИ ПРИЛОЖЕНИЯ ================= -->
-  <div id="pwa-white-banner" class="fixed inset-x-0 bottom-0 z-50 p-4 bg-white border-t border-zinc-200 shadow-[0_-10px_25px_-5px_rgba(0,0,0,0.3)] transform translate-y-full transition-transform duration-300">
-    <div class="max-w-md mx-auto flex items-center justify-between gap-3">
-      
-      <!-- Логотип и текст -->
-      <div class="flex items-center gap-3">
-        <div class="w-11 h-11 bg-black rounded-xl flex items-center justify-center font-black text-amber-400 text-lg shadow-md shrink-0 tracking-tighter">
-          TP
-        </div>
-        <div>
-          <h4 class="text-sm font-black text-zinc-900 uppercase leading-tight" id="txt-pwaWhiteTitle">
-            Talas_profi
-          </h4>
-          <p class="text-xs text-zinc-600 font-bold leading-tight mt-0.5" id="txt-pwaWhiteDesc">
-            Колдонмону телефонуңузга орнотуңуз
-          </p>
-        </div>
-      </div>
-
-      <!-- Кнопки управления -->
-      <div class="flex items-center gap-2 shrink-0">
-        <!-- Кнопка закрытия (крестик) -->
-        <button type="button" onclick="closeWhitePwaBanner()" class="text-zinc-400 hover:text-zinc-700 p-1.5 text-base font-bold">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-
-        <!-- Кнопка установки -->
-        <button type="button" id="pwa-install-white-btn" class="bg-amber-400 hover:bg-amber-500 text-black font-black text-xs px-4 py-2.5 rounded-xl shadow-md active:scale-95 transition-all uppercase tracking-wide">
-          Орнотуу
-        </button>
-      </div>
-
-    </div>
-
-    <!-- Автономный скрипт для PWA-баннера -->
-    <script>
-      (function() {
-        let pwaPromptEvent = null;
-        const banner = document.getElementById('pwa-white-banner');
-        const installBtn = document.getElementById('pwa-install-white-btn');
-
-        const pwaWhiteTranslations = {
-          kg: {
-            pwaTitle: "Talas_profi",
-            pwaDesc: "Колдонмону телефонуңузга орнотуңуз",
-            pwaBtn: "Орнотуу"
-          },
-          ru: {
-            pwaTitle: "Talas_profi",
-            pwaDesc: "Установите приложение на телефон",
-            pwaBtn: "Установить"
-          }
-        };
-
-        function updateWhitePwaTexts(lang) {
-          const l = lang || (typeof currentLang !== 'undefined' ? currentLang : 'kg');
-          const data = pwaWhiteTranslations[l];
-          if (!data) return;
-
-          const titleEl = document.getElementById('txt-pwaWhiteTitle');
-          const descEl = document.getElementById('txt-pwaWhiteDesc');
-          if (titleEl) titleEl.innerText = data.pwaTitle;
-          if (descEl) descEl.innerText = data.pwaDesc;
-          if (installBtn) installBtn.innerText = data.pwaBtn;
-        }
-
-        // Перехватываем событие установки
-        window.addEventListener('beforeinstallprompt', (e) => {
-          e.preventDefault();
-          pwaPromptEvent = e;
-          if (banner) {
-            banner.classList.remove('translate-y-full');
-          }
-        });
-
-        // Клик по кнопке установки
-        if (installBtn) {
-          installBtn.addEventListener('click', async () => {
-            if (pwaPromptEvent) {
-              pwaPromptEvent.prompt();
-              const choiceResult = await pwaPromptEvent.userChoice;
-              if (choiceResult.outcome === 'accepted') {
-                console.log('Пользователь установил приложение');
-              }
-              pwaPromptEvent = null;
-              closeWhitePwaBanner();
-            } else {
-              const isRu = (typeof currentLang !== 'undefined' && currentLang === 'ru');
-              alert(isRu 
-                ? 'Нажмите кнопку «Поделиться» в браузере и выберите «На экран «Домой»»' 
-                : 'Браузердин «Бөлүшүү» баскычын басып, «Башкы экранга кошуу» бөлүмүн тандаңыз');
-              closeWhitePwaBanner();
-            }
-          });
-        }
-
-        // Функция закрытия баннера
-        window.closeWhitePwaBanner = function() {
-          if (banner) {
-            banner.classList.add('translate-y-full');
-          }
-        };
-
-        // Синхронизация с языком сайта
-        window.addEventListener('languageChanged', function(e) {
-          if (e.detail && e.detail.lang) {
-            updateWhitePwaTexts(e.detail.lang);
-          }
-        });
-
-        const headerLangBtn = document.getElementById('lang-toggle');
-        if (headerLangBtn) {
-          headerLangBtn.addEventListener('click', function() {
-            setTimeout(function() {
-              updateWhitePwaTexts(typeof currentLang !== 'undefined' ? currentLang : 'kg');
-            }, 50);
-          });
-        }
-
-        document.addEventListener("DOMContentLoaded", function() {
-          updateWhitePwaTexts();
-        });
-
-        updateWhitePwaTexts();
-      })();
-    </script>
-  </div>
-  <!-- ================= КОНЕЦ БЛОКА УСТАНОВКИ ================= -->
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </body>
 </html>
